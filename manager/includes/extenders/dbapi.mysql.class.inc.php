@@ -10,6 +10,9 @@ class DBAPI {
    var $conn;
    var $config;
    var $isConnected;
+   var $escapeMode;
+   const ESCAPE_MODE_DEFAULT = 1;
+   const ESCAPE_MODE_UJIS = 2;
 
    /**
     * @name:  DBAPI
@@ -106,6 +109,20 @@ class DBAPI {
          // this->queryTime = this->queryTime + $totaltime;
          $modx->queryTime += $totaltime;
       }
+      // set escape mode
+      $mysql_var = implode('.', array_map('intval', explode('.', mysql_get_server_info($this->conn))));
+      $conn_charset = mysql_client_encoding($this->conn);
+      if ($mysql_var >= '5.0.7' && function_exists('mysql_set_charset')) {
+        mysql_set_charset($this->config['charset']);
+        $this->escapeMode = self :: ESCAPE_MODE_DEFAULT;
+      } elseif ($this->config['charset']=='utf8' && $conn_charset=='utf8') {
+         $this->escapeMode = self :: ESCAPE_MODE_DEFAULT;
+      } elseif ($this->config['charset']=='utf8' && $conn_charset=='ujis' && extension_loaded('mbstring')) {
+        $this->escapeMode = self :: ESCAPE_MODE_UJIS;
+      } else {
+         $this->escapeMode = self :: ESCAPE_MODE_DEFAULT;
+      }
+
    }
 
    /**
@@ -117,30 +134,18 @@ class DBAPI {
    }
 
    function escape($s) {
-      if ($this->isConnected!==true)
-      {
+      if ($this->isConnected!==true) {
          $this->connect();
       }
-      $mysql_var = implode('.', array_map('intval', explode('.', mysql_get_server_info($this->conn))));
-      $conn_charset = mysql_client_encoding($this->conn);
-      if ($mysql_var >= '5.0.7' && function_exists('mysql_set_charset'))
-      {
-        mysql_set_charset($this->config['charset']);
-        $s = mysql_real_escape_string($s, $this->conn);
-      }
-      elseif ($this->config['charset']=='utf8' && $conn_charset=='utf8')
-      {
-         $s = mysql_real_escape_string($s, $this->conn);
-      }
-      elseif ($this->config['charset']=='utf8' && $conn_charset=='ujis')
-      {
-        $s = mb_convert_encoding($s, 'eucjp-win', 'utf-8');
-        $s = mysql_real_escape_string($s, $this->conn);
-        $s = mb_convert_encoding($s, 'utf-8', 'eucjp-win');
-      }
-      else
-      {
-         $s = mysql_escape_string($s);
+      switch($this->escapeMode) {
+          case self :: ESCAPE_MODE_DEFAULT:
+              $s = mysql_real_escape_string($s, $this->conn);
+              break;
+          case self :: ESCAPE_MODE_UJIS:
+              $s = mb_convert_encoding($s, 'eucjp-win', 'utf-8');
+              $s = mysql_real_escape_string($s, $this->conn);
+              $s = mb_convert_encoding($s, 'utf-8', 'eucjp-win');
+              break;
       }
       return $s;
    }
