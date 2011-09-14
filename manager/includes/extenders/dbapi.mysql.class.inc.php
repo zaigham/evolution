@@ -11,8 +11,8 @@ class DBAPI {
    var $config;
    var $isConnected;
    var $escapeMode;
-   const ESCAPE_MODE_DEFAULT = 1;
-   const ESCAPE_MODE_UJIS = 2;
+   var $escape_mode_default = 1;
+   var $escape_mode_ujis = 2;
 
    /**
     * @name:  DBAPI
@@ -114,13 +114,13 @@ class DBAPI {
       $conn_charset = mysql_client_encoding($this->conn);
       if ($mysql_var >= '5.0.7' && function_exists('mysql_set_charset')) {
         mysql_set_charset($this->config['charset']);
-        $this->escapeMode = self :: ESCAPE_MODE_DEFAULT;
+        $this->escapeMode = $this->escape_mode_default;
       } elseif ($this->config['charset']=='utf8' && $conn_charset=='utf8') {
-         $this->escapeMode = self :: ESCAPE_MODE_DEFAULT;
+         $this->escapeMode = $this->escape_mode_default;
       } elseif ($this->config['charset']=='utf8' && $conn_charset=='ujis' && extension_loaded('mbstring')) {
-        $this->escapeMode = self :: ESCAPE_MODE_UJIS;
+        $this->escapeMode = $this->escape_mode_ujis;
       } else {
-         $this->escapeMode = self :: ESCAPE_MODE_DEFAULT;
+         $this->escapeMode = $this->escape_mode_default;
       }
 
    }
@@ -138,10 +138,10 @@ class DBAPI {
          $this->connect();
       }
       switch($this->escapeMode) {
-          case self :: ESCAPE_MODE_DEFAULT:
+          case $this->escape_mode_default:
               $s = mysql_real_escape_string($s, $this->conn);
               break;
-          case self :: ESCAPE_MODE_UJIS:
+          case $this->escape_mode_ujis:
               $s = mb_convert_encoding($s, 'eucjp-win', 'utf-8');
               $s = mysql_real_escape_string($s, $this->conn);
               $s = mb_convert_encoding($s, 'utf-8', 'eucjp-win');
