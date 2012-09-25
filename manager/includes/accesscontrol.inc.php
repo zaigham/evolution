@@ -157,7 +157,6 @@ if(!isset($_SESSION['mgrValidated'])){
 		);
 
 		$modx->db->query($sql);
-		}
 	}
 }
 ?>
