@@ -275,7 +275,7 @@ function ParseIntputOptions($v) {
 	$a = array();
 	if(is_array($v)) return $v;
 	else if(is_resource($v)) {
-		while ($cols = mysql_fetch_row($v)) $a[] = $cols;
+		while ($cols = $modx->db->getRow($v)) $a[] = $cols;
 	}
 	else $a = explode("||", $v);
 	return $a;
