@@ -23,9 +23,9 @@ if ($installMode > 0) {
       }
   }
 } else {
-    $database_name= 'modx';
+    $database_name= 'clipper';
     $database_server= 'localhost';
-    $table_prefix= 'modx_';
+    $table_prefix= 'clpr_';
 }
 
 // check the database collation if not specified in the configuration
