@@ -73,8 +73,8 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
     // check for deleted documents on reload
     if ($expandAll==2) {
         $sql = "SELECT COUNT(*) FROM $dbase.`".$table_prefix."site_content` WHERE deleted=1";
-        $rs = mysql_query($sql);
-        $row = mysql_fetch_row($rs);
+        $rs = $modx->db->query($sql);
+	$row = $modx->db->getRow($rs);
         $count = $row[0];
         if ($count>0) echo '<span id="binFull"></span>'; // add a special element to let system now that the bin is full
     }
@@ -124,16 +124,16 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
                 $access
                 GROUP BY sc.id
                 ORDER BY {$orderby}";
-        $result = mysql_query($sql, $modxDBConn);
-        if(mysql_num_rows($result)==0) {
+        $result = $modx->db->query($sql, $modxDBConn);
+	if($modx->db->getRecordCount($result)==0) {
             $output .= '<div style="white-space: nowrap;">'.$spacer.$pad.'<img align="absmiddle" src="'.$_style["tree_deletedpage"].'">&nbsp;<span class="emptyNode">'.$_lang['empty_folder'].'</span></div>';
         }
 
 		// Make sure to pass in the $modx_textdir variable to the node builder
 		global $modx_textdir;
 
-        while(list($id,$pagetitle,$parent,$isfolder,$published,$deleted,$type,$menuindex,$hidemenu,$alias,$contenttype,$privateweb,$privatemgr,$hasAccess) = mysql_fetch_row($result))
-        {
+  while(list($id,$pagetitle,$parent,$isfolder,$published,$deleted,$type,$menuindex,$hidemenu,$alias,$contenttype,$privateweb,$privatemgr,$hasAccess) = $modx->db->getRow($result))
+  {
             $pagetitle = htmlspecialchars(str_replace(array("\r\n", "\n", "\r"), '', $pagetitle));
             $protectedClass = $hasAccess==0 ? ' protectedNode' : '';
             $pagetitleDisplay = $published==0 ? "<span class=\"unpublishedNode\">$pagetitle</span>" : ($hidemenu==1 ? "<span class=\"notInMenuNode$protectedClass\">$pagetitle</span>":"<span class=\"publishedNode$protectedClass\">$pagetitle</span>");
