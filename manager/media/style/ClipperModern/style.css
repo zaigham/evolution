@@ -700,11 +700,17 @@ select[name="sortby"] {
 	width: 100%;
 	background-color: #fff;
 	border: 1px solid silver;
+	border-collapse:collapse;
 }
-.gridHeader {
-	color: #fff;
+.grid th, .grid td {
+padding:3px 5px;
+}
+.gridHeader, .grid th {
+	color: #333;
 	font-weight: bold;
-	background-color: #88939E;
+	white-space:nowrap;
+	background-color: #d2d2d2;
+	text-align:left;
 }
 .gridItem {
 	background-color: #fff;
