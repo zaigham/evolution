@@ -260,7 +260,7 @@ form label {
 fieldset {
 	border: none;
 }
-input, select, textarea, td {
+input, select, textarea, option, optgroup, td {
 	font: inherit;
 	color: inherit;
 }
@@ -1538,8 +1538,10 @@ form#mutate textarea.tv_textarea {
 
 optgroup {
 	font-style: normal;
-	color: #000;
-	padding: 0 0 0 4px;
+	font-weight: bold;
+}
+option {
+	font-weight: normal;
 }
 
 /*
