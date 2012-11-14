@@ -1,9 +1,8 @@
 <?php
 /**
- * MODx language File
+ * ClipperCMS installation language file
  *
  * @author davaeron
- * @package MODx
  * @version 1.0
  * 
  * Filename:       /install/lang/english/english.inc.php
@@ -53,6 +52,8 @@ $_lang["config_permissions_note"] = 'For new Linux/Unix installs, please create 
 $_lang["connection_screen_collation"] = 'Collation:';
 $_lang["connection_screen_connection_method"] = 'Connection method:';
 $_lang["connection_screen_database_connection_information"] = 'Database information';
+$_lang["connection_screen_database_creation"] = 'How do I create my database?';
+$_lang["connection_screen_database_creation_note"] = 'Use your control panel or the following SQL:';
 $_lang["connection_screen_database_connection_note"] = 'Enter the database name to use or which you wish to create for this ClipperCMS install. If no database exists, the installer will attempt to create one. This may fail depending on the MySQL user permissions.';
 $_lang["connection_screen_database_host"] = 'Database host:';
 $_lang["connection_screen_database_info"] = 'Database Information';
@@ -85,7 +86,7 @@ $_lang["error"] = 'error';
 $_lang["errors"] = 'errors';
 $_lang["failed"] = 'FAILED!';
 $_lang["help"] = 'Help!';
-$_lang["help_link"] = 'http://clippercms.org/forums/';
+$_lang["help_link"] = 'http://clippercms.com/forum/';
 $_lang["help_title"] = 'Installation assistance in the ClipperCMS forums';
 $_lang["iagree_box"] = 'I agree to the terms of <a href="../assets/docs/license.txt" target="_blank">the ClipperCMS license</a>. For translations of the GPL version 2 license, please visit the <a href="http://www.gnu.org/licenses/old-licenses/gpl-2.0-translations.html" target="_blank">GNU Operating System website</a>.';
 $_lang["install"] = 'Install';
@@ -108,7 +109,7 @@ $_lang["installing_demo_site"] = 'Installing demo site: ';
 $_lang["language_code"] = 'en';	// for html element e.g. <html xml:lang="en" lang="en">
 $_lang["loading"] = 'Loading...';
 $_lang["modules"] = 'Modules';
-$_lang["modx_footer1"] = '&copy; 2012 the <a href="http://www.clippercms.org/" target="_blank" style="color: green; text-decoration:underline">ClipperCMS</a> Content Management Framework (CMF) project. All rights reserved. ClipperCMS is licensed under the GNU GPL.';
+$_lang["modx_footer1"] = '&copy; 2012 the <a href="http://www.clippercms.org/" target="_blank" >ClipperCMS</a> Content Management Framework (CMF) project. All rights reserved. ClipperCMS is licensed under the GNU GPL.';
 $_lang["modx_footer2"] = 'ClipperCMS is free software.  We encourage you to be creative and make use of ClipperCMS in any way you see fit. Just make sure that if you do make changes and decide to redistribute your modified ClipperCMS, that you keep the source code free!';
 $_lang["modx_install"] = 'ClipperCMS &raquo; Install';
 $_lang["modx_requires_php"] = ', and ClipperCMS requires PHP 5 or later';
@@ -183,7 +184,7 @@ $_lang["unable_install_template"] = 'Unable to install template.  File';
 $_lang["upgrade_note"] = '<strong>Note:</strong> Before browsing your site you should log into the manager with an administrative account, then review and save your System Configuration settings.';
 $_lang["upgraded"] = 'Upgraded';
 $_lang["validate_referer_title"] = 'Validate HTTP_REFERER headers?';
-$_lang["visit_forum"] = ', visit the <a href="http://www.clippercms.org/forums/" target="_blank">ClipperCMS Forums</a>.';
+$_lang["visit_forum"] = ', visit the <a href="http://www.clippercms.com/forum/" target="_blank">ClipperCMS Forum</a>.';
 $_lang["warning"] = 'WARNING!';
 $_lang["welcome_message_start"] = 'First, choose the type of installation to perform:';
 $_lang["welcome_message_text"] = 'This program will guide you through the rest of the installation.';

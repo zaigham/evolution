@@ -69,8 +69,8 @@ elseif ($installMode == 1) {
 
 
 # load setup information file
-$setupPath = realpath(dirname(__FILE__));
-include "{$setupPath}/setup.info.php";
+$setupPath = realpath(dirname(__FILE__) . '/../');
+require("{$setupPath}/setup.info.php");
 
 echo "<h2>" . $_lang['optional_items'] . "</h2><p>" . $_lang['optional_items_note'] . "</p>";
 
@@ -190,7 +190,7 @@ if ($limit > 0) {
     </p>
 
 </form>
-<script type="text/javascript" src="../assets/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="../assets/js/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
 

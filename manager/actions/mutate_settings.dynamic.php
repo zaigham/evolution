@@ -189,7 +189,7 @@ function confirmLangChange(el, lkey, elupd){
     <input type="hidden" name="site_id" value="<?php echo $site_id; ?>" />
     <input type="hidden" name="settings_version" value="<?php echo $modx_version; ?>" />
     <!-- this field is used to check site settings have been entered/ updated after install or upgrade -->
-    <?php if(!isset($settings_version) || $settings_version!=$modx_version) { ?>
+    <?php if(!isset($settings_version) || $settings_version != CMS_RELEASE_VERSION) { ?>
     <div class='sectionBody'><p><?php echo $_lang['settings_after_install']; ?></p></div>
     <?php } ?>
     <script type="text/javascript" src="media/script/tabpane.js"></script>
@@ -580,7 +580,7 @@ function confirmLangChange(el, lkey, elupd){
                <td nowrap class="warning"><?php echo $_lang['error_handling_deprecated_label'] ?></td>
                <td>
                	  <select onchange="documentDirty=true;" name="error_handling_deprecated">
-               	         <?php if (!isset($error_handling_deprecated)) $error_handling_deprecated = 0; ?>
+               	         <?php if (!isset($error_handling_deprecated)) $error_handling_deprecated = 1; ?>
                	  	<option<?php if($error_handling_deprecated == 0) echo ' selected="selected"'; ?> value="0"><?php echo $_lang['error_handling_deprecated_0']; /* No error reporting */ ?></option>
                	  	<option<?php if($error_handling_deprecated == 1) echo ' selected="selected"'; ?> value="1"><?php echo $_lang['error_handling_deprecated_1']; /* Log */ ?></option>
                	  	<option<?php if($error_handling_deprecated == 2) echo ' selected="selected"'; ?> value="2"><?php echo $_lang['error_handling_deprecated_2']; /* Halt */ ?></option>
