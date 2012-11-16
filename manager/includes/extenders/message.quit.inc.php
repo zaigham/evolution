@@ -3,8 +3,7 @@
  * Message Quit Template
  * 
  */
-if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
-
+if(IN_MANAGER_MODE!=true && IN_PARSER_MODE!="true") die("<b>INCLUDE ACCESS ERROR</b><br /><br />Direct access to this file prohibited.");
 
 $parsedMessageString = "
 <html><head><title>".CMS_NAME." Content Manager $version &raquo; $release_date</title>
