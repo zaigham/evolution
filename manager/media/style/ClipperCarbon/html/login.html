@@ -86,7 +86,12 @@
         });
 
         function ajaxReturn(response) {
-            var header = response.substr(0,9);
+ 
+            var header;
+            
+            response = response.replace(/(^\s+|\s+$)/g,'');
+            header = response.substr(0,9);
+
             if (header.toLowerCase()=='location:') top.location = response.substr(10);
             else {
                 var cimg = $('captcha_image');
