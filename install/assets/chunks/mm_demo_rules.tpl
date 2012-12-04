@@ -34,3 +34,7 @@ mm_hideFields('clear_cache', '!1');
 mm_hideFields('is_folder', '!1');
 mm_hideFields('content_dispo', '!1');
 mm_hideFields('content_type', '!1');
+
+// Always give a preview of Image TVs
+mm_widget_showimagetvs();
+
