@@ -70,7 +70,7 @@ header("Pragma: no-cache");
 header("X-UA-Compatible: IE=IE8"); // Datepicker needs fixing
 
 // set error reporting
-error_reporting(E_ALL & ~E_NOTICE);
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
 
 // check PHP version. ClipperCMS requires PHP 5.
 if(version_compare(phpversion(), '5') < 0) {
