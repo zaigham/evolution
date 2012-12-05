@@ -72,12 +72,6 @@ header("X-UA-Compatible: IE=IE8"); // Datepicker needs fixing
 // set error reporting
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
 
-// check PHP version. ClipperCMS requires PHP 5.
-if(version_compare(phpversion(), '5') < 0) {
-    echo sprintf($_lang['php_version_check'], phpversion());
-    exit;
-}
-
 // set some runtime options
 $incPath = str_replace("\\","/",dirname(__FILE__)."/includes/"); // Mod by Raymond
 set_include_path(get_include_path() . PATH_SEPARATOR . $incPath);
