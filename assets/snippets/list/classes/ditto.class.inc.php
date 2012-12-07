@@ -478,7 +478,7 @@ class ditto {
 			}
 			
 			$js = "window.open('".$modx->config["site_url"]."manager/index.php?a=112&id=".$id."&doc=".$resource["id"]."&var=".$ds."', 'QuickEditor', 'width=525, height=300, toolbar=0, menubar=0, status=0, alwaysRaised=1, dependent=1');";
-			$url = $this->buildURL("qe_open=true",$modx->documentIdentifier,$dittoID);
+			$url = self::buildURL("qe_open=true",$modx->documentIdentifier,$dittoID);
 			
 			unset($custom[3]);
 			if ($set && !in_array($dv,$custom)) {
@@ -1040,7 +1040,7 @@ class ditto {
 	//	b) not crash if an array is in the URL (but arrays will still not be reproduced in the new URL - that is still a todo)
 	//	c) use rawurlencode()
 	
-	function buildURL($args,$id=false,$dittoIdentifier=false) {
+	static function buildURL($args,$id=false,$dittoIdentifier=false) {
 		global $modx, $dittoID;
 			$dittoID = ($dittoIdentifier !== false) ? $dittoIdentifier : $dittoID;
 			$query = array();
@@ -1102,9 +1102,9 @@ class ditto {
 			return false;
 		}
 		$next = $start + $summarize;
-		$rNext =  $this->template->replace(array('url'=>$this->buildURL("start=$next"),'lang:next'=>$ditto_lang['next']),$tplPaginateNext);
+		$rNext =  $this->template->replace(array('url'=>self::buildURL("start=$next"),'lang:next'=>$ditto_lang['next']),$tplPaginateNext);
 		$previous = $start - $summarize;
-		$rPrevious =  $this->template->replace(array('url'=>$this->buildURL("start=$previous"),'lang:previous'=>$ditto_lang['prev']),$tplPaginatePrevious);
+		$rPrevious =  $this->template->replace(array('url'=>self::buildURL("start=$previous"),'lang:previous'=>$ditto_lang['prev']),$tplPaginatePrevious);
 		$limten = $summarize + $start;
 		if ($paginateAlwaysShowLinks == 1) {
 			$previousplaceholder = $this->template->replace(array('lang:previous'=>$ditto_lang['prev']),$tplPaginatePreviousOff);
@@ -1133,7 +1133,7 @@ class ditto {
 			$inc = $x * $summarize;
 			$display = $x +1;
 			if ($inc != $start) {
-				$pages .= $this->template->replace(array('url'=>$this->buildURL("start=$inc"),'page'=>$display),$tplPaginatePage);
+				$pages .= $this->template->replace(array('url'=>self::buildURL("start=$inc"),'page'=>$display),$tplPaginatePage);
 			} else {
 				$modx->setPlaceholder($dittoID."currentPage", $display);
 				$pages .= $this->template->replace(array('page'=>$display),$tplPaginateCurrentPage);
