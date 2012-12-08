@@ -1,7 +1,7 @@
 <div id="interaction">
     <div class="sectionHeader">[+lang.DM_range_title+]</div> 
     <div class="sectionBody"> 
-    <form id="range" action="" method="post"> 
+    <form id="range" action="" method="post">
 	    <input type="hidden" id="newvalue" name="newvalue" value="" />
 	    <input type="hidden" id="setoption" name="setoption" value="" />
 	    <input type="hidden" id="pubdate" name="pubdate" value="" />

@@ -26,8 +26,9 @@ $dmb = new DocManagerBackend($dm, $modx);
 $dm->ph = $dm->getLang();
 $dm->ph['theme'] = $dm->getTheme();
 $dm->ph['ajax.endpoint'] = MODX_SITE_URL.'assets/modules/docmanager/tv.ajax.php';
-$dm->ph['datepicker.offset'] = $modx->config['datepicker_offset'];
-$dm->ph['datetime.format'] = $modx->config['datetime_format'];
+$dm->ph['datepicker.year_range'] = $modx->config['datepicker_year_range'];
+$dm->ph['date.format'] = $modx->config['date_format'];
+$dm->ph['time.format'] = $modx->config['time_format'];
 
 if (isset($_POST['tabAction'])) {
     $dmb->handlePostback();

@@ -2,11 +2,12 @@
 <html>
     <head>
         <title>[+lang.DM_module_title+]</title>
-        <link rel="stylesheet" type="text/css" href="media/style[+theme+]/style.css" /> 
+        <link rel="stylesheet" type="text/css" href="media/style[+theme+]/style.css" />
+        <link rel="stylesheet" type="text/css" href="media/style/[+theme+]/jquery-ui/jquery-ui-1.9.2.custom.min.css" />
         <script type="text/javascript" src="media/script/tabpane.js"></script>
-        <script type="text/javascript" src="media/script/datefunctions.js"></script>
+        <!-- <script type="text/javascript" src="media/script/datefunctions.js"></script> -->
         <script type="text/javascript" src="media/script/mootools/mootools.js"></script>
-        <script type="text/javascript" src="media/calendar/datepicker.js"></script>
+        <!-- <script type="text/javascript" src="media/calendar/datepicker.js"></script> -->
         <script type="text/javascript" src="media/script/mootools/moodx.js"></script>
         <script type="text/javascript" src="../assets/modules/docmanager/js/docmanager.js"></script>
         <script type="text/javascript">
@@ -51,16 +52,30 @@
 			    
 			    return true;
 			}
-			
-			window.addEvent('domready', function() {
-			    var dpOffset = [+datepicker.offset+];
-			    var dpformat = "[+datetime.format+]" + ' hh:mm:00';
-			    new DatePicker($('date_pubdate'), {'yearOffset' : dpOffset, 'format' : dpformat });
-			    new DatePicker($('date_unpubdate'), {'yearOffset' : dpOffset, 'format' : dpformat});
-			    new DatePicker($('date_createdon'), {'yearOffset' : dpOffset, 'format' : dpformat});
-			    new DatePicker($('date_editedon'), {'yearOffset' : dpOffset, 'format' : dpformat});
-			});
         </script>
+        
+        
+        <script src="../assets/js/jquery.min.js" type="text/javascript"></script>
+	    <script src="../assets/js/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
+	    <script src="../assets/js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+	    
+	    <script type="text/javascript">
+	
+	    	$.noConflict();
+			jQuery(document).ready(function($) {
+			
+				$( '#date_pubdate, #date_unpubdate, #date_createdon, #date_editedon').datetimepicker({
+					changeMonth: true,
+					changeYear: true,
+					yearRangeType: 'c-'+[+datepicker.year_range+]+':c+'+[+datepicker.year_range+],
+					dateFormat: '[+date.format+]',
+					timeFormat: '[+time.format+]'
+			    });
+			
+			});
+	        
+        </script>
+
     </head>
     <body>
         <h1>[+lang.DM_module_title+]</h1>
