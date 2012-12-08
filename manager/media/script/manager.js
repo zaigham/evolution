@@ -17,12 +17,14 @@ $(document).ready(function($) {
         });
     }
     
-    $( '#pub_date, #unpub_date').datetimepicker({
+    $( '#pub_date, #unpub_date, #tv_body .DatePicker').datetimepicker({
 		changeMonth: true,
 		changeYear: true,
 		yearRangeType: 'c-'+config.datepicker_year_range+':c+'+config.datepicker_year_range,
 		dateFormat: config.date_format,
 		timeFormat: config.time_format
     });
+    
+    
     
 });
