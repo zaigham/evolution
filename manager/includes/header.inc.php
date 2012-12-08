@@ -13,13 +13,29 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 <head>
     <title><?php echo CMS_NAME; ?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $modx_manager_charset; ?>" />
+    
     <link rel="stylesheet" type="text/css" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>jquery-ui/jquery-ui-1.9.2.custom.min.css" />
 
     <!-- OnManagerMainFrameHeaderHTMLBlock -->
     <?php echo $onManagerMainFrameHeaderHTMLBlock; ?>
     
     <script src="media/script/mootools/mootools.js" type="text/javascript"></script>
     <script src="media/script/mootools/moodx.js" type="text/javascript"></script>
+    
+    <script src="media/script/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="media/script/jquery/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+    	$.noConflict();
+		jQuery(document).ready(function($) {
+			//add jquery code here
+			
+			
+		});
+    </script>
+    
     <script type="text/javascript">
 		/* <![CDATA[ */
         window.addEvent('load', document_onload);
