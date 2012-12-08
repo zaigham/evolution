@@ -112,20 +112,7 @@ if($manager_language!="english" && file_exists($modx->config['base_path']."manag
 
 ?>
 
-<!-- <script type="text/javascript" src="media/calendar/datepicker.js"></script> -->
 <script type="text/javascript">
-
-/*
-window.addEvent('domready', function() {
-	var dpOffset = <?php echo $modx->config['datepicker_offset']; ?>;
-	var dpformat = "<?php echo $modx->config['datetime_format']; ?>";
-	new DatePicker($('dob'), {'yearOffset': -90,'yearRange':1,'format':dpformat});
-	if ($('blockeduntil')) {
-		new DatePicker($('blockeduntil'), {'yearOffset': dpOffset,'format':dpformat + ' hh:mm:00'});
-		new DatePicker($('blockedafter'), {'yearOffset': dpOffset,'format':dpformat + ' hh:mm:00'});
-	}
-});
-*/
 
 function changestate(element) {
 	documentDirty=true;

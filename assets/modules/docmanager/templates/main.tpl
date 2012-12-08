@@ -7,7 +7,6 @@
         <script type="text/javascript" src="media/script/tabpane.js"></script>
         <!-- <script type="text/javascript" src="media/script/datefunctions.js"></script> -->
         <script type="text/javascript" src="media/script/mootools/mootools.js"></script>
-        <!-- <script type="text/javascript" src="media/calendar/datepicker.js"></script> -->
         <script type="text/javascript" src="media/script/mootools/moodx.js"></script>
         <script type="text/javascript" src="../assets/modules/docmanager/js/docmanager.js"></script>
         <script type="text/javascript">
@@ -54,7 +53,6 @@
 			}
         </script>
         
-        
         <script src="../assets/js/jquery.min.js" type="text/javascript"></script>
 	    <script src="../assets/js/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
 	    <script src="../assets/js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
@@ -64,14 +62,23 @@
 	    	$.noConflict();
 			jQuery(document).ready(function($) {
 			
-				$( '#date_pubdate, #date_unpubdate, #date_createdon, #date_editedon').datetimepicker({
+				$('#date_pubdate, #date_unpubdate, #date_createdon, #date_editedon, input.DatePicker').datetimepicker({
 					changeMonth: true,
 					changeYear: true,
 					yearRangeType: 'c-'+[+datepicker.year_range+]+':c+'+[+datepicker.year_range+],
 					dateFormat: '[+date.format+]',
 					timeFormat: '[+time.format+]'
 			    });
-			
+			    
+			    $('input[id^=tv].DatePicker').live('focus', function(){
+				    $(this).datetimepicker({
+						changeMonth: true,
+						changeYear: true,
+						yearRangeType: 'c-'+[+datepicker.year_range+]+':c+'+[+datepicker.year_range+],
+						dateFormat: '[+date.format+]',
+						timeFormat: '[+time.format+]'
+				    });
+			    });	
 			});
 	        
         </script>

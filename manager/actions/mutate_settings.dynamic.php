@@ -1102,52 +1102,6 @@ function confirmLangChange(el, lkey, elupd){
 			<tr>
 				<td colspan="2"><div class='split'></div></td>
 			</tr>
-             
-
-<!--
-             <tr>
-      		   <td nowrap class="warning"><b><?php echo $_lang["datepicker_offset"] ?></b></td>
-      		   <td><input onchange="documentDirty=true;" type='text' maxlength='50' size="5" name="datepicker_offset" value="<?php echo isset($datepicker_offset) ? $datepicker_offset : '-10' ; ?>" /></td>
-      		 </tr>
-      		 <tr>
-                   <td width="200">&nbsp;</td>
-                   <td class='comment'><?php echo $_lang["datepicker_offset_message"]?></td>
-             </tr>
-            <tr>
-              <td colspan="2"><div class='split'></div></td>
-            </tr>
--->
-            
-<!--
-            <tr>
-              <td nowrap class="warning"><b><?php echo $_lang["datetime_format"]?></b></td>
-              <td> <select name="datetime_format" size="1" class="inputBox">
-              <?php
-                  $datetime_format_list = array('dd-mm-YYYY', 'mm/dd/YYYY', 'YYYY/mm/dd');
-                  $str = '';
-                  foreach($datetime_format_list as $value)
-                  {
-                      $selectedtext = ($datetime_format == $value) ? ' selected' : '';
-                      $str .= '<option value="' . $value . '"' . $selectedtext . '>';
-                      $str .= $value . '</option>' . PHP_EOL;
-                  }
-                  echo $str;
-              ?>
-               </select></td>
-            </tr>
-            
-            
-            
-            <tr>
-              <td width="200">&nbsp;</td>
-              <td class='comment'><?php echo $_lang["datetime_format_message"]?></td>
-            </tr>
-            <tr>
-              <td colspan="2"><div class='split'></div></td>
-            </tr>
--->
-
-
 
           <tr>
             <td nowrap class="warning"><b><?php echo $_lang["nologentries_title"]?></b></td>
