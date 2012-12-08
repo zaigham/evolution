@@ -12,4 +12,3 @@ manager/includes/config.inc.php
 
 # except do not ignore .gitignore
 !.gitignore
-assets/cache/siteCache.idx.php
