@@ -848,7 +848,7 @@ if (is_array($evtOut))
             </tr>
             <tr>
                 <td></td>
-                <td style="color: #555;font-size:10px"><em> <?php echo $modx->config['datetime_format']; ?> HH:MM:SS</em></td>
+                <td style="color: #555;font-size:10px"><em> <?php echo $modx->config['date_format']; ?> <?php echo $modx->config['time_format']; ?></em></td>
             </tr>
             <tr>
               <td colspan="2"><div class='split'></div></td>
