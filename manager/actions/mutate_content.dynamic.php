@@ -164,15 +164,15 @@ if (isset ($_POST['which_editor'])) {
     $which_editor = $_POST['which_editor'];
 }
 ?>
-<script type="text/javascript" src="media/calendar/datepicker.js"></script>
+
+<!-- <script type="text/javascript" src="media/calendar/datepicker.js"></script> -->
 <script type="text/javascript">
 /* <![CDATA[ */
 window.addEvent('domready', function(){
-    var dpOffset = <?php echo $modx->config['datepicker_offset']; ?>;
-    var dpformat = "<?php echo $modx->config['datetime_format']; ?>" + ' hh:mm:00';
-    new DatePicker($('pub_date'), {'yearOffset': dpOffset,'format':dpformat});
-    new DatePicker($('unpub_date'), {'yearOffset': dpOffset,'format':dpformat});
-
+    //var dpOffset = <?php echo $modx->config['datepicker_offset']; ?>;
+    //var dpformat = "<?php echo $modx->config['datetime_format']; ?>" + ' hh:mm:00';
+    //new DatePicker($('pub_date'), {'yearOffset': dpOffset,'format':dpformat});
+    //new DatePicker($('unpub_date'), {'yearOffset': dpOffset,'format':dpformat});
     if( !window.ie6 ) {
         $$('img[src=<?php echo $_style["icons_tooltip_over"]?>]').each(function(help_img) {
             help_img.removeProperty('onclick');
@@ -840,7 +840,7 @@ if (is_array($evtOut))
             </tr>
             <tr>
                 <td></td>
-                <td style="color: #555;font-size:10px"><em> <?php echo $modx->config['datetime_format']; ?> HH:MM:SS</em></td>
+                <td style="color: #555;font-size:10px"><em> <?php echo $modx->config['date_format']; ?> <?php echo $modx->config['time_format']; ?></em></td>
             </tr>
             <tr style="height: 24px;">
                 <td><span class="warning"><?php echo $_lang['page_data_unpublishdate']?></span></td>

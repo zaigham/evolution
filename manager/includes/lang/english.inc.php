@@ -202,10 +202,16 @@ $_lang["database_tables"] = 'Database tables';
 $_lang["database_version"] = 'Database Version';
 $_lang["date"] = 'Date';
 $_lang["datechanged"] = 'Date changed';
-$_lang["datepicker_offset"] = 'Datepicker offset';
-$_lang["datepicker_offset_message"] = 'The number of years to show in the past on the datepicker.';
+$_lang["datepicker_year_range"] = 'Datepicker offset';
+$_lang["datepicker_year_range_message"] = 'The range of years displayed in the year drop-down';
+$_lang["date_format"] = 'Date format';
+$_lang["date_format_message"] = 'The format for dates in the Manager.';
+$_lang["time_format"] = 'Time format';
+$_lang["time_format_message"] = 'The format for time in the Manager.';
+/*
 $_lang["datetime_format"] = 'Date format';
 $_lang["datetime_format_message"] = 'The format for dates in the Manager.';
+*/
 $_lang["default"] = 'Default:'; 
 $_lang["defaultcache_message"] = 'Select \'Yes\' to make all new Resources cacheable by default.';
 $_lang["defaultcache_title"] = 'Cacheable default';

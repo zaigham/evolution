@@ -24,16 +24,25 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
     <script src="media/script/mootools/mootools.js" type="text/javascript"></script>
     <script src="media/script/mootools/moodx.js" type="text/javascript"></script>
     
-    <script src="media/script/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
-    <script src="media/script/jquery/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    	
+    	var config = {
+    		date_format: '<?php echo $modx->config['date_format']; ?>',
+    		time_format: '<?php echo $modx->config['time_format']; ?>',
+    		datepicker_year_range: '<?php echo $modx->config['datepicker_year_range']; ?>'
+    	}
+
+    </script>
+    
+    <script src="../assets/js/jquery.min.js" type="text/javascript"></script>
+    <script src="../assets/js/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
+    <script src="../assets/js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+    <script src="media/script/manager.js" type="text/javascript"></script>
     
     <script type="text/javascript">
+
     	$.noConflict();
-		jQuery(document).ready(function($) {
-			//add jquery code here
-			
-			
-		});
+
     </script>
     
     <script type="text/javascript">

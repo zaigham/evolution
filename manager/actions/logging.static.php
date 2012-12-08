@@ -48,7 +48,9 @@ $logs = array();
 while ($row = $modx->db->getRow($rs)) $logs[] = $row;
 
 ?>
-<script type="text/javascript" src="media/calendar/datepicker.js"></script>
+
+<!-- <script type="text/javascript" src="media/calendar/datepicker.js"></script> -->
+<!--
 <script type="text/javascript">
 window.addEvent('domready', function() {
 	var dpOffset = <?php echo $modx->config['datepicker_offset']; ?>;
@@ -57,6 +59,7 @@ window.addEvent('domready', function() {
 	new DatePicker($('dateto'), {'yearOffset': dpOffset,'format':dpformat});
 });
 </script>
+-->
 <h1><?php echo $_lang["mgrlog_view"]?></h1>
 
 <div class="sectionHeader"><?php echo $_lang["mgrlog_query"]?></div><div class="sectionBody" id="lyr1">

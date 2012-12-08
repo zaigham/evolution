@@ -1035,6 +1035,76 @@ function confirmLangChange(el, lkey, elupd){
   <td colspan="2"><div class='split'></div></td>
 </tr>
 
+			<tr>
+				<td nowrap class="warning"><b><?php echo $_lang["datepicker_year_range"] ?></b></td>
+				<td><input onchange="documentDirty=true;" type='text' maxlength='50' size="5" name="datepicker_year_range" value="<?php echo isset($datepicker_year_range) ? $datepicker_year_range : '10' ; ?>" /></td>
+			</tr>
+			<tr>
+				<td width="200">&nbsp;</td>
+				<td class='comment'><?php echo $_lang["datepicker_year_range_message"]?></td>
+			</tr>
+			<tr>
+			<tr>
+				<td colspan="2"><div class='split'></div></td>
+			</tr>
+			
+			
+			<tr>
+				<td nowrap class="warning"><b><?php echo $_lang["date_format"] ?></b></td>
+				<td>
+					<select name="date_format" size="1" class="inputBox">
+						<?php
+						$date_format_list = array('dd-mm-yy', 'mm/dd/yy', 'yy/mm/dd');
+						$str = '';
+						foreach($date_format_list as $value)
+						{
+						  $selectedtext = ($date_format == $value) ? ' selected' : '';
+						  $str .= '<option value="' . $value . '"' . $selectedtext . '>';
+						  $str .= $value . '</option>' . PHP_EOL;
+						}
+						echo $str;
+						?>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td width="200">&nbsp;</td>
+				<td class='comment'><?php echo $_lang["date_format_message"]?></td>
+			</tr>
+			<tr>
+			<tr>
+				<td colspan="2"><div class='split'></div></td>
+			</tr>
+			
+			<tr>
+				<td nowrap class="warning"><b><?php echo $_lang["time_format"] ?></b></td>
+				<td>
+					<select name="time_format" size="1" class="inputBox">
+						<?php
+						$time_format_list = array('HH:mm:ss');
+						$str = '';
+						foreach($time_format_list as $value)
+						{
+						  $selectedtext = ($time_format == $value) ? ' selected' : '';
+						  $str .= '<option value="' . $value . '"' . $selectedtext . '>';
+						  $str .= $value . '</option>' . PHP_EOL;
+						}
+						echo $str;
+						?>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td width="200">&nbsp;</td>
+				<td class='comment'><?php echo $_lang["date_format_message"]?></td>
+			</tr>
+			<tr>
+			<tr>
+				<td colspan="2"><div class='split'></div></td>
+			</tr>
+             
+
+<!--
              <tr>
       		   <td nowrap class="warning"><b><?php echo $_lang["datepicker_offset"] ?></b></td>
       		   <td><input onchange="documentDirty=true;" type='text' maxlength='50' size="5" name="datepicker_offset" value="<?php echo isset($datepicker_offset) ? $datepicker_offset : '-10' ; ?>" /></td>
@@ -1046,6 +1116,9 @@ function confirmLangChange(el, lkey, elupd){
             <tr>
               <td colspan="2"><div class='split'></div></td>
             </tr>
+-->
+            
+<!--
             <tr>
               <td nowrap class="warning"><b><?php echo $_lang["datetime_format"]?></b></td>
               <td> <select name="datetime_format" size="1" class="inputBox">
@@ -1062,6 +1135,9 @@ function confirmLangChange(el, lkey, elupd){
               ?>
                </select></td>
             </tr>
+            
+            
+            
             <tr>
               <td width="200">&nbsp;</td>
               <td class='comment'><?php echo $_lang["datetime_format_message"]?></td>
@@ -1069,6 +1145,10 @@ function confirmLangChange(el, lkey, elupd){
             <tr>
               <td colspan="2"><div class='split'></div></td>
             </tr>
+-->
+
+
+
           <tr>
             <td nowrap class="warning"><b><?php echo $_lang["nologentries_title"]?></b></td>
             <td><input onchange="documentDirty=true;" type='text' maxlength='50' size="5" name="number_of_logs" value="<?php echo isset($number_of_logs) ? $number_of_logs : 100 ; ?>" /></td>
