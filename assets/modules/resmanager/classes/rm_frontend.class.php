@@ -24,12 +24,12 @@ class ResManagerFrontend {
 		$templateRecordSet = $this->modx->db->select('id,templatename,description', $this->modx->getFullTableName('site_templates'),'','id ASC');
 	
 		$grd = new DataGrid('', $templateRecordSet);
-		$grd->noRecordMsg = $this->dm->lang['DM_tpl_no_templates'];
+		$grd->noRecordMsg = $this->dm->lang['RM_tpl_no_templates'];
 		$grd->cssClass = "grid";
 		$grd->columnHeaderClass = "gridHeader";
 		$grd->itemClass = "gridItem";
 		$grd->altItemClass = "gridAltItem";
-		$grd->columns = " ," . $this->dm->lang['DM_tpl_column_id'] . "," . $this->dm->lang['DM_tpl_column_name'] . "," . $this->dm->lang['DM_tpl_column_description'];
+		$grd->columns = " ," . $this->dm->lang['RM_tpl_column_id'] . "," . $this->dm->lang['RM_tpl_column_name'] . "," . $this->dm->lang['RM_tpl_column_description'];
 		$grd->colTypes = "template:<input type='radio' name='id' value='[+id+]' />";
 		$grd->colWidths = "5%,5%,40%,50%";
 		$grd->fields = "template,id,templatename,description";
@@ -42,12 +42,12 @@ class ResManagerFrontend {
 		$templateRecordSet = $this->modx->db->select('id,templatename,description', $this->modx->getFullTableName('site_templates'),'','id ASC');
 
 		$grd = new DataGrid('', $templateRecordSet);
-		$grd->noRecordMsg = $this->dm->lang['DM_tpl_no_templates'];
+		$grd->noRecordMsg = $this->dm->lang['RM_tpl_no_templates'];
 		$grd->cssClass = "grid";
 		$grd->columnHeaderClass = "gridHeader";
 		$grd->itemClass = "gridItem";
 		$grd->altItemClass = "gridAltItem";
-		$grd->columns = " ," . $this->dm->lang['DM_tpl_column_id'] . "," . $this->dm->lang['DM_tpl_column_name'] . "," . $this->dm->lang['DM_tpl_column_description'];
+		$grd->columns = " ," . $this->dm->lang['RM_tpl_column_id'] . "," . $this->dm->lang['RM_tpl_column_name'] . "," . $this->dm->lang['RM_tpl_column_description'];
 		$grd->colTypes = 'template:<input name="tid" type="radio" value="[+id+]" onclick="loadTemplateVars(\'[+id+]\');" />';
 		$grd->colWidths = "5%,5%,40%,50%";
 		$grd->fields = "template,id,templatename,description";
@@ -60,12 +60,12 @@ class ResManagerFrontend {
 		$documentgroups = $this->modx->db->select('id,name', $this->modx->getFullTableName('documentgroup_names'),'','id ASC');
 	
 		$grd = new DataGrid('', $documentgroups);
-		$grd->noRecordMsg = $this->dm->lang['DM_doc_no_docs'];
+		$grd->noRecordMsg = $this->dm->lang['RM_doc_no_docs'];
 		$grd->cssClass = "grid";
 		$grd->columnHeaderClass = "gridHeader";
 		$grd->itemClass = "gridItem";
 		$grd->altItemClass = "gridAltItem";
-		$grd->columns = " ," . $this->dm->lang['DM_doc_column_id'] . "," . $this->dm->lang['DM_doc_column_name'];
+		$grd->columns = " ," . $this->dm->lang['RM_doc_column_id'] . "," . $this->dm->lang['RM_doc_column_name'];
 		$grd->colTypes = "template:<input type='radio' name='docgroupid' value='[+id+]' />";
 		$grd->colWidths = "5%,5%,40%,50%";
 		$grd->fields = "template,id,name";

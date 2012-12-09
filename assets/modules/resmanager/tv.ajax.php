@@ -40,9 +40,9 @@ $dm->getTheme();
 				$output.= '</td></tr>';
 		}
 		$output.='</table>';
-		//$output.= '<br />'.$dm->lang['DM_tv_ignore_tv'].' <input type="text" id="ignoreTV" name="ignoreTV" size="50" value="" />';
+		//$output.= '<br />'.$dm->lang['RM_tv_ignore_tv'].' <input type="text" id="ignoreTV" name="ignoreTV" size="50" value="" />';
  	} else {
- 		print $dm->lang['DM_tv_no_tv'];
+ 		print $dm->lang['RM_tv_no_tv'];
  	}
  	
  	print $output;

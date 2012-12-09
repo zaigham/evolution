@@ -52,7 +52,7 @@ class ResManagerBackend {
 			$noId = true;
 			$this->dm->ph['sort.disable_tree_select'] = 'true';
 			$this->dm->ph['sort.save'] = 'none';
-			$this->dm->ph['sort.message'] =  $this->dm->lang['DM_sort_noid'];
+			$this->dm->ph['sort.message'] =  $this->dm->lang['RM_sort_noid'];
 		}
 
 		if (!$noId) {
@@ -60,7 +60,7 @@ class ResManagerBackend {
 			if ($cnt < 1) {
 			    $this->dm->ph['sort.disable_tree_select'] = 'true';
 				$this->dm->ph['sort.save'] = 'none';
-				$this->dm->ph['sort.message'] =  $this->dm->lang['DM_sort_nochildren'];
+				$this->dm->ph['sort.message'] =  $this->dm->lang['RM_sort_nochildren'];
 			} else {
 				foreach ($resource as $item) {
                     // Add classes to determine whether it's published, deleted, not in the menu
@@ -90,7 +90,7 @@ class ResManagerBackend {
     		}
     		$this->logDocumentChange('sortmenu');
     	}
-    	$this->dm->ph['sort.message'] = $this->dm->lang['DM_sort_updated'];
+    	$this->dm->ph['sort.message'] = $this->dm->lang['RM_sort_updated'];
     	$this->dm->ph['sort.save'] = 'none';
     	$this->dm->ph['sort.disable_tree_select'] = 'true';
  		return $this->dm->parseTemplate('sort_list.tpl', $this->dm->ph);
@@ -108,15 +108,15 @@ class ResManagerBackend {
 			));
 			$this->modx->db->update($fields, $this->modx->getFullTableName('site_content'), $values);
 		} else {
-			$error .= '<br />' . $this->dm->lang['DM_process_noselection'] . '<br />';
+			$error .= '<br />' . $this->dm->lang['RM_process_noselection'] . '<br />';
 		}
 
 		if ($error == '') {
-			$this->dm->ph['update.message'] = $this->dm->lang['DM_process_update_success'];
+			$this->dm->ph['update.message'] = $this->dm->lang['RM_process_update_success'];
 		} else {
-			$this->dm->ph['update.message'] = $this->dm->lang['DM_process_update_error'] . '<br />' . $error;
+			$this->dm->ph['update.message'] = $this->dm->lang['RM_process_update_error'] . '<br />' . $error;
 		}
-		$this->dm->ph['update.message'] .= '<br />' . $this->dm->lang['DM_tpl_results_message'];
+		$this->dm->ph['update.message'] .= '<br />' . $this->dm->lang['RM_tpl_results_message'];
 										
 		$this->modx->clearCache();
 		$this->logDocumentChange('template');
@@ -223,16 +223,16 @@ class ResManagerBackend {
 							}
 						}
 					} else {
-						$updateError .= 'ID: ' . $docID . ' ' . $this->dm->lang['DM_tv_template_mismatch'] . '<br />';
+						$updateError .= 'ID: ' . $docID . ' ' . $this->dm->lang['RM_tv_template_mismatch'] . '<br />';
 					}
 				} else {
 					if ($docID !== '0') {
-						$updateError .= 'ID: ' . $docID . ' ' . $this->dm->lang['DM_tv_doc_not_found'] . '<br />';
+						$updateError .= 'ID: ' . $docID . ' ' . $this->dm->lang['RM_tv_doc_not_found'] . '<br />';
 					}
 				}
 			}
 		} else {
-			$updateError .= $this->dm->lang['DM_tv_no_docs'] . '<br />';
+			$updateError .= $this->dm->lang['RM_tv_no_docs'] . '<br />';
 		}
 	
 		if ($updated) {
@@ -240,15 +240,15 @@ class ResManagerBackend {
 		}
 	
 		if ($error == '' && $updateError == '') {
-			$this->dm->ph['update.message'] = $this->dm->lang['DM_process_update_success'];
+			$this->dm->ph['update.message'] = $this->dm->lang['RM_process_update_success'];
 		} else {
-			$this->dm->ph['update.message'] = $this->dm->lang['DM_process_update_error'] . '<br />' . $error;
+			$this->dm->ph['update.message'] = $this->dm->lang['RM_process_update_error'] . '<br />' . $error;
 		}
 	
 		if ($updateError <> '') {
 			$this->dm->ph['update.message'] .= '<br />' . $updateError;
 		}
-		$this->dm->ph['update.message'] .= '<br />'. $this->dm->lang['DM_tpl_results_message'];
+		$this->dm->ph['update.message'] .= '<br />'. $this->dm->lang['RM_tpl_results_message'];
 	
 		$this->modx->clearCache();
 		return $this->dm->parseTemplate('update.tpl', $this->dm->ph);
@@ -277,7 +277,7 @@ class ResManagerBackend {
 								$this->secureMgrDocument($value);
 								$docsAdded += 1;
 							} else {
-								$this->dm->ph['update.message'] .= $this->dm->lang['DM_doc_skip_message1'] . ' ' . $value . ' ' . $this->dm->lang['DM_doc_skip_message2'] . "<br />";
+								$this->dm->ph['update.message'] .= $this->dm->lang['RM_doc_skip_message1'] . ' ' . $value . ' ' . $this->dm->lang['RM_doc_skip_message2'] . "<br />";
 							}
 						}
 					}
@@ -297,20 +297,20 @@ class ResManagerBackend {
 								$this->secureMgrDocument($value);
 								$docsRemoved += 1;
 							} else {
-								$this->dm->ph['update.message'] .= $this->dm->lang['DM_doc_skip_message1'] . $value . $this->dm->lang['DM_doc_skip_message2'] . "<br />";
+								$this->dm->ph['update.message'] .= $this->dm->lang['RM_doc_skip_message1'] . $value . $this->dm->lang['RM_doc_skip_message2'] . "<br />";
 							}
 						}
 					}
 					break;
 			}
 		} else {
-			$error = $this->dm->lang['DM_doc_no_docs'];
+			$error = $this->dm->lang['RM_doc_no_docs'];
 		}
 	
 		if ($error == '') {
-			$this->dm->ph['update.message'] .= '<br />' . $this->dm->lang['DM_process_update_success'];
+			$this->dm->ph['update.message'] .= '<br />' . $this->dm->lang['RM_process_update_success'];
 		} else {
-			$this->dm->ph['update.message'] .= '<br />' . $this->dm->lang['DM_process_update_error'] . '<br />' . $error;
+			$this->dm->ph['update.message'] .= '<br />' . $this->dm->lang['RM_process_update_error'] . '<br />' . $error;
 		}
 	
 		$this->logDocumentChange('docpermissions');
@@ -408,13 +408,13 @@ class ResManagerBackend {
 		}
 
 		if (!$new) {
-			$error .= '<br />' . $this->dm->lang['DM_process_noselection'] . '<br />';
+			$error .= '<br />' . $this->dm->lang['RM_process_noselection'] . '<br />';
 		}
 	
 		if ($error == '') {
-			$this->dm->ph['update.message'] = '<br />' . $this->dm->lang['DM_process_update_success'];
+			$this->dm->ph['update.message'] = '<br />' . $this->dm->lang['RM_process_update_success'];
 		} else {
-			$this->dm->ph['update.message'] = '<br />' . $this->dm->lang['DM_process_update_error'] . '<br />' . $error;
+			$this->dm->ph['update.message'] = '<br />' . $this->dm->lang['RM_process_update_error'] . '<br />' . $error;
 		}
 	
 		return $this->dm->parseTemplate('update.tpl', $this->dm->ph);
@@ -427,7 +427,7 @@ class ResManagerBackend {
 		if (trim($pids) <> '') {
 			$values = explode(',', $pids);
 		} else {
-			$error .= $this->dm->lang['DM_process_novalues'];
+			$error .= $this->dm->lang['RM_process_novalues'];
 		}
 		$pids = '';
 		
@@ -438,7 +438,7 @@ class ResManagerBackend {
 				$match = explode('-', $value);
 
 				if (($match[1] - $match[0]) < 0) {
-					$error = $this->dm->lang['DM_process_limits_error'] . $value . '<br />';
+					$error = $this->dm->lang['RM_process_limits_error'] . $value . '<br />';
 				}
 				
 				$loop = $match[1] - $match[0];
@@ -499,7 +499,7 @@ class ResManagerBackend {
 					$pids .= '' . $column . '=\'' . trim($value) . '\' OR ';
 				}
 			} else {
-				$error .= $this->dm->lang['DM_process_invalid_error'] . $value . '<br />';
+				$error .= $this->dm->lang['RM_process_invalid_error'] . $value . '<br />';
 			}
 		}
 		
@@ -572,40 +572,40 @@ class ResManagerBackend {
 	
 		switch ($action) {
 			case 'template' :
-				$log->initAndWriteLog($this->dm->lang['DM_log_template']);
+				$log->initAndWriteLog($this->dm->lang['RM_log_template']);
 				break;
 			case 'templatevariables' :
-				$log->initAndWriteLog($this->dm->lang['DM_log_templatevariables']);
+				$log->initAndWriteLog($this->dm->lang['RM_log_templatevariables']);
 				break;
 			case 'docpermissions' :
-				$log->initAndWriteLog($this->dm->lang['DM_log_docpermissions']);
+				$log->initAndWriteLog($this->dm->lang['RM_log_docpermissions']);
 				break;	
 			case 'sortmenu' :
-				$log->initAndWriteLog($this->dm->lang['DM_log_sortmenu']);
+				$log->initAndWriteLog($this->dm->lang['RM_log_sortmenu']);
 				break;	
 			case 'publish' :
-				$log->initAndWriteLog($this->dm->lang['DM_log_publish']);
+				$log->initAndWriteLog($this->dm->lang['RM_log_publish']);
 				break;	
 			case 'hidemenu' :
-				$log->initAndWriteLog($this->dm->lang['DM_log_hidemenu']);
+				$log->initAndWriteLog($this->dm->lang['RM_log_hidemenu']);
 				break;
 			case 'search' :
-				$log->initAndWriteLog($this->dm->lang['DM_log_search']);
+				$log->initAndWriteLog($this->dm->lang['RM_log_search']);
 				break;	
 			case 'cache' :
-				$log->initAndWriteLog($this->dm->lang['DM_log_cache']);
+				$log->initAndWriteLog($this->dm->lang['RM_log_cache']);
 				break;
 			case 'richtext' :
-				$log->initAndWriteLog($this->dm->lang['DM_log_richtext']);
+				$log->initAndWriteLog($this->dm->lang['RM_log_richtext']);
 				break;
 			case 'delete' :
-				$log->initAndWriteLog($this->dm->lang['DM_log_delete']);
+				$log->initAndWriteLog($this->dm->lang['RM_log_delete']);
 				break;	
 			case 'dates' :
-				$log->initAndWriteLog($this->dm->lang['DM_log_richtext']);
+				$log->initAndWriteLog($this->dm->lang['RM_log_richtext']);
 				break;
 			case 'authors' :
-				$log->initAndWriteLog($this->dm->lang['DM_log_authors']);
+				$log->initAndWriteLog($this->dm->lang['RM_log_authors']);
 				break;
 		}
 	}
