@@ -16,9 +16,9 @@ $dbg_templates["main"] = <<<TPL
         <body>
 		<div class="sectionHeader">&nbsp;[+title+]</div>
 				   <div class="sectionBody"> 
-			       <div class="tab-pane" id="docManagerPane"> 
-			       <script type="text/javascript"> 
-						tpResources = new WebFXTabPane( document.getElementById( "docManagerPane" ) ); 
+			       <div class="tab-pane" id="resManagerPane"> 
+			       <script type="text/javascript">
+						tpResources = new WebFXTabPane( document.getElementById( "resManagerPane" ) ); 
 		</script>
 		[+content+]
 		</body>
