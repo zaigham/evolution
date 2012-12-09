@@ -2,7 +2,7 @@
 /**
  * Document Manager Module - language strings for use in the module
  *
- * Filename:       assets/modules/docmanager/lang/russian.inc.php
+ * Filename:       assets/modules/resmanager/lang/russian.inc.php
  * Language:       Russian
  * Encoding:       Windows-1251
  * Translated by:  Jaroslav Sidorkin

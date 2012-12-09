@@ -1,7 +1,7 @@
 <?php
 /**
  * Nme:          Document Manager Module - persian.inc.php
- * Path:         assets/modules/docmanager/lang
+ * Path:         assets/modules/resmanager/lang
  * Purpose:      Contains the language strings for use in the module.
  * Author:       Garry Nutting
  * For:          MODx CMS (www.modxcms.com)

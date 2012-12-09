@@ -10,29 +10,29 @@
  * @internal	@properties
  * @internal	@guid 	
  * @internal	@shareparams 1
- * @internal	@dependencies requires files located at /assets/modules/docmanager/
+ * @internal	@dependencies requires files located at /assets/modules/resmanager/
  * @internal	@modx_category Manager and Admin
  * @internal    @installset base, sample
  */
 
-include_once(MODX_BASE_PATH.'assets/modules/docmanager/classes/docmanager.class.php');
-include_once(MODX_BASE_PATH.'assets/modules/docmanager/classes/dm_frontend.class.php');
-include_once(MODX_BASE_PATH.'assets/modules/docmanager/classes/dm_backend.class.php');
+include_once(MODX_BASE_PATH.'assets/modules/resmanager/classes/resmanager.class.php');
+include_once(MODX_BASE_PATH.'assets/modules/resmanager/classes/rm_frontend.class.php');
+include_once(MODX_BASE_PATH.'assets/modules/resmanager/classes/rm_backend.class.php');
 
-$dm = new DocManager($modx);
-$dmf = new DocManagerFrontend($dm, $modx);
-$dmb = new DocManagerBackend($dm, $modx);
+$rm = new ResManager($modx);
+$rmf = new ResManagerFrontend($rm, $modx);
+$rmb = new ResManagerBackend($rm, $modx);
 
-$dm->ph = $dm->getLang();
-$dm->ph['theme'] = $dm->getTheme();
-$dm->ph['ajax.endpoint'] = MODX_SITE_URL.'assets/modules/docmanager/tv.ajax.php';
-$dm->ph['datepicker.year_range'] = $modx->config['datepicker_year_range'];
-$dm->ph['date.format'] = $modx->config['date_format'];
-$dm->ph['time.format'] = $modx->config['time_format'];
+$rm->ph = $rm->getLang();
+$rm->ph['theme'] = $rm->getTheme();
+$rm->ph['ajax.endpoint'] = MODX_SITE_URL.'assets/modules/resmanager/tv.ajax.php';
+$rm->ph['datepicker.year_range'] = $modx->config['datepicker_year_range'];
+$rm->ph['date.format'] = $modx->config['date_format'];
+$rm->ph['time.format'] = $modx->config['time_format'];
 
 if (isset($_POST['tabAction'])) {
-    $dmb->handlePostback();
+    $rmb->handlePostback();
 } else {
-    $dmf->getViews();
-    echo $dm->parseTemplate('main.tpl', $dm->ph);
+    $rmf->getViews();
+    echo $rm->parseTemplate('main.tpl', $rm->ph);
 }

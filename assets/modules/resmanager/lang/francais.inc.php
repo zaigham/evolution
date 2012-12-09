@@ -12,7 +12,7 @@
 //-- ENGLISH LANGUAGE FILE
  
 //-- titles
-$_lang['DM_module_title'] = 'DocManager';
+$_lang['DM_module_title'] = 'ResManager';
 $_lang['DM_action_title'] = 'Selectionnez une opération';
 $_lang['DM_range_title'] = 'Spécifiez une plage d\'ID';
 $_lang['DM_tree_title'] = 'Selectionnez les documents dans l\'arbre';
@@ -28,7 +28,7 @@ $_lang['DM_publish'] = 'Publier/Dépublier';
 $_lang['DM_other'] = 'Autres propriétés';
  
 //-- buttons
-$_lang['DM_close'] = 'Fermer DocManager';
+$_lang['DM_close'] = 'Fermer ResManager';
 $_lang['DM_cancel'] = 'Retour';
 $_lang['DM_go'] = 'Exécuter';
 $_lang['DM_save'] = 'Sauvegarder';

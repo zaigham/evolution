@@ -8,7 +8,7 @@
         <!-- <script type="text/javascript" src="media/script/datefunctions.js"></script> -->
         <script type="text/javascript" src="media/script/mootools/mootools.js"></script>
         <script type="text/javascript" src="media/script/mootools/moodx.js"></script>
-        <script type="text/javascript" src="../assets/modules/docmanager/js/docmanager.js"></script>
+        <script type="text/javascript" src="../assets/modules/resmanager/js/resmanager.js"></script>
         <script type="text/javascript">
             function loadTemplateVars(tplId) {
 			    $('tvloading').style.display = 'block';
@@ -93,9 +93,9 @@
         </div>        
 	    <div class="sectionHeader">[+lang.DM_action_title+]</div>
 	    <div class="sectionBody"> 
-	        <div class="tab-pane" id="docManagerPane"> 
+	        <div class="tab-pane" id="resManagerPane"> 
 	        <script type="text/javascript"> 
-	            tpResources = new WebFXTabPane(document.getElementById('docManagerPane')); 
+	            tpResources = new WebFXTabPane(document.getElementById('resManagerPane')); 
 	        </script>
 	        
 	        <div class="tab-page" id="tabTemplates">  

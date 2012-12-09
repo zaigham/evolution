@@ -72,7 +72,7 @@ function changeOtherLabels() {
 }
 
 function postForm() {
-    var tabActiveID = getCookie("webfxtab_docManagerPane");
+    var tabActiveID = getCookie("webfxtab_resManagerPane");
 	
 	if (tabActiveID == '0' || tabActiveID == null) {
 		$('tabaction').value = 'changeTemplate';
@@ -110,7 +110,7 @@ function postForm() {
 }
 
 function hideInteraction() {
-    var tabActiveID = getCookie("webfxtab_docManagerPane");
+    var tabActiveID = getCookie("webfxtab_resManagerPane");
     if (tabActiveID == '1') { 
         $('tvloading').style.display = 'none';
     }

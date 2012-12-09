@@ -2,7 +2,7 @@
 /**
  * Document Manager Module - language strings for use in the module
  *
- * Filename:       assets/modules/docmanager/lang/russian-UTF8.inc.php
+ * Filename:       assets/modules/resmanager/lang/russian-UTF8.inc.php
  * Language:       Russian
  * Encoding:       UTF8
  * Translated by:  Jaroslav Sidorkin

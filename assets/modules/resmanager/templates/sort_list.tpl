@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="media/style[+theme+]/style.css" /> 
     <script type="text/javascript" src="media/script/mootools/mootools.js"></script>
     <script type="text/javascript" src="media/script/mootools/moodx.js"></script> 
-    <script type="text/javascript" src="../assets/modules/docmanager/js/docmanager.js"></script>
+    <script type="text/javascript" src="../assets/modules/resmanager/js/resmanager.js"></script>
     <script type="text/javascript">
 	    function save() { 
 		    //populateHiddenVars(); 

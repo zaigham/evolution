@@ -1,10 +1,10 @@
 <?php
 
-class DocManagerBackend {
+class ResManagerBackend {
 	var $dm = null;
 	var $modx = null;
 
-    function DocManagerBackend(&$dm, &$modx) {
+    function ResManagerBackend(&$dm, &$modx) {
     	$this->dm = &$dm;
     	$this->modx = &$modx;
     }

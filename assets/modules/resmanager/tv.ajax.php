@@ -6,11 +6,11 @@
 require_once '../../../manager/includes/protect.inc.php'; 
 include_once ('../../../manager/includes/config.inc.php');
 include_once (MODX_BASE_PATH.'manager/includes/document.parser.class.inc.php');
-include_once (MODX_BASE_PATH.'assets/modules/docmanager/classes/docmanager.class.php');
+include_once (MODX_BASE_PATH.'assets/modules/resmanager/classes/resmanager.class.php');
 $modx = new DocumentParser;
 $modx->getSettings();
 
-$dm = new DocManager($modx);
+$dm = new ResManager($modx);
 $dm->getLang();
 $dm->getTheme();
  
@@ -35,7 +35,7 @@ $dm->getTheme();
 					<span class=\'warning\'><input type=\'checkbox\' name=\'update_tv_' . $row['id'] . '\' id=\'cb_update_tv_' . $row['id'] . '\' value=\'yes\' />&nbsp;'.$row['caption'].'</span><br /><span class=\'comment\'>'.$row['description'].'</span>
 				</td>
 				<td valign="top" style="position:relative">';
-				$base_url = str_replace("assets/modules/docmanager/", "", MODX_BASE_URL);
+				$base_url = str_replace("assets/modules/resmanager/", "", MODX_BASE_URL);
 				$output.= renderFormElement($row['type'], $row['id'], $row['default_text'], $row['elements'], $row['value'], ' style="width:300px;"');
 				$output.= '</td></tr>';
 		}

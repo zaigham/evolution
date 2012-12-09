@@ -1,13 +1,13 @@
 <?php
 
-class DocManager {
+class ResManager {
 	var $modx = null;
 	var $lang = array();
 	var $ph = array();
 	var $theme = '';
 	var $fileRegister = array();
 	
-    function DocManager(&$modx) {
+    function ResManager(&$modx) {
     	$this->modx = $modx;
     }
     
@@ -33,10 +33,10 @@ class DocManager {
 			}
 		}
 		
-		include MODX_BASE_PATH.'assets/modules/docmanager/lang/english.inc.php';
+		include MODX_BASE_PATH.'assets/modules/resmanager/lang/english.inc.php';
 		if($managerLanguage != 'english') {
-			if (file_exists(MODX_BASE_PATH.'assets/modules/docmanager/lang/'.$managerLanguage.'.inc.php')) {
-     			include MODX_BASE_PATH.'assets/modules/docmanager/lang/'.$managerLanguage.'.inc.php';
+			if (file_exists(MODX_BASE_PATH.'assets/modules/resmanager/lang/'.$managerLanguage.'.inc.php')) {
+     			include MODX_BASE_PATH.'assets/modules/resmanager/lang/'.$managerLanguage.'.inc.php';
 			}
 		}
 		$this->lang = $_lang;
@@ -61,7 +61,7 @@ class DocManager {
     	if (empty($file)) {
     		return false;
     	} else {
-	    	$file = MODX_BASE_PATH.'assets/modules/docmanager/templates/'.$file;
+	    	$file = MODX_BASE_PATH.'assets/modules/resmanager/templates/'.$file;
 	    	if(array_key_exists($file, $this->fileRegister)) {
 	    		return $this->fileRegister[$file];
 	    	} else {
