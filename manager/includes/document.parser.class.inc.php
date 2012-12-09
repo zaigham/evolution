@@ -2316,7 +2316,7 @@ class DocumentParser {
     }
 
     /**
-     * Make a timestamp from a string corresponding to the format in $this->config['datetime_format']
+     * Make a timestamp from a string corresponding to the format in $this->config['date_format']
      *
      * @param string $str
      * @return string
