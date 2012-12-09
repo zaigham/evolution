@@ -378,14 +378,6 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
 </script>
 
-<!--[if lt IE 7]>
-    <style type="text/css">
-      body { behavior: url(media/script/forIE/htcmime.php?file=csshover.htc) }
-      img { behavior: url(media/script/forIE/htcmime.php?file=pngbehavior.htc); }
-    </style>
-<![endif]-->
-
-
 </head>
 <body onClick="hideMenu(1);" class="treeframebody<?php echo $modx_textdir ? ' rtl':''?>">
 
