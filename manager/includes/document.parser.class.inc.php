@@ -2304,9 +2304,15 @@ class DocumentParser {
                 $dateFormat = '%Y/%m/%d';
                 break;
         }
+        
+        switch($this->config['time_format']) {
+            case 'HH:mm:ss':
+                $timeFormat = '%H:%M:%S';
+                break;
+        }
 
         if (empty($mode)) {
-            $strTime = strftime($dateFormat . " " . $this->config['time_format'], $timestamp);
+            $strTime = strftime($dateFormat . " " . $timeFormat, $timestamp);
         } elseif ($mode == 'dateOnly') {
             $strTime = strftime($dateFormat, $timestamp);
         } elseif ($mode == 'formatOnly') {
