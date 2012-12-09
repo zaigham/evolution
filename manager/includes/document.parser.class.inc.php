@@ -2286,32 +2286,27 @@ class DocumentParser {
      * Returns the timestamp in the date format defined in $this->config['datetime_format']
      *
      * @param int $timestamp Default: 0
-     * @param string $mode Default: Empty string (adds the time as below). Can also be 'dateOnly' for no time or 'formatOnly' to get the datetime_format string.
+     * @param string $mode Default: Empty string (adds the time as below). Can also be 'dateOnly' for no time or 'formatOnly' to get the date_format string.
      * @return string
      */
     function toDateFormat($timestamp = 0, $mode = '') {
         $timestamp = trim($timestamp);
         $timestamp = intval($timestamp);
-        
-        switch($this->config['datetime_format']) {
-            case 'YYYY/mm/dd':
-                $dateFormat = '%Y/%m/%d';
-                break;
-            case 'dd-mm-YYYY':
+
+        switch($this->config['date_format']) {
+            case 'dd-mm-yy':
                 $dateFormat = '%d-%m-%Y';
                 break;
-            case 'mm/dd/YYYY':
+            case 'mm/dd/yy':
                 $dateFormat = '%m/%d/%Y';
                 break;
-            /*
-            case 'dd-mmm-YYYY':
-                $dateFormat = '%e-%b-%Y';
+            case 'yy/mm/dd':
+                $dateFormat = '%Y/%m/%d';
                 break;
-            */
         }
-        
+
         if (empty($mode)) {
-            $strTime = strftime($dateFormat . " %H:%M:%S", $timestamp);
+            $strTime = strftime($dateFormat . " " . $this->config['time_format'], $timestamp);
         } elseif ($mode == 'dateOnly') {
             $strTime = strftime($dateFormat, $timestamp);
         } elseif ($mode == 'formatOnly') {
