@@ -26,14 +26,14 @@ function mm_ddSetFieldValue($field, $value='', $roles='', $templates=''){
 		$output = " // ----------- mm_ddSetFieldValue :: Begin -------------- \n";
 		
 		//Подбираем правильный формат даты в соответствии с конфигурацией
-		switch($modx->config['datetime_format']){
-			case 'dd-mm-YYYY':
+		switch($modx->config['date_format']){
+			case 'dd-mm-yy':
 				$date_format = 'd-m-Y';
 			break;
-			case 'mm/dd/YYYY':
+			case 'mm/dd/yy':
 				$date_format = 'm/d/Y';
 			break;
-			case 'YYYY/mm/dd':
+			case 'yy/mm/dd':
 				$date_format = 'Y/m/d';
 			break;
 		}

@@ -208,10 +208,6 @@ $_lang["date_format"] = 'Date format';
 $_lang["date_format_message"] = 'The format for dates in the Manager.';
 $_lang["time_format"] = 'Time format';
 $_lang["time_format_message"] = 'The format for time in the Manager.';
-/*
-$_lang["datetime_format"] = 'Date format';
-$_lang["datetime_format_message"] = 'The format for dates in the Manager.';
-*/
 $_lang["default"] = 'Default:'; 
 $_lang["defaultcache_message"] = 'Select \'Yes\' to make all new Resources cacheable by default.';
 $_lang["defaultcache_title"] = 'Cacheable default';
