@@ -18,47 +18,88 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 	<script type="text/javascript" src="media/script/session.js"></script>
 	
 	<script type="text/javascript">
-	// TREE FUNCTIONS - FRAME
-	// These functions affect the tree frame and any items that may be pointing to the tree.
-	var currentFrameState = 'open';
-	var defaultFrameWidth = '<?php echo !$modx_textdir ? '260,*' : '*,260'?>';
-	var userDefinedFrameWidth = '<?php echo !$modx_textdir ? '260,*' : '*,260'?>';
+    	
+    	var config = {
+    		date_format: '<?php echo $modx->config['date_format']; ?>',
+    		time_format: '<?php echo $modx->config['time_format']; ?>',
+    		datepicker_year_range: '<?php echo $modx->config['datepicker_year_range']; ?>',
+    		mail_check_timeperiod: '<?php echo $modx->config['mail_check_timeperiod'] ?>'
+    	}
 
-	var workText;
-	var buildText;
+    </script>
+    
+	<script src="../assets/js/jquery.min.js" type="text/javascript"></script>
+    <script src="../assets/js/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
+    <script src="../assets/js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+    <script src="media/script/manager.js" type="text/javascript"></script>
+	
+	<script type="text/javascript">
+		
+		$.noConflict();
+		
+		// TREE FUNCTIONS - FRAME
+		// These functions affect the tree frame and any items that may be pointing to the tree.
+		var currentFrameState = 'open';
+		var defaultFrameWidth = '<?php echo !$modx_textdir ? '260,*' : '*,260'?>';
+		var userDefinedFrameWidth = '<?php echo !$modx_textdir ? '260,*' : '*,260'?>';
+	
+		var workText;
+		var buildText;
 
-	// Create the AJAX mail update object before requesting it
-	var updateMailerAjx = new Ajax('index.php', {method:'post', postBody:'updateMsgCount=true', onComplete:showResponse});
-	function updateMail(now) {
-		try {
-			// if 'now' is set, runs immediate ajax request (avoids problem on initial loading where periodical waits for time period before making first request)
+		jQuery(document).ready(function($) {
+			
+			
+		});
+				
+		jQuery(window).load(function () {
+		
+			updateMail(true); // First run update mail
+			updateMail.periodical(config.mail_check_timeperiod*1000, '', true); // Periodical Updater
+			
+			if(top.__hideTree) {
+				//display toc icon when tree frame is closed
+				if($('#tocText').length){
+					$('#tocText').html("<a href='#' onclick='defaultTreeFrame();'><img src='<?php echo $_style['show_tree']?>' alt='<?php echo $_lang['show_tree']?>' width='16' height='16' /></a>");
+				}
+			}
+			
+		});
+		
+		function updateMail(now) {
+			try {
+				// if 'now' is set, runs immediate ajax request (avoids problem on initial loading where periodical waits for time period before making first request)
 			if (now)
-				updateMailerAjx.request();
-			return false;
-		} catch(oException) {
-			// Delay first run until we're ready...
-			xx=updateMail.delay(1000,'',true);
-		}
-	};
+				
+				jQuery.ajax({
+					url: 'index.php',
+					type: 'post',
+					data: { updateMsgCount: 'true'},
+					success: function(request){
+						var counts = request.split(',');// 0,0
+						jQuery('#msgCounter').html('(' + counts[0] + ' / ' + counts[1] + ')');
+						
+						if(counts[0] > 0){
+							jQuery('#newMail').show();
+						}else{
+							jQuery('#newMail').hide();
+						}
+					}
+				});
+				
+				return false;
+			
+			} catch(oException) {
+				// Delay first run until we're ready...
+				window.setTimeout(updateMail(true), 1000);
+			}
+		};
 
-	function showResponse(request) {
-		var counts = request.split(',');
-		var elm = $('msgCounter');
-		if (elm) elm.innerHTML ='(' + counts[0] + ' / ' + counts[1] + ')';
-		var elm = $('newMail');
-		if (elm) elm.style.display = counts[0] >0 ? 'inline' :  'none';
-	}
-
-	window.addEvent('load', function() {
-		updateMail(true); // First run update
-		updateMail.periodical(<?php echo $modx->config['mail_check_timeperiod'] * 1000 ?>, '', true); // Periodical Updater
-		if(top.__hideTree) {
-			// display toc icon
-			var elm = $('tocText');
-			if(elm) elm.innerHTML = "<a href='#' onclick='defaultTreeFrame();'><img src='<?php echo $_style['show_tree']?>' alt='<?php echo $_lang['show_tree']?>' width='16' height='16' /></a>";
-		}
-	});
-
+		
+    </script>
+	
+	
+	<script type="text/javascript">
+	
 	function hideTreeFrame() {
 		userDefinedFrameWidth = parent.document.getElementsByTagName("FRAMESET").item(1).cols;
 		currentFrameState = 'closed';
@@ -206,16 +247,43 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 		</div>
 
 		<div id="supplementalNav">
-			<?php echo $modx->getLoginUserName(). ($modx->hasPermission('change_password') ? ': <a onclick="this.blur();" href="index.php?a=28" target="main">'.$_lang['change_password'].'</a>'."\n" : "\n") ?>
-			<?php if($modx->hasPermission('messages')) { ?>
-			| <span id="newMail"><a href="index.php?a=10" title="<?php echo $_lang['you_got_mail']?>" target="main"> <img src="<?php echo $_style['icons_mail']?>" width="16" height="16" /></a></span>
-			<a onclick="this.blur();" href="index.php?a=10" target="main"><?php echo $_lang['messages']?> <span id="msgCounter">( ? / ? )</span></a>
-			<?php }
-			if($modx->hasPermission('help')) { ?>
-			| <a href="index.php?a=9" target="main"><?php echo $_lang['help']?></a>
-		<?php } ?>
+			<?php 
+				
+				$supplementalNav .= $modx->getLoginUserName();
+				
+				if($modx->hasPermission('change_password')){
+					$supplementalNav .= ': <a href="index.php?a=28" target="main">' . $_lang['change_password'] . '</a>';
+				}else{
+					//not allowed to change pass
+				}
+				
+				if($modx->hasPermission('messages')) {
+					$supplementalNav .= '| 
+						<span id="newMail">
+							<a href="index.php?a=10" title="'.$_lang['you_got_mail'].'" target="main"> 
+								<img src="'.$_style['icons_mail'].'" width="16" height="16" />
+							</a>
+						</span>
+						<a href="index.php?a=10" target="main">'.$_lang['messages'].' <span id="msgCounter">( ? / ? )</span></a>';
+				}else{
+					//not allowed to see messages
+				}
+				
+				if($modx->hasPermission('help')) {
+					$supplementalNav .= '
+						| <a href="index.php?a=9" target="main">'.$_lang['help'].'</a>
+					';
+				}else{
+					//not allowed to see the help page
+				}
+				
+				echo $supplementalNav;
+			?>
+			
 			| <a href="index.php?a=8" target="_top"><?php echo $_lang['logout']?></a>
+			
 			| <span title="<?php echo $site_name ?> &ndash; <?php echo CMS_FULL_APPNAME; ?>"><?php echo $modx_version ?></span>&nbsp;
+			
 		</div><!-- close #supplementalNav -->
 	</div>
 </div>
