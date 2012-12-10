@@ -56,7 +56,7 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 				//display toc icon when tree frame is closed
 				var elm = jQuery('#tocText');
 				if(elm){
-					$('#tocText').html("<a href='#' onclick='defaultTreeFrame();'><img src='<?php echo $_style['show_tree']?>' alt='<?php echo $_lang['show_tree']?>' width='16' height='16' /></a>");
+					elm.html("<a href='#' onclick='defaultTreeFrame();'><img src='<?php echo $_style['show_tree']?>' alt='<?php echo $_lang['show_tree']?>' width='16' height='16' /></a>");
 				}
 			}
 			
