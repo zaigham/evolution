@@ -17,11 +17,32 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 	<script type="text/javascript">
     	
     	var config = {
-    		date_format: '<?php echo $modx->config['date_format']; ?>',
-    		time_format: '<?php echo $modx->config['time_format']; ?>',
-    		datepicker_year_range: '<?php echo $modx->config['datepicker_year_range']; ?>',
     		mail_check_timeperiod: '<?php echo $modx->config['mail_check_timeperiod'] ?>'
     	}
+    	
+    	var lang = {
+    		show_tree: '<?php echo $_lang['show_tree'] ?>',
+    		icons_loading_doc_tree : '<?php echo $_style['icons_loading_doc_tree']?>',
+    		loading_doc_tree : '<?php echo $_lang['loading_doc_tree']?>',
+    		loading_menu : '<?php echo $_lang['loading_menu']?>',
+    		working : '<?php echo $_lang['working']?>',
+    		confirm_remove_locks : '<?php echo $_lang['confirm_remove_locks']?>'
+    	}
+    	
+    	var style = {
+    		show_tree: '<?php echo $_style['show_tree'] ?>',
+    		icons_working: '<?php echo $_style['icons_working'] ?>'
+    	}
+    	
+    	var currentFrameState = 'open';
+		var defaultFrameWidth = '<?php echo !$modx_textdir ? '260,*' : '*,260'?>';
+		var userDefinedFrameWidth = '<?php echo !$modx_textdir ? '260,*' : '*,260'?>';
+	
+		var workText; //TODO: could be removed
+		var buildText; //TODO: could be removed
+
+		var modx_textdir = '<?php echo $modx_textdir ?>';
+		var manager_layout = '<?php echo $manager_layout?>';
 
     </script>
     
@@ -29,200 +50,7 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
     <script src="../assets/js/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
     <script src="../assets/js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
     <script src="media/script/keep-session-alive.js" type="text/javascript"></script>
-    <script src="media/script/manager.js" type="text/javascript"></script>
-	
-	<script type="text/javascript">
-		
-		$.noConflict();
-		
-		var currentFrameState = 'open';
-		var defaultFrameWidth = '<?php echo !$modx_textdir ? '260,*' : '*,260'?>';
-		var userDefinedFrameWidth = '<?php echo !$modx_textdir ? '260,*' : '*,260'?>';
-	
-		var workText;
-		var buildText;
-
-		jQuery(document).ready(function($) {
-			
-			
-		});
-				
-		jQuery(window).load(function () {
-		
-			updateMail(true); // First run update mail
-			window.setInterval('updateMail(true)', config.mail_check_timeperiod*1000);// Periodical Updater
-			
-			if(top.__hideTree) {
-				//display toc icon when tree frame is closed
-				var elm = jQuery('#tocText');
-				if(elm){
-					elm.html("<a href='#' onclick='defaultTreeFrame();'><img src='<?php echo $_style['show_tree']?>' alt='<?php echo $_lang['show_tree']?>' width='16' height='16' /></a>");
-				}
-			}
-			
-		});
-		
-		//gets email numbers and updates visuals(counters, new mail)
-		function updateMail(now) {
-			try {
-				// if 'now' is set, runs immediate ajax request (avoids problem on initial loading where periodical waits for time period before making first request)
-				if (now){
-					
-					jQuery.ajax({
-						url: 'index.php',
-						type: 'post',
-						data: { updateMsgCount: 'true'},
-						success: function(request){
-							var counts = request.split(',');// 0,0
-							jQuery('#msgCounter').html('(' + counts[0] + ' / ' + counts[1] + ')');
-							
-							if(counts[0] > 0){
-								jQuery('#newMail').show();
-							}else{
-								jQuery('#newMail').hide();
-							}
-						}
-					});
-					
-					return false;
-				}
-			
-			} catch(oException) {
-				// Delay first run until we're ready...
-				window.setTimeout('updateMail(true)', 1000);
-			}
-		};
-
-		//hides tree frame and places the reopen icon
-		function hideTreeFrame() {
-			userDefinedFrameWidth = parent.document.getElementsByTagName("FRAMESET").item(1).cols;
-			currentFrameState = 'closed';
-			try {
-				var elm = jQuery('#tocText');
-				if(elm){
-					elm.html("<a href='#' onclick='defaultTreeFrame();'><img src='<?php echo $_style['show_tree']?>' alt='<?php echo $_lang['show_tree']?>' width='16' height='16' /></a>");
-				}
-				
-				parent.document.getElementsByTagName("FRAMESET").item(1).cols = '<?php echo (!$modx_textdir ? '0,*' : '*,0')?>';
-				top.__hideTree = true;
-			} catch(oException) {
-				window.setTimeout('hideTreeFrame()', 1000);
-			}
-		}
-		
-		// opens tree frame and removes the reopen icon
-		function defaultTreeFrame() {
-			userDefinedFrameWidth = defaultFrameWidth;
-			currentFrameState = 'open';
-			try {
-				var elm = jQuery('#tocText');
-				if(elm){
-					elm.empty();
-				}
-				parent.document.getElementsByTagName("FRAMESET").item(1).cols = defaultFrameWidth;
-				top.__hideTree = false;
-			} catch(oException) {
-				window.setTimeout('defaultTreeFrame()', 1000);
-			}
-		}
-		
-		// GENERAL FUNCTIONS - Refresh
-		// These functions are used for refreshing the tree or menu
-		function reloadtree() {
-			var elm = jQuery('#buildText');
-			if (elm) {
-				elm.html("&nbsp;&nbsp;<img src='<?php echo $_style['icons_loading_doc_tree']?>' width='16' height='16' />&nbsp;<?php echo $_lang['loading_doc_tree']?>");
-				elm.show();
-			}
-			top.tree.saveFolderState(); // save folder state
-			setTimeout('top.tree.restoreTree()', 200);
-		}
-		
-		
-		function reloadmenu() {
-		<?php if($manager_layout==0) { ?>
-			var elm = jQuery('#buildText');
-			if (elm) {
-				elm.html("&nbsp;&nbsp;<img src='<?php echo $_style['icons_working']?>' width='16' height='16' />&nbsp;<?php echo $_lang['loading_menu']?>");
-				elm.show();
-			}
-			parent.mainMenu.location.reload();
-		<?php } ?>
-		}
-		
-		function startrefresh(rFrame){
-			
-			if(rFrame==1){
-				window.setTimeout('reloadtree()',500);
-			}
-			if(rFrame==2) {
-				window.setTimeout('reloadmenu()',500);
-			}
-			if(rFrame==9) {
-				window.setTimeout('reloadmenu()',500);
-				window.setTimeout('reloadtree()',500);
-			}
-			if(rFrame==10) {
-				window.top.location.href = "../manager";
-			}
-		}
-		
-		// GENERAL FUNCTIONS - Work
-		// These functions are used for showing the user the system is working
-		function work() {
-			var elm = jQuery('#workText');
-			if (elm) {
-				elm.html("&nbsp;<img src='<?php echo $_style['icons_working']?>' width='16' height='16' />&nbsp;<?php echo $_lang['working']?>");
-			}else{
-				window.setTimeout('work()', 50);
-			}
-		}
-	
-		function stopWork() {
-			var elm = jQuery('#workText');
-			if (elm) { 
-				elm.empty(); 
-			}else{
-				window.setTimeout('stopWork()', 50);
-			}
-		}
-		
-		// GENERAL FUNCTIONS - Remove locks
-		// This function removes locks on documents, templates, parsers, and snippets
-		function removeLocks() {
-			if(confirm("<?php echo $_lang['confirm_remove_locks']?>")==true) {
-				top.main.document.location.href="index.php?a=67";
-			}
-		}
-	
-		function showWin() {
-			window.open('../');
-		}
-	
-		function stopIt() {
-			top.mainMenu.stopWork();
-		}
-	
-		function openCredits() {
-			parent.main.document.location.href = "index.php?a=18";
-			window.setTimeout('stopIt()', 2000);
-		}
-		
-		function NavToggle(element) {
-			// This gives the active tab its look
-			var navid = jQuery('#nav');
-			var navs = jQuery('#nav li');
-			var navsCount = navs.length;
-			for(j = 0; j < navsCount; j++) {
-				active = (navs[j].id == element.parentNode.id) ? "active" : "";
-				navs[j].className = active;
-			}
-	
-			// remove focus from top nav
-			if(element) element.blur();
-		}
-		
-	</script>
+    <script src="media/script/main-menu.js" type="text/javascript"></script>
 
 </head>
 <body id="topMenu" class="<?php echo $modx_textdir ? 'rtl':'ltr'?>">
