@@ -24,5 +24,9 @@ $(document).ready(function($) {
 		dateFormat: config.date_format,
 		timeFormat: config.time_format
 	});
+	
+	$("#tabs" ).tabs({
+		collapsible: true
+	});
 
 });

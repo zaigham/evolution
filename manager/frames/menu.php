@@ -113,7 +113,7 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 			<ul id="nav">
 				<?php
 				// Concatenate menu items based on permissions
-				
+				//TODO: onclick="this.blur();" should be removed an replaced with something else if possible
 				// Site Menu
 				$sitemenu = array();
 				// home
