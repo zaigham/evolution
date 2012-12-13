@@ -5,11 +5,18 @@
 
 	[+OnManagerWelcomePrerender+]
 	
+	<script type="text/javascript">
+		//set var to be used to remove the config tab
+		if('[+config_display+]' == 'none'){
+			var config_display = false;
+		}
+	</script>
+	
 	<div id="tabs">
 		
 		<ul>
 			<li><a href="#tabs-1">[+site_name+]</a></li>
-			<li><a href="#tabs-2" style="display:[+config_display+];color:#EF1D1D;">[+settings_config+]</a></li> <!-- TODO: is config display being used? Its block or none, maybe if something it is shown first so users can see them. Maybe it should become active.-->
+			<li><a href="#tabs-2" style="color:#EF1D1D;">[+settings_config+]</a></li>
 			<li><a href="#tabs-3">[+modx_news+]</a></li>
 			<li><a href="#tabs-4">[+modx_security_notices+]</a></li>
 			<li><a href="#tabs-5">[+recent_docs+]</a></li>

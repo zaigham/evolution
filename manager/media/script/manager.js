@@ -24,9 +24,12 @@ $(document).ready(function($) {
 		dateFormat: config.date_format,
 		timeFormat: config.time_format
 	});
+
+	$("#tabs").tabs();
 	
-	$("#tabs" ).tabs({
-		collapsible: true
-	});
+	//hide configuration tab if empty
+	if(typeof(config_display) != "undefined" && !config_display){
+		$('#tabs').tabs('remove', 1);
+	}
 
 });
