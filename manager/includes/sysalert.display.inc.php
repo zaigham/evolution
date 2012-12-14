@@ -23,11 +23,7 @@
 	if($sysMsgs!="") {
 ?>
 
-<?php
-	echo
-	'<script type="text/javascript" src="'.$modx->config['base_url'].'manager/media/script/mootools/mootools.js"></script>
-	<script type="text/javascript" src="'.$modx->config['base_url'].'manager/media/script/mootools/moodx.js"></script>';
-	// fetch the styles
+<?php // fetch the styles
 	echo '<link rel="stylesheet" type="text/css" href="'.$modx->config['base_url'].'manager/media/style/'.$manager_theme.'/style.css'.'" />';
 ?>
 <script type="text/javascript">
