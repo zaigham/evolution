@@ -24,7 +24,7 @@
 ?>
 
 <?php // fetch the styles
-	echo '<link rel="stylesheet" type="text/css" href="'.$modx->config['base_url'].'manager/media/style/'.$manager_theme.'/style.css'.'" />';
+	echo '<link rel="stylesheet" type="text/css" href="'.$modx->config['base_url'].'manager/media/style/'.$manager_theme.'/style.css'.'" />'; // <<<< required??
 ?>
 <script type="text/javascript">
 // <![CDATA[
