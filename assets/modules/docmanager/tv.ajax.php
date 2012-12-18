@@ -180,14 +180,14 @@ function renderFormElement($field_type, $field_id, $default_text, $field_element
 							lastImageCtrl = ctrl;
 							var w = screen.width * 0.7;
 							var h = screen.height * 0.7;
-							OpenServerBrowser('".$base_url."manager/media/browser/mcpuk/browser.html?Type=images&Connector=".$base_url."manager/media/browser/mcpuk/connectors/php/connector.php&ServerPath=".$base_url."', w, h);
+							OpenServerBrowser('{$base_url}manager/media/browser/{$modx->config['file_browser']}/browser.html?Type=images&Connector={$base_url}manager/media/browser/{$modx->config['file_browser']}/connectors/php/connector.php&ServerPath={$base_url}', w, h);
 						}
 						
 						function BrowseFileServer(ctrl) {
 							lastFileCtrl = ctrl;
 							var w = screen.width * 0.7;
 							var h = screen.height * 0.7;
-							OpenServerBrowser('".$base_url."manager/media/browser/mcpuk/browser.html?Type=files&Connector=".$base_url."manager/media/browser/mcpuk/connectors/php/connector.php&ServerPath=".$base_url."', w, h);
+							OpenServerBrowser('{$base_url}manager/media/browser/{$modx->config['file_browser']}/browser.html?Type=files&Connector={$base_url}manager/media/browser/{$modx->config['file_browser']}/connectors/php/connector.php&ServerPath={$base_url}', w, h);
 						}
 						
 						function SetUrl(url, width, height, alt){
@@ -235,14 +235,14 @@ function renderFormElement($field_type, $field_id, $default_text, $field_element
 							lastImageCtrl = ctrl;
 							var w = screen.width * 0.7;
 							var h = screen.height * 0.7;
-							OpenServerBrowser('".$base_url."manager/media/browser/mcpuk/browser.html?Type=images&Connector=".$base_url."manager/media/browser/mcpuk/connectors/php/connector.php&ServerPath=".$base_url."', w, h);
+							OpenServerBrowser('{$base_url}manager/media/browser/{$modx->config['file_browser']}/browser.html?Type=images&Connector={$base_url}manager/media/browser/{$modx->config['file_browser']}/connectors/php/connector.php&ServerPath={$base_url}', w, h);
 						}
 									
 						function BrowseFileServer(ctrl) {
 							lastFileCtrl = ctrl;
 							var w = screen.width * 0.7;
 							var h = screen.height * 0.7;
-							OpenServerBrowser('".$base_url."manager/media/browser/mcpuk/browser.html?Type=files&Connector=".$base_url."manager/media/browser/mcpuk/connectors/php/connector.php&ServerPath=".$base_url."', w, h);
+							OpenServerBrowser('{$base_url}manager/media/browser/{$modx->config['file_browser']}/browser.html?Type=files&Connector={$base_url}manager/media/browser/{$modx->config['file_browser']}/connectors/php/connector.php&ServerPath={$base_url}', w, h);
 						}
 						
 						function SetUrl(url, width, height, alt){
