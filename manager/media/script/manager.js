@@ -31,5 +31,16 @@ $(document).ready(function($) {
 	if(typeof(config_display) != "undefined" && !config_display){
 		$('#tabs').tabs('remove', 1);
 	}
+	
+	$('#search-documents').dataTable({
+		"bJQueryUI": true,
+		"aoColumns": [
+	      {"bSortable": false },
+	      null,
+	      null,
+	      null,
+	      {"bSortable": false}
+    ]
+	});
 
 });

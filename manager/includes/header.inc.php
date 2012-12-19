@@ -15,7 +15,7 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $modx_manager_charset; ?>" />
 	
 	<link rel="stylesheet" type="text/css" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>style.css" />
-	
+	<link rel="stylesheet" type="text/css" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>manager.css" />
 	<link rel="stylesheet" type="text/css" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>jquery-ui/jquery-ui-1.9.2.custom.min.css" />
 
 	<!-- OnManagerMainFrameHeaderHTMLBlock -->
@@ -37,6 +37,7 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 	<script src="../assets/js/jquery.min.js" type="text/javascript"></script>
 	<script src="../assets/js/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
 	<script src="../assets/js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+	<script src="media/script/jquery.dataTables.min.js" type="text/javascript"></script>
 	<script src="media/script/manager.js" type="text/javascript"></script>
 	
 	<script type="text/javascript">
