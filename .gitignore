@@ -1,5 +1,5 @@
 # ignore any files beginning with .
-\.*
+.*
 
 # and any backup files
 *~
@@ -8,11 +8,11 @@
 assets/cache/*
 
 # plus these asset directories
-/assets/images/*
-/assets/files/*
-/assets/media/*
-/assets/export/*
-/assets/flash/*
+assets/images/*
+assets/files/*
+assets/media/*
+assets/export/*
+assets/flash/*
 
 # and the config file
 manager/includes/config.inc.php
