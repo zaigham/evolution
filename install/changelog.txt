@@ -1,5 +1,58 @@
-This file shows the changes in recent releases of MODx. The most current release is usually the
-development release, and is only shown to give an idea of what's currently in the pipeline.
+Note that the #numbers under the Clipper entries related to issue numbers as at https://github.com/ClipperCMS/ClipperCMS/issues
+
+ClipperCMS 1.1rc (Dec 2012)
+===========================
+
+- Snippet nesting problem fixed.
+- New ClipperCarbon style based on MODxCarbon.
+- New default ClipperModern style.
+- ClipperCMS branding applied and instances of MODx replaced with Clipper in the language files.
+- Replace MODx news feeds with Clipper news feeds (#38)
+- Improved and configurable handling of deprecated PHP functions in modules, snippets and plugins. Logging optional. Halting optional.
+- PHP error messages can now be switched off i.e. there is the option to exit silently.
+- Ditto and WebLoginPE forked and renamed. Snippet translation table implemented for backwards compatibility.
+- Change manager password hashes to a salted SHA1. Backwards compatibility with existing MD5 hashes retained.
+- Upgrades to bundled Extras:
+	AjaxSearch 1.9.3
+	WebUsers (was WebLoginPE) 1.3.2
+	TinyMCE clipper-3.4.9.1 (tinymce itself upgraded)
+	ManagerManager clipper-0.3.12
+	Forgot Manager Login clipper-1.1.5 (security upgrade; #82, #84)
+	QM+ clipper-1.5.6
+	List (was Ditto) 2.1.1
+- For UTF-8 sites, GPC arrays are sanitised so can now be assumed by Extras to contain valid UTF-8.
+- DocumentParser improvements:
+	- Bugfix: Erroneous HTTP 401 in DocumentParser changed to HTTP 403
+	- Improved security of DocumentParser::Striptags
+	- Bugfix: $_REQUEST['q'] crashes if passed an array
+	- jQuery script handling API methods added. Used by upgraded versions of QM+, ManagerManager and WebUsers.
+- .htaccess security rules added
+- The ubiquitous IN_MANAGER_MODE checks now exit silently.
+- Miscellaneous security fixes.
+- Updates for PHP 5.4 (OOP - see #89 and #90 - and instances of E_ALL changed to E_ALL & ~E_STRICT)
+- System setting defaults updated (#113)
+	- "Page Click Behavior" default changed to "Edit Resource"
+        - "Remember Tabs" default changed to "yes"
+- #107 ManagerManager (bundled extra) made compatible with custom TVs
+- #101 List (bundled extra) language item 'missing_placeholders_tpl' removed
+- #91  Removed border="0" from TinyMCE tables
+- #78  Update manager/includes/lang/nederlands-utf8.inc.php 
+- #77  jQuery bug in ManagerManager fixed
+- #53  Filebrowser modified to avoid space characters in uploaded filenames (problems with phpThumb)
+- #36  TinyMCE - modern skin enhancement 
+- #16  Insert, replace & insert ignore improvements to DBAPI
+- #6   Eliminated use of assets/templates/manager. Manager themes now live entirely in manager/media/styles.
+
+===================================================================================================
+===================================================================================================
+
+                                  ----------------------
+                                  MODX CHANGELOG FOLLOWS
+                                  ----------------------
+
+===================================================================================================
+===================================================================================================
+
 
 MODx Evolution 1.0.6 (Mar 08, 2012)
 ===================================
