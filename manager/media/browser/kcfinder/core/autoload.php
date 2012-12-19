@@ -27,7 +27,7 @@ define('MODX_BASE_URL', $base_url);
 require_once('../../../includes/config.inc.php');
 startCMSSession(); 
 if(!isset($_SESSION['mgrValidated'])) {
-        die('<b>INCLUDE_ORDERING_ERROR</b><br /><br />Please use the ClipperCMS content manager instead of accessing this file directly.');
+        exit();
 }
 
 // USE CLIPPERCMS MANAGER LANGUAGE
