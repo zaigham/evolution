@@ -2,14 +2,14 @@
 
 /** This file is part of KCFinder project
   *
-  *      @desc This file is included first, before each other
+  *   @desc This file is included first, before each other
   *   @package KCFinder
-  *   @version 2.51
-  *    @author Pavel Tzonkov <pavelc@users.sourceforge.net>
-  * @copyright 2010, 2011 KCFinder Project
+  *   @version 2.51 modified for ClipperCMS
+  *   @author Pavel Tzonkov <pavelc@users.sourceforge.net>. MODx integration by Temus. Clipper integration by the ClipperCMS project
+  *   @copyright 2010, 2011 KCFinder Project and others (integrations)
   *   @license http://www.opensource.org/licenses/gpl-2.0.php GPLv2
   *   @license http://www.opensource.org/licenses/lgpl-2.1.php LGPLv2
-  *      @link http://kcfinder.sunhater.com
+  *   @link http://kcfinder.sunhater.com
   *
   * This file is the place you can put any code (at the end of the file),
   * which will be executed before any other. Suitable for:
@@ -20,15 +20,28 @@
   *        It's recommended to use constants instead.
   */
 
+// CLIPPERCMS INTEGRATION
 list($base_url,) = explode('/manager/', $_SERVER['REQUEST_URI']);
 $base_url .= '/';
 define('MODX_BASE_URL', $base_url);
-include_once('../../../includes/config.inc.php');
+require_once('../../../includes/config.inc.php');
 startCMSSession(); 
 if(!isset($_SESSION['mgrValidated'])) {
-        die("<b>INCLUDE_ORDERING_ERROR</b><br /><br />Please use the MODx Content Manager instead of accessing this file directly.");
+        die('<b>INCLUDE_ORDERING_ERROR</b><br /><br />Please use the ClipperCMS content manager instead of accessing this file directly.');
 }
 
+// USE CLIPPERCMS MANAGER LANGUAGE
+require_once('../../../includes/document.parser.class.inc.php');
+$modx = new DocumentParser;
+$modx->getSettings();
+if (!$modx->config['manager_language'] || !file_exists(MODX_MANAGER_PATH.'includes/lang/'.$modx->config['manager_language'].'.inc.php')) {
+	include_once('../../../includes/lang/english.inc.php'); // Default
+} else {
+	include_once('../../../includes/lang/'.$modx->config['manager_language'].'.inc.php');
+}
+if (isset($modx_lang_attribute) && ctype_alpha($modx_lang_attribute) && strlen($modx_lang_attribute) == 2) {
+	$_GET['langCode'] = $_REQUEST['langCode'] = $modx_lang_attribute;
+}
 
 // PHP VERSION CHECK
 if (substr(PHP_VERSION, 0, strpos(PHP_VERSION, '.')) < 5)
