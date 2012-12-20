@@ -165,7 +165,6 @@ if (isset ($_POST['which_editor'])) {
 }
 ?>
 
-<!-- <script type="text/javascript" src="media/calendar/datepicker.js"></script> -->
 <script type="text/javascript">
 /* <![CDATA[ */
 window.addEvent('domready', function(){
@@ -496,64 +495,71 @@ function decode(s) {
 </script>
 
 <form name="mutate" id="mutate" class="content" method="post" enctype="multipart/form-data" action="index.php">
-<?php
-// invoke OnDocFormPrerender event
-$evtOut = $modx->invokeEvent('OnDocFormPrerender', array(
-    'id' => $id
-));
-if (is_array($evtOut))
-    echo implode('', $evtOut);
-?>
-<input type="hidden" name="a" value="5" />
-<input type="hidden" name="id" value="<?php echo $content['id']?>" />
-<input type="hidden" name="mode" value="<?php echo (int) $_REQUEST['a']?>" />
-<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo isset($upload_maxsize) ? $upload_maxsize : 1048576?>" />
-<input type="hidden" name="refresh_preview" value="0" />
-<input type="hidden" name="newtemplate" value="" />
 
-<fieldset id="create_edit">
-    <h1><?php if ($_REQUEST['id']){ echo $_lang['edit_resource_title']; } else { echo $_lang['create_resource_title'];}?></h1>
-
-<div id="actions">
-      <ul class="actionButtons">
-          <li id="Button1">
-            <a href="#" onclick="documentDirty=false; document.mutate.save.click();">
-              <img alt="icons_save" src="<?php echo $_style["icons_save"]?>" /> <?php echo $_lang['save']?>
-            </a><span class="and"> + </span>
-            <select id="stay" name="stay">
-              <?php if ($modx->hasPermission('new_document')) { ?>
-              <option id="stay1" value="1" <?php echo $_REQUEST['stay']=='1' ? ' selected=""' : ''?> ><?php echo $_lang['stay_new']?></option>
-              <?php } ?>
-              <option id="stay2" value="2" <?php echo $_REQUEST['stay']=='2' ? ' selected="selected"' : ''?> ><?php echo $_lang['stay']?></option>
-              <option id="stay3" value=""  <?php echo $_REQUEST['stay']=='' ? ' selected=""' : ''?>  ><?php echo $_lang['close']?></option>
-            </select>
-          </li>
-          <?php
-            if ($_REQUEST['a'] == '4' || $_REQUEST['a'] == '72') { ?>
-          <li id="Button2" class="disabled"><a href="#" onclick="deletedocument();"><img src="<?php echo $_style["icons_delete_document"] ?>" alt="icons_delete_document" /> <?php echo $_lang['delete']?></a></li>
-          <?php } else { ?>
-          <li id="Button6"><a href="#" onclick="duplicatedocument();"><img src="<?php echo $_style["icons_resource_duplicate"] ?>" alt="icons_resource_duplicate" /> <?php echo $_lang['duplicate']?></a></li>
-          <li id="Button3"><a href="#" onclick="deletedocument();"><img src="<?php echo $_style["icons_delete_document"] ?>" alt="icons_delete_document" /> <?php echo $_lang['delete']?></a></li>
-          <?php } ?>
-          <li id="Button4"><a href="#" onclick="documentDirty=false;<?php echo $id==0 ? "document.location.href='index.php?a=2';" : "document.location.href='index.php?a=3&amp;id=$id';"?>"><img alt="icons_cancel" src="<?php echo $_style["icons_cancel"] ?>" /> <?php echo $_lang['cancel']?></a></li>
-          <li id="Button5"><a href="#" onclick="window.open('<?php echo $modx->makeUrl($id); ?>','previeWin');"><img alt="icons_preview_resource" src="<?php echo $_style["icons_preview_resource"] ?>" /> <?php echo $_lang['preview']?></a></li>
-      </ul>
-</div>
-
-<!-- start main wrapper -->
-<div class="sectionBody">
-<script type="text/javascript" src="media/script/tabpane.js"></script>
-
-<div class="tab-pane" id="documentPane">
-    <script type="text/javascript">
-    tpSettings = new WebFXTabPane( document.getElementById( "documentPane" ), <?php echo $modx->config['remember_last_tab'] == 1 ? 'true' : 'false'; ?> );
-    </script>
-
-    <!-- General -->
-    <div class="tab-page" id="tabGeneral">
-        <h2 class="tab"><?php echo $_lang['settings_general']?></h2>
-        <script type="text/javascript">tpSettings.addTabPage( document.getElementById( "tabGeneral" ) );</script>
-
+	
+	<?php
+	// invoke OnDocFormPrerender event
+	$evtOut = $modx->invokeEvent('OnDocFormPrerender', array(
+	    'id' => $id
+	));
+	if (is_array($evtOut))
+	    echo implode('', $evtOut);
+	?>
+	<input type="hidden" name="a" value="5" />
+	<input type="hidden" name="id" value="<?php echo $content['id']?>" />
+	<input type="hidden" name="mode" value="<?php echo (int) $_REQUEST['a']?>" />
+	<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo isset($upload_maxsize) ? $upload_maxsize : 1048576?>" />
+	<input type="hidden" name="refresh_preview" value="0" />
+	<input type="hidden" name="newtemplate" value="" />
+	
+	<fieldset id="create_edit">
+	    <h1><?php if ($_REQUEST['id']){ echo $_lang['edit_resource_title']; } else { echo $_lang['create_resource_title'];}?></h1>
+	
+		<div id="actions">
+		      <ul class="actionButtons">
+		          <li id="Button1">
+		            <a href="#" onclick="documentDirty=false; document.mutate.save.click();">
+		              <img alt="icons_save" src="<?php echo $_style["icons_save"]?>" /> <?php echo $_lang['save']?>
+		            </a><span class="and"> + </span>
+		            <select id="stay" name="stay">
+		              <?php if ($modx->hasPermission('new_document')) { ?>
+		              <option id="stay1" value="1" <?php echo $_REQUEST['stay']=='1' ? ' selected=""' : ''?> ><?php echo $_lang['stay_new']?></option>
+		              <?php } ?>
+		              <option id="stay2" value="2" <?php echo $_REQUEST['stay']=='2' ? ' selected="selected"' : ''?> ><?php echo $_lang['stay']?></option>
+		              <option id="stay3" value=""  <?php echo $_REQUEST['stay']=='' ? ' selected=""' : ''?>  ><?php echo $_lang['close']?></option>
+		            </select>
+		          </li>
+		          <?php
+		            if ($_REQUEST['a'] == '4' || $_REQUEST['a'] == '72') { ?>
+		          <li id="Button2" class="disabled"><a href="#" onclick="deletedocument();"><img src="<?php echo $_style["icons_delete_document"] ?>" alt="icons_delete_document" /> <?php echo $_lang['delete']?></a></li>
+		          <?php } else { ?>
+		          <li id="Button6"><a href="#" onclick="duplicatedocument();"><img src="<?php echo $_style["icons_resource_duplicate"] ?>" alt="icons_resource_duplicate" /> <?php echo $_lang['duplicate']?></a></li>
+		          <li id="Button3"><a href="#" onclick="deletedocument();"><img src="<?php echo $_style["icons_delete_document"] ?>" alt="icons_delete_document" /> <?php echo $_lang['delete']?></a></li>
+		          <?php } ?>
+		          <li id="Button4"><a href="#" onclick="documentDirty=false;<?php echo $id==0 ? "document.location.href='index.php?a=2';" : "document.location.href='index.php?a=3&amp;id=$id';"?>"><img alt="icons_cancel" src="<?php echo $_style["icons_cancel"] ?>" /> <?php echo $_lang['cancel']?></a></li>
+		          <li id="Button5"><a href="#" onclick="window.open('<?php echo $modx->makeUrl($id); ?>','previeWin');"><img alt="icons_preview_resource" src="<?php echo $_style["icons_preview_resource"] ?>" /> <?php echo $_lang['preview']?></a></li>
+		      </ul>
+		</div>
+		
+		<!-- start main wrapper -->
+		<div class="sectionBody">
+		
+			<div id="tabs">
+				<ul>
+					<li><a href="#tabGeneral"><?php echo $_lang['settings_general']?></a></li>
+					<li><a href="#tabSettings"><?php echo $_lang['settings_page_settings']?></a></li>
+					
+					<?php if ($modx->hasPermission('edit_doc_metatags') && $modx->config['show_meta']) { ?>
+					<li><a href="#tabMeta"><?php echo $_lang['meta_keywords']?></a></li>
+					<?php } ?>
+					
+					<?php if ($use_udperms == 1) { ?>
+					<li><a href="#tabAccess"><?php echo $_lang['access_permissions']?></a></li>
+					<?php } ?>
+				</ul>
+				
+				<div id="tabGeneral">
+		
         <table width="99%" border="0" cellspacing="5" cellpadding="0">
             <tr style="height: 24px;"><td width="100" align="left"><span class="warning"><?php echo $_lang['resource_title']?></span></td>
                 <td><input name="pagetitle" type="text" maxlength="255" value="<?php echo htmlspecialchars(stripslashes($content['pagetitle']))?>" class="inputBox" onchange="documentDirty=true;" spellcheck="true" />
@@ -809,15 +815,12 @@ if (is_array($evtOut))
             </div>
             <!-- end .sectionBody .tmplvars -->
         <?php } ?>
-
+    
     </div><!-- end #tabGeneral -->
-
-    <!-- Settings -->
-    <div class="tab-page" id="tabSettings">
-        <h2 class="tab"><?php echo $_lang['settings_page_settings']?></h2>
-        <script type="text/javascript">tpSettings.addTabPage( document.getElementById( "tabSettings" ) );</script>
-
-        <table width="99%" border="0" cellspacing="5" cellpadding="0">
+				
+				<div id="tabSettings">
+		
+		<table width="99%" border="0" cellspacing="5" cellpadding="0">
 
         <?php $mx_can_pub = $modx->hasPermission('publish_document') ? '' : 'disabled="disabled" '; ?>
             <tr style="height: 24px;">
@@ -943,260 +946,283 @@ if ($_SESSION['mgrRole'] == 1 || $_REQUEST['a'] != '27' || $_SESSION['mgrInterna
                 &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['resource_opt_emptycache_help']?>" onclick="alert(this.alt);" style="cursor:help;" /></td>
             </tr>
         </table>
-    </div><!-- end #tabSettings -->
-
-<?php if ($modx->hasPermission('edit_doc_metatags') && $modx->config['show_meta']) {
-    // get list of site keywords
-    $keywords = array();
-    $ds = $modx->db->select('*', $tbl_site_keywords, '', 'keyword ASC');
-    $limit = $modx->db->getRecordCount($ds);
-    if ($limit > 0) {
-        for ($i = 0; $i < $limit; $i++) {
-            $row = $modx->db->getRow($ds);
-            $keywords[$row['id']] = $row['keyword'];
-        }
-    }
-    // get selected keywords using document's id
-    if (isset ($content['id']) && count($keywords) > 0) {
-        $keywords_selected = array();
-        $ds = $modx->db->select('keyword_id', $tbl_keyword_xref, 'content_id=\''.$content['id'].'\'');
-        $limit = $modx->db->getRecordCount($ds);
-        if ($limit > 0) {
-            for ($i = 0; $i < $limit; $i++) {
-                $row = $modx->db->getRow($ds);
-                $keywords_selected[$row['keyword_id']] = ' selected="selected"';
-            }
-        }
-    }
-
-    // get list of site META tags
-    $metatags = array();
-    $ds = $modx->db->select('*', $tbl_site_metatags);
-    $limit = $modx->db->getRecordCount($ds);
-    if ($limit > 0) {
-        for ($i = 0; $i < $limit; $i++) {
-            $row = $modx->db->getRow($ds);
-            $metatags[$row['id']] = $row['name'];
-        }
-    }
-    // get selected META tags using document's id
-    if (isset ($content['id']) && count($metatags) > 0) {
-        $metatags_selected = array();
-        $ds = $modx->db->select('metatag_id', $tbl_site_content_metatags, 'content_id=\''.$content['id'].'\'');
-        $limit = $modx->db->getRecordCount($ds);
-        if ($limit > 0) {
-            for ($i = 0; $i < $limit; $i++) {
-                $row = $modx->db->getRow($ds);
-                $metatags_selected[$row['metatag_id']] = ' selected="selected"';
-            }
-        }
-    }
-    ?>
-    <!-- META Keywords -->
-    <div class="tab-page" id="tabMeta">
-        <h2 class="tab"><?php echo $_lang['meta_keywords']?></h2>
-        <script type="text/javascript">tpSettings.addTabPage( document.getElementById( "tabMeta" ) );</script>
-
-        <table width="99%" border="0" cellspacing="5" cellpadding="0">
-        <tr style="height: 24px;"><td><?php echo $_lang['resource_metatag_help']?><br /><br />
-            <table border="0" style="width:inherit;"><tr>
-            <td><span class="warning"><?php echo $_lang['keywords']?></span><br />
-                <select name="keywords[]" multiple="multiple" size="16" class="inputBox" style="width: 200px;" onchange="documentDirty=true;">
-                <?php
-                    $keys = array_keys($keywords);
-                    for ($i = 0; $i < count($keys); $i++) {
-                        $key = $keys[$i];
-                        $value = $keywords[$key];
-                        $selected = $keywords_selected[$key];
-                        echo "\t\t\t\t".'<option value="'.$key.'"'.$selected.'>'.$value."</option>\n";
-                    }
-                ?>
-                </select>
-                <br />
-                <input type="button" value="<?php echo $_lang['deselect_keywords']?>" onclick="clearKeywordSelection();" />
-            </td>
-            <td><span class="warning"><?php echo $_lang['metatags']?></span><br />
-                <select name="metatags[]" multiple="multiple" size="16" class="inputBox" style="width: 220px;" onchange="documentDirty=true;">
-                <?php
-                    $keys = array_keys($metatags);
-                    for ($i = 0; $i < count($keys); $i++) {
-                        $key = $keys[$i];
-                        $value = $metatags[$key];
-                        $selected = $metatags_selected[$key];
-                        echo "\t\t\t\t".'<option value="'.$key.'"'.$selected.'>'.$value."</option>\n";
-                    }
-                ?>
-                </select>
-                <br />
-                <input type="button" value="<?php echo $_lang['deselect_metatags']?>" onclick="clearMetatagSelection();" />
-            </td>
-            </table>
-            </td>
-        </tr>
-        </table>
-    </div><!-- end #tabMeta -->
-<?php
-}
-
-/*******************************
- * Document Access Permissions */
-if ($use_udperms == 1) {
-    $groupsarray = array();
-    $sql = '';
-
-    $documentId = ($_REQUEST['a'] == '27' ? $id : (!empty($_REQUEST['pid']) ? $_REQUEST['pid'] : $content['parent']));
-    if ($documentId > 0) {
-        // Load up, the permissions from the parent (if new document) or existing document
-        $sql = 'SELECT id, document_group FROM '.$tbl_document_groups.' WHERE document=\''.$documentId.'\'';
-        $rs = mysql_query($sql);
-        while ($currentgroup = mysql_fetch_assoc($rs))
-            $groupsarray[] = $currentgroup['document_group'].','.$currentgroup['id'];
-
-        // Load up the current permissions and names
-        $sql = 'SELECT dgn.*, groups.id AS link_id '.
-               'FROM '.$tbl_document_group_names.' AS dgn '.
-               'LEFT JOIN '.$tbl_document_groups.' AS groups ON groups.document_group = dgn.id '.
-               '  AND groups.document = '.$documentId.' '.
-               'ORDER BY name';
-    } else {
-        // Just load up the names, we're starting clean
-        $sql = 'SELECT *, NULL AS link_id FROM '.$tbl_document_group_names.' ORDER BY name';
-    }
-
-    // retain selected doc groups between post
-    if (isset($_POST['docgroups']))
-        $groupsarray = array_merge($groupsarray, $_POST['docgroups']);
-
-    // Query the permissions and names from above
-    $rs = mysql_query($sql);
-    $limit = mysql_num_rows($rs);
-
-    $isManager = $modx->hasPermission('access_permissions');
-    $isWeb     = $modx->hasPermission('web_access_permissions');
-
-    // Setup Basic attributes for each Input box
-    $inputAttributes = array(
-        'type' => 'checkbox',
-        'class' => 'checkbox',
-        'name' => 'docgroups[]',
-        'onclick' => 'makePublic(false);',
-    );
-    $permissions = array(); // New Permissions array list (this contains the HTML)
-    $permissions_yes = 0; // count permissions the current mgr user has
-    $permissions_no = 0; // count permissions the current mgr user doesn't have
-
-    // Loop through the permissions list
-    for ($i = 0; $i < $limit; $i++) {
-        $row = mysql_fetch_assoc($rs);
-
-        // Create an inputValue pair (group ID and group link (if it exists))
-        $inputValue = $row['id'].','.($row['link_id'] ? $row['link_id'] : 'new');
-        $inputId    = 'group-'.$row['id'];
-
-        $checked    = in_array($inputValue, $groupsarray);
-        if ($checked) $notPublic = true; // Mark as private access (either web or manager)
-
-        // Skip the access permission if the user doesn't have access...
-        if ((!$isManager && $row['private_memgroup'] == '1') || (!$isWeb && $row['private_webgroup'] == '1'))
-            continue;
-
-        // Setup attributes for this Input box
-        $inputAttributes['id']    = $inputId;
-        $inputAttributes['value'] = $inputValue;
-        if ($checked)
-                $inputAttributes['checked'] = 'checked';
-        else    unset($inputAttributes['checked']);
-
-        // Create attribute string list
-        $inputString = array();
-        foreach ($inputAttributes as $k => $v) $inputString[] = $k.'="'.$v.'"';
-
-        // Make the <input> HTML
-        $inputHTML = '<input '.implode(' ', $inputString).' />';
-
-        // does user have this permission?
-        $sql = "SELECT COUNT(mg.id) FROM {$tbl_membergroup_access} mga, {$tbl_member_groups} mg
- WHERE mga.membergroup = mg.user_group
- AND mga.documentgroup = {$row['id']}
- AND mg.member = {$_SESSION['mgrInternalKey']};";
-        $rsp = $modx->db->query($sql);
-        $count = $modx->db->getValue($rsp);
-        if($count > 0) {
-            ++$permissions_yes;
-        } else {
-            ++$permissions_no;
-        }
-        $permissions[] = "\t\t".'<li>'.$inputHTML.'<label for="'.$inputId.'">'.$row['name'].'</label></li>';
-    }
-    // if mgr user doesn't have access to any of the displayable permissions, forget about them and make doc public
-    if($_SESSION['mgrRole'] != 1 && ($permissions_yes == 0 && $permissions_no > 0)) {
-        $permissions = array();
-    }
-
-    // See if the Access Permissions section is worth displaying...
-    if (!empty($permissions)) {
-        // Add the "All Document Groups" item if we have rights in both contexts
-        if ($isManager && $isWeb)
-            array_unshift($permissions,"\t\t".'<li><input type="checkbox" class="checkbox" name="chkalldocs" id="groupall"'.(!$notPublic ? ' checked="checked"' : '').' onclick="makePublic(true);" /><label for="groupall" class="warning">' . $_lang['all_doc_groups'] . '</label></li>');
-        // Output the permissions list...
-?>
-<!-- Access Permissions -->
-<div class="tab-page" id="tabAccess">
-    <h2 class="tab" id="tab_access_header"><?php echo $_lang['access_permissions']?></h2>
-    <script type="text/javascript">tpSettings.addTabPage( document.getElementById( "tabAccess" ) );</script>
-    <script type="text/javascript">
-        /* <![CDATA[ */
-        function makePublic(b) {
-            var notPublic = false;
-            var f = document.forms['mutate'];
-            var chkpub = f['chkalldocs'];
-            var chks = f['docgroups[]'];
-            if (!chks && chkpub) {
-                chkpub.checked=true;
-                return false;
-            } else if (!b && chkpub) {
-                if (!chks.length) notPublic = chks.checked;
-                else for (i = 0; i < chks.length; i++) if (chks[i].checked) notPublic = true;
-                chkpub.checked = !notPublic;
-            } else {
-                if (!chks.length) chks.checked = (b) ? false : chks.checked;
-                else for (i = 0; i < chks.length; i++) if (b) chks[i].checked = false;
-                chkpub.checked = true;
-            }
-        }
-        /* ]]> */
-    </script>
-    <p><?php echo $_lang['access_permissions_docs_message']?></p>
-    <ul>
-    <?php echo implode("\n", $permissions)."\n"; ?>
-    </ul>
-</div><!--div class="tab-page" id="tabAccess"-->
-<?php
-    } // !empty($permissions)
-    elseif($_SESSION['mgrRole'] != 1 && ($permissions_yes == 0 && $permissions_no > 0) && ($_SESSION['mgrPermissions']['access_permissions'] == 1 || $_SESSION['mgrPermissions']['web_access_permissions'] == 1)) {
-?>
-    <p><?php echo $_lang["access_permissions_docs_collision"];?></p>
-<?php
-
-    }
-}
-/* End Document Access Permissions *
- ***********************************/
-?>
-
-<input type="submit" name="save" style="display:none" />
-<?php
-
-// invoke OnDocFormRender event
-$evtOut = $modx->invokeEvent('OnDocFormRender', array(
-    'id' => $id,
-));
-if (is_array($evtOut)) echo implode('', $evtOut);
-?>
-</div><!--div class="tab-pane" id="documentPane"-->
-</div><!--div class="sectionBody"-->
-</fieldset>
+    
+    
+    </div> <!-- end tabSettings -->
+				
+				<?php if ($modx->hasPermission('edit_doc_metatags') && $modx->config['show_meta']) { ?>
+				<div id="tabMeta">
+				
+				<?php	
+					
+					// get list of site keywords
+				    $keywords = array();
+				    $ds = $modx->db->select('*', $tbl_site_keywords, '', 'keyword ASC');
+				    $limit = $modx->db->getRecordCount($ds);
+				    if ($limit > 0) {
+				        for ($i = 0; $i < $limit; $i++) {
+				            $row = $modx->db->getRow($ds);
+				            $keywords[$row['id']] = $row['keyword'];
+				        }
+				    }
+				    // get selected keywords using document's id
+				    if (isset ($content['id']) && count($keywords) > 0) {
+				        $keywords_selected = array();
+				        $ds = $modx->db->select('keyword_id', $tbl_keyword_xref, 'content_id=\''.$content['id'].'\'');
+				        $limit = $modx->db->getRecordCount($ds);
+				        if ($limit > 0) {
+				            for ($i = 0; $i < $limit; $i++) {
+				                $row = $modx->db->getRow($ds);
+				                $keywords_selected[$row['keyword_id']] = ' selected="selected"';
+				            }
+				        }
+				    }
+				
+				    // get list of site META tags
+				    $metatags = array();
+				    $ds = $modx->db->select('*', $tbl_site_metatags);
+				    $limit = $modx->db->getRecordCount($ds);
+				    if ($limit > 0) {
+				        for ($i = 0; $i < $limit; $i++) {
+				            $row = $modx->db->getRow($ds);
+				            $metatags[$row['id']] = $row['name'];
+				        }
+				    }
+				    // get selected META tags using document's id
+				    if (isset ($content['id']) && count($metatags) > 0) {
+				        $metatags_selected = array();
+				        $ds = $modx->db->select('metatag_id', $tbl_site_content_metatags, 'content_id=\''.$content['id'].'\'');
+				        $limit = $modx->db->getRecordCount($ds);
+				        if ($limit > 0) {
+				            for ($i = 0; $i < $limit; $i++) {
+				                $row = $modx->db->getRow($ds);
+				                $metatags_selected[$row['metatag_id']] = ' selected="selected"';
+				            }
+				        }
+				    }
+					
+				?>
+					<table width="99%" border="0" cellspacing="5" cellpadding="0">
+			        <tr style="height: 24px;"><td><?php echo $_lang['resource_metatag_help']?><br /><br />
+			            <table border="0" style="width:inherit;"><tr>
+			            <td><span class="warning"><?php echo $_lang['keywords']?></span><br />
+			                <select name="keywords[]" multiple="multiple" size="16" class="inputBox" style="width: 200px;" onchange="documentDirty=true;">
+			                <?php
+			                    $keys = array_keys($keywords);
+			                    for ($i = 0; $i < count($keys); $i++) {
+			                        $key = $keys[$i];
+			                        $value = $keywords[$key];
+			                        $selected = $keywords_selected[$key];
+			                        echo "\t\t\t\t".'<option value="'.$key.'"'.$selected.'>'.$value."</option>\n";
+			                    }
+			                ?>
+			                </select>
+			                <br />
+			                <input type="button" value="<?php echo $_lang['deselect_keywords']?>" onclick="clearKeywordSelection();" />
+			            </td>
+			            <td><span class="warning"><?php echo $_lang['metatags']?></span><br />
+			                <select name="metatags[]" multiple="multiple" size="16" class="inputBox" style="width: 220px;" onchange="documentDirty=true;">
+			                <?php
+			                    $keys = array_keys($metatags);
+			                    for ($i = 0; $i < count($keys); $i++) {
+			                        $key = $keys[$i];
+			                        $value = $metatags[$key];
+			                        $selected = $metatags_selected[$key];
+			                        echo "\t\t\t\t".'<option value="'.$key.'"'.$selected.'>'.$value."</option>\n";
+			                    }
+			                ?>
+			                </select>
+			                <br />
+			                <input type="button" value="<?php echo $_lang['deselect_metatags']?>" onclick="clearMetatagSelection();" />
+			            </td>
+			            </table>
+			            </td>
+			        </tr>
+			        </table>
+				
+				
+				 
+				</div> <!-- end tabMeta -->
+				<?php } ?>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<?php 
+			
+			/*******************************
+			 * Document Access Permissions */
+			if ($use_udperms == 1) {
+			    $groupsarray = array();
+			    $sql = '';
+			
+			    $documentId = ($_REQUEST['a'] == '27' ? $id : (!empty($_REQUEST['pid']) ? $_REQUEST['pid'] : $content['parent']));
+			    if ($documentId > 0) {
+			        // Load up, the permissions from the parent (if new document) or existing document
+			        $sql = 'SELECT id, document_group FROM '.$tbl_document_groups.' WHERE document=\''.$documentId.'\'';
+			        $rs = mysql_query($sql);
+			        while ($currentgroup = mysql_fetch_assoc($rs))
+			            $groupsarray[] = $currentgroup['document_group'].','.$currentgroup['id'];
+			
+			        // Load up the current permissions and names
+			        $sql = 'SELECT dgn.*, groups.id AS link_id '.
+			               'FROM '.$tbl_document_group_names.' AS dgn '.
+			               'LEFT JOIN '.$tbl_document_groups.' AS groups ON groups.document_group = dgn.id '.
+			               '  AND groups.document = '.$documentId.' '.
+			               'ORDER BY name';
+			    } else {
+			        // Just load up the names, we're starting clean
+			        $sql = 'SELECT *, NULL AS link_id FROM '.$tbl_document_group_names.' ORDER BY name';
+			    }
+			
+			    // retain selected doc groups between post
+			    if (isset($_POST['docgroups']))
+			        $groupsarray = array_merge($groupsarray, $_POST['docgroups']);
+			
+			    // Query the permissions and names from above
+			    $rs = mysql_query($sql);
+			    $limit = mysql_num_rows($rs);
+			
+			    $isManager = $modx->hasPermission('access_permissions');
+			    $isWeb     = $modx->hasPermission('web_access_permissions');
+			
+			    // Setup Basic attributes for each Input box
+			    $inputAttributes = array(
+			        'type' => 'checkbox',
+			        'class' => 'checkbox',
+			        'name' => 'docgroups[]',
+			        'onclick' => 'makePublic(false);',
+			    );
+			    $permissions = array(); // New Permissions array list (this contains the HTML)
+			    $permissions_yes = 0; // count permissions the current mgr user has
+			    $permissions_no = 0; // count permissions the current mgr user doesn't have
+			
+			    // Loop through the permissions list
+			    for ($i = 0; $i < $limit; $i++) {
+			        $row = mysql_fetch_assoc($rs);
+			
+			        // Create an inputValue pair (group ID and group link (if it exists))
+			        $inputValue = $row['id'].','.($row['link_id'] ? $row['link_id'] : 'new');
+			        $inputId    = 'group-'.$row['id'];
+			
+			        $checked    = in_array($inputValue, $groupsarray);
+			        if ($checked) $notPublic = true; // Mark as private access (either web or manager)
+			
+			        // Skip the access permission if the user doesn't have access...
+			        if ((!$isManager && $row['private_memgroup'] == '1') || (!$isWeb && $row['private_webgroup'] == '1'))
+			            continue;
+			
+			        // Setup attributes for this Input box
+			        $inputAttributes['id']    = $inputId;
+			        $inputAttributes['value'] = $inputValue;
+			        if ($checked)
+			                $inputAttributes['checked'] = 'checked';
+			        else    unset($inputAttributes['checked']);
+			
+			        // Create attribute string list
+			        $inputString = array();
+			        foreach ($inputAttributes as $k => $v) $inputString[] = $k.'="'.$v.'"';
+			
+			        // Make the <input> HTML
+			        $inputHTML = '<input '.implode(' ', $inputString).' />';
+			
+			        // does user have this permission?
+			        $sql = "SELECT COUNT(mg.id) FROM {$tbl_membergroup_access} mga, {$tbl_member_groups} mg
+			 WHERE mga.membergroup = mg.user_group
+			 AND mga.documentgroup = {$row['id']}
+			 AND mg.member = {$_SESSION['mgrInternalKey']};";
+			        $rsp = $modx->db->query($sql);
+			        $count = $modx->db->getValue($rsp);
+			        if($count > 0) {
+			            ++$permissions_yes;
+			        } else {
+			            ++$permissions_no;
+			        }
+			        $permissions[] = "\t\t".'<li>'.$inputHTML.'<label for="'.$inputId.'">'.$row['name'].'</label></li>';
+			    }
+			    // if mgr user doesn't have access to any of the displayable permissions, forget about them and make doc public
+			    if($_SESSION['mgrRole'] != 1 && ($permissions_yes == 0 && $permissions_no > 0)) {
+			        $permissions = array();
+			    }
+			
+			    // See if the Access Permissions section is worth displaying...
+			    if (!empty($permissions)) {
+			        // Add the "All Document Groups" item if we have rights in both contexts
+			        if ($isManager && $isWeb)
+			            array_unshift($permissions,"\t\t".'<li><input type="checkbox" class="checkbox" name="chkalldocs" id="groupall"'.(!$notPublic ? ' checked="checked"' : '').' onclick="makePublic(true);" /><label for="groupall" class="warning">' . $_lang['all_doc_groups'] . '</label></li>');
+			        // Output the permissions list...
+			?>
+			<!-- Access Permissions -->
+			<div id="tabAccess">
+			    <!-- <h2 class="tab" id="tab_access_header"><?php echo $_lang['access_permissions']?></h2> -->
+			    <!-- <script type="text/javascript">tpSettings.addTabPage( document.getElementById( "tabAccess" ) );</script> -->
+			    <script type="text/javascript">
+			        /* <![CDATA[ */
+			        function makePublic(b) {
+			            var notPublic = false;
+			            var f = document.forms['mutate'];
+			            var chkpub = f['chkalldocs'];
+			            var chks = f['docgroups[]'];
+			            if (!chks && chkpub) {
+			                chkpub.checked=true;
+			                return false;
+			            } else if (!b && chkpub) {
+			                if (!chks.length) notPublic = chks.checked;
+			                else for (i = 0; i < chks.length; i++) if (chks[i].checked) notPublic = true;
+			                chkpub.checked = !notPublic;
+			            } else {
+			                if (!chks.length) chks.checked = (b) ? false : chks.checked;
+			                else for (i = 0; i < chks.length; i++) if (b) chks[i].checked = false;
+			                chkpub.checked = true;
+			            }
+			        }
+			        /* ]]> */
+			    </script>
+			    <p><?php echo $_lang['access_permissions_docs_message']?></p>
+			    <ul>
+			    <?php echo implode("\n", $permissions)."\n"; ?>
+			    </ul>
+			</div><!--div class="tab-page" id="tabAccess"-->
+			<?php
+			    } // !empty($permissions)
+			    elseif($_SESSION['mgrRole'] != 1 && ($permissions_yes == 0 && $permissions_no > 0) && ($_SESSION['mgrPermissions']['access_permissions'] == 1 || $_SESSION['mgrPermissions']['web_access_permissions'] == 1)) {
+			?>
+			    <div id="tabAccess"><p><?php echo $_lang["access_permissions_docs_collision"];?></p></div>
+			<?php
+			
+			    }
+			}
+			/* End Document Access Permissions *
+			 ***********************************/
+			?>
+			
+			
+				<input type="submit" name="save" style="display:none" />
+				<?php
+				
+				// invoke OnDocFormRender event
+				$evtOut = $modx->invokeEvent('OnDocFormRender', array(
+				    'id' => $id,
+				));
+				if (is_array($evtOut)) echo implode('', $evtOut);
+				?>
+			
+			
+			</div> <!-- end tabs -->
+			
+			
+		</div><!--div class="sectionBody"-->
+		
+	
+	</fieldset>
 </form>
+
+
 
 <script type="text/javascript">
     storeCurTemplate();
