@@ -200,10 +200,6 @@ if(isset($_GET['a']) && isset($_POST['a'])) {
     $action= (int)$_REQUEST['a'];
 }
 
-if (isset($_POST['updateMsgCount']) && $modx->hasPermission('messages')) {
-    include_once 'messageCount.inc.php';
-}
-
 // save page to manager object
 $modx->manager->action = $action;
 
@@ -707,29 +703,6 @@ switch ($action) {
         include_once "processors/remove_content.processor.php";
     break;
 /********************************************************************/
-/* Messages                                                     */
-/********************************************************************/
-    case 10:
-        // get the messages page
-        include_once "header.inc.php";
-        include_once "actions/messages.static.php";
-        include_once "footer.inc.php";
-    break;
-/********************************************************************/
-/* Delete a message                                                 */
-/********************************************************************/
-    case 65:
-        // get the message deleter
-        include_once "processors/delete_message.processor.php";
-    break;
-/********************************************************************/
-/* Send a message                                                   */
-/********************************************************************/
-    case 66:
-        // get the message deleter
-        include_once "processors/send_message.processor.php";
-    break;
-/********************************************************************/
 /* Remove locks                                                 */
 /********************************************************************/
     case 67:
@@ -906,6 +879,21 @@ switch ($action) {
         //delete category
         include_once "processors/delete_category.processor.php";
     break;
+
+/********************************************************************/
+/* Obsolete actions                                                 */
+/********************************************************************/
+    case 10: // Messages page
+    case 65: // Delete msg
+    case 66: // Send msg
+        include_once "header.inc.php";
+        echo "
+            <div class='sectionHeader'>{$_lang['function_no_longer_impl']}</div>
+			<div class='sectionBody'>
+                <p>{$_lang['function_no_longer_impl_message']}</p>
+            </div>";
+        include_once "footer.inc.php";
+		break;
 /********************************************************************/
 /* default action: show not implemented message                     */
 /********************************************************************/
@@ -913,14 +901,10 @@ switch ($action) {
         // say that what was requested doesn't do anything yet
         include_once "header.inc.php";
         echo "
-            <div class='subTitle'>
-                <span class='right'>".$_lang['functionnotimpl']."</span>
-            </div>
-            <div class='sectionHeader'>".$_lang['functionnotimpl']."</div>
+            <div class='sectionHeader'>{$_lang['functionnotimpl']}</div>
 			<div class='sectionBody'>
-                <p>".$_lang['functionnotimpl_message']."</p>
-            </div>
-        ";
+                <p>{$_lang['functionnotimpl_message']}</p>
+            </div>";
         include_once "footer.inc.php";
 }
 
