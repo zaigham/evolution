@@ -2,7 +2,7 @@
 /**
  * Reflect
  * 
- * Generates date-based archives using Ditto
+ * Generates date-based archives using List
  *
  * @category 	snippet
  * @version 	2.1.0
