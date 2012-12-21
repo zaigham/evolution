@@ -17,20 +17,6 @@ $tbl_event_log    = $modx->getFullTableName('event_log');
 
 $mode = isset($_POST['mode']) ? $_POST['mode'] : '';
 
-function callBack(&$dumpstring) {
-	$today = date("d_M_y");
-	$today = strtolower($today);
-	if(!headers_sent()) {
-	    header('Expires: 0');
-        header('Cache-Control: private');
-        header('Pragma: cache');
-		header('Content-type: application/download');
-		header('Content-Disposition: attachment; filename='.$today.'_database_backup.sql');
-	}
-	echo $dumpstring;
-	return true;
-}
-
 function nicesize($size) {
 	$a = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
 
@@ -63,8 +49,18 @@ if ($mode=='backup') {
 	$dumper = new ClipperSqlDumper($modx);
 	$dumper->setDBtables($tables);
 	$dumper->setDroptables((isset($_POST['droptables']) ? true : false));
-	$dumpfinished = $dumper->createDump('callBack');
-	if($dumpfinished) {
+	$dump_output = $dumper->createDump();
+	if($dump_output) {
+		$today = date("d_M_y");
+		$today = strtolower($today);
+		if(!headers_sent()) {
+			header('Expires: 0');
+		    header('Cache-Control: private');
+		    header('Pragma: cache');
+			header('Content-type: application/download');
+			header('Content-Disposition: attachment; filename='.$today.'_database_backup.sql');
+		}
+		echo $dump_output;
 		exit;
 	} else {
 		$e->setError(1, 'Unable to Backup Database');

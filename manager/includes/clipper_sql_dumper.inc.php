@@ -29,7 +29,7 @@ class ClipperSqlDumper {
 		return $this->_isDroptables;
 	}
 
-	function createDump($callBack) {
+	function createDump() {
 
 		global $site_name,$full_appname;
 
@@ -91,13 +91,9 @@ class ClipperSqlDumper {
 				}
 				$output .= rtrim($insertdump,',') . ");";
 			}
-			// invoke callback -- raymond
-			if ($callBack) {
-				if (!$callBack($output)) break;
-				$output = "";
-			}
+		
+		return $output;
 		}
-		return ($callBack) ? true: $output;
 	}
 }
 
