@@ -36,13 +36,17 @@ class ClipperSqlDumper {
 		// Set line feed
 		$lf = "\n";
 
-		$result = $this->modx->db->query('SHOW TABLES');
-		$tables = $this->modx->db->getColumn(0, $result);
-		foreach ($tables as $tblval) {
-			$result = $this->modx->db->query("SHOW CREATE TABLE `$tblval`");
-			$createtable[$tblval] = $this->modx->db->getColumn(1, $result);
-		}
+		$tables = array();
+		$createtable = array();
 		
+		$result = $this->modx->db->query('SHOW TABLES');
+		while ($row = $this->modx->db->getRow($result, 'num')) {
+			$tables[] = $row[0];
+			$result2 = $this->modx->db->query("SHOW CREATE TABLE `{$row[0]}`");
+			$row2 = $this->modx->db->getRow($result2);
+			$createtable[$row[0]] = $row2['Create Table'];
+		}
+
 		// Set header
 		$output = "#". $lf;
 		$output .= "# ".addslashes($site_name)." Database Dump" . $lf;
@@ -75,7 +79,7 @@ class ClipperSqlDumper {
 			if($this->isDroptables()) {
 				$output .= "DROP TABLE IF EXISTS `$tblval`;" . $lf;
 			}
-			$output .= $createtable[$tblval][0].";" . $lf;
+			$output .= $createtable[$tblval].";" . $lf;
 			$output .= $lf;
 			$output .= "#". $lf . "# Dumping data for table `$tblval`". $lf . "#" . $lf;
 			$result = $this->modx->db->query("SELECT * FROM `$tblval`");
@@ -91,9 +95,10 @@ class ClipperSqlDumper {
 				}
 				$output .= rtrim($insertdump,',') . ");";
 			}
-		
-		return $output;
 		}
+	
+	return $output;
+
 	}
 }
 
