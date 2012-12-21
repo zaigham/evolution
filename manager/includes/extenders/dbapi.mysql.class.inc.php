@@ -10,6 +10,8 @@ class DBAPI {
    var $conn;
    var $config;
    var $isConnected;
+   
+   private $host, $dbase; // Holds host and db name if connected.
 
    /**
     * @name:  DBAPI
@@ -95,6 +97,8 @@ class DBAPI {
             $modx->messageQuit("Failed to select the database '" . $dbase . "'!");
             exit;
          }
+         $this->host = $host;
+         $this->dbase = $dbase;
          @mysql_query("{$connection_method} {$charset}", $this->conn);
          $tend = $modx->getMicroTime();
          $totaltime = $tend - $tstart;
@@ -520,5 +524,24 @@ class DBAPI {
    function getVersion() {
        return mysql_get_server_info();
    }
+   
+   /**
+    * Get name of host if connected
+    *
+    * @return string
+    */
+   function getHostname() {
+   		return $this->host;
+   }
+
+   /**
+    * Get name of database if connected
+    *
+    * @return string
+    */
+   function getDBname() {
+   		return $this->dbase;
+   }
+
 }
-?>
+
