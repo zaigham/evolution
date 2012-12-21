@@ -811,6 +811,7 @@ class DocumentParser {
     /**
      * Merge meta tags
      *
+     * @deprecated Meta tags to be removed from manager.
      * @param string $template
      * @return string
      */
