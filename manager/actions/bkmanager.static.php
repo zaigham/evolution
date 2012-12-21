@@ -58,6 +58,7 @@ if ($mode=='backup') {
 	 * Modified by Raymond 3-Jan-2005
 	 * Modified by TimGS for Clipper Dec 2012
 	 */
+	require_once('clipper_sql_dumper.inc.php');
 	@set_time_limit(120); // set timeout limit to 2 minutes
 	$dumper = new ClipperSqlDumper($modx);
 	$dumper->setDBtables($tables);
