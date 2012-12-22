@@ -1,6 +1,6 @@
 Note that the #numbers under the Clipper entries related to issue numbers as at https://github.com/ClipperCMS/ClipperCMS/issues
 
-ClipperCMS 1.1.1 (Dec 2012)
+ClipperCMS 1.1.0 (Dec 2012)
 ===========================
 
 - E_DEPRECATED issue fixed for PHP < 5.3
