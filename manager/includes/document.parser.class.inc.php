@@ -3558,7 +3558,7 @@ class DocumentParser {
         if (error_reporting() == 0 || $nr == 0 || ($nr == 8 && $this->stopOnNotice == false)) {
             return true;
         }
-        if (defined(E_DEPRECATED) && $nr & (E_DEPRECATED | E_USER_DEPRECATED)) { // TimGS. Handle deprecated functions according to config.
+        if (defined(E_DEPRECATED) && ($nr & (E_DEPRECATED | E_USER_DEPRECATED))) { // TimGS. Handle deprecated functions according to config.
                 switch ($this->config['error_handling_deprecated']) {
                         case 1:
                         	$this->logEvent(29,2,$text.'; File: '.$file.'; Line: '.$line);
