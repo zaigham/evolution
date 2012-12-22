@@ -1086,7 +1086,7 @@ $_lang["yourinfo_role"] = 'Ihre Rolle ist:';
 $_lang["yourinfo_title"] = 'Ihre Informationen';
 $_lang["yourinfo_total_logins"] = 'Anzahl der Anmeldungen:';
 $_lang["yourinfo_username"] = 'Sie sind angemeldet als:';
-$_lang['error_handling_deprecated_label'] = 'Wie soll veraltete PHP-Funktionen behandelt werden';
+$_lang['error_handling_deprecated_label'] = 'Wie soll veraltete PHP-Funktionen behandelt werden (PHP >= 5.3)';
 $_lang['error_handling_deprecated_0'] = 'Erlaube veraltete PHP-Funktionen. Keine Fehlermeldung.';
 $_lang['error_handling_deprecated_1'] = 'Erlaube veraltete PHP-Funktionen. Fehlermeldung speichern unter Berichte, Systemereignisse.';
 $_lang['error_handling_deprecated_2'] = 'Verbiete veraltete PHP-Funktionen. Fehlermeldung ausgeben und Programm stoppen.';
