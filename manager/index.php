@@ -70,7 +70,7 @@ header("Pragma: no-cache");
 header("X-UA-Compatible: IE=8"); // Datepicker needs fixing
 
 // set error reporting
-if (defined(E_DEPRECATED)) {
+if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
 	error_reporting(E_ALL & E_DEPRECATED & ~E_NOTICE);
 } else {
 	error_reporting(E_ALL & ~E_NOTICE);

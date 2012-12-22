@@ -3529,7 +3529,7 @@ class DocumentParser {
 	 */
 	function set_error_handler()
 		{
-		if (defined(E_DEPRECATED))
+		if (version_compare(PHP_VERSION, '5.3.0') >= 0)
 			{
 			// PHP 5.3
 			set_error_handler(array (&$this, 'phpError'), (error_reporting() & ~E_DEPRECATED & ~E_USER_DEPRECATED) | ($this->config['error_handling_deprecated'] ? E_DEPRECATED | E_USER_DEPRECATED : 0));
@@ -3558,7 +3558,7 @@ class DocumentParser {
         if (error_reporting() == 0 || $nr == 0 || ($nr == 8 && $this->stopOnNotice == false)) {
             return true;
         }
-        if (defined(E_DEPRECATED) && ($nr & (E_DEPRECATED | E_USER_DEPRECATED))) { // TimGS. Handle deprecated functions according to config.
+        if (version_compare(PHP_VERSION, '5.3.0') >= 0 && ($nr & (E_DEPRECATED | E_USER_DEPRECATED))) { // TimGS. Handle deprecated functions according to config.
                 switch ($this->config['error_handling_deprecated']) {
                         case 1:
                         	$this->logEvent(29,2,$text.'; File: '.$file.'; Line: '.$line);
