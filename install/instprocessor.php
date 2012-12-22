@@ -254,7 +254,12 @@ $database_connection_charset = \'' . $database_connection_charset . '\';
 $database_connection_method = \'' . $database_connection_method . '\';
 $dbase = \'`' . str_replace("`", "", $dbase) . '`\';
 $table_prefix = \'' . $table_prefix . '\';
-error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
+
+if (defined(E_DEPRECATED)) {
+	error_reporting(E_ALL & E_DEPRECATED & ~E_NOTICE);
+} else {
+	error_reporting(E_ALL & ~E_NOTICE);
+}
 
 $lastInstallTime = '.time().';
 
