@@ -1084,7 +1084,7 @@ $_lang["yourinfo_role"] = 'Your role is:';
 $_lang["yourinfo_title"] = 'Your info';
 $_lang["yourinfo_total_logins"] = 'Total number of logins:';
 $_lang["yourinfo_username"] = 'You are logged in as:';
-$_lang['error_handling_deprecated_label'] = 'How should deprecated PHP functions be handled';
+$_lang['error_handling_deprecated_label'] = 'How should deprecated PHP functions be handled (PHP >= 5.3)';
 $_lang['error_handling_deprecated_0'] = 'Allow deprecated functions. No error reporting.';
 $_lang['error_handling_deprecated_1'] = 'Allow deprecated functions. Log under Reports,System Events';
 $_lang['error_handling_deprecated_2'] = 'Do not allow deprecated functions. Throw an error and halt';

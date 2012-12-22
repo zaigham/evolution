@@ -1089,7 +1089,7 @@ $_lang["yourinfo_role"] = 'Uw Rol is:';
 $_lang["yourinfo_title"] = 'Uw info';
 $_lang["yourinfo_total_logins"] = 'Het totaal aantal keren dat u zich heeft aangemeld:';
 $_lang["yourinfo_username"] = 'U bent aangemeld als:';
-$_lang['error_handling_deprecated_label'] = 'Hoe moet deprecated PHP functie\'s gebruikt worden';
+$_lang['error_handling_deprecated_label'] = 'Hoe moet deprecated PHP functie\'s gebruikt worden (PHP >= 5.3)';
 $_lang['error_handling_deprecated_0'] = 'Laat deprecated functies toe. Geen fouten melden.';
 $_lang['error_handling_deprecated_1'] = 'Laat deprecated functies toe. Meld onder Rapporten, Systeem Evenementen';
 $_lang['error_handling_deprecated_2'] = 'Laat deprecated functies niet toe. Toon een error';
