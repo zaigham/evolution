@@ -1,0 +1,16 @@
+/**
+ * Common styles - used by all manager pages and linked to before the style stylesheet 
+ */
+
+.help-table .tag {
+	width: 14em;
+	}
+
+.help-table * {
+	text-align: left;
+	}
+
+.help-table caption {
+	font-weight: bold;
+	font-size: 1.1em;
+	}
