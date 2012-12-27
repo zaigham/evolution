@@ -59,51 +59,15 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 <div id="topbar">
 	<div id="topbar-container">
 
-		<div id="statusbar">
-			<span id="buildText"></span>
-			<span id="workText"></span>
-		</div>
-
-		<div id="supplementalNav">
-			<?php 
-				
-				$supplementalNav .= $modx->getLoginUserName();
-				
-				if($modx->hasPermission('change_password')){
-					$supplementalNav .= ': <a href="index.php?a=28" target="main">' . $_lang['change_password'] . '</a>';
-				}else{
-					//not allowed to change pass
-				}
-				
-				if($modx->hasPermission('messages')) {
-					$supplementalNav .= '| 
-						<span id="newMail">
-							<a href="index.php?a=10" title="'.$_lang['you_got_mail'].'" target="main"> 
-								<img src="'.$_style['icons_mail'].'" width="16" height="16" />
-							</a>
-						</span>
-						<a href="index.php?a=10" target="main">'.$_lang['messages'].' <span id="msgCounter">( ? / ? )</span></a>';
-				}else{
-					//not allowed to see messages
-				}
-				
-				if($modx->hasPermission('help')) {
-					$supplementalNav .= '
-						| <a href="index.php?a=9" target="main">'.$_lang['help'].'</a>
-					';
-				}else{
-					//not allowed to see the help page
-				}
-				
-				echo $supplementalNav;
-			?>
-			
-			| <a href="index.php?a=8" target="_top"><?php echo $_lang['logout']?></a>
-			
-			| <span title="<?php echo $site_name ?> &ndash; <?php echo CMS_FULL_APPNAME; ?>"><?php echo $modx_version ?></span>&nbsp;
-			
-		</div><!-- close #supplementalNav -->
-	</div>
+	<div id="supplementalNav">
+	<?php
+	echo $modx->getLoginUserName(). ($modx->hasPermission('change_password') ? ': <a onclick="this.blur();" href="index.php?a=28" target="main">'.$_lang['change_password'].'</a>'."\n" : "\n");
+	if($modx->hasPermission('help')) { ?>
+		| <a href="index.php?a=9" target="main"><?php echo $_lang['help']?></a>
+	<?php } ?>
+		| <a href="index.php?a=8" target="_top"><?php echo $_lang['logout']?></a>
+		| <span title="<?php echo $site_name ?> &ndash; <?php echo CMS_FULL_APPNAME; ?>"><?php echo $modx_version ?></span>&nbsp;
+		<!-- close #supplementalNav --></div>
 </div>
 
 <form name="menuForm" action="l4mnu.php" class="clear">

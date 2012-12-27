@@ -1,4 +1,11 @@
 <?php
+// 
+// Vericode 'captcha' image generator.
+//
+// WARNING: This file is not used as an include file, despite it's presence in manager/includes.
+// However both the core and Extras assume it is here and use this location as <img> tag src attributes.
+//
+
 include_once("config.inc.php");
 
 $vword = new VeriWord(148,60);

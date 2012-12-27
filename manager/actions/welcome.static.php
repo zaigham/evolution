@@ -30,18 +30,6 @@ $modx->setPlaceholder('site_name',$site_name);
 $modx->setPlaceholder('welcome_title',$_lang['welcome_title']);
 $modx->setPlaceholder('cms_version_info', CMS_NAME.' '.CMS_RELEASE_VERSION.' '.CMS_RELEASE_NAME);
 
-// setup message info
-if($modx->hasPermission('messages')) {
-	include_once MODX_MANAGER_PATH.'includes/messageCount.inc.php';
-	$_SESSION['nrtotalmessages'] = $nrtotalmessages;
-	$_SESSION['nrnewmessages'] = $nrnewmessages;
-
-    $msg = '<a href="index.php?a=10"><img src="'.$_style['icons_mail_large'].'" /></a>
-    <span style="color:#909090;font-size:15px;font-weight:bold">&nbsp;'.$_lang["inbox"].($_SESSION['nrnewmessages']>0 ? " (<span style='color:red'>".$_SESSION['nrnewmessages']."</span>)":"").'</span><br />
-    <span class="comment">'.sprintf($_lang["welcome_messages"], $_SESSION['nrtotalmessages'], "<span style='color:red;'>".$_SESSION['nrnewmessages']."</span>").'</span>';
-    $modx->setPlaceholder('MessageInfo',$msg);
-}
-
 // setup icons
 if($modx->hasPermission('new_user')||$modx->hasPermission('edit_user')) { 
     $icon = '<a class="hometblink" href="index.php?a=75"><img src="'.$_style['icons_security_large'].'" width="32" height="32" alt="'.$_lang['user_management_title'].'" /><br />'.$_lang['security'].'</a>';     
@@ -230,3 +218,4 @@ if ($_SESSION['mgrHashtype'] != CLIPPER_HASH_PREFERRED) {
 }
 
 echo $tpl;
+?>

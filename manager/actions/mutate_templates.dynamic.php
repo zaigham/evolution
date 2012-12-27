@@ -219,6 +219,10 @@ echo $tvList;
 ?></div>
 <?php } ?>
 
+<div class="sectionBody">
+	<?php include(dirname(__FILE__).'/../help/includes/tag_syntax.inc.php'); ?>
+</div>
+
 <?php
 // invoke OnTempFormRender event
 $evtOut = $modx->invokeEvent("OnTempFormRender",array("id" => $id));

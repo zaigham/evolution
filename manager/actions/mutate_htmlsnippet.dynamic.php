@@ -200,6 +200,11 @@ if (is_array($evtOut)) {
 ?>
             </select>
 </div><!-- end .sectionBody -->
+
+<div class="sectionBody">
+	<?php include(dirname(__FILE__).'/../help/includes/tag_syntax.inc.php'); ?>
+</div>
+
 <?php
 
 // invoke OnChunkFormRender event
