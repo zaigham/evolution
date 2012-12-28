@@ -239,274 +239,279 @@ function showHide(what, onoff){
 
 <!-- Tab Start -->
 <div class="sectionBody">
+
 <link type="text/css" rel="stylesheet" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>style.css<?php echo "?$theme_refresher";?>" />
-<script type="text/javascript" src="media/script/tabpane.js"></script>
-<div class="tab-pane" id="webUserPane">
-	<script type="text/javascript">
-		tpUser = new WebFXTabPane(document.getElementById( "webUserPane" ), <?php echo $modx->config['remember_last_tab'] == 1 ? 'true' : 'false'; ?> );
-	</script>
-    <div class="tab-page" id="tabGeneral">
-    	<h2 class="tab"><?php echo $_lang["settings_general"] ?></h2>
-    	<script type="text/javascript">tpUser.addTabPage( document.getElementById( "tabGeneral" ) );</script>
-		<table border="0" cellspacing="0" cellpadding="3">
-		  <tr>
-			<td colspan="3">
-				<span id="blocked" class="warning"><?php if($userdata['blocked']==1 || ($userdata['blockeduntil']>time() && $userdata['blockeduntil']!=0)|| ($userdata['blockedafter']<time() && $userdata['blockedafter']!=0) || $userdata['failedlogins']>3) { ?><b><?php echo $_lang['user_is_blocked']; ?></b><?php } ?></span><br />
-			</td>
-		  </tr>
-		  <?php if(!empty($userdata['id'])) { ?>
-		  <tr id="showname" style="display: <?php echo ($_GET['a']=='88' && (!isset($usernamedata['oldusername'])||$usernamedata['oldusername']==$usernamedata['username'])) ? $displayStyle : 'none';?> ">
-			<td colspan="3">
-				<img src="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>images/icons/user.gif" alt="." />&nbsp;<b><?php echo !empty($usernamedata['oldusername']) ? $usernamedata['oldusername']:$usernamedata['username']; ?></b> - <span class="comment"><a href="#" onclick="changeName();return false;"><?php echo $_lang["change_name"]; ?></a></span>
-				<input type="hidden" name="oldusername" value="<?php echo htmlspecialchars(!empty($usernamedata['oldusername']) ? $usernamedata['oldusername']:$usernamedata['username']); ?>" />
-				<hr />
-			</td>
-		  </tr>
-		  <?php } ?>
-		  <tr id="editname" style="display:<?php echo $_GET['a']=='87'||(isset($usernamedata['oldusername']) && $usernamedata['oldusername']!=$usernamedata['username']) ? $displayStyle : 'none' ; ?>">
-			<td><?php echo $_lang['username']; ?>:</td>
-			<td>&nbsp;</td>
-			<td><input type="text" name="newusername" class="inputBox" value="<?php echo htmlspecialchars(isset($_POST['newusername']) ? $_POST['newusername'] : $usernamedata['username']); ?>" onchange='documentDirty=true;' maxlength="100" /></td>
-		  </tr>
-		  <tr>
-			<td valign="top"><?php echo $_GET['a']=='87' ? $_lang['password'].":" : $_lang['change_password_new'].":" ; ?></td>
-			<td>&nbsp;</td>
-			<td><input name="newpasswordcheck" type="checkbox" onclick="changestate(document.userform.newpassword);changePasswordState(document.userform.newpassword);"<?php echo $_REQUEST['a']=="87" ? " checked disabled": "" ; ?>><input type="hidden" name="newpassword" value="<?php echo $_REQUEST['a']=="87" ? 1 : 0 ; ?>" onchange="documentDirty=true;" /><br />
-				<span style="display:<?php echo $_REQUEST['a']=="87" ? "block": "none" ; ?>" id="passwordBlock">
-				<fieldset style="width:300px">
-				<legend><b><?php echo $_lang['password_gen_method']; ?></b></legend>
-				<input type=radio name="passwordgenmethod" value="g" <?php echo $_POST['passwordgenmethod']=="spec" ? "" : 'checked="checked"'; ?> /><?php echo $_lang['password_gen_gen']; ?><br />
-				<input type=radio name="passwordgenmethod" value="spec" <?php echo $_POST['passwordgenmethod']=="spec" ? 'checked="checked"' : ""; ?>><?php echo $_lang['password_gen_specify']; ?> <br />
-				<div style="padding-left:20px">
-				<label for="specifiedpassword" style="width:120px"><?php echo $_lang['change_password_new']; ?>:</label>
-				<input type="password" name="specifiedpassword" onchange="documentdirty=true;" onkeypress="document.userform.passwordgenmethod[1].checked=true;" size="20" /><br />
-				<label for="confirmpassword" style="width:120px"><?php echo $_lang['change_password_confirm']; ?>:</label>
-				<input type="password" name="confirmpassword" onchange="documentdirty=true;" onkeypress="document.userform.passwordgenmethod[1].checked=true;" size="20" /><br />
-				<small><span class="warning" style="font-weight:normal"><?php echo $_lang['password_gen_length']; ?></span></small>
-				</div>
-				</fieldset>
-				<br />
-				<fieldset style="width:300px">
-				<legend><b><?php echo $_lang['password_method']; ?></b></legend>
-				<input type=radio name="passwordnotifymethod" value="e" <?php echo $_POST['passwordnotifymethod']=="e" ? 'checked="checked"' : ""; ?> /><?php echo $_lang['password_method_email']; ?><br />
-				<input type=radio name="passwordnotifymethod" value="s" <?php echo $_POST['passwordnotifymethod']=="e" ? "" : 'checked="checked"'; ?> /><?php echo $_lang['password_method_screen']; ?>
-				</fieldset>
-				</span>
-			</td>
-		  </tr>
-		  <tr>
-			<td><?php echo $_lang['user_full_name']; ?>:</td>
-			<td>&nbsp;</td>
-			<td><input type="text" name="fullname" class="inputBox" value="<?php echo htmlspecialchars(isset($_POST['fullname']) ? $_POST['fullname'] : $userdata['fullname']); ?>" onchange="documentDirty=true;" /></td>
-		  </tr>
-		  <tr>
-			<td><?php echo $_lang['user_email']; ?>:</td>
-			<td>&nbsp;</td>
-			<td>
-			<input type="text" name="email" class="inputBox" value="<?php echo  isset($_POST['email']) ? $_POST['email'] : $userdata['email']; ?>" onchange="documentDirty=true;" />
-			<input type="hidden" name="oldemail" value="<?php echo htmlspecialchars(!empty($userdata['oldemail']) ? $userdata['oldemail']:$userdata['email']); ?>" />
-			</td>
-		  </tr>
-		  <tr>
-			<td><?php echo $_lang['user_phone']; ?>:</td>
-			<td>&nbsp;</td>
-			<td><input type="text" name="phone" class="inputBox" value="<?php echo isset($_POST['phone']) ? $_POST['phone'] : $userdata['phone']; ?>" onchange="documentDirty=true;" /></td>
-		  </tr>
-		  <tr>
-			<td><?php echo $_lang['user_mobile']; ?>:</td>
-			<td>&nbsp;</td>
-			<td><input type="text" name="mobilephone" class="inputBox" value="<?php echo isset($_POST['mobilephone']) ? $_POST['mobilephone'] : $userdata['mobilephone']; ?>" onchange="documentDirty=true;" /></td>
-		  </tr>
-		  <tr>
-			<td><?php echo $_lang['user_fax']; ?>:</td>
-			<td>&nbsp;</td>
-			<td><input type="text" name="fax" class="inputBox" value="<?php echo isset($_POST['fax']) ? $_POST['fax'] : $userdata['fax']; ?>" onchange="documentDirty=true;" /></td>
-		  </tr>
-		  <tr>
-			<td><?php echo $_lang['user_state']; ?>:</td>
-			<td>&nbsp;</td>
-			<td><input type="text" name="state" class="inputBox" value="<?php echo isset($_POST['state']) ? $_POST['state'] : $userdata['state']; ?>" onchange="documentDirty=true;" /></td>
-		  </tr>
-		  <tr>
-			<td><?php echo $_lang['user_zip']; ?>:</td>
-			<td>&nbsp;</td>
-			<td><input type="text" name="zip" class="inputBox" value="<?php echo isset($_POST['zip']) ? $_POST['zip'] : $userdata['zip']; ?>" onchange="documentDirty=true;" /></td>
-		  </tr>
-		  <tr>
-			<td><?php echo $_lang['user_country']; ?>:</td>
-			<td>&nbsp;</td>
-			<td>
-			<select size="1" name="country" onchange="documentDirty=true;">
-            <?php $chosenCountry = isset($_POST['country']) ? $_POST['country'] : $userdata['country']; ?>
-			<option value="" <?php (!isset($chosenCountry) ? ' selected' : '') ?> >&nbsp;</option>
-				<?php
-				foreach ($_country_lang as $key => $country) {
-				 echo "<option value=\"$key\"".(isset($chosenCountry) && $chosenCountry == $key ? ' selected' : '') .">$country</option>";
+
+	<div id="tabs">
+		<ul>
+			<li><a href="#tabGeneral"><?php echo $_lang["settings_general"] ?></a></li>
+			<li><a href="#tabSettings"><?php echo $_lang["settings_users"] ?></a></li>
+			<li><a href="#tabPhoto"><?php echo $_lang["settings_photo"] ?></a></li>
+		</ul>
+		
+		<div id="tabGeneral">
+			
+			<table border="0" cellspacing="0" cellpadding="3">
+			  <tr>
+				<td colspan="3">
+					<span id="blocked" class="warning"><?php if($userdata['blocked']==1 || ($userdata['blockeduntil']>time() && $userdata['blockeduntil']!=0)|| ($userdata['blockedafter']<time() && $userdata['blockedafter']!=0) || $userdata['failedlogins']>3) { ?><b><?php echo $_lang['user_is_blocked']; ?></b><?php } ?></span><br />
+				</td>
+			  </tr>
+			  <?php if(!empty($userdata['id'])) { ?>
+			  <tr id="showname" style="display: <?php echo ($_GET['a']=='88' && (!isset($usernamedata['oldusername'])||$usernamedata['oldusername']==$usernamedata['username'])) ? $displayStyle : 'none';?> ">
+				<td colspan="3">
+					<img src="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>images/icons/user.gif" alt="." />&nbsp;<b><?php echo !empty($usernamedata['oldusername']) ? $usernamedata['oldusername']:$usernamedata['username']; ?></b> - <span class="comment"><a href="#" onclick="changeName();return false;"><?php echo $_lang["change_name"]; ?></a></span>
+					<input type="hidden" name="oldusername" value="<?php echo htmlspecialchars(!empty($usernamedata['oldusername']) ? $usernamedata['oldusername']:$usernamedata['username']); ?>" />
+					<hr />
+				</td>
+			  </tr>
+			  <?php } ?>
+			  <tr id="editname" style="display:<?php echo $_GET['a']=='87'||(isset($usernamedata['oldusername']) && $usernamedata['oldusername']!=$usernamedata['username']) ? $displayStyle : 'none' ; ?>">
+				<td><?php echo $_lang['username']; ?>:</td>
+				<td>&nbsp;</td>
+				<td><input type="text" name="newusername" class="inputBox" value="<?php echo htmlspecialchars(isset($_POST['newusername']) ? $_POST['newusername'] : $usernamedata['username']); ?>" onchange='documentDirty=true;' maxlength="100" /></td>
+			  </tr>
+			  <tr>
+				<td valign="top"><?php echo $_GET['a']=='87' ? $_lang['password'].":" : $_lang['change_password_new'].":" ; ?></td>
+				<td>&nbsp;</td>
+				<td><input name="newpasswordcheck" type="checkbox" onclick="changestate(document.userform.newpassword);changePasswordState(document.userform.newpassword);"<?php echo $_REQUEST['a']=="87" ? " checked disabled": "" ; ?>><input type="hidden" name="newpassword" value="<?php echo $_REQUEST['a']=="87" ? 1 : 0 ; ?>" onchange="documentDirty=true;" /><br />
+					<span style="display:<?php echo $_REQUEST['a']=="87" ? "block": "none" ; ?>" id="passwordBlock">
+					<fieldset style="width:300px">
+					<legend><b><?php echo $_lang['password_gen_method']; ?></b></legend>
+					<input type=radio name="passwordgenmethod" value="g" <?php echo $_POST['passwordgenmethod']=="spec" ? "" : 'checked="checked"'; ?> /><?php echo $_lang['password_gen_gen']; ?><br />
+					<input type=radio name="passwordgenmethod" value="spec" <?php echo $_POST['passwordgenmethod']=="spec" ? 'checked="checked"' : ""; ?>><?php echo $_lang['password_gen_specify']; ?> <br />
+					<div style="padding-left:20px">
+					<label for="specifiedpassword" style="width:120px"><?php echo $_lang['change_password_new']; ?>:</label>
+					<input type="password" name="specifiedpassword" onchange="documentdirty=true;" onkeypress="document.userform.passwordgenmethod[1].checked=true;" size="20" /><br />
+					<label for="confirmpassword" style="width:120px"><?php echo $_lang['change_password_confirm']; ?>:</label>
+					<input type="password" name="confirmpassword" onchange="documentdirty=true;" onkeypress="document.userform.passwordgenmethod[1].checked=true;" size="20" /><br />
+					<small><span class="warning" style="font-weight:normal"><?php echo $_lang['password_gen_length']; ?></span></small>
+					</div>
+					</fieldset>
+					<br />
+					<fieldset style="width:300px">
+					<legend><b><?php echo $_lang['password_method']; ?></b></legend>
+					<input type=radio name="passwordnotifymethod" value="e" <?php echo $_POST['passwordnotifymethod']=="e" ? 'checked="checked"' : ""; ?> /><?php echo $_lang['password_method_email']; ?><br />
+					<input type=radio name="passwordnotifymethod" value="s" <?php echo $_POST['passwordnotifymethod']=="e" ? "" : 'checked="checked"'; ?> /><?php echo $_lang['password_method_screen']; ?>
+					</fieldset>
+					</span>
+				</td>
+			  </tr>
+			  <tr>
+				<td><?php echo $_lang['user_full_name']; ?>:</td>
+				<td>&nbsp;</td>
+				<td><input type="text" name="fullname" class="inputBox" value="<?php echo htmlspecialchars(isset($_POST['fullname']) ? $_POST['fullname'] : $userdata['fullname']); ?>" onchange="documentDirty=true;" /></td>
+			  </tr>
+			  <tr>
+				<td><?php echo $_lang['user_email']; ?>:</td>
+				<td>&nbsp;</td>
+				<td>
+				<input type="text" name="email" class="inputBox" value="<?php echo  isset($_POST['email']) ? $_POST['email'] : $userdata['email']; ?>" onchange="documentDirty=true;" />
+				<input type="hidden" name="oldemail" value="<?php echo htmlspecialchars(!empty($userdata['oldemail']) ? $userdata['oldemail']:$userdata['email']); ?>" />
+				</td>
+			  </tr>
+			  <tr>
+				<td><?php echo $_lang['user_phone']; ?>:</td>
+				<td>&nbsp;</td>
+				<td><input type="text" name="phone" class="inputBox" value="<?php echo isset($_POST['phone']) ? $_POST['phone'] : $userdata['phone']; ?>" onchange="documentDirty=true;" /></td>
+			  </tr>
+			  <tr>
+				<td><?php echo $_lang['user_mobile']; ?>:</td>
+				<td>&nbsp;</td>
+				<td><input type="text" name="mobilephone" class="inputBox" value="<?php echo isset($_POST['mobilephone']) ? $_POST['mobilephone'] : $userdata['mobilephone']; ?>" onchange="documentDirty=true;" /></td>
+			  </tr>
+			  <tr>
+				<td><?php echo $_lang['user_fax']; ?>:</td>
+				<td>&nbsp;</td>
+				<td><input type="text" name="fax" class="inputBox" value="<?php echo isset($_POST['fax']) ? $_POST['fax'] : $userdata['fax']; ?>" onchange="documentDirty=true;" /></td>
+			  </tr>
+			  <tr>
+				<td><?php echo $_lang['user_state']; ?>:</td>
+				<td>&nbsp;</td>
+				<td><input type="text" name="state" class="inputBox" value="<?php echo isset($_POST['state']) ? $_POST['state'] : $userdata['state']; ?>" onchange="documentDirty=true;" /></td>
+			  </tr>
+			  <tr>
+				<td><?php echo $_lang['user_zip']; ?>:</td>
+				<td>&nbsp;</td>
+				<td><input type="text" name="zip" class="inputBox" value="<?php echo isset($_POST['zip']) ? $_POST['zip'] : $userdata['zip']; ?>" onchange="documentDirty=true;" /></td>
+			  </tr>
+			  <tr>
+				<td><?php echo $_lang['user_country']; ?>:</td>
+				<td>&nbsp;</td>
+				<td>
+				<select size="1" name="country" onchange="documentDirty=true;">
+	            <?php $chosenCountry = isset($_POST['country']) ? $_POST['country'] : $userdata['country']; ?>
+				<option value="" <?php (!isset($chosenCountry) ? ' selected' : '') ?> >&nbsp;</option>
+					<?php
+					foreach ($_country_lang as $key => $country) {
+					 echo "<option value=\"$key\"".(isset($chosenCountry) && $chosenCountry == $key ? ' selected' : '') .">$country</option>";
+					}
+					?>
+	            </select>
+	            </td>
+			  </tr>
+			  <tr>
+				<td><?php echo $_lang['user_dob']; ?>:</td>
+				<td>&nbsp;</td>
+				<td>
+					<input type="text" id="dob" name="dob" class="DatePicker" value="<?php echo isset($_POST['dob']) ? $_POST['dob'] : ($userdata['dob'] ? $modx->toDateFormat($userdata['dob'],'dateOnly'):""); ?>" onblur='documentDirty=true;'>
+					<a onclick="document.userform.dob.value=''; return true;" onmouseover="window.status='<?php echo $_lang['remove_date']; ?>'; return true;" onmouseout="window.status=''; return true;" style="cursor:pointer; cursor:hand"><img align="absmiddle" src="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>images/icons/cal_nodate.gif" width="16" height="16" border="0" alt="<?php echo $_lang['remove_date']; ?>"></a>
+				</td>
+			  </tr>
+			  <tr>
+				<td><?php echo $_lang['user_gender']; ?>:</td>
+				<td>&nbsp;</td>
+				<td><select name="gender" onchange="documentDirty=true;">
+					<option value=""></option>
+					<option value="1" <?php echo ($_POST['gender']=='1'||$userdata['gender']=='1')? "selected='selected'":""; ?>><?php echo $_lang['user_male']; ?></option>
+					<option value="2" <?php echo ($_POST['gender']=='2'||$userdata['gender']=='2')? "selected='selected'":""; ?>><?php echo $_lang['user_female']; ?></option>
+					</select>
+				</td>
+			  </tr>
+			  <tr>
+				<td valign="top"><?php echo $_lang['comment']; ?>:</td>
+				<td>&nbsp;</td>
+				<td>
+					<textarea type="text" name="comment" class="inputBox"  rows="5" onchange="documentDirty=true;"><?php echo htmlspecialchars(isset($_POST['comment']) ? $_POST['comment'] : $userdata['comment']); ?></textarea>
+				</td>
+			  </tr>
+			<?php if($_GET['a']=='88') { ?>
+			  <tr>
+				<td><?php echo $_lang['user_logincount']; ?>:</td>
+				<td>&nbsp;</td>
+				<td><?php echo $userdata['logincount'] ?></td>
+			  </tr>
+			  <tr>
+				<td><?php echo $_lang['user_prevlogin']; ?>:</td>
+				<td>&nbsp;</td>
+				<td><?php echo $modx->toDateFormat($userdata['lastlogin']+$server_offset_time) ?></td>
+			  </tr>
+			  <tr>
+				<td><?php echo $_lang['user_failedlogincount']; ?>:</td>
+				<td>&nbsp;<input type="hidden" name="failedlogincount"  onchange='documentDirty=true;' value="<?php echo $userdata['failedlogincount']; ?>"></td>
+				<td><span id='failed'><?php echo $userdata['failedlogincount'] ?></span>&nbsp;&nbsp;&nbsp;[<a href="javascript:resetFailed()"><?php echo $_lang['reset_failedlogins']; ?></a>]</td>
+			  </tr>
+			  <tr>
+				<td><?php echo $_lang['user_block']; ?>:</td>
+				<td>&nbsp;</td>
+				<td><input name="blockedcheck" type="checkbox" onclick="changeblockstate(document.userform.blockedmode, document.userform.blockedcheck);"<?php echo ($userdata['blocked']==1||($userdata['blockeduntil']>time() && $userdata['blockeduntil']!=0)||($userdata['blockedafter']<time() && $userdata['blockedafter']!=0)) ? " checked='checked'": "" ; ?> /><input type="hidden" name="blocked" value="<?php echo ($userdata['blocked']==1||($userdata['blockeduntil']>time() && $userdata['blockeduntil']!=0))?1:0; ?>"></td>
+			  </tr>
+			  <tr>
+				<td><?php echo $_lang['user_blockeduntil']; ?>:</td>
+				<td>&nbsp;</td>
+				<td>
+					<input type="text" id="blockeduntil" name="blockeduntil" class="DatePicker" value="<?php echo isset($_POST['blockeduntil']) ? $_POST['blockeduntil'] : ($userdata['blockeduntil'] ? $modx->toDateFormat($userdata['blockeduntil']):""); ?>" onblur='documentDirty=true;' readonly="readonly">
+					<a onclick="document.userform.blockeduntil.value=''; return true;" onmouseover="window.status='<?php echo $_lang['remove_date']; ?>'; return true;" onmouseout="window.status=''; return true;" style="cursor:pointer; cursor:hand"><img align="absmiddle" src="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>images/icons/cal_nodate.gif" width="16" height="16" border="0" alt="<?php echo $_lang['remove_date']; ?>" /></a>
+				</td>
+			  </tr>
+			  <tr>
+				<td><?php echo $_lang['user_blockedafter']; ?>:</td>
+				<td>&nbsp;</td>
+				<td>
+					<input type="text" id="blockedafter" name="blockedafter" class="DatePicker" value="<?php echo isset($_POST['blockedafter']) ? $_POST['blockedafter'] : ($userdata['blockedafter'] ? $modx->toDateFormat($userdata['blockedafter']):""); ?>" onblur='documentDirty=true;' readonly="readonly">
+					<a onclick="document.userform.blockedafter.value=''; return true;" onmouseover="window.status='<?php echo $_lang['remove_date']; ?>'; return true;" onmouseout="window.status=''; return true;" style="cursor:pointer; cursor:hand"><img align="absmiddle" src="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>images/icons/cal_nodate.gif" width="16" height="16" border="0" alt="<?php echo $_lang['remove_date']; ?>" /></a>
+				</td>
+			  </tr>
+			<?php
+			}
+			?>
+			</table>
+		
+		</div><!-- tabGeneral -->
+		
+		<div id="tabSettings">
+			
+			<table border="0" cellspacing="0" cellpadding="3">
+	          <tr>
+	            <td nowrap class="warning"><b><?php echo $_lang["login_homepage"] ?></b></td>
+	            <td ><input onchange="documentDirty=true;" type='text' maxlength='50' style="width: 100px;" name="login_home" value="<?php echo isset($_POST['login_home']) ? $_POST['login_home'] : $usersettings['login_home']; ?>"></td>
+	          </tr>
+	          <tr>
+	            <td width="200">&nbsp;</td>
+	            <td class='comment'><?php echo $_lang["login_homepage_message"] ?></td>
+	          </tr>
+	          <tr>
+	            <td colspan="2"><div class='split'></div></td>
+	          </tr>
+	          <tr>
+	            <td nowrap class="warning"valign="top"><b><?php echo $_lang["login_allowed_ip"] ?></b></td>
+	            <td ><input onchange="documentDirty=true;"  type="text" maxlength='255' style="width: 300px;" name="allowed_ip" value="<?php echo isset($_POST['allowed_ip']) ? $_POST['allowed_ip'] : $usersettings['allowed_ip']; ?>" /></td>
+	          </tr>
+	          <tr>
+	            <td width="200">&nbsp;</td>
+	            <td class='comment'><?php echo $_lang["login_allowed_ip_message"] ?></td>
+	          </tr>
+	          <tr>
+	            <td colspan="2"><div class='split'></div></td>
+	          </tr>
+	          <tr>
+	            <td nowrap class="warning"valign="top"><b><?php echo $_lang["login_allowed_days"] ?></b></td>
+	            <td>
+	            	<input onchange="documentDirty=true;" type="checkbox" name="allowed_days[]" value="1" <?php echo strpos($usersettings['allowed_days'],'1')!==false ? "checked='checked'":""; ?> /> <?php echo $_lang['sunday']; ?><br />
+	            	<input onchange="documentDirty=true;" type="checkbox" name="allowed_days[]" value="2" <?php echo strpos($usersettings['allowed_days'],'2')!==false ? "checked='checked'":""; ?> /> <?php echo $_lang['monday']; ?><br />
+	            	<input onchange="documentDirty=true;" type="checkbox" name="allowed_days[]" value="3" <?php echo strpos($usersettings['allowed_days'],'3')!==false ? "checked='checked'":""; ?> /> <?php echo $_lang['tuesday']; ?><br />
+	            	<input onchange="documentDirty=true;" type="checkbox" name="allowed_days[]" value="4" <?php echo strpos($usersettings['allowed_days'],'4')!==false ? "checked='checked'":""; ?> /> <?php echo $_lang['wednesday']; ?><br />
+	            	<input onchange="documentDirty=true;" type="checkbox" name="allowed_days[]" value="5" <?php echo strpos($usersettings['allowed_days'],'5')!==false ? "checked='checked'":""; ?> /> <?php echo $_lang['thursday']; ?><br />
+	            	<input onchange="documentDirty=true;" type="checkbox" name="allowed_days[]" value="6" <?php echo strpos($usersettings['allowed_days'],'6')!==false ? "checked='checked'":""; ?> /> <?php echo $_lang['friday']; ?><br />
+	            	<input onchange="documentDirty=true;" type="checkbox" name="allowed_days[]" value="7" <?php echo strpos($usersettings['allowed_days'],'7')!==false ? "checked='checked'":""; ?> /> <?php echo $_lang['saturday']; ?><br />
+	            </td>
+	          </tr>
+	          <tr>
+	            <td width="200">&nbsp;</td>
+	            <td class='comment'><?php echo $_lang["login_allowed_days_message"] ?></td>
+	          </tr>
+	          <tr>
+	            <td colspan="2"><div class='split'></div></td>
+	          </tr>
+			</table>
+		
+		</div><!-- tabSettings -->
+		
+		<div id="tabPhoto">
+			
+			<script type="text/javascript">
+				function OpenServerBrowser(url, width, height ) {
+					var iLeft = (screen.width  - width) / 2 ;
+					var iTop  = (screen.height - height) / 2 ;
+	
+					var sOptions = "toolbar=no,status=no,resizable=yes,dependent=yes" ;
+					sOptions += ",width=" + width ;
+					sOptions += ",height=" + height ;
+					sOptions += ",left=" + iLeft ;
+					sOptions += ",top=" + iTop ;
+	
+					var oWindow = window.open( url, "FCKBrowseWindow", sOptions ) ;
 				}
-				?>
-            </select>
-            </td>
-		  </tr>
-		  <tr>
-			<td><?php echo $_lang['user_dob']; ?>:</td>
-			<td>&nbsp;</td>
-			<td>
-				<input type="text" id="dob" name="dob" class="DatePicker" value="<?php echo isset($_POST['dob']) ? $_POST['dob'] : ($userdata['dob'] ? $modx->toDateFormat($userdata['dob'],'dateOnly'):""); ?>" onblur='documentDirty=true;'>
-				<a onclick="document.userform.dob.value=''; return true;" onmouseover="window.status='<?php echo $_lang['remove_date']; ?>'; return true;" onmouseout="window.status=''; return true;" style="cursor:pointer; cursor:hand"><img align="absmiddle" src="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>images/icons/cal_nodate.gif" width="16" height="16" border="0" alt="<?php echo $_lang['remove_date']; ?>"></a>
-			</td>
-		  </tr>
-		  <tr>
-			<td><?php echo $_lang['user_gender']; ?>:</td>
-			<td>&nbsp;</td>
-			<td><select name="gender" onchange="documentDirty=true;">
-				<option value=""></option>
-				<option value="1" <?php echo ($_POST['gender']=='1'||$userdata['gender']=='1')? "selected='selected'":""; ?>><?php echo $_lang['user_male']; ?></option>
-				<option value="2" <?php echo ($_POST['gender']=='2'||$userdata['gender']=='2')? "selected='selected'":""; ?>><?php echo $_lang['user_female']; ?></option>
-				</select>
-			</td>
-		  </tr>
-		  <tr>
-			<td valign="top"><?php echo $_lang['comment']; ?>:</td>
-			<td>&nbsp;</td>
-			<td>
-				<textarea type="text" name="comment" class="inputBox"  rows="5" onchange="documentDirty=true;"><?php echo htmlspecialchars(isset($_POST['comment']) ? $_POST['comment'] : $userdata['comment']); ?></textarea>
-			</td>
-		  </tr>
-		<?php if($_GET['a']=='88') { ?>
-		  <tr>
-			<td><?php echo $_lang['user_logincount']; ?>:</td>
-			<td>&nbsp;</td>
-			<td><?php echo $userdata['logincount'] ?></td>
-		  </tr>
-		  <tr>
-			<td><?php echo $_lang['user_prevlogin']; ?>:</td>
-			<td>&nbsp;</td>
-			<td><?php echo $modx->toDateFormat($userdata['lastlogin']+$server_offset_time) ?></td>
-		  </tr>
-		  <tr>
-			<td><?php echo $_lang['user_failedlogincount']; ?>:</td>
-			<td>&nbsp;<input type="hidden" name="failedlogincount"  onchange='documentDirty=true;' value="<?php echo $userdata['failedlogincount']; ?>"></td>
-			<td><span id='failed'><?php echo $userdata['failedlogincount'] ?></span>&nbsp;&nbsp;&nbsp;[<a href="javascript:resetFailed()"><?php echo $_lang['reset_failedlogins']; ?></a>]</td>
-		  </tr>
-		  <tr>
-			<td><?php echo $_lang['user_block']; ?>:</td>
-			<td>&nbsp;</td>
-			<td><input name="blockedcheck" type="checkbox" onclick="changeblockstate(document.userform.blockedmode, document.userform.blockedcheck);"<?php echo ($userdata['blocked']==1||($userdata['blockeduntil']>time() && $userdata['blockeduntil']!=0)||($userdata['blockedafter']<time() && $userdata['blockedafter']!=0)) ? " checked='checked'": "" ; ?> /><input type="hidden" name="blocked" value="<?php echo ($userdata['blocked']==1||($userdata['blockeduntil']>time() && $userdata['blockeduntil']!=0))?1:0; ?>"></td>
-		  </tr>
-		  <tr>
-			<td><?php echo $_lang['user_blockeduntil']; ?>:</td>
-			<td>&nbsp;</td>
-			<td>
-				<input type="text" id="blockeduntil" name="blockeduntil" class="DatePicker" value="<?php echo isset($_POST['blockeduntil']) ? $_POST['blockeduntil'] : ($userdata['blockeduntil'] ? $modx->toDateFormat($userdata['blockeduntil']):""); ?>" onblur='documentDirty=true;' readonly="readonly">
-				<a onclick="document.userform.blockeduntil.value=''; return true;" onmouseover="window.status='<?php echo $_lang['remove_date']; ?>'; return true;" onmouseout="window.status=''; return true;" style="cursor:pointer; cursor:hand"><img align="absmiddle" src="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>images/icons/cal_nodate.gif" width="16" height="16" border="0" alt="<?php echo $_lang['remove_date']; ?>" /></a>
-			</td>
-		  </tr>
-		  <tr>
-			<td><?php echo $_lang['user_blockedafter']; ?>:</td>
-			<td>&nbsp;</td>
-			<td>
-				<input type="text" id="blockedafter" name="blockedafter" class="DatePicker" value="<?php echo isset($_POST['blockedafter']) ? $_POST['blockedafter'] : ($userdata['blockedafter'] ? $modx->toDateFormat($userdata['blockedafter']):""); ?>" onblur='documentDirty=true;' readonly="readonly">
-				<a onclick="document.userform.blockedafter.value=''; return true;" onmouseover="window.status='<?php echo $_lang['remove_date']; ?>'; return true;" onmouseout="window.status=''; return true;" style="cursor:pointer; cursor:hand"><img align="absmiddle" src="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>images/icons/cal_nodate.gif" width="16" height="16" border="0" alt="<?php echo $_lang['remove_date']; ?>" /></a>
-			</td>
-		  </tr>
-		<?php
-		}
-		?>
-		</table>
-	</div>
-	<!-- Settings -->
-    <div class="tab-page" id="tabSettings">
-    	<h2 class="tab"><?php echo $_lang["settings_users"] ?></h2>
-    	<script type="text/javascript">tpUser.addTabPage( document.getElementById( "tabSettings" ) );</script>
-        <table border="0" cellspacing="0" cellpadding="3">
-          <tr>
-            <td nowrap class="warning"><b><?php echo $_lang["login_homepage"] ?></b></td>
-            <td ><input onchange="documentDirty=true;" type='text' maxlength='50' style="width: 100px;" name="login_home" value="<?php echo isset($_POST['login_home']) ? $_POST['login_home'] : $usersettings['login_home']; ?>"></td>
-          </tr>
-          <tr>
-            <td width="200">&nbsp;</td>
-            <td class='comment'><?php echo $_lang["login_homepage_message"] ?></td>
-          </tr>
-          <tr>
-            <td colspan="2"><div class='split'></div></td>
-          </tr>
-          <tr>
-            <td nowrap class="warning"valign="top"><b><?php echo $_lang["login_allowed_ip"] ?></b></td>
-            <td ><input onchange="documentDirty=true;"  type="text" maxlength='255' style="width: 300px;" name="allowed_ip" value="<?php echo isset($_POST['allowed_ip']) ? $_POST['allowed_ip'] : $usersettings['allowed_ip']; ?>" /></td>
-          </tr>
-          <tr>
-            <td width="200">&nbsp;</td>
-            <td class='comment'><?php echo $_lang["login_allowed_ip_message"] ?></td>
-          </tr>
-          <tr>
-            <td colspan="2"><div class='split'></div></td>
-          </tr>
-          <tr>
-            <td nowrap class="warning"valign="top"><b><?php echo $_lang["login_allowed_days"] ?></b></td>
-            <td>
-            	<input onchange="documentDirty=true;" type="checkbox" name="allowed_days[]" value="1" <?php echo strpos($usersettings['allowed_days'],'1')!==false ? "checked='checked'":""; ?> /> <?php echo $_lang['sunday']; ?><br />
-            	<input onchange="documentDirty=true;" type="checkbox" name="allowed_days[]" value="2" <?php echo strpos($usersettings['allowed_days'],'2')!==false ? "checked='checked'":""; ?> /> <?php echo $_lang['monday']; ?><br />
-            	<input onchange="documentDirty=true;" type="checkbox" name="allowed_days[]" value="3" <?php echo strpos($usersettings['allowed_days'],'3')!==false ? "checked='checked'":""; ?> /> <?php echo $_lang['tuesday']; ?><br />
-            	<input onchange="documentDirty=true;" type="checkbox" name="allowed_days[]" value="4" <?php echo strpos($usersettings['allowed_days'],'4')!==false ? "checked='checked'":""; ?> /> <?php echo $_lang['wednesday']; ?><br />
-            	<input onchange="documentDirty=true;" type="checkbox" name="allowed_days[]" value="5" <?php echo strpos($usersettings['allowed_days'],'5')!==false ? "checked='checked'":""; ?> /> <?php echo $_lang['thursday']; ?><br />
-            	<input onchange="documentDirty=true;" type="checkbox" name="allowed_days[]" value="6" <?php echo strpos($usersettings['allowed_days'],'6')!==false ? "checked='checked'":""; ?> /> <?php echo $_lang['friday']; ?><br />
-            	<input onchange="documentDirty=true;" type="checkbox" name="allowed_days[]" value="7" <?php echo strpos($usersettings['allowed_days'],'7')!==false ? "checked='checked'":""; ?> /> <?php echo $_lang['saturday']; ?><br />
-            </td>
-          </tr>
-          <tr>
-            <td width="200">&nbsp;</td>
-            <td class='comment'><?php echo $_lang["login_allowed_days_message"] ?></td>
-          </tr>
-          <tr>
-            <td colspan="2"><div class='split'></div></td>
-          </tr>
-		</table>
-	</div>
-	<!-- Photo -->
-    <div class="tab-page" id="tabPhoto">
-    	<h2 class="tab"><?php echo $_lang["settings_photo"] ?></h2>
-    	<script type="text/javascript">tpUser.addTabPage( document.getElementById( "tabPhoto" ) );</script>
-    	<script type="text/javascript">
-			function OpenServerBrowser(url, width, height ) {
-				var iLeft = (screen.width  - width) / 2 ;
-				var iTop  = (screen.height - height) / 2 ;
-
-				var sOptions = "toolbar=no,status=no,resizable=yes,dependent=yes" ;
-				sOptions += ",width=" + width ;
-				sOptions += ",height=" + height ;
-				sOptions += ",left=" + iLeft ;
-				sOptions += ",top=" + iTop ;
-
-				var oWindow = window.open( url, "FCKBrowseWindow", sOptions ) ;
-			}
-			function BrowseServer() {
-				var w = screen.width * 0.7;
-				var h = screen.height * 0.7;
-				OpenServerBrowser("<?php echo $base_url; ?>manager/media/browser/mcpuk/browser.html?Type=images&Connector=<?php echo $base_url; ?>manager/media/browser/mcpuk/connectors/php/connector.php&ServerPath=<?php echo $base_url; ?>", w, h);
-			}
-			function SetUrl(url, width, height, alt){
-				document.userform.photo.value = url;
-				document.images['iphoto'].src = "<?php echo $base_url; ?>" + url;
-			}
-		</script>
-        <table border="0" cellspacing="0" cellpadding="3">
-          <tr>
-            <td nowrap class="warning"><b><?php echo $_lang["user_photo"] ?></b></td>
-            <td><input onchange="documentDirty=true;" type='text' maxlength='255' style="width: 150px;" name="photo" value="<?php echo htmlspecialchars(isset($_POST['photo']) ? $_POST['photo'] : $userdata['photo']); ?>" /> <input type="button" value="<?php echo $_lang['insert']; ?>" onclick="BrowseServer();" /></td>
-          </tr>
-          <tr>
-            <td width="200">&nbsp;</td>
-            <td class='comment'><?php echo $_lang["user_photo_message"] ?></td>
-          </tr>
-          <tr>
-            <td colspan="2"><div class='split'></div></td>
-          </tr>
-          <tr>
-            <td colspan="2" align="center"><img name="iphoto" src="<?php echo isset($_POST['photo']) ? MODX_SITE_URL.$_POST['photo'] : !empty($userdata['photo']) ? MODX_SITE_URL.$userdata['photo']: $_style['tx']; ?>" /></td>
-          </tr>
-		</table>
-	</div>
-</div>
+				function BrowseServer() {
+					var w = screen.width * 0.7;
+					var h = screen.height * 0.7;
+					OpenServerBrowser("<?php echo $base_url; ?>manager/media/browser/mcpuk/browser.html?Type=images&Connector=<?php echo $base_url; ?>manager/media/browser/mcpuk/connectors/php/connector.php&ServerPath=<?php echo $base_url; ?>", w, h);
+				}
+				function SetUrl(url, width, height, alt){
+					document.userform.photo.value = url;
+					document.images['iphoto'].src = "<?php echo $base_url; ?>" + url;
+				}
+			</script>
+	        <table border="0" cellspacing="0" cellpadding="3">
+	          <tr>
+	            <td nowrap class="warning"><b><?php echo $_lang["user_photo"] ?></b></td>
+	            <td><input onchange="documentDirty=true;" type='text' maxlength='255' style="width: 150px;" name="photo" value="<?php echo htmlspecialchars(isset($_POST['photo']) ? $_POST['photo'] : $userdata['photo']); ?>" /> <input type="button" value="<?php echo $_lang['insert']; ?>" onclick="BrowseServer();" /></td>
+	          </tr>
+	          <tr>
+	            <td width="200">&nbsp;</td>
+	            <td class='comment'><?php echo $_lang["user_photo_message"] ?></td>
+	          </tr>
+	          <tr>
+	            <td colspan="2"><div class='split'></div></td>
+	          </tr>
+	          <tr>
+	            <td colspan="2" align="center"><img name="iphoto" src="<?php echo isset($_POST['photo']) ? MODX_SITE_URL.$_POST['photo'] : !empty($userdata['photo']) ? MODX_SITE_URL.$userdata['photo']: $_style['tx']; ?>" /></td>
+	          </tr>
+			</table>
+			
+		</div>
+		
+	</div> <!-- tabs -->
 
 </div>
 
