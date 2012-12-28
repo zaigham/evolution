@@ -1159,8 +1159,7 @@ if ($_SESSION['mgrRole'] == 1 || $_REQUEST['a'] != '27' || $_SESSION['mgrInterna
 			?>
 			<!-- Access Permissions -->
 			<div id="tabAccess">
-			    <!-- <h2 class="tab" id="tab_access_header"><?php echo $_lang['access_permissions']?></h2> -->
-			    <!-- <script type="text/javascript">tpSettings.addTabPage( document.getElementById( "tabAccess" ) );</script> -->
+
 			    <script type="text/javascript">
 			        /* <![CDATA[ */
 			        function makePublic(b) {
