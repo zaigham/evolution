@@ -6,11 +6,6 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
 <h1><?php echo $_lang['help']; ?></h1>
 
-<div class="sectionBody">
-    <div class="tab-pane" id="resourcesPane">
-        <script type="text/javascript">
-            tpResources = new WebFXTabPane( document.getElementById( "resourcesPane" ), <?php echo $modx->config['remember_last_tab'] == 1 ? 'true' : 'false'; ?> );
-        </script>
 <?php
 $help = array();
 if ($handle = opendir(dirname(__FILE__).'/../help/templates')) {
@@ -24,6 +19,9 @@ if ($handle = opendir(dirname(__FILE__).'/../help/templates')) {
 
 
 natcasesort($help);
+
+$tabs = "";
+$tabsContent = "";
 
 foreach($help as $k=>$v) {
 
@@ -45,14 +43,26 @@ foreach($help as $k=>$v) {
     $help_content = ob_get_clean();
     
     if (trim($help_content)) {
-		echo '<div class="tab-page" id="tab'.$v.'Help">';
-		echo '<h2 class="tab">'.$helpname.'</h2>';
-		echo '<script type="text/javascript">tpResources.addTabPage( document.getElementById( "tab'.$v.'Help" ) );</script>';
-		echo $help_content;
-		echo '</div>';
+    
+    	$tabs .= '<li><a href="#tab'.$v.'Help">'.$helpname.'</a></li>';
+    	$tabsContent .= '<div id="tab'.$v.'Help">' . $help_content . '</div>';
+
 	}
+    
+    
+    
 }
 ?>
-    </div>
+
+
+<div class="sectionBody">
+	
+	<div id="tabs">
+		<ul>
+			<?php echo $tabs; ?>
+		</ul>
+		<?php echo $tabsContent; ?>
+	</div>
+
 </div>
 
