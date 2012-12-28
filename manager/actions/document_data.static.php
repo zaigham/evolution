@@ -196,7 +196,7 @@ function movedocument() {
 	document.location.href="index.php?id=<?php echo $_REQUEST['id']?>&a=51";
 }
 </script>
-<script type="text/javascript" src="media/script/tabpane.js"></script>
+
 <script type="text/javascript" src="media/script/tablesort.js"></script>
 
 	<h1><?php echo $_lang['doc_data_title']?></h1>
@@ -224,121 +224,127 @@ function movedocument() {
 <div class="sectionHeader"><?php echo $_lang['page_data_title']?></div>
 <div class="sectionBody">
 
-<div class="tab-pane" id="childPane">
-	<script type="text/javascript">
-	docSettings = new WebFXTabPane( document.getElementById( "childPane" ), <?php echo $modx->config['remember_last_tab'] == 1 ? 'true' : 'false'; ?> );
-	</script>
 
-	<!-- General -->
-	<div class="tab-page" id="tabdocGeneral">
-		<h2 class="tab"><?php echo $_lang['settings_general']?></h2>
-		<script type="text/javascript">docSettings.addTabPage( document.getElementById( "tabdocGeneral" ) );</script>
-		<div class="sectionBody">
 
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">
-			<tr><td colspan="2"><b><?php echo $_lang['page_data_general']?></b></td></tr>
-			<tr><td width="200" valign="top"><?php echo $_lang['resource_title']?>: </td>
-				<td><b><?php echo $content['pagetitle']?></b></td></tr>
-			<tr><td width="200" valign="top"><?php echo $_lang['long_title']?>: </td>
-				<td><small><?php echo $content['longtitle']!='' ? $content['longtitle'] : "(<i>".$_lang['not_set']."</i>)"?></small></td></tr>
-			<tr><td valign="top"><?php echo $_lang['resource_description']?>: </td>
-				<td><?php echo $content['description']!='' ? $content['description'] : "(<i>".$_lang['not_set']."</i>)"?></td></tr>
-			<tr><td valign="top"><?php echo $_lang['resource_summary']?>: </td>
-				<td><?php echo $content['introtext']!='' ? $content['introtext'] : "(<i>".$_lang['not_set']."</i>)"?></td></tr>
-			<tr><td valign="top"><?php echo $_lang['type']?>: </td>
-				<td><?php echo $content['type']=='reference' ? $_lang['weblink'] : $_lang['resource']?></td></tr>
-			<tr><td valign="top"><?php echo $_lang['resource_alias']?>: </td>
-				<td><?php echo $content['alias']!='' ? $content['alias'] : "(<i>".$_lang['not_set']."</i>)"?></td></tr>
-			<tr><td valign="top"><?php echo $_lang['keywords']?>: </td>
-				<td><?php // Keywords
-				if(count($keywords) != 0)
-					echo join($keywords, ", ");
-				else    echo "(<i>".$_lang['not_set']."</i>)";
-				?></td></tr>
-			<tr><td valign="top"><?php echo $_lang['metatags']?>: </td>
-				<td><?php // META Tags
-				if(count($metatags_selected) != 0)
-					echo join($metatags_selected, "<br /> ");
-				else    echo "(<i>".$_lang['not_set']."</i>)";
-				?></td></tr>
-		<tr><td colspan="2">&nbsp;</td></tr>
-			<tr><td colspan="2"><b><?php echo $_lang['page_data_changes']?></b></td></tr>
-			<tr><td><?php echo $_lang['page_data_created']?>: </td>
-				<td><?php echo $modx->toDateFormat($content['createdon']+$server_offset_time)?> (<b><?php echo $createdbyname?></b>)</td></tr>
-<?php				if ($editedbyname != '') { ?>
-			<tr><td><?php echo $_lang['page_data_edited']?>: </td>
-				<td><?php echo $modx->toDateFormat($content['editedon']+$server_offset_time)?> (<b><?php echo $editedbyname?></b>)</td></tr>
-<?php				} ?>
-		<tr><td colspan="2">&nbsp;</td></tr>
-			<tr><td colspan="2"><b><?php echo $_lang['page_data_status']?></b></td></tr>
-			<tr><td><?php echo $_lang['page_data_status']?>: </td>
-				<td><?php echo $content['published']==0 ? '<span class="unpublishedDoc">'.$_lang['page_data_unpublished'].'</span>' : '<span class="publisheddoc">'.$_lang['page_data_published'].'</span>'?></td></tr>
-			<tr><td><?php echo $_lang['page_data_publishdate']?>: </td>
-				<td><?php echo $content['pub_date']==0 ? "(<i>".$_lang['not_set']."</i>)" : $modx->toDateFormat($content['pub_date'])?></td></tr>
-			<tr><td><?php echo $_lang['page_data_unpublishdate']?>: </td>
-				<td><?php echo $content['unpub_date']==0 ? "(<i>".$_lang['not_set']."</i>)" : $modx->toDateFormat($content['unpub_date'])?></td></tr>
-			<tr><td><?php echo $_lang['page_data_cacheable']?>: </td>
-				<td><?php echo $content['cacheable']==0 ? $_lang['no'] : $_lang['yes']?></td></tr>
-			<tr><td><?php echo $_lang['page_data_searchable']?>: </td>
-				<td><?php echo $content['searchable']==0 ? $_lang['no'] : $_lang['yes']?></td></tr>
-			<tr><td><?php echo $_lang['resource_opt_menu_index']?>: </td>
-				<td><?php echo $content['menuindex']?></td></tr>
-			<tr><td><?php echo $_lang['resource_opt_show_menu']?>: </td>
-				<td><?php echo $content['hidemenu']==1 ? $_lang['no'] : $_lang['yes']?></td></tr>
-			<tr><td><?php echo $_lang['page_data_web_access']?>: </td>
-				<td><?php echo $content['privateweb']==0 ? $_lang['public'] : '<b style="color: #821517">'.$_lang['private'].'</b> <img src="media/style/'.$manager_theme.'images/icons/secured.gif" align="absmiddle" width="16" height="16" />'?></td></tr>
-			<tr><td><?php echo $_lang['page_data_mgr_access']?>: </td>
-				<td><?php echo $content['privatemgr']==0 ? $_lang['public'] : '<b style="color: #821517">'.$_lang['private'].'</b> <img src="media/style/'.$manager_theme.'images/icons/secured.gif" align="absmiddle" width="16" height="16" />'?></td></tr>
-		<tr><td colspan="2">&nbsp;</td>	</tr>
-			<tr><td colspan="2"><b><?php echo $_lang['page_data_markup']?></b></td></tr>
-			<tr><td><?php echo $_lang['page_data_template']?>: </td>
-				<td><?php echo $templatename ?></td></tr>
-			<tr><td><?php echo $_lang['page_data_editor']?>: </td>
-				<td><?php echo $content['richtext']==0 ? $_lang['no'] : $_lang['yes']?></td></tr>
-			<tr><td><?php echo $_lang['page_data_folder']?>: </td>
-				<td><?php echo $content['isfolder']==0 ? $_lang['no'] : $_lang['yes']?></td></tr>
-		</table>
-		</div><!-- end sectionBody -->
-	</div><!-- end tab-page -->
+	<div id="tabs">
+		<ul>
+			<li><a href="#tabDocGeneral"><?php echo $_lang['settings_general']?></a></li>
+			<li><a href="#tabChildren"><?php echo $_lang['view_child_resources_in_container']?></a></li>
+			<li><a href="#tabSource"><?php echo $_lang['page_data_source']?></a></li>
+		</ul>
+		
+		<!-- General -->
+		<div id="tabDocGeneral">
+			
+			<div class="sectionBody">
 
-	<!-- View Children -->
-	<div class="tab-page" id="tabChildren">
-		<h2 class="tab"><?php echo $_lang['view_child_resources_in_container']?></h2>
-		<script type="text/javascript">docSettings.addTabPage( document.getElementById( "tabChildren" ) );</script>
-<?php if ($modx->hasPermission('new_document')) { ?>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr><td colspan="2"><b><?php echo $_lang['page_data_general']?></b></td></tr>
+					<tr><td width="200" valign="top"><?php echo $_lang['resource_title']?>: </td>
+						<td><b><?php echo $content['pagetitle']?></b></td></tr>
+					<tr><td width="200" valign="top"><?php echo $_lang['long_title']?>: </td>
+						<td><small><?php echo $content['longtitle']!='' ? $content['longtitle'] : "(<i>".$_lang['not_set']."</i>)"?></small></td></tr>
+					<tr><td valign="top"><?php echo $_lang['resource_description']?>: </td>
+						<td><?php echo $content['description']!='' ? $content['description'] : "(<i>".$_lang['not_set']."</i>)"?></td></tr>
+					<tr><td valign="top"><?php echo $_lang['resource_summary']?>: </td>
+						<td><?php echo $content['introtext']!='' ? $content['introtext'] : "(<i>".$_lang['not_set']."</i>)"?></td></tr>
+					<tr><td valign="top"><?php echo $_lang['type']?>: </td>
+						<td><?php echo $content['type']=='reference' ? $_lang['weblink'] : $_lang['resource']?></td></tr>
+					<tr><td valign="top"><?php echo $_lang['resource_alias']?>: </td>
+						<td><?php echo $content['alias']!='' ? $content['alias'] : "(<i>".$_lang['not_set']."</i>)"?></td></tr>
+					<tr><td valign="top"><?php echo $_lang['keywords']?>: </td>
+						<td><?php // Keywords
+						if(count($keywords) != 0)
+							echo join($keywords, ", ");
+						else    echo "(<i>".$_lang['not_set']."</i>)";
+						?></td></tr>
+					<tr><td valign="top"><?php echo $_lang['metatags']?>: </td>
+						<td><?php // META Tags
+						if(count($metatags_selected) != 0)
+							echo join($metatags_selected, "<br /> ");
+						else    echo "(<i>".$_lang['not_set']."</i>)";
+						?></td></tr>
+				<tr><td colspan="2">&nbsp;</td></tr>
+					<tr><td colspan="2"><b><?php echo $_lang['page_data_changes']?></b></td></tr>
+					<tr><td><?php echo $_lang['page_data_created']?>: </td>
+						<td><?php echo $modx->toDateFormat($content['createdon']+$server_offset_time)?> (<b><?php echo $createdbyname?></b>)</td></tr>
+		<?php				if ($editedbyname != '') { ?>
+					<tr><td><?php echo $_lang['page_data_edited']?>: </td>
+						<td><?php echo $modx->toDateFormat($content['editedon']+$server_offset_time)?> (<b><?php echo $editedbyname?></b>)</td></tr>
+		<?php				} ?>
+				<tr><td colspan="2">&nbsp;</td></tr>
+					<tr><td colspan="2"><b><?php echo $_lang['page_data_status']?></b></td></tr>
+					<tr><td><?php echo $_lang['page_data_status']?>: </td>
+						<td><?php echo $content['published']==0 ? '<span class="unpublishedDoc">'.$_lang['page_data_unpublished'].'</span>' : '<span class="publisheddoc">'.$_lang['page_data_published'].'</span>'?></td></tr>
+					<tr><td><?php echo $_lang['page_data_publishdate']?>: </td>
+						<td><?php echo $content['pub_date']==0 ? "(<i>".$_lang['not_set']."</i>)" : $modx->toDateFormat($content['pub_date'])?></td></tr>
+					<tr><td><?php echo $_lang['page_data_unpublishdate']?>: </td>
+						<td><?php echo $content['unpub_date']==0 ? "(<i>".$_lang['not_set']."</i>)" : $modx->toDateFormat($content['unpub_date'])?></td></tr>
+					<tr><td><?php echo $_lang['page_data_cacheable']?>: </td>
+						<td><?php echo $content['cacheable']==0 ? $_lang['no'] : $_lang['yes']?></td></tr>
+					<tr><td><?php echo $_lang['page_data_searchable']?>: </td>
+						<td><?php echo $content['searchable']==0 ? $_lang['no'] : $_lang['yes']?></td></tr>
+					<tr><td><?php echo $_lang['resource_opt_menu_index']?>: </td>
+						<td><?php echo $content['menuindex']?></td></tr>
+					<tr><td><?php echo $_lang['resource_opt_show_menu']?>: </td>
+						<td><?php echo $content['hidemenu']==1 ? $_lang['no'] : $_lang['yes']?></td></tr>
+					<tr><td><?php echo $_lang['page_data_web_access']?>: </td>
+						<td><?php echo $content['privateweb']==0 ? $_lang['public'] : '<b style="color: #821517">'.$_lang['private'].'</b> <img src="media/style/'.$manager_theme.'images/icons/secured.gif" align="absmiddle" width="16" height="16" />'?></td></tr>
+					<tr><td><?php echo $_lang['page_data_mgr_access']?>: </td>
+						<td><?php echo $content['privatemgr']==0 ? $_lang['public'] : '<b style="color: #821517">'.$_lang['private'].'</b> <img src="media/style/'.$manager_theme.'images/icons/secured.gif" align="absmiddle" width="16" height="16" />'?></td></tr>
+				<tr><td colspan="2">&nbsp;</td>	</tr>
+					<tr><td colspan="2"><b><?php echo $_lang['page_data_markup']?></b></td></tr>
+					<tr><td><?php echo $_lang['page_data_template']?>: </td>
+						<td><?php echo $templatename ?></td></tr>
+					<tr><td><?php echo $_lang['page_data_editor']?>: </td>
+						<td><?php echo $content['richtext']==0 ? $_lang['no'] : $_lang['yes']?></td></tr>
+					<tr><td><?php echo $_lang['page_data_folder']?>: </td>
+						<td><?php echo $content['isfolder']==0 ? $_lang['no'] : $_lang['yes']?></td></tr>
+				</table>
+			</div><!-- end sectionBody -->
+			
+		</div><!-- tabDocGeneral -->
+		
+		<!-- View Children -->
+		<div id="tabChildren">
+			
+			<?php if ($modx->hasPermission('new_document')) { ?>
 	
-			<ul class="actionButtons">
-				<li><a href="index.php?a=4&amp;pid=<?php echo $content['id']?>"><img src="<?php echo $_style["icons_new_document"]; ?>" align="absmiddle" /> <?php echo $_lang['create_resource_here']?></a></li>
-				<li><a href="index.php?a=72&amp;pid=<?php echo $content['id']?>"><img src="<?php echo $_style["icons_new_weblink"]; ?>" align="absmiddle" /> <?php echo $_lang['create_weblink_here']?></a></li>
-			</ul>
-<?php }
-	if ($numRecords > 0)
-		echo '<h4><span class="publishedDoc">'.$numRecords.'</span> '.$_lang['resources_in_container'].' (<strong>'.$content['pagetitle'].'</strong>)</h4>'."\n";
-	echo $children_output."\n";
-?>
-	</div><!-- end tab-page -->
-
-	<!-- Page Source -->
-	<div class="tab-page" id="tabSource">
-		<h2 class="tab"><?php echo $_lang['page_data_source']?></h2>
-		<script type="text/javascript">docSettings.addTabPage( document.getElementById( "tabSource" ) );</script>
-		<?php
-		$buffer = "";
-		$filename = $modx->config['base_path']."assets/cache/docid_".$id.".pageCache.php";
-		$handle = @fopen($filename, "r");
-		if(!$handle) {
-			$buffer = $_lang['page_data_notcached'];
-		} else {
-			while (!feof($handle)) {
-				$buffer .= fgets($handle, 4096);
+				<ul class="actionButtons">
+					<li><a href="index.php?a=4&amp;pid=<?php echo $content['id']?>"><img src="<?php echo $_style["icons_new_document"]; ?>" align="absmiddle" /> <?php echo $_lang['create_resource_here']?></a></li>
+					<li><a href="index.php?a=72&amp;pid=<?php echo $content['id']?>"><img src="<?php echo $_style["icons_new_weblink"]; ?>" align="absmiddle" /> <?php echo $_lang['create_weblink_here']?></a></li>
+				</ul>
+			<?php }
+			if ($numRecords > 0)
+				echo '<h4><span class="publishedDoc">'.$numRecords.'</span> '.$_lang['resources_in_container'].' (<strong>'.$content['pagetitle'].'</strong>)</h4>'."\n";
+			echo $children_output."\n";
+			?>
+			
+		</div><!-- tabChildren -->
+		
+		<!-- Page Source -->
+		<div id="tabSource">
+			
+			<?php
+			$buffer = "";
+			$filename = $modx->config['base_path']."assets/cache/docid_".$id.".pageCache.php";
+			$handle = @fopen($filename, "r");
+			if(!$handle) {
+				$buffer = $_lang['page_data_notcached'];
+			} else {
+				while (!feof($handle)) {
+					$buffer .= fgets($handle, 4096);
+				}
+				fclose($handle);
+				$buffer = $_lang['page_data_cached'].'<p><textarea style="width: 100%; height: 400px;">'.htmlspecialchars($buffer)."</textarea>\n";
 			}
-			fclose($handle);
-			$buffer = $_lang['page_data_cached'].'<p><textarea style="width: 100%; height: 400px;">'.htmlspecialchars($buffer)."</textarea>\n";
-		}
-		echo $buffer;
-?>
-	</div><!-- end tab-page -->
-</div><!-- end documentPane -->
+			echo $buffer;
+			?>
+			
+		</div>
+		
+	</div>
+
 </div><!-- end sectionBody -->
 
 <?php if ($show_preview==1) { ?>
