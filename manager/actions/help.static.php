@@ -2,7 +2,6 @@
 if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
 ?>
-<script type="text/javascript" src="media/script/tabpane.js"></script>
 
 <h1><?php echo $_lang['help']; ?></h1>
 
