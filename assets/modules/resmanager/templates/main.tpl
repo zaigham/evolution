@@ -4,8 +4,6 @@
 		<title>[+lang.RM_module_title+]</title>
 		<link rel="stylesheet" type="text/css" href="media/style[+theme+]/style.css" />
 		<link rel="stylesheet" type="text/css" href="media/style/[+theme+]/jquery-ui/jquery-ui-1.9.2.custom.min.css" />
-		<!-- <script type="text/javascript" src="media/script/tabpane.js"></script> -->
-		<!-- <script type="text/javascript" src="media/script/datefunctions.js"></script> -->
 		<script type="text/javascript" src="media/script/mootools/mootools.js"></script>
 		<script type="text/javascript" src="media/script/mootools/moodx.js"></script>
 		<script type="text/javascript" src="../assets/modules/resmanager/js/resmanager.js"></script>

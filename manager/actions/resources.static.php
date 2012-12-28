@@ -43,7 +43,6 @@ function createResourceList($resourceTable,$action,$tablePre,$nameField = 'name'
 }
 
 ?>
-<script type="text/javascript" src="media/script/tabpane.js"></script>
 
 <h1><?php echo $_lang['element_management']; ?></h1>
 

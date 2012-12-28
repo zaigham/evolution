@@ -32,7 +32,6 @@ if (mysql_num_rows($rs) < 1) {
 }
 
 ?>
-<script type="text/javascript" src="media/script/tabpane.js"></script>
 
 <h1><?php echo $_lang['web_access_permissions'] ;?></h1>
 
