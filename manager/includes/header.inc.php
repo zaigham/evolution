@@ -13,6 +13,7 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 <head>
     <title><?php echo CMS_NAME; ?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $modx_manager_charset; ?>" />
+    <link rel="stylesheet" type="text/css" href="media/style/common.css" /> 
     <link rel="stylesheet" type="text/css" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>style.css" />
 
     <!-- OnManagerMainFrameHeaderHTMLBlock -->
