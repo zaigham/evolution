@@ -11,7 +11,7 @@ class DBAPI {
    var $config;
    var $isConnected;
    
-   private $parent; // Usually the $this->parent global
+   private $parent; // Usually the $modx global
    
    private $host, $dbase; // Holds host and db name if connected.
 
