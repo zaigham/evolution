@@ -91,7 +91,7 @@ class DocumentParser {
             case 'DBAPI' :
                 if (!include_once MODX_BASE_PATH . 'manager/includes/extenders/dbapi.' . $database_type . '.class.inc.php')
                     return false;
-                $this->db= new DBAPI;
+                $this->db= new DBAPI($this);
                 return true;
                 break;
 

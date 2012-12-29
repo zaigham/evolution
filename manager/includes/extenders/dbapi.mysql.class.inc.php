@@ -11,13 +11,16 @@ class DBAPI {
    var $config;
    var $isConnected;
    
+   private $parent; // Usually the $this->parent global
+   
    private $host, $dbase; // Holds host and db name if connected.
 
    /**
     * @name:  DBAPI
     *
     */
-   function DBAPI($host='',$dbase='', $uid='',$pwd='',$pre=NULL,$charset='',$connection_method='SET CHARACTER SET') {
+   function __construct($parent, $host='',$dbase='', $uid='',$pwd='',$pre=NULL,$charset='',$connection_method='SET CHARACTER SET') {
+      $this->parent = $parent;
       $this->config['host'] = $host ? $host : $GLOBALS['database_server'];
       $this->config['dbase'] = $dbase ? $dbase : $GLOBALS['dbase'];
       $this->config['user'] = $uid ? $uid : $GLOBALS['database_user'];
@@ -80,35 +83,35 @@ class DBAPI {
     *
     */
    function connect($host = '', $dbase = '', $uid = '', $pwd = '', $persist = 0) {
-      global $modx;
+      
       $uid = $uid ? $uid : $this->config['user'];
       $pwd = $pwd ? $pwd : $this->config['pass'];
       $host = $host ? $host : $this->config['host'];
       $dbase = $dbase ? $dbase : $this->config['dbase'];
       $charset = $this->config['charset'];
       $connection_method = $this->config['connection_method'];
-      $tstart = $modx->getMicroTime();
+      $tstart = $this->parent->getMicroTime();
       if (!$this->conn = ($persist ? mysql_pconnect($host, $uid, $pwd) : mysql_connect($host, $uid, $pwd, true))) {
-         $modx->messageQuit("Failed to create the database connection!");
+         $this->parent->messageQuit("Failed to create the database connection!");
          exit;
       } else {
          $dbase = str_replace('`', '', $dbase); // remove the `` chars
          if (!@ mysql_select_db($dbase, $this->conn)) {
-            $modx->messageQuit("Failed to select the database '" . $dbase . "'!");
+            $this->parent->messageQuit("Failed to select the database '" . $dbase . "'!");
             exit;
          }
          $this->host = $host;
          $this->dbase = $dbase;
          @mysql_query("{$connection_method} {$charset}", $this->conn);
-         $tend = $modx->getMicroTime();
+         $tend = $this->parent->getMicroTime();
          $totaltime = $tend - $tstart;
-         if ($modx->dumpSQL) {
-            $modx->queryCode .= "<fieldset style='text-align:left'><legend>Database connection</legend>" . sprintf("Database connection was created in %2.4f s", $totaltime) . "</fieldset><br />";
+         if ($this->parent->dumpSQL) {
+            $this->parent->queryCode .= "<fieldset style='text-align:left'><legend>Database connection</legend>" . sprintf("Database connection was created in %2.4f s", $totaltime) . "</fieldset><br />";
          }
          $this->isConnected = true;
          // FIXME (Fixed by line below):
          // this->queryTime = this->queryTime + $totaltime;
-         $modx->queryTime += $totaltime;
+         $this->parent->queryTime += $totaltime;
       }
    }
 
@@ -135,21 +138,21 @@ class DBAPI {
     * Developers should use select, update, insert, delete where possible
     */
    function query($sql) {
-      global $modx;
+      
       if (empty ($this->conn) || !is_resource($this->conn)) {
          $this->connect();
       }
-      $tstart = $modx->getMicroTime();
+      $tstart = $this->parent->getMicroTime();
       if (!$result = @ mysql_query($sql, $this->conn)) {
-         $modx->messageQuit("Execution of a query to the database failed - " . $this->getLastError(), $sql);
+         $this->parent->messageQuit("Execution of a query to the database failed - " . $this->getLastError(), $sql);
       } else {
-         $tend = $modx->getMicroTime();
+         $tend = $this->parent->getMicroTime();
          $totaltime = $tend - $tstart;
-         $modx->queryTime = $modx->queryTime + $totaltime;
-         if ($modx->dumpSQL) {
-            $modx->queryCode .= "<fieldset style='text-align:left'><legend>Query " . ($this->executedQueries + 1) . " - " . sprintf("%2.4f s", $totaltime) . "</legend>" . $sql . "</fieldset><br />";
+         $this->parent->queryTime = $this->parent->queryTime + $totaltime;
+         if ($this->parent->dumpSQL) {
+            $this->parent->queryCode .= "<fieldset style='text-align:left'><legend>Query " . ($this->executedQueries + 1) . " - " . sprintf("%2.4f s", $totaltime) . "</legend>" . $sql . "</fieldset><br />";
          }
-         $modx->executedQueries = $modx->executedQueries + 1;
+         $this->parent->executedQueries = $this->parent->executedQueries + 1;
          return $result;
       }
    }
@@ -307,8 +310,8 @@ class DBAPI {
          elseif ($mode == 'both') {
             return mysql_fetch_array($ds, MYSQL_BOTH);
          } else {
-            global $modx;
-            $modx->messageQuit("Unknown get type ($mode) specified for fetchRow - must be empty, 'assoc', 'num' or 'both'.");
+            
+            $this->parent->messageQuit("Unknown get type ($mode) specified for fetchRow - must be empty, 'assoc', 'num' or 'both'.");
          }
       }
    }
