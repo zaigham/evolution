@@ -197,7 +197,6 @@ function movedocument() {
 }
 </script>
 
-<script type="text/javascript" src="media/script/tablesort.js"></script>
 
 	<h1><?php echo $_lang['doc_data_title']?></h1>
 	
