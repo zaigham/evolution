@@ -42,5 +42,16 @@ $(document).ready(function($) {
 	      {"bSortable": false}
     ]
 	});
+	
+	$('#schedule-all-events').dataTable({
+		"bJQueryUI": true,
+		"aaSorting": [[ 2, "desc" ]]
+	});
+	
+	$('#schedule-unpublish-events').dataTable({
+		"bJQueryUI": true,
+		"aaSorting": [[ 2, "asc" ]]
+	});
+	
 
 });

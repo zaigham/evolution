@@ -7,7 +7,7 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 } */
 ?>
 
-<script type="text/javascript" src="media/script/tablesort.js"></script>
+<script type="text/javascript" src="media/script/jquery.dataTables.min.js"></script>
 <h1><?php echo $_lang["site_schedule"]?></h1>
 
 <div class="sectionHeader"><?php echo $_lang["publish_events"]?></div><div class="sectionBody" id="lyr1">
@@ -58,7 +58,7 @@ if($limit<1) {
 	echo "<p>".$_lang["no_docs_pending_unpublishing"]."</p>";
 } else {
 ?>
-  <table border="0" cellpadding="2" cellspacing="0"  class="sortabletable sortable-onload-3 rowstyle-even" id="table-2" width="100%">
+  <table id="schedule-unpublish-events">
     <thead>
       <tr bgcolor="#CCCCCC">
         <th class="sortable"><b><?php echo $_lang['resource'];?></b></th>
@@ -96,13 +96,13 @@ if($limit<1) {
 	echo "<p>".$_lang["no_docs_pending_pubunpub"]."</p>";
 } else {
 ?>
-  <table border="0" cellpadding="2" cellspacing="0"  class="sortabletable rowstyle-even" id="table-3" width="100%">
+  <table id="schedule-all-events">
     <thead>
       <tr bgcolor="#CCCCCC">
-        <th class="sortable"><b><?php echo $_lang['resource'];?></b></th>
-        <th class="sortable"><b><?php echo $_lang['id'];?></b></th>
-        <th class="sortable"><b><?php echo $_lang['publish_date'];?></b></th>
-        <th class="sortable"><b><?php echo $_lang['unpublish_date'];?></b></th>
+        <th><b><?php echo $_lang['resource'];?></b></th>
+        <th width="5%"><b><?php echo $_lang['id'];?></b></th>
+        <th width="20%"><b><?php echo $_lang['publish_date'];?></b></th>
+        <th width="20%"><b><?php echo $_lang['unpublish_date'];?></b></th>
       </tr>
     </thead>
     <tbody>
@@ -110,7 +110,7 @@ if($limit<1) {
 	for ($i=0;$i<$limit;$i++) {
 		$row = mysql_fetch_assoc($rs);
 ?>
-    <tr class="<?php echo ($i % 2 ? 'even' : '')?>">
+    <tr>
 	<td><a href="index.php?a=3&id=<?php echo $row['id']?>"><?php echo $row['pagetitle']?></a></td>
 	<td><?php echo $row['id']?></td>
 	<td><?php echo $row['pub_date']==0 ? "" : $modx->toDateFormat($row['pub_date']+$server_offset_time)?></td>
