@@ -246,15 +246,15 @@ if(isset($_REQUEST['log_submit'])) {
 		// Of course you can now play with array_row_paging in order to print
 		// only the results you would like...
 		?>
-		<script type="text/javascript" src="media/script/tablesort.js"></script>
-		<table border="0" cellpadding="2" cellspacing="1" bgcolor="#ccc" class="sortabletable rowstyle-even" id="table-1" width="%100">
+		<!-- TODO: - rewrite to use datatables jquery plugin and ajax for pages -->
+		<table border="0" cellpadding="2" cellspacing="1" bgcolor="#ccc" class="sortabletable rowstyle-even" id="table-1" width="100%">
 		<thead><tr>
-			<th class="sortable"><b><?php echo $_lang["mgrlog_username"]; ?></b></th>
-			<th class="sortable"><b><?php echo $_lang["mgrlog_actionid"]; ?></b></th>
-			<th class="sortable"><b><?php echo $_lang["mgrlog_itemid"]; ?></b></th>
-			<th class="sortable"><b><?php echo $_lang["mgrlog_itemname"]; ?></b></th>
-			<th class="sortable"><b><?php echo $_lang["mgrlog_msg"]; ?></b></th>
-			<th class="sortable"><b><?php echo $_lang["mgrlog_time"]; ?></b></th>
+			<th><b><?php echo $_lang["mgrlog_username"]; ?></b></th>
+			<th><b><?php echo $_lang["mgrlog_actionid"]; ?></b></th>
+			<th><b><?php echo $_lang["mgrlog_itemid"]; ?></b></th>
+			<th><b><?php echo $_lang["mgrlog_itemname"]; ?></b></th>
+			<th><b><?php echo $_lang["mgrlog_msg"]; ?></b></th>
+			<th><b><?php echo $_lang["mgrlog_time"]; ?></b></th>
 		</tr></thead>
 		<tbody>
 		<?php
@@ -262,7 +262,7 @@ if(isset($_REQUEST['log_submit'])) {
 		$logentries = array();
 		$i = 0;
 		while ($logentry = mysql_fetch_assoc($rs)) {
-			?><tr class="<?php echo ($i % 2 ? 'even' : ''); ?>">
+			?><tr>
 			<td><?php echo '<a href="index.php?a=12&amp;id='.$logentry['internalKey'].'">'.$logentry['username'].'</a>'; ?></td>
 			<td><?php echo $logentry['action']; ?></td>
 			<td><?php echo $logentry['itemid']=="-" ? "" : $logentry['itemid'] ; ?></td>

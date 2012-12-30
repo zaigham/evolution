@@ -53,5 +53,13 @@ $(document).ready(function($) {
 		"aaSorting": [[ 2, "asc" ]]
 	});
 	
+/*
+	$('#system-events-log').dataTable({
+		"bJQueryUI": true,
+		"aaSorting": [[ 2, "asc" ]]
+	});
+*/
+	
+	
 
 });
