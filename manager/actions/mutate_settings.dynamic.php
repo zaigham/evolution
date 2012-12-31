@@ -1117,14 +1117,6 @@ function confirmLangChange(el, lkey, elupd){
 					<td colspan="2"><div class='split'></div></td>
 				  </tr>
 				  <tr>
-					<td nowrap class="warning"><b><?php echo $_lang["mail_check_timeperiod_title"] ?></b></td>
-					<td><input type="text" name="mail_check_timeperiod" onchange="documentDirty=true;" size="5" value="<?php echo isset($mail_check_timeperiod) ? $mail_check_timeperiod : "60" ; ?>" /></td>
-				  </tr>
-				  <tr>
-					<td width="200">&nbsp;</td>
-					<td class='comment'><?php echo $_lang["mail_check_timeperiod_message"] ?></td>
-				  </tr>
-				  <tr>
 					<td colspan="2"><div class='split'></div></td>
 				  </tr>
 				  <tr>
