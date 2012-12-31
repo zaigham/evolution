@@ -611,7 +611,7 @@ switch ($action) {
 /********************************************************************/
     case 31:
         // get the page to manage files
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/files.dynamic.php";
         include_once "footer.inc.php";
     break;
