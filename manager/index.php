@@ -249,7 +249,7 @@ switch ($action) {
 /********************************************************************/
     case 2:
         // get the home page
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/welcome.static.php";
         include_once "footer.inc.php";
     break;
@@ -279,7 +279,7 @@ switch ($action) {
     break;
     case 4:
         // get the mutate page for adding content
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_content.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -506,7 +506,7 @@ switch ($action) {
 /********************************************************************/
     case 26:
         // get the cache emptying processor
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/refresh_site.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -727,7 +727,7 @@ switch ($action) {
 /********************************************************************/
     case 71:
         // get the search page
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/search.static.php";
         include_once "footer.inc.php";
     break;
@@ -771,7 +771,7 @@ switch ($action) {
 /* template/ snippet management                                                 */
 /********************************************************************/
     case 76:
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/resources.static.php";
         include_once "footer.inc.php";
     break;
