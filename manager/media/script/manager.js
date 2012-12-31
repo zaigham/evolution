@@ -52,5 +52,7 @@ $(document).ready(function($) {
 		"bJQueryUI": true,
 		"aaSorting": [[ 2, "asc" ]]
 	});
+	
+	$('.tooltip').tooltip();
 
 });

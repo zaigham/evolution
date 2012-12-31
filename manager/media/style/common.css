@@ -14,3 +14,13 @@
 	font-weight: bold;
 	font-size: 1.1em;
 	}
+
+
+.tooltip{
+	cursor: help;
+	opacity: 0.7;
+}
+
+.tooltip:hover{
+	opacity: 1;
+}
