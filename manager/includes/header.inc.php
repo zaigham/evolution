@@ -46,13 +46,6 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
         // set tree to default action.
         if (parent.tree) parent.tree.ca = "open";
 
-		// call the updateMail function, updates mail notification in top navigation
-		if (top.mainMenu) {
-			if(top.mainMenu.updateMail) {
-				top.mainMenu.updateMail(true);
-			}
-		}
-		
         function stopWorker() {
             try {
                 parent.mainMenu.stopWork();

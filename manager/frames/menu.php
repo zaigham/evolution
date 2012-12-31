@@ -26,20 +26,6 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 	var workText;
 	var buildText;
 
-	// Create the AJAX mail update object before requesting it
-	var updateMailerAjx = new Ajax('index.php', {method:'post', postBody:'updateMsgCount=true', onComplete:showResponse});
-	function updateMail(now) {
-		try {
-			// if 'now' is set, runs immediate ajax request (avoids problem on initial loading where periodical waits for time period before making first request)
-			if (now)
-				updateMailerAjx.request();
-			return false;
-		} catch(oException) {
-			// Delay first run until we're ready...
-			xx=updateMail.delay(1000,'',true);
-		}
-	};
-
 	function showResponse(request) {
 		var counts = request.split(',');
 		var elm = $('msgCounter');
@@ -49,8 +35,6 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 	}
 
 	window.addEvent('load', function() {
-		updateMail(true); // First run update
-		updateMail.periodical(<?php echo $modx->config['mail_check_timeperiod'] * 1000 ?>, '', true); // Periodical Updater
 		if(top.__hideTree) {
 			// display toc icon
 			var elm = $('tocText');
