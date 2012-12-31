@@ -26,3 +26,5 @@ manager/includes/config.inc.php
 # and do not ignore index.html
 !index.html
 >>>>>>> remotes/upstream/1.1.develop
+
+manager/frames/menu.php.BASE.67802.php
