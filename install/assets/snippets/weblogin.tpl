@@ -5,7 +5,7 @@
  * Allows webusers to login to protected pages in the website, supporting multiple user groups
  *
  * @category 	snippet
- * @version 	1.1
+ * @version 	clipper-1.1.1
  * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  * @internal	@properties &loginhomeid=Login Home Id;string; &logouthomeid=Logout Home Id;string; &logintext=Login Button Text;string; &logouttext=Logout Button Text;string; &tpl=Template;string;
  * @internal	@modx_category Login
@@ -89,7 +89,9 @@ $cookieKey = substr(md5($site_id."Web-User"),0,15);
 
 # Start processing
 include_once $snipPath."weblogin/weblogin.common.inc.php";
-include_once ($modx->config['base_path'] . "manager/includes/crypt.class.inc.php");
+// The following include_once is commented out as crypt.class.inc.php is neither used by this snippet, nor included in the Clipper install.
+// It appears to be a defunct file that was once used, but no longer is used anywhere. Unfortunately the include was never removed.
+// include_once ($modx->config['base_path'] . "manager/includes/crypt.class.inc.php");
 
 if ($isPWDActivate || $isPWDReminder || $isLogOut || $isPostBack) {
 	# include the logger class

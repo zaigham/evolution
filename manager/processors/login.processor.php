@@ -33,9 +33,6 @@ include_once "version.inc.php";
 // include the logger
 include_once "log.class.inc.php";
 
-// include the crypto thing
-include_once "crypt.class.inc.php";
-
 // include the hashing classes
 require('hash.inc.php');
 
