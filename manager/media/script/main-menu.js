@@ -5,9 +5,6 @@ $(document).ready(function($) {
 
 $(window).load(function () {
 		
-	updateMail(true); // First run update mail
-	window.setInterval('updateMail(true)', config.mail_check_timeperiod*1000);// Periodical Updater
-	
 	if(top.__hideTree) {
 		//display toc icon when tree frame is closed
 		var elm = jQuery('#tocText');
@@ -18,37 +15,6 @@ $(window).load(function () {
 	
 });
 
-
-//gets email numbers and updates visuals(counters, new mail)
-		function updateMail(now) {
-			try {
-				// if 'now' is set, runs immediate ajax request (avoids problem on initial loading where periodical waits for time period before making first request)
-				if (now){
-					
-					jQuery.ajax({
-						url: 'index.php',
-						type: 'post',
-						data: { updateMsgCount: 'true'},
-						success: function(request){
-							var counts = request.split(',');// 0,0
-							jQuery('#msgCounter').html('(' + counts[0] + ' / ' + counts[1] + ')');
-							
-							if(counts[0] > 0){
-								jQuery('#newMail').show();
-							}else{
-								jQuery('#newMail').hide();
-							}
-						}
-					});
-					
-					return false;
-				}
-			
-			} catch(oException) {
-				// Delay first run until we're ready...
-				window.setTimeout('updateMail(true)', 1000);
-			}
-		};
 
 		//hides tree frame and places the reopen icon
 		function hideTreeFrame() {
