@@ -18,13 +18,7 @@ assets/flash/*
 manager/includes/config.inc.php
 
 # except do not ignore .gitignore
-<<<<<<< HEAD
-!.gitignore
-=======
 !.gitignore
 
 # and do not ignore index.html
 !index.html
->>>>>>> remotes/upstream/1.1.develop
-
-manager/frames/menu.php.BASE.67802.php
