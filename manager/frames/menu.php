@@ -1,9 +1,6 @@
 <?php
 if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
-if (!array_key_exists('mail_check_timeperiod', $modx->config) || !is_numeric($modx->config['mail_check_timeperiod'])) {
-	$modx->config['mail_check_timeperiod'] = 5;
-}
 if ($manager_theme) $manager_theme .= '/';
 $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 ?>

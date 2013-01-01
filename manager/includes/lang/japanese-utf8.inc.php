@@ -446,8 +446,6 @@ $_lang["login_message"] = CMS_NAME.'へようこそ。ログイン名とパス�
 $_lang["logo_slogan"] = CMS_NAME.' Content Manager - \nCreate and do more with less';
 $_lang["logout"] = 'ログアウト';
 $_lang["long_title"] = 'タイトル';
-$_lang["mail_check_timeperiod_message"] = '<a href="index.php?a=10">メッセージ機能</a>のメッセージチェックの間隔を「秒」で指定します';
-$_lang["mail_check_timeperiod_title"] = 'メッセージチェックの間隔 ';
 $_lang["manage_depends"] = '関連付けの管理';
 $_lang["manage_files"] = 'ファイル管理';
 $_lang["manage_htmlsnippets"] = 'チャンク';
