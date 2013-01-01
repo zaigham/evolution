@@ -73,13 +73,13 @@ $_CONFIG = array(
 
     'mime_magic' => "",
 
-    'maxImageWidth' => 750,
-    'maxImageHeight' => 750,
+    'maxImageWidth' => 0,
+    'maxImageHeight' => 0,
 
     'thumbWidth' => 100,
     'thumbHeight' => 100,
 
-    'thumbsDir' => ".thumbs",
+    'thumbsDir' => "thumbs",
 
     'jpegQuality' => 90,
 

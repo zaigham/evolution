@@ -13,6 +13,7 @@ assets/files/*
 assets/media/*
 assets/export/*
 assets/flash/*
+assets/thumbs/*
 
 # and the config file
 manager/includes/config.inc.php
