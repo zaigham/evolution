@@ -482,8 +482,6 @@ $_lang["no_stats_message"] = '这里显示你站点的访问者状态，但是，当你在'.CMS_NAME
 $_lang["nojava"] = 'Java seems to be disabled. Click <a href="index.php?a=1&f=9&javaDis=1">here</a> to load the non-java menu.';
 $_lang["nologentries_message"] = '输入每页显示的索引数量.';
 $_lang["nologentries_title"] = '日志条目数:';
-$_lang["nomessages_message"] = '输入当你浏览消息时，你的消息框将显示的消息数量';
-$_lang["nomessages_title"] = '消息数量:';
 $_lang["noresults_message"] = 'Enter the number of results to show in the data grid when viewing listings and search results.';
 $_lang["noresults_title"] = '结果数量:';
 $_lang["not_deleted"] = '没被删除.';

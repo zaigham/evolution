@@ -569,8 +569,6 @@ $_lang["no_records_found"] = 'レコードはありません。';
 $_lang["no_results"] = '何もありません';
 $_lang["nologentries_message"] = '<a href="index.php?a=13">管理操作ログ</a>閲覧時、1ページあたりに表示されるログエントリー数を入力してください。';
 $_lang["nologentries_title"] = 'ログエントリー数 ';
-$_lang["nomessages_message"] = 'メッセージ閲覧時、受信ボックスに表示されるメッセージ数を入力してください。';
-$_lang["nomessages_title"] = 'メッセージ数 ';
 $_lang["none"] = 'なし';
 $_lang["noresults_message"] = '管理画面内の各機能の検索結果の一覧で、ページあたり何件表示するかを指定してください。';
 $_lang["noresults_title"] = '結果の件数 ';

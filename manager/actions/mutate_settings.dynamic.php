@@ -1081,17 +1081,6 @@ function confirmLangChange(el, lkey, elupd){
             <td colspan="2"><div class='split'></div></td>
           </tr>
           <tr>
-            <td nowrap class="warning"><b><?php echo $_lang["nomessages_title"]?></b></td>
-            <td><input onchange="documentDirty=true;" type='text' maxlength='50' size="5" name="number_of_messages" value="<?php echo isset($number_of_messages) ? $number_of_messages : 30 ; ?>" /></td>
-          </tr>
-          <tr>
-            <td width="200">&nbsp;</td>
-            <td class='comment'><?php echo $_lang["nomessages_message"]?></td>
-          </tr>
-          <tr>
-            <td colspan="2"><div class='split'></div></td>
-          </tr>
-          <tr>
             <td nowrap class="warning"><b><?php echo $_lang["noresults_title"]?></b></td>
             <td><input onchange="documentDirty=true;" type='text' maxlength='50' size="5" name="number_of_results" value="<?php echo isset($number_of_results) ? $number_of_results : 30 ; ?>" /></td>
           </tr>
