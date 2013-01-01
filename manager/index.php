@@ -410,13 +410,13 @@ switch ($action) {
 /********************************************************************/
     case 16:
         // get the edit template action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_templates.dynamic.php";
         include_once "footer.inc.php";
     break;
     case 19:
         // get the new template action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_templates.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -443,13 +443,13 @@ switch ($action) {
 /********************************************************************/
     case 22:
         // get the edit snippet action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_snippet.dynamic.php";
         include_once "footer.inc.php";
     break;
     case 23:
         // get the new snippet action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_snippet.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -470,13 +470,13 @@ switch ($action) {
 /********************************************************************/
     case 78:
         // get the edit snippet action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_htmlsnippet.dynamic.php";
         include_once "footer.inc.php";
     break;
     case 77:
         // get the new snippet action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_htmlsnippet.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -566,13 +566,13 @@ switch ($action) {
     break;
     case 101:
         // get the new plugin action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_plugin.dynamic.php";
         include_once "footer.inc.php";
     break;
     case 102:
         // get the edit plugin action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_plugin.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -779,7 +779,7 @@ switch ($action) {
 /* keywords management                                              */
 /********************************************************************/
     case 81:
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/manage_metatags.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -836,13 +836,13 @@ switch ($action) {
 /********************************************************************/
     case 300:
         // get the new document variable action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_tmplvars.dynamic.php";
         include_once "footer.inc.php";
     break;
     case 301:
         // get the edit document variable action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_tmplvars.dynamic.php";
         include_once "footer.inc.php";
     break;
