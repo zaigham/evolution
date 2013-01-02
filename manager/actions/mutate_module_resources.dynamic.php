@@ -30,11 +30,11 @@ $modx->manager->initPageViewState();
 
 // check to see the  editor isn't locked
 $sql = 'SELECT internalKey, username FROM '.$tbl_active_users.' WHERE action=108 AND id=\''.$id.'\'';
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = $modx->db->query($sql);
+$limit = $modx->db->getRecordCount($rs);
 if($limit>1) {
 	for ($i=0;$i<$limit;$i++) {
-		$lock = mysql_fetch_assoc($rs);
+		$lock = $modx->db->getRow($rs);
 		if($lock['internalKey']!=$modx->getLoginUserID()) {
 			$msg = sprintf($_lang['lock_msg'], $lock['username'], 'module');
 			$e->setError(5, $msg);
@@ -71,12 +71,6 @@ switch ($_REQUEST['op']) {
 			}
 			$modx->dbQuery('DELETE FROM '.$tbl_site_module_depobj.' WHERE module=\''.$id.'\' AND resource IN ('.implode(',',$opids).') AND type=\''.$type.'\'');
 			$ds = $modx->dbQuery($sql);
-			if(!$ds){
-				echo '<script type="text/javascript">'.
-				     'function jsalert(){ alert(\'An error occured while trying to update the database. \''.mysql_error().');'.
-				     'setTimeout(\'jsalert()\',100)'.
-				     '</script>';
-			}
 		}
 		break;
 	case 'del':
@@ -89,7 +83,7 @@ switch ($_REQUEST['op']) {
 		if ($ds) {
 			// loop through resources and look for plugins and snippets
 			$i=0; $plids=array(); $snid=array();
-			while ($row=mysql_fetch_assoc($ds)){
+			while ($row=$modx->db->getRow($ds)){
 				if($row['type']=='30') $plids[$i]=$row['resource'];
 				if($row['type']=='40') $snids[$i]=$row['resource'];
 			}
@@ -118,8 +112,8 @@ switch ($_REQUEST['op']) {
 
 // load record
 $sql = "SELECT * FROM ".$tbl_site_modules." WHERE id = $id;";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = $modx->db->query($sql);
+$limit = $modx->db->getRecordCount($rs);
 if($limit>1) {
 	echo "<p>Multiple modules sharing same unique id. Please contact the Site Administrator.<p>";
 	exit;
@@ -128,7 +122,7 @@ if($limit<1) {
 	echo "<p>Module not found for id '$id'.</p>";
 	exit;
 }
-$content = mysql_fetch_assoc($rs);
+$content = $modx->db->getRow($rs);
 $_SESSION['itemname']=$content['name'];
 if($content['locked']==1 && $_SESSION['mgrRole']!=1) {
 	$e->setError(3);

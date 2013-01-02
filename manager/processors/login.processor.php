@@ -1,31 +1,29 @@
 <?php
+//
+// WARNING: This file is accessed directly, not via manager/index.php
+//
+
 require_once(strtr(realpath(dirname(__FILE__)), '\\', '/').'/../includes/protect.inc.php');
 
-// set the include_once path
-if(version_compare(phpversion(), "4.3.0")>=0) {
-    set_include_path(get_include_path() . PATH_SEPARATOR . "../includes/");
-} else {
-    ini_set("include_path", "../includes/"); // include path the old way
-}
+set_include_path(get_include_path() . PATH_SEPARATOR . "../includes/");
 
 define("IN_MANAGER_MODE", "true");  // we use this to make sure files are accessed through
                                     // the manager instead of seperately.
-// include the database configuration file
-include_once "config.inc.php";
+                                    
+// include the database configuration file and the DBAPI
+require_once('config.inc.php');
 
 // start session
 startCMSSession();
 
-// connect to the database
-if(@!$modxDBConn = mysql_connect($database_server, $database_user, $database_password)) {
-    die("Failed to create the database connection!");
-} else {
-    mysql_select_db($dbase);
-    @mysql_query("{$database_connection_method} {$database_connection_charset}");
-}
-
-// get the settings from the database
-include_once "settings.inc.php";
+// initiate the content manager class
+require_once('document.parser.class.inc.php');
+$modx = new DocumentParser;
+$modx->loadExtension('DBAPI');
+$modx->db->connect();
+$modx->loadExtension('ManagerAPI');
+$modx->getSettings();
+$etomite = &$modx; // for backward compatibility
 
 // include version info
 include_once "version.inc.php";
@@ -44,13 +42,6 @@ $SystemAlertMsgQueque = &$_SESSION['SystemAlertMsgQueque'];
 include_once "error.class.inc.php";
 $e = new errorHandler;
 
-// initiate the content manager class
-include_once "document.parser.class.inc.php";
-$modx = new DocumentParser;
-$modx->loadExtension("ManagerAPI");
-$modx->getSettings();
-$etomite = &$modx; // for backward compatibility
-
 $username = $modx->db->escape($_REQUEST['username']);
 $givenPassword = $modx->db->escape($_REQUEST['password']);
 $captcha_code = $_REQUEST['captcha_code'];
@@ -66,15 +57,15 @@ $modx->invokeEvent("OnBeforeManagerLogin",
                         ));
 
 $sql = "SELECT $dbase.`".$table_prefix."manager_users`.*, $dbase.`".$table_prefix."user_attributes`.* FROM $dbase.`".$table_prefix."manager_users`, $dbase.`".$table_prefix."user_attributes` WHERE BINARY $dbase.`".$table_prefix."manager_users`.username = '".$username."' and $dbase.`".$table_prefix."user_attributes`.internalKey=$dbase.`".$table_prefix."manager_users`.id;";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = $modx->db->query($sql);
+$limit = $modx->db->getRecordCount($rs);
 
 if($limit==0 || $limit>1) {
     jsAlert($e->errors[900]);
     return;
 }
 
-$row = mysql_fetch_assoc($rs);
+$row = $modx->db->getRow($rs);
 
 $internalKey            = $row['internalKey'];
 $hashtype               = (int)$row['hashtype'];
@@ -93,8 +84,8 @@ $email                  = $row['email'];
 
 // get the user settings from the database
 $sql = "SELECT setting_name, setting_value FROM $dbase.`".$table_prefix."user_settings` WHERE user='".$internalKey."' AND setting_value!=''";
-$rs = mysql_query($sql);
-while ($row = mysql_fetch_assoc($rs)) {
+$rs = $modx->db->query($sql);
+while ($row = $modx->db->getRow($rs)) {
     ${$row['setting_name']} = $row['setting_value'];
 }
 // blocked due to number of login errors.
@@ -108,7 +99,7 @@ if($failedlogins>=$failed_allowed && $blockeduntildate>time()) {
 // blocked due to number of login errors, but get to try again
 if($failedlogins>=$failed_allowed && $blockeduntildate<time()) { 
     $sql = "UPDATE $dbase.`".$table_prefix."user_attributes` SET failedlogincount='0', blockeduntil='".(time()-1)."' where internalKey=$internalKey";
-    $rs = mysql_query($sql);
+    $rs = $modx->db->query($sql);
 }
 
 // this user has been blocked by an admin, so no way he's loggin in!
@@ -194,11 +185,11 @@ if($newloginerror) {
 	//increment the failed login counter
     $failedlogins += 1;
     $sql = "update $dbase.`".$table_prefix."user_attributes` SET failedlogincount='$failedlogins' where internalKey=$internalKey";
-    $rs = mysql_query($sql);
+    $rs = $modx->db->query($sql);
     if($failedlogins>=$failed_allowed) { 
 		//block user for too many fail attempts
         $sql = "update $dbase.`".$table_prefix."user_attributes` SET blockeduntil='".(time()+($blocked_minutes*60))."' where internalKey=$internalKey";
-        $rs = mysql_query($sql);
+        $rs = $modx->db->query($sql);
     } else {
 		//sleep to help prevent brute force attacks
         $sleep = (int)$failedlogins/2;
@@ -226,14 +217,14 @@ $_SESSION['mgrLastlogin']=$lastlogin;
 $_SESSION['mgrLogincount']=$nrlogins; // login count
 $_SESSION['mgrRole']=$role;
 $sql="SELECT * FROM $dbase.`".$table_prefix."user_roles` WHERE id=".$role.";";
-$rs = mysql_query($sql);
-$row = mysql_fetch_assoc($rs);
+$rs = $modx->db->query($sql);
+$row = $modx->db->getRow($rs);
 $_SESSION['mgrPermissions'] = $row;
 
 // successful login so reset fail count and update key values
 if(isset($_SESSION['mgrValidated'])) {
     $sql = "update $dbase.`".$table_prefix."user_attributes` SET failedlogincount=0, logincount=logincount+1, lastlogin=thislogin, thislogin=".time().", sessionid='$currentsessionid' where internalKey=$internalKey";
-    $rs = mysql_query($sql);
+    $rs = $modx->db->query($sql);
 }
 
 // get user's document groups
@@ -244,8 +235,8 @@ $sql = "SELECT uga.documentgroup
         FROM $tblug ug
         INNER JOIN $tbluga uga ON uga.membergroup=ug.user_group
         WHERE ug.member =".$internalKey;
-$rs = mysql_query($sql);
-while ($row = mysql_fetch_row($rs)) $dg[$i++]=$row[0];
+$rs = $modx->db->query($sql);
+while ($row = $modx->db->getRow($rs, 'num')) $dg[$i++]=$row[0];
 $_SESSION['mgrDocgroups'] = $dg;
 
 if($rememberme == '1') {

@@ -373,8 +373,8 @@ function parseInput($src, $delim="||", $type="string", $columns=true) { // type 
     if (is_resource($src)) {
         // must be a recordset
         $rows = array();
-        $nc = mysql_num_fields($src);
-        while ($cols = mysql_fetch_row($src)) $rows[] = ($columns)? $cols : implode(" ",$cols);
+
+        while ($cols = $modx->db->getRow($src, 'num')) $rows[] = ($columns)? $cols : implode(" ",$cols);
         return ($type=="array")? $rows : implode($delim,$rows);
     }
     else {

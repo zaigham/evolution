@@ -91,7 +91,7 @@ class DocumentParser {
             case 'DBAPI' :
                 if (!include_once MODX_BASE_PATH . 'manager/includes/extenders/dbapi.' . $database_type . '.class.inc.php')
                     return false;
-                $this->db= new DBAPI;
+                $this->db= new DBAPI($this);
                 return true;
                 break;
 
@@ -811,7 +811,6 @@ class DocumentParser {
     /**
      * Merge meta tags
      *
-     * @deprecated Meta tags to be removed from manager.
      * @param string $template
      * @return string
      */
@@ -965,7 +964,20 @@ class DocumentParser {
         if (is_array($params)) {
             extract($params, EXTR_SKIP);
         }
+        ob_start();
         eval ($pluginCode);
+        $msg= ob_get_contents();
+        ob_end_clean();
+        if ($msg && isset ($php_errormsg)) {
+            if (!strpos($php_errormsg, 'Deprecated')) { // ignore php5 strict errors
+                // log error
+                $this->logEvent(1, 3, "<b>$php_errormsg</b><br /><br /> $msg", $this->Event->activePlugin . " - Plugin");
+                if ($this->isBackend())
+                    $this->Event->alert("An error occurred while loading. Please see the event log for more information.<p />$msg");
+            }
+        } else {
+            echo $msg;
+        }
         unset ($modx->event->params);
     }
 
@@ -987,7 +999,14 @@ class DocumentParser {
         $snip= eval ($snippet);
         $msg= ob_get_contents();
         ob_end_clean();
-
+        if ($msg && isset ($php_errormsg)) {
+            if (!strpos($php_errormsg, 'Deprecated')) { // ignore php5 strict errors
+                // log error
+                $this->logEvent(1, 3, "<b>$php_errormsg</b><br /><br /> $msg", $this->currentSnippet . " - Snippet");
+                if ($this->isBackend())
+                    $this->Event->alert("An error occurred while loading. Please see the event log for more information<p />$msg");
+            }
+        }
         unset ($modx->event->params);
         return $msg . $snip;
     }
@@ -1298,14 +1317,14 @@ class DocumentParser {
      */
     function executeParser() {
 
+	set_error_handler(array (&$this, 'phpError'), error_reporting());
+
         $this->db->connect();
 
         // get the settings
         if (empty ($this->config)) {
             $this->getSettings();
         }
-
-        $this->set_error_handler();
 
         // IIS friendly url fix
         if ($this->config['friendly_urls'] == 1 && strpos($_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS') !== false) {
@@ -3523,24 +3542,6 @@ class DocumentParser {
     // END Etomite database functions //
     ####################################
 
-	/**
-	 * Set PHP error handler
-	 * 
-	 * @return void
-	 */
-	function set_error_handler()
-		{
-		if (version_compare(PHP_VERSION, '5.3.0') >= 0)
-			{
-			// PHP 5.3
-			set_error_handler(array (&$this, 'phpError'), (error_reporting() & ~E_DEPRECATED & ~E_USER_DEPRECATED) | ($this->config['error_handling_deprecated'] ? E_DEPRECATED | E_USER_DEPRECATED : 0));
-			}
-		else
-			{
-			set_error_handler(array (&$this, 'phpError'), error_reporting());
-			}
-		}
-
     /**
      * PHP error handler set by http://www.php.net/manual/en/function.set-error-handler.php
      *
@@ -3559,7 +3560,7 @@ class DocumentParser {
         if (error_reporting() == 0 || $nr == 0 || ($nr == 8 && $this->stopOnNotice == false)) {
             return true;
         }
-        if (version_compare(PHP_VERSION, '5.3.0') >= 0 && ($nr & (E_DEPRECATED | E_USER_DEPRECATED))) { // TimGS. Handle deprecated functions according to config.
+        if ($nr & (E_DEPRECATED | E_USER_DEPRECATED)) { // TimGS. Handle deprecated functions according to config.
                 switch ($this->config['error_handling_deprecated']) {
                         case 1:
                         	$this->logEvent(29,2,$text.'; File: '.$file.'; Line: '.$line);
