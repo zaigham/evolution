@@ -1,548 +1,158 @@
 <?php
+require_once('dbapi.abstract.class.inc.php');
 
-/* Datbase API object of MySQL
- * Written by Raymond Irving June, 2005
- *
- */
+class DBAPI extends DBAPI_abstract {
 
-class DBAPI {
+    public $conn;
+    public $config;
+    public $isConnected;
+    
+    protected $parent; // Usually the $modx global
+    
+    protected $host, $dbase; // Holds host and db name if connected.
 
-   var $conn;
-   var $config;
-   var $isConnected;
-   
-   private $parent; // Usually the $modx global
-   
-   private $host, $dbase; // Holds host and db name if connected.
+	// -----
+	// SETUP 
+	// -----
 
-   /**
-    * @name:  DBAPI
-    *
-    */
-   function __construct($parent, $host='',$dbase='', $uid='',$pwd='',$pre=NULL,$charset='',$connection_method='SET CHARACTER SET') {
-      $this->parent = $parent;
-      $this->config['host'] = $host ? $host : $GLOBALS['database_server'];
-      $this->config['dbase'] = $dbase ? $dbase : $GLOBALS['dbase'];
-      $this->config['user'] = $uid ? $uid : $GLOBALS['database_user'];
-      $this->config['pass'] = $pwd ? $pwd : $GLOBALS['database_password'];
-      $this->config['charset'] = $charset ? $charset : $GLOBALS['database_connection_charset'];
-      $this->config['connection_method'] =  $this->_dbconnectionmethod = (isset($GLOBALS['database_connection_method']) ? $GLOBALS['database_connection_method'] : $connection_method);
-      $this->config['table_prefix'] = ($pre !== NULL) ? $pre : $GLOBALS['table_prefix'];
-      $this->initDataTypes();
-   }
+    protected function initDataTypes() {
+        $this->dataTypes['numeric'] = array (
+            'INT',
+            'INTEGER',
+            'TINYINT',
+            'BOOLEAN',
+            'DECIMAL',
+            'DEC',
+            'NUMERIC',
+            'FLOAT',
+            'DOUBLE PRECISION',
+            'REAL',
+            'SMALLINT',
+            'MEDIUMINT',
+            'BIGINT',
+            'BIT'
+        );
+        $this->dataTypes['string'] = array (
+            'CHAR',
+            'VARCHAR',
+            'BINARY',
+            'VARBINARY',
+            'TINYBLOB',
+            'BLOB',
+            'MEDIUMBLOB',
+            'LONGBLOB',
+            'TINYTEXT',
+            'TEXT',
+            'MEDIUMTEXT',
+            'LONGTEXT',
+            'ENUM',
+            'SET'
+        );
+        $this->dataTypes['date'] = array (
+            'DATE',
+            'DATETIME',
+            'TIMESTAMP',
+            'TIME',
+            'YEAR'
+        );
+    }
 
-   /**
-    * @name:  initDataTypes
-    * @desc:  called in the constructor to set up arrays containing the types
-    *         of database fields that can be used with specific PHP types
-    */
-   function initDataTypes() {
-      $this->dataTypes['numeric'] = array (
-         'INT',
-         'INTEGER',
-         'TINYINT',
-         'BOOLEAN',
-         'DECIMAL',
-         'DEC',
-         'NUMERIC',
-         'FLOAT',
-         'DOUBLE PRECISION',
-         'REAL',
-         'SMALLINT',
-         'MEDIUMINT',
-         'BIGINT',
-         'BIT'
-      );
-      $this->dataTypes['string'] = array (
-         'CHAR',
-         'VARCHAR',
-         'BINARY',
-         'VARBINARY',
-         'TINYBLOB',
-         'BLOB',
-         'MEDIUMBLOB',
-         'LONGBLOB',
-         'TINYTEXT',
-         'TEXT',
-         'MEDIUMTEXT',
-         'LONGTEXT',
-         'ENUM',
-         'SET'
-      );
-      $this->dataTypes['date'] = array (
-         'DATE',
-         'DATETIME',
-         'TIMESTAMP',
-         'TIME',
-         'YEAR'
-      );
-   }
+	// -------
+	// CONNECT
+	// -------
 
-   /**
-    * @name:  connect
-    *
-    */
-   function connect($host = '', $dbase = '', $uid = '', $pwd = '', $persist = 0) {
-      
-      $uid = $uid ? $uid : $this->config['user'];
-      $pwd = $pwd ? $pwd : $this->config['pass'];
-      $host = $host ? $host : $this->config['host'];
-      $dbase = $dbase ? $dbase : $this->config['dbase'];
-      $charset = $this->config['charset'];
-      $connection_method = $this->config['connection_method'];
-      $tstart = $this->parent->getMicroTime();
-      if (!$this->conn = ($persist ? mysql_pconnect($host, $uid, $pwd) : mysql_connect($host, $uid, $pwd, true))) {
-         $this->parent->messageQuit("Failed to create the database connection!");
-         exit;
-      } else {
-         $dbase = str_replace('`', '', $dbase); // remove the `` chars
-         if (!@ mysql_select_db($dbase, $this->conn)) {
-            $this->parent->messageQuit("Failed to select the database '" . $dbase . "'!");
-            exit;
-         }
-         $this->host = $host;
-         $this->dbase = $dbase;
-         @mysql_query("{$connection_method} {$charset}", $this->conn);
-         $tend = $this->parent->getMicroTime();
-         $totaltime = $tend - $tstart;
-         if ($this->parent->dumpSQL) {
-            $this->parent->queryCode .= "<fieldset style='text-align:left'><legend>Database connection</legend>" . sprintf("Database connection was created in %2.4f s", $totaltime) . "</fieldset><br />";
-         }
-         $this->isConnected = true;
-         // FIXME (Fixed by line below):
-         // this->queryTime = this->queryTime + $totaltime;
-         $this->parent->queryTime += $totaltime;
-      }
-   }
+    protected function make_connection($host, $uid, $pwd) {
+          return $this->conn = mysql_connect($host, $uid, $pwd);
+    }
 
-   /**
-    * @name:  disconnect
-    *
-    */
-   function disconnect() {
-      @ mysql_close($this->conn);
-   }
+    protected function make_persistent_connection($host, $uid, $pwd) {
+          return $this->conn = mysql_pconnect($host, $uid, $pwd, true);
+    }
 
-   function escape($s) {
-      if (empty ($this->conn) || !is_resource($this->conn)) {
-         $this->connect();
-      }
-      return mysql_real_escape_string($s, $this->conn);
-   }
+    protected function select_db($dbname) {
+          return mysql_select_db($dbname, $this->conn);
+    }
 
-   /**
-    * @name:  query
-    * @desc:  Mainly for internal use.
-    * Developers should use select, update, insert, delete where possible
-    */
-   function query($sql) {
-      
-      if (empty ($this->conn) || !is_resource($this->conn)) {
-         $this->connect();
-      }
-      $tstart = $this->parent->getMicroTime();
-      if (!$result = @ mysql_query($sql, $this->conn)) {
-         $this->parent->messageQuit("Execution of a query to the database failed - " . $this->getLastError(), $sql);
-      } else {
-         $tend = $this->parent->getMicroTime();
-         $totaltime = $tend - $tstart;
-         $this->parent->queryTime = $this->parent->queryTime + $totaltime;
-         if ($this->parent->dumpSQL) {
-            $this->parent->queryCode .= "<fieldset style='text-align:left'><legend>Query " . ($this->executedQueries + 1) . " - " . sprintf("%2.4f s", $totaltime) . "</legend>" . $sql . "</fieldset><br />";
-         }
-         $this->parent->executedQueries = $this->parent->executedQueries + 1;
-         return $result;
-      }
-   }
+	// ----------
+	// DISCONNECT
+	// ----------
 
-   /**
-    * @name:  delete
-    *
-    */
-   function delete($from,$where='',$fields='') {
-      if (!$from)
-         return false;
-      else {
-         $table = $from;
-         $where = ($where != "") ? "WHERE $where" : "";
-         return $this->query("DELETE $fields FROM $table $where");
-      }
-   }
+    public function disconnect() {
+          @mysql_close($this->conn);
+    }
 
-   /**
-    * @name:  select
-    *
-    */
-   function select($fields = "*", $from = "", $where = "", $orderby = "", $limit = "") {
-      if (!$from)
-         return false;
-      else {
-         $table = $from;
-         $where = ($where != "") ? "WHERE $where" : "";
-         $orderby = ($orderby != "") ? "ORDER BY $orderby " : "";
-         $limit = ($limit != "") ? "LIMIT $limit" : "";
-         return $this->query("SELECT $fields FROM $table $where $orderby $limit");
-      }
-   }
+	// ----------------
+	// CLIPPERCMS DBAPI
+	// ----------------
 
-   /**
-    * @name:  update
-    *
-    */
-   function update($fields, $table, $where = "") {
-      if (!$table)
-         return false;
-      else {
-         if (!is_array($fields))
-            $flds = $fields;
-         else {
-            $flds = '';
-            foreach ($fields as $key => $value) {
-               if (!empty ($flds))
-                  $flds .= ",";
-               $flds .= $key . "=";
-               $flds .= "'" . $value . "'";
+    public function getAffectedRows() {
+        return mysql_affected_rows($this->conn);
+    }
+
+    public function getLastError() {
+        return mysql_error($this->conn);
+    }
+
+    public function getTableMetaData($table) {
+        $metadata = false;
+        if (!empty ($table)) {
+            $sql = "SHOW FIELDS FROM $table";
+            if ($ds = $this->query($sql)) {
+                while ($row = $this->getRow($ds)) {
+                    $fieldName = $row['Field'];
+                    $metadata[$fieldName] = $row;
+                }
             }
-         }
-         $where = ($where != "") ? "WHERE $where" : "";
-         return $this->query("UPDATE $table SET $flds $where");
-      }
-   }
+        }
+        return $metadata;
+    }
 
-   /**
-    * @name:  insert
-    * @desc:  returns either last id inserted or the result from the query
-    */
-   function insert($fields, $intotable, $fromfields = "*", $fromtable = "", $where = "", $limit = "") {
-   	return $this->__insert('INSERT', $fields, $intotable, $fromfields, $fromtable, $where, $limit);
-   }
+    public function getVersion() {
+         return mysql_get_server_info();
+    }
+    
+	// -------------------------------------------
+	// LOW LEVEL RBDMS-SPECIFIC INTERNAL FUNCTIONS
+	// -------------------------------------------
 
-   /**
-    * @name:  insert ignore
-    * @desc:  returns either last id inserted or the result from the query
-    */
-   function insert_ignore($fields, $intotable, $fromfields = "*", $fromtable = "", $where = "", $limit = "") {
-   	return $this->__insert('INSERT IGNORE', $fields, $intotable, $fromfields, $fromtable, $where, $limit);
-   }   
-   
-   /**
-    * @name:  replace
-    * @desc:  returns either last id inserted or the result from the query
-    */
-   function replace($fields, $intotable, $fromfields = "*", $fromtable = "", $where = "", $limit = "") {
-   	return $this->__insert('REPLACE', $fields, $intotable, $fromfields, $fromtable, $where, $limit);
-   }   
+    protected function _escape($s) {
+          return mysql_real_escape_string($s, $this->conn);
+    }
 
-   private function __insert($insert_method, $fields, $intotable, $fromfields = "*", $fromtable = "", $where = "", $limit = "") {
-      if (!$intotable)
-         return false;
-      else {
-         if (!is_array($fields))
-            $flds = $fields;
-         else {
-            $keys = array_keys($fields);
-            $values = array_values($fields);
-            $flds = "(" . implode(",", $keys) . ") " .
-             (!$fromtable && $values ? "VALUES('" . implode("','", $values) . "')" : "");
-            if ($fromtable) {
-               $where = ($where != "") ? "WHERE $where" : "";
-               $limit = ($limit != "") ? "LIMIT $limit" : "";
-               $sql = "SELECT $fromfields FROM $fromtable $where $limit";
+    protected function _query($sql) {
+        return mysql_query($sql, $this->conn);
+    }
+
+    protected function _recordcount($rs) {
+        return mysql_num_rows($rs);
+    }
+
+    protected function _getRowAssoc($rs) {
+          return mysql_fetch_assoc($rs);
+    }
+
+    protected function _getRowNumeric($rs) {
+          return mysql_fetch_row($rs);
+    }
+
+    protected function _getRowBoth($rs) {
+          return mysql_fetch_array($rs, MYSQL_BOTH);
+    }
+
+    protected function _getColumnNames($rs) {
+        if ($rs) {
+            $names = array ();
+            $limit = mysql_num_fields($rs);
+            for ($i = 0; $i < $limit; $i++) {
+                $names[] = mysql_field_name($rs, $i);
             }
-         }
-         $rt = $this->query("$insert_method $intotable $flds $sql");
-         $lid = $this->getInsertId();
-         return $lid ? $lid : $rt;
-      }
-   }
+            return $names;
+        }
+    }
 
-   /**
-    * @name:  getInsertId
-    *
-    */
-   function getInsertId($conn=NULL) {
-      if( !is_resource($conn)) $conn =& $this->conn;
-      return mysql_insert_id($conn);
-   }
-
-   /**
-    * @name:  getAffectedRows
-    *
-    */
-   function getAffectedRows($conn=NULL) {
-      if (!is_resource($conn)) $conn =& $this->conn;
-      return mysql_affected_rows($conn);
-   }
-
-   /**
-    * @name:  getLastError
-    *
-    */
-   function getLastError($conn=NULL) {
-      if (!is_resource($conn)) $conn =& $this->conn;
-      return mysql_error($conn);
-   }
-
-   /**
-    * @name:  getRecordCount
-    *
-    */
-   function getRecordCount($ds) {
-      return (is_resource($ds)) ? mysql_num_rows($ds) : 0;
-   }
-
-   /**
-    * @name:  getRow
-    * @desc:  returns an array of column values
-    * @param: $dsq - dataset
-    *
-    */
-   function getRow($ds, $mode = 'assoc') {
-      if ($ds) {
-         if ($mode == 'assoc') {
-            return mysql_fetch_assoc($ds);
-         }
-         elseif ($mode == 'num') {
-            return mysql_fetch_row($ds);
-         }
-         elseif ($mode == 'both') {
-            return mysql_fetch_array($ds, MYSQL_BOTH);
-         } else {
-            
-            $this->parent->messageQuit("Unknown get type ($mode) specified for fetchRow - must be empty, 'assoc', 'num' or 'both'.");
-         }
-      }
-   }
-
-   /**
-    * @name:  getColumn
-    * @desc:  returns an array of the values found on colun $name
-    * @param: $dsq - dataset or query string
-    */
-   function getColumn($name, $dsq) {
-      if (!is_resource($dsq))
-         $dsq = $this->query($dsq);
-      if ($dsq) {
-         $col = array ();
-         while ($row = $this->getRow($dsq)) {
-            $col[] = $row[$name];
-         }
-         return $col;
-      }
-   }
-
-   /**
-    * @name:  getColumnNames
-    * @desc:  returns an array containing the column $name
-    * @param: $dsq - dataset or query string
-    */
-   function getColumnNames($dsq) {
-      if (!is_resource($dsq))
-         $dsq = $this->query($dsq);
-      if ($dsq) {
-         $names = array ();
-         $limit = mysql_num_fields($dsq);
-         for ($i = 0; $i < $limit; $i++) {
-            $names[] = mysql_field_name($dsq, $i);
-         }
-         return $names;
-      }
-   }
-
-   /**
-    * @name:  getValue
-    * @desc:  returns the value from the first column in the set
-    * @param: $dsq - dataset or query string
-    */
-   function getValue($dsq) {
-      if (!is_resource($dsq))
-         $dsq = $this->query($dsq);
-      if ($dsq) {
-         $r = $this->getRow($dsq, "num");
-         return $r[0];
-      }
-   }
-
-   /**
-    * @name:  getXML
-    * @desc:  returns an XML formay of the dataset $ds
-    */
-   function getXML($dsq) {
-      if (!is_resource($dsq))
-         $dsq = $this->query($dsq);
-      $xmldata = "<xml>\r\n<recordset>\r\n";
-      while ($row = $this->getRow($dsq, "both")) {
-         $xmldata .= "<item>\r\n";
-         for ($j = 0; $line = each($row); $j++) {
-            if ($j % 2) {
-               $xmldata .= "<$line[0]>$line[1]</$line[0]>\r\n";
-            }
-         }
-         $xmldata .= "</item>\r\n";
-      }
-      $xmldata .= "</recordset>\r\n</xml>";
-      return $xmldata;
-   }
-
-   /**
-    * @name:  getTableMetaData
-    * @desc:  returns an array of MySQL structure detail for each column of a
-    *         table
-    * @param: $table: the full name of the database table
-    */
-   function getTableMetaData($table) {
-      $metadata = false;
-      if (!empty ($table)) {
-         $sql = "SHOW FIELDS FROM $table";
-         if ($ds = $this->query($sql)) {
-            while ($row = $this->getRow($ds)) {
-               $fieldName = $row['Field'];
-               $metadata[$fieldName] = $row;
-            }
-         }
-      }
-      return $metadata;
-   }
-
-   /**
-    * @name:  prepareDate
-    * @desc:  prepares a date in the proper format for specific database types
-    *         given a UNIX timestamp
-    * @param: $timestamp: a UNIX timestamp
-    * @param: $fieldType: the type of field to format the date for
-    *         (in MySQL, you have DATE, TIME, YEAR, and DATETIME)
-    */
-   function prepareDate($timestamp, $fieldType = 'DATETIME') {
-      $date = '';
-      if (!$timestamp === false && $timestamp > 0) {
-         switch ($fieldType) {
-            case 'DATE' :
-               $date = date('Y-m-d', $timestamp);
-               break;
-            case 'TIME' :
-               $date = date('H:i:s', $timestamp);
-               break;
-            case 'YEAR' :
-               $date = date('Y', $timestamp);
-               break;
-            default :
-               $date = date('Y-m-d H:i:s', $timestamp);
-               break;
-         }
-      }
-      return $date;
-   }
-
-   /**
-    * @name:  getHTMLGrid
-    * @param: $params: Data grid parameters
-    *         columnHeaderClass
-    *         tableClass
-    *         itemClass
-    *         altItemClass
-    *         columnHeaderStyle
-    *         tableStyle
-    *         itemStyle
-    *         altItemStyle
-    *         columns
-    *         fields
-    *         colWidths
-    *         colAligns
-    *         colColors
-    *         colTypes
-    *         cellPadding
-    *         cellSpacing
-    *         header
-    *         footer
-    *         pageSize
-    *         pagerLocation
-    *         pagerClass
-    *         pagerStyle
-    *
-    */
-   function getHTMLGrid($dsq, $params) {
-
-      if (!is_resource($dsq))
-         $dsq = $this->query($dsq);
-      if ($dsq) {
-         include_once MODX_BASE_PATH . '/manager/includes/controls/datagrid.class.php';
-         $grd = new DataGrid('', $dsq);
-
-         $grd->noRecordMsg = $params['noRecordMsg'];
-
-         $grd->columnHeaderClass = $params['columnHeaderClass'];
-         $grd->cssClass = $params['cssClass'];
-         $grd->itemClass = $params['itemClass'];
-         $grd->altItemClass = $params['altItemClass'];
-
-         $grd->columnHeaderStyle = $params['columnHeaderStyle'];
-         $grd->cssStyle = $params['cssStyle'];
-         $grd->itemStyle = $params['itemStyle'];
-         $grd->altItemStyle = $params['altItemStyle'];
-
-         $grd->columns = $params['columns'];
-         $grd->fields = $params['fields'];
-         $grd->colWidths = $params['colWidths'];
-         $grd->colAligns = $params['colAligns'];
-         $grd->colColors = $params['colColors'];
-         $grd->colTypes = $params['colTypes'];
-         $grd->colWraps = $params['colWraps'];
-
-         $grd->cellPadding = $params['cellPadding'];
-         $grd->cellSpacing = $params['cellSpacing'];
-         $grd->header = $params['header'];
-         $grd->footer = $params['footer'];
-         $grd->pageSize = $params['pageSize'];
-         $grd->pagerLocation = $params['pagerLocation'];
-         $grd->pagerClass = $params['pagerClass'];
-         $grd->pagerStyle = $params['pagerStyle'];
-         return $grd->render();
-      }
-   }
-
-   /**
-   * @name:  makeArray
-   * @desc:  turns a recordset into a multidimensional array
-   * @return: an array of row arrays from recordset, or empty array
-   *          if the recordset was empty, returns false if no recordset
-   *          was passed
-   * @param: $rs Recordset to be packaged into an array
-   */
-   function makeArray($rs=''){
-      if(!$rs) return false;
-      $rsArray = array();
-      $qty = $this->getRecordCount($rs);
-      for ($i = 0; $i < $qty; $i++) $rsArray[] = $this->getRow($rs);
-      return $rsArray;
-   }
-   
-   /**
-    * @name	getVersion
-    * @desc	returns a string containing the database server version
-    *
-    * @return string
-    */
-   function getVersion() {
-       return mysql_get_server_info();
-   }
-   
-   /**
-    * Get name of host if connected
-    *
-    * @return string
-    */
-   function getHostname() {
-   		return $this->host;
-   }
-
-   /**
-    * Get name of database if connected
-    *
-    * @return string
-    */
-   function getDBname() {
-   		return $this->dbase;
-   }
+    protected function _getInsertId() {
+        return mysql_insert_id($this->conn);
+    }
 
 }
 
