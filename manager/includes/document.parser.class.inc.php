@@ -1317,7 +1317,7 @@ class DocumentParser {
      */
     function executeParser() {
 
-	set_error_handler(array (&$this, 'phpError'), error_reporting());
+        $this->set_error_handler();
 
         $this->db->connect();
 
@@ -3541,6 +3541,24 @@ class DocumentParser {
     ####################################
     // END Etomite database functions //
     ####################################
+
+    /**
+     * Set PHP error handler
+     * 
+     * @return void
+     */
+    function set_error_handler()
+        {
+        if (version_compare(PHP_VERSION, '5.3.0') >= 0)
+            {
+            // PHP 5.3
+            set_error_handler(array (&$this, 'phpError'), (error_reporting() & ~E_DEPRECATED & ~E_USER_DEPRECATED) | ($this->config['error_handling_deprecated'] ? E_DEPRECATED | E_USER_DEPRECATED : 0));
+            }
+        else
+            {
+            set_error_handler(array (&$this, 'phpError'), error_reporting());
+            }
+        }
 
     /**
      * PHP error handler set by http://www.php.net/manual/en/function.set-error-handler.php
