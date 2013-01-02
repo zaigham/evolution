@@ -461,7 +461,7 @@ class DBAPI {
     *
     */
    function getHTMLGrid($dsq, $params) {
-      global $base_path;
+
       if (!is_resource($dsq))
          $dsq = $this->query($dsq);
       if ($dsq) {
