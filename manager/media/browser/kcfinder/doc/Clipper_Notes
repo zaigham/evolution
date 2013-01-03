@@ -3,11 +3,13 @@ KCFinder's documentation is available in Engilsh at http://kcfinder.sunhater.com
 Temus' integration affects following files:
 - browser.php and browser.html were added for MODx integration;
 - config.php changed;
-- autoload.php - added some code to provide better security in MODx integration; [now in clipper_integration.inc.php]
-- helper_httpCache.php - bug fixed.
+- core/autoload.php - added some code to provide better security in MODx integration; [now in clipper_integration.inc.php]
+- lib/helper_httpCache.php - bug fixed.
 
 Further integration for the Clipper manager language affects:
-- autoload.php
+- core/autoload.php
 - clipper_integration.inc.php - code to fake the language parameter in the query string as passed by browser.html and browser.php
 			(a bit hacky, but seems the best option to minimise upgrade issues).
 
+Further integration for the Clipper:
+- core/browser.php - line 706 to prevent index.html being shown.
