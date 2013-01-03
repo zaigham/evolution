@@ -357,7 +357,7 @@ abstract class DBAPI_abstract {
             } elseif ($mode == 'num') {
                 return $this->_getRowNumeric($rs);
             } elseif ($mode == 'both') {
-                return $this->_getRowBoth($rs, MYSQL_BOTH);
+                return $this->_getRowBoth($rs);
             } else {
                 $this->parent->messageQuit("Unknown get type ($mode) specified for getRow - must be empty, 'assoc', 'num' or 'both'.");
             }
