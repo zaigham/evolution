@@ -108,7 +108,7 @@ class DBAPI extends DBAPI_abstract {
     }
 
     public function getVersion() {
-         return mysql_get_server_info();
+         return mysql_get_server_info($this->conn);
     }
     
 	// -------------------------------------------
