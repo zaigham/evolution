@@ -60,7 +60,7 @@ abstract class DBAPI_abstract {
         $uid = $uid ? $uid : $this->config['user'];
         $pwd = $pwd ? $pwd : $this->config['pass'];
         $host = $host ? $host : $this->config['host'];
-        $dbase = $dbase ? $dbase : $this->config['dbase'];
+        $dbase = str_replace('`', '', $dbase ? $dbase : $this->config['dbase']);
         $charset = $this->config['charset'];
         $connection_method = $this->config['connection_method'];
 
@@ -69,7 +69,6 @@ abstract class DBAPI_abstract {
             $this->parent->messageQuit('Failed to create the database connection!');
             exit;
         } else {
-            $dbase = str_replace('`', '', $dbase); // remove the `` chars
             if (!@$this->select_db($dbase)) {
                 $this->parent->messageQuit("Failed to select the database '$dbase'!");
                 exit;
