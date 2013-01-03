@@ -70,7 +70,7 @@ class DBAPI extends DBAPI_abstract {
     }
 
     protected function select_db($dbname) {
-          return mysqli_select_db($dbname, $this->conn);
+          return mysqli_select_db($this->conn, $dbname);
     }
 
 	// ----------
@@ -141,7 +141,7 @@ class DBAPI extends DBAPI_abstract {
 
     protected function _getColumnNames($rs) {
         if ($rs) {
-        	$fields = mysqli_fetch_fields($rs)
+        	$fields = mysqli_fetch_fields($rs);
             $names = array ();
             foreach($fields as $field) {
             	$names[] = $field->name;
