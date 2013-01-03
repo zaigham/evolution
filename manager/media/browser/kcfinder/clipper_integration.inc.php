@@ -14,6 +14,7 @@ if(!isset($_SESSION['mgrValidated'])) {
 }
 
 // USE CLIPPERCMS MANAGER LANGUAGE
+if (!defined('IN_MANAGER_MODE')) define('IN_MANAGER_MODE', 'true');
 require_once('../../../includes/document.parser.class.inc.php');
 $modx = new DocumentParser;
 $modx->getSettings();
