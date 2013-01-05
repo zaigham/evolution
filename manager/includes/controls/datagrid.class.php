@@ -159,7 +159,7 @@ class DataGrid {
 		$this->_alt = 0;
 		$this->_total = 0;
 				
-		$this->_isDataset = is_resource($this->ds); // if not dataset then treat as array
+		$this->_isDataset = !is_array($this->ds); // if not an SQL resultset then treat as an array
 
 		if(!$cssStyle && !$cssClass) $cssStyle = "style='width:100%;border:1px solid silver;font-family:verdana,arial; font-size:11px;'";
 		if(!$columnHeaderStyle && !$columnHeaderClass) $columnHeaderStyle = "style='color:black;background-color:silver'";
