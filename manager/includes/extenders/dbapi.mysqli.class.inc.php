@@ -116,11 +116,11 @@ class DBAPI extends DBAPI_abstract {
 	// -------------------------------------------
 
     protected function _escape($s) {
-          return mysqli_real_escape_string($s, $this->conn);
+          return mysqli_real_escape_string($this->conn, $s);
     }
 
     protected function _query($sql) {
-        return mysqli_query($sql, $this->conn);
+        return mysqli_query($this->conn, $sql);
     }
 
     protected function _recordcount($rs) {
