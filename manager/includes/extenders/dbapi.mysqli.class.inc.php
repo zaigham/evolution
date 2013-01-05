@@ -111,6 +111,10 @@ class DBAPI extends DBAPI_abstract {
          return mysqli_get_server_info($this->conn);
     }
     
+    public function is_handle($var) {
+    	return is_object($var);
+    }
+    
 	// -------------------------------------------
 	// LOW LEVEL RBDMS-SPECIFIC INTERNAL FUNCTIONS
 	// -------------------------------------------

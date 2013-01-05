@@ -111,6 +111,10 @@ class DBAPI extends DBAPI_abstract {
          return mysql_get_server_info($this->conn);
     }
     
+    public function is_handle($var) {
+    	return is_resource($var);
+    }
+    
 	// -------------------------------------------
 	// LOW LEVEL RBDMS-SPECIFIC INTERNAL FUNCTIONS
 	// -------------------------------------------

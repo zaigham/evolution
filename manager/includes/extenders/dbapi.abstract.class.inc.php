@@ -595,6 +595,14 @@ abstract class DBAPI_abstract {
     		return $this->dbase;
     }
 
+	/**
+	 * Is a variable a resultset handle?
+	 *
+	 * @param mixed $var
+	 * @return bool
+	 */
+	abstract function is_handle($var);
+
 	// -------------------------------------------
 	// LOW LEVEL RBDMS-SPECIFIC INTERNAL FUNCTIONS
 	// -------------------------------------------
