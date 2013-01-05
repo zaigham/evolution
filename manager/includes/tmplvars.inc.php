@@ -277,12 +277,18 @@
 	} // end renderFormElement function
 
 	function ParseIntputOptions($v) {
-		$a = array();
-		if(is_array($v)) return $v;
-		else if(is_resource($v)) {
-			while ($cols = $modx->db->getRow($v)) $a[] = $cols;
+	    global $modx;
+		
+		if (is_array($v)) {
+		    return $v;
+		} elseif ($modx->db->is_handle($v)) {
+            $a = array();
+			while ($cols = $modx->db->getRow($v)) {
+			    $a[] = $cols;
+			}
+		} else {
+		    $a = explode('||', $v);
 		}
-		else $a = explode("||", $v);
 		return $a;
-	}	
-?>
+	}
+
