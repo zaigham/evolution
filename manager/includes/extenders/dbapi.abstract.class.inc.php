@@ -99,7 +99,7 @@ abstract class DBAPI_abstract {
      * Check for connection
      */
     final protected function connection_check() {
-    	  if (empty ($this->conn) || !is_resource($this->conn)) {
+    	  if (empty ($this->conn)) { 
             $this->connect();
         }
     }
