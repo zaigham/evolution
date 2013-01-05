@@ -339,7 +339,7 @@ abstract class DBAPI_abstract {
      * @return int
      */
     final public function getRecordCount($rs) {
-        return is_resource($rs) ? $this->_recordcount($rs) : 0;
+        return $rs ? $this->_recordcount($rs) : 0;
     }
 
     /**
