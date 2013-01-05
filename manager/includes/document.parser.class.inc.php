@@ -3516,8 +3516,10 @@ class DocumentParser {
         }
         ob_end_flush();
 
-        // Log error
-        $this->logEvent(0, 3, $parsedMessageString, $source= 'Parser');
+        // Log error if a connection to the db exists
+        if ($this->db->conn) {
+             $this->logEvent(0, 3, $parsedMessageString, $source= 'Parser');
+        }
 
         // Make sure and die!
         exit();
