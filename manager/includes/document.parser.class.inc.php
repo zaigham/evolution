@@ -1497,7 +1497,7 @@ class DocumentParser {
 
             if ($this->is_rss) {
                 // The following line could be a config option
-                $this->documentContent = '[[List? &format=`rss` &display=`20` &summarize=`20` &parents=`'.($this->documentIdentifier == $this->config['site_start'] ? 0 : $this->documentIdentifier).'`]]';
+                $this->documentContent = '[[List? &format=`rss` &depth=`0` &display=`20` &summarize=`20` &parents=`'.($this->documentIdentifier == $this->config['site_start'] ? 0 : $this->documentIdentifier).'`]]';
             } else {
 		        // get the template and start parsing!
 		        if (!$this->documentObject['template'])
