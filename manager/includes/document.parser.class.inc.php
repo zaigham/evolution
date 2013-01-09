@@ -1391,7 +1391,7 @@ class DocumentParser {
             $this->documentMethod= $this->getDocumentMethod();
             $this->documentIdentifier= $this->getDocumentIdentifier($this->documentMethod);
 
-            $this->is_rss = ($this->documentMethod == 'rss');
+            $this->is_rss = ($this->documentMethod == 'rss' || !empty($_GET['rss']));
 
             if (is_int($this->documentIdentifier)) {
                 $this->documentMethod = 'id';
