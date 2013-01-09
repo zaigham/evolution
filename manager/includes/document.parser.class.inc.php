@@ -668,10 +668,13 @@ class DocumentParser {
 
         // send out content-type and content-disposition headers
         if (IN_PARSER_MODE == "true") {
-            $type= !empty ($this->contentTypes[$this->documentIdentifier]) ? $this->contentTypes[$this->documentIdentifier] : "text/html";
-            header('Content-Type: ' . $type . '; charset=' . $this->config['modx_charset']);
-//            if (($this->documentIdentifier == $this->config['error_page']) || $redirect_error)
-//                header('HTTP/1.0 404 Not Found');
+            if ($this->is_rss) {
+                header('Content-Type: application/rss+xml; charset='.$this->config['modx_charset']);
+            } else {
+                $type= !empty ($this->contentTypes[$this->documentIdentifier]) ? $this->contentTypes[$this->documentIdentifier] : "text/html";
+                header('Content-Type: ' . $type . '; charset=' . $this->config['modx_charset']);
+            }
+
             if (!$this->checkPreview() && $this->documentObject['content_dispo'] == 1) {
                 if ($this->documentObject['alias'])
                     $name= $this->documentObject['alias'];
