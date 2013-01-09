@@ -393,7 +393,7 @@ class DocumentParser {
     /**
      * Get the method by which the current document/resource was requested
      *
-     * @return string 'alias' (friendly url alias) or 'id'
+     * @return string 'alias' (friendly url alias), 'rss' (friendly url alias with rss/ at the start of $_REQUEST['q']) or 'id' (may or may not be an RSS request).
      */
     function getDocumentMethod() {
         // function to test the query and find the retrieval method
