@@ -554,6 +554,17 @@ function confirmLangChange(el, lkey, elupd){
             <tr>
               <td colspan="2"><div class='split'></div></td>
             </tr>
+            <tr>
+              <td nowrap class="warning" valign="top"><b><?php echo $_lang["rss_len_title"] ?></b></td>
+              <td><input onchange="documentDirty=true;" type='text' maxlength='50' size="5" name="rss_len" value="<?php echo isset($rss_len) ? $rss_len : 10 ; ?>" /></td>
+            </tr>
+            <tr>
+              <td width="200">&nbsp;</td>
+              <td class='comment'><?php echo $_lang["rss_len_message"] ?></td>
+            </tr>
+            <tr>
+              <td colspan="2"><div class='split'></div></td>
+            </tr>
 			<tr>
               <td nowrap class="warning"><?php echo $_lang["rss_url_news_title"] ?></td>
               <td ><input onchange="documentDirty=true;" type='text' maxlength='350' style="width: 350px;" name="rss_url_news" value="<?php echo isset($rss_url_news) ? $rss_url_news : $_lang["rss_url_news_default"] ; ?>" /></td>
