@@ -48,6 +48,11 @@ class DocumentParser {
     var $documentMap;
     var $forwards= 3;
 
+	/**
+	 * @var is this an RSS feed request?
+	 */
+	var $is_rss = false;
+
     /**
      * @var array Map forked snippet names to names of earlier compatible snippets.
      * Note that keys are all lowercase.
@@ -393,7 +398,7 @@ class DocumentParser {
     function getDocumentMethod() {
         // function to test the query and find the retrieval method
         if (isset ($_REQUEST['q'])) {
-            return "alias";
+            return preg_match('/^\/?rss\//', $_REQUEST['q']) ? 'rss' : 'alias';
         }
         elseif (isset ($_REQUEST['id'])) {
             return "id";
@@ -412,6 +417,17 @@ class DocumentParser {
         // function to test the query and find the retrieval method
         $docIdentifier= $this->config['site_start'];
         switch ($method) {
+        	case 'rss':
+        		if (!is_string($_REQUEST['q'])) { // If an array is passed (TimGS)
+            		$this->sendErrorPage();
+            	}
+            	$q = preg_replace('/^\/?rss\//', '', $_REQUEST['q']);
+            	if ($q) {
+            	    $docIdentifier = $this->db->escape($q);
+            	} else {
+            		$docIdentifier = $this->config['site_start'];
+                }
+                break;
             case 'alias' :
             	if (!is_string($_REQUEST['q'])) { // If an array is passed (TimGS)
             		$this->sendErrorPage();
@@ -644,13 +660,21 @@ class DocumentParser {
         }
 
         $this->documentOutput= $this->rewriteUrls($this->documentOutput);
+        
+        // In RSS feeds change relative URLs to absolute URLs.
+        if ($this->is_rss) {
+            $this->documentOutput = preg_replace('/href="(?!http)/', 'href="'.$this->config['site_url'], $this->documentOutput);
+        }
 
         // send out content-type and content-disposition headers
         if (IN_PARSER_MODE == "true") {
-            $type= !empty ($this->contentTypes[$this->documentIdentifier]) ? $this->contentTypes[$this->documentIdentifier] : "text/html";
-            header('Content-Type: ' . $type . '; charset=' . $this->config['modx_charset']);
-//            if (($this->documentIdentifier == $this->config['error_page']) || $redirect_error)
-//                header('HTTP/1.0 404 Not Found');
+            if ($this->is_rss) {
+                header('Content-Type: application/rss+xml; charset='.$this->config['modx_charset']);
+            } else {
+                $type= !empty ($this->contentTypes[$this->documentIdentifier]) ? $this->contentTypes[$this->documentIdentifier] : "text/html";
+                header('Content-Type: ' . $type . '; charset=' . $this->config['modx_charset']);
+            }
+
             if (!$this->checkPreview() && $this->documentObject['content_dispo'] == 1) {
                 if ($this->documentObject['alias'])
                     $name= $this->documentObject['alias'];
@@ -1366,16 +1390,23 @@ class DocumentParser {
             // find out which document we need to display
             $this->documentMethod= $this->getDocumentMethod();
             $this->documentIdentifier= $this->getDocumentIdentifier($this->documentMethod);
+
+            $this->is_rss = ($this->documentMethod == 'rss');
+
+            if (is_int($this->documentIdentifier)) {
+                $this->documentMethod = 'id';
+            }
         }
 
         if ($this->documentMethod == "none") {
             $this->documentMethod= "id"; // now we know the site_start, change the none method to id
         }
-        if ($this->documentMethod == "alias") {
+
+        if ($this->documentMethod == 'alias' || $this->documentMethod == 'rss') {
             $this->documentIdentifier= $this->cleanDocumentIdentifier($this->documentIdentifier);
         }
 
-        if ($this->documentMethod == "alias") {
+        if ($this->documentMethod == 'alias' || $this->documentMethod == 'rss') {
             // Check use_alias_path and check if $this->virtualDir is set to anything, then parse the path
             if ($this->config['use_alias_path'] == 1) {
                 $alias= (strlen($this->virtualDir) > 0 ? $this->virtualDir . '/' : '') . $this->documentIdentifier;
@@ -1467,21 +1498,26 @@ class DocumentParser {
                 $this->config['track_visitors']= 0;
             }
 
-            // get the template and start parsing!
-            if (!$this->documentObject['template'])
-                $this->documentContent= "[*content*]"; // use blank template
-            else {
-                $sql= "SELECT `content` FROM " . $this->getFullTableName("site_templates") . " WHERE " . $this->getFullTableName("site_templates") . ".`id` = '" . $this->documentObject['template'] . "';";
-                $result= $this->db->query($sql);
-                $rowCount= $this->db->getRecordCount($result);
-                if ($rowCount > 1) {
-                    $this->messageQuit("Incorrect number of templates returned from database", $sql);
-                }
-                elseif ($rowCount == 1) {
-                    $row= $this->db->getRow($result);
-                    $this->documentContent= $row['content'];
-                }
-            }
+            if ($this->is_rss) {
+                // The following line could be a config option
+                $this->documentContent = '[[List? &format=`rss` &depth=`0` &display=`'.$this->config['rss_len'].'` &summarize=`'.$this->config['rss_len'].'` &parents=`'.($this->documentIdentifier == $this->config['site_start'] ? 0 : $this->documentIdentifier).'`]]';
+            } else {
+		        // get the template and start parsing!
+		        if (!$this->documentObject['template'])
+		            $this->documentContent= "[*content*]"; // use blank template
+		        else {
+		            $sql= "SELECT `content` FROM " . $this->getFullTableName("site_templates") . " WHERE " . $this->getFullTableName("site_templates") . ".`id` = '" . $this->documentObject['template'] . "';";
+		            $result= $this->db->query($sql);
+		            $rowCount= $this->db->getRecordCount($result);
+		            if ($rowCount > 1) {
+		                $this->messageQuit("Incorrect number of templates returned from database", $sql);
+		            }
+		            elseif ($rowCount == 1) {
+		                $row= $this->db->getRow($result);
+		                $this->documentContent= $row['content'];
+		            }
+		        }
+		    }
 
             // invoke OnLoadWebDocument event
             $this->invokeEvent("OnLoadWebDocument");
