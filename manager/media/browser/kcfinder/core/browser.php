@@ -703,7 +703,7 @@ class browser extends uploader {
         $thumbDir = "{$this->config['uploadDir']}/{$this->config['thumbsDir']}/$dir";
         $dir = "{$this->config['uploadDir']}/$dir";
         $return = array();
-        $files = dir::content($dir, array('types' => "file", 'pattern' => '/^(?!index.html$)/')); // (TimGS) modified for Clipper to not show index.html
+        $files = dir::content($dir, array('types' => "file", 'pattern' => '/^(?!(index.html$|\.thumb_))/')); // (TimGS) modified for Clipper to not show index.html
         if ($files === false)
             return $return;
 

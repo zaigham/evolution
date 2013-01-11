@@ -12,4 +12,4 @@ Further integration for the Clipper manager language affects:
 			(a bit hacky, but seems the best option to minimise upgrade issues).
 
 Further integration for the Clipper:
-- core/browser.php - line 706 to prevent index.html being shown.
+- core/browser.php - line 706 to prevent index.html and mcpuk's thumbnails being shown.
