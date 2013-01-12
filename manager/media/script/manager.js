@@ -62,5 +62,14 @@ $(document).ready(function($) {
 		"bInfo": false,
 		"bJQueryUI": true
 	});
+	
+	$('.js-confirm-delete').click(function(e){
+		e.preventDefault();
+		if(confirm(temp_lang.confirm_delete) == true) {
+			window.location.href= $(this).attr('href');
+			return true;
+		}
+		return false;
+	})
 
 });
