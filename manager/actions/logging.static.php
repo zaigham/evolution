@@ -247,7 +247,7 @@ if(isset($_REQUEST['log_submit'])) {
 		// only the results you would like...
 		?>
 		<!-- TODO: - rewrite to use datatables jquery plugin and ajax for pages -->
-		<table border="0" cellpadding="2" cellspacing="1" bgcolor="#ccc" class="sortabletable rowstyle-even" id="table-1" width="100%">
+		<table border="0" cellpadding="2" cellspacing="1" bgcolor="#ccc" class="sortabletable rowstyle-even" id="manager-logs" width="100%">
 		<thead><tr>
 			<th><b><?php echo $_lang["mgrlog_username"]; ?></b></th>
 			<th><b><?php echo $_lang["mgrlog_actionid"]; ?></b></th>

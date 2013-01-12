@@ -35,12 +35,12 @@ $(document).ready(function($) {
 	$('#search-documents').dataTable({
 		"bJQueryUI": true,
 		"aoColumns": [
-	      {"bSortable": false },
-	      null,
-	      null,
-	      null,
-	      {"bSortable": false}
-    ]
+			{"bSortable": false },
+			null,
+			null,
+			null,
+			{"bSortable": false}
+	     ]
 	});
 	
 	$('#schedule-all-events').dataTable({
@@ -54,5 +54,13 @@ $(document).ready(function($) {
 	});
 	
 	$('.tooltip').tooltip();
+
+	//TODO: change to databales ajax pagination - remove old type pagination
+	$('#manager-logs').dataTable({
+		"bPaginate" : false,
+		"bFilter": false,
+		"bInfo": false,
+		"bJQueryUI": true
+	});
 
 });
