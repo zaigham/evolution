@@ -62,15 +62,15 @@ class DBAPI extends DBAPI_abstract {
 	// -------
 
     protected function make_connection($host, $uid, $pwd) {
-          return $this->conn = mysql_connect($host, $uid, $pwd);
+          return $this->conn = mysqli_connect($host, $uid, $pwd);
     }
 
     protected function make_persistent_connection($host, $uid, $pwd) {
-          return $this->conn = mysql_pconnect($host, $uid, $pwd, true);
+          return $this->conn = mysqli_connect('p:'.$host, $uid, $pwd);
     }
 
     protected function select_db($dbname) {
-          return mysql_select_db($dbname, $this->conn);
+          return mysqli_select_db($this->conn, $dbname);
     }
 
 	// ----------
@@ -78,7 +78,7 @@ class DBAPI extends DBAPI_abstract {
 	// ----------
 
     public function disconnect() {
-          @mysql_close($this->conn);
+          @mysqli_close($this->conn);
     }
 
 	// ----------------
@@ -86,11 +86,11 @@ class DBAPI extends DBAPI_abstract {
 	// ----------------
 
     public function getAffectedRows() {
-        return mysql_affected_rows($this->conn);
+        return mysqli_affected_rows($this->conn);
     }
 
     public function getLastError() {
-        return mysql_error($this->conn);
+        return mysqli_error($this->conn);
     }
 
     public function getTableMetaData($table) {
@@ -108,11 +108,11 @@ class DBAPI extends DBAPI_abstract {
     }
 
     public function getVersion() {
-         return mysql_get_server_info($this->conn);
+         return mysqli_get_server_info($this->conn);
     }
     
     public function is_handle($var) {
-    	return is_resource($var);
+    	return is_object($var);
     }
     
 	// -------------------------------------------
@@ -120,42 +120,42 @@ class DBAPI extends DBAPI_abstract {
 	// -------------------------------------------
 
     protected function _escape($s) {
-          return mysql_real_escape_string($s, $this->conn);
+          return mysqli_real_escape_string($this->conn, $s);
     }
 
     protected function _query($sql) {
-        return mysql_query($sql, $this->conn);
+        return mysqli_query($this->conn, $sql);
     }
 
     protected function _recordcount($rs) {
-        return mysql_num_rows($rs);
+        return mysqli_num_rows($rs);
     }
 
     protected function _getRowAssoc($rs) {
-          return mysql_fetch_assoc($rs);
+          return mysqli_fetch_assoc($rs);
     }
 
     protected function _getRowNumeric($rs) {
-          return mysql_fetch_row($rs);
+          return mysqli_fetch_row($rs);
     }
 
     protected function _getRowBoth($rs) {
-          return mysql_fetch_array($rs, MYSQL_BOTH);
+          return mysqli_fetch_array($rs, MYSQLI_BOTH);
     }
 
     protected function _getColumnNames($rs) {
         if ($rs) {
+        	$fields = mysqli_fetch_fields($rs);
             $names = array ();
-            $limit = mysql_num_fields($rs);
-            for ($i = 0; $i < $limit; $i++) {
-                $names[] = mysql_field_name($rs, $i);
+            foreach($fields as $field) {
+            	$names[] = $field->name;
             }
             return $names;
         }
     }
 
     protected function _getInsertId() {
-        return mysql_insert_id($this->conn);
+        return mysqli_insert_id($this->conn);
     }
 
 }

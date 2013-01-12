@@ -8,24 +8,24 @@ if(!$modx->hasPermission('web_access_permissions')) {
 
 // find all document groups, for the select :)
 $sql = 'SELECT * FROM '.$modx->getFullTableName('documentgroup_names').' ORDER BY name';
-$rs = mysql_query($sql);
-if (mysql_num_rows($rs) < 1) {
+$rs = $modx->db->query($sql);
+if ($modx->db->getRecordCount($rs) < 1) {
 	$docgroupselector = "[no groups to add]";
 } else {
 	$docgroupselector = '<select name="docgroup">'."\n";
-	while ($row = mysql_fetch_assoc($rs)) {
+	while ($row = $modx->db->getRow($rs)) {
 		$docgroupselector .= "\t".'<option value="'.$row['id'].'">'.$row['name']."</option>\n";
 	}
 	$docgroupselector .= "</select>\n";
 }
 
 $sql = 'SELECT * FROM '.$modx->getFullTableName('webgroup_names').' ORDER BY name';
-$rs = mysql_query($sql);
-if (mysql_num_rows($rs) < 1) {
+$rs = $modx->db->query($sql);
+if ($modx->db->getRecordCount($rs) < 1) {
 	$usrgroupselector = '[no user groups]';
 } else {
 	$usrgroupselector = '<select name="usergroup">'."\n";
-	while ($row = mysql_fetch_assoc($rs)) {
+	while ($row = $modx->db->getRow($rs)) {
 		$usrgroupselector .= "\t".'<option value="'.$row['id'].'">'.$row['name']."</option>\n";
 	}
 	$usrgroupselector .= "</select>\n";

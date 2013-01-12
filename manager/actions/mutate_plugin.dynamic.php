@@ -24,38 +24,38 @@ $id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
 
 // check to see the plugin editor isn't locked
 $sql = "SELECT internalKey, username FROM $dbase.`".$table_prefix."active_users` WHERE $dbase.`".$table_prefix."active_users`.action=102 AND $dbase.`".$table_prefix."active_users`.id=$id";
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = $modx->db->query($sql);
+$limit = $modx->db->getRecordCount($rs);
 if($limit>1) {
-	for ($i=0;$i<$limit;$i++) {
-		$lock = mysql_fetch_assoc($rs);
-		if($lock['internalKey']!=$modx->getLoginUserID()) {
-			$msg = sprintf($_lang["lock_msg"],$lock['username'],"plugin");
-			$e->setError(5, $msg);
-			$e->dumpError();
-		}
-	}
+    for ($i=0;$i<$limit;$i++) {
+        $lock = $modx->db->getRow($rs);
+        if($lock['internalKey']!=$modx->getLoginUserID()) {
+            $msg = sprintf($_lang["lock_msg"],$lock['username'],"plugin");
+            $e->setError(5, $msg);
+            $e->dumpError();
+        }
+    }
 }
 // end check for lock
 
 
 if(isset($_GET['id'])) {
-	$sql = "SELECT * FROM $dbase.`".$table_prefix."site_plugins` WHERE $dbase.`".$table_prefix."site_plugins`.id = $id;";
-	$rs = mysql_query($sql);
-	$limit = mysql_num_rows($rs);
-	if($limit>1) {
-		echo "Multiple plugins sharing same unique id. Not good.<p>";
-		exit;
-	}
-	if($limit<1) {
-		header("Location: /index.php?id=".$site_start);
-	}
-	$content = mysql_fetch_assoc($rs);
-	$_SESSION['itemname']=$content['name'];
-	if($content['locked']==1 && $_SESSION['mgrRole']!=1) {
-		$e->setError(3);
-		$e->dumpError();
-	}
+    $sql = "SELECT * FROM $dbase.`".$table_prefix."site_plugins` WHERE $dbase.`".$table_prefix."site_plugins`.id = $id;";
+    $rs = $modx->db->query($sql);
+    $limit = $modx->db->getRecordCount($rs);
+    if($limit>1) {
+        echo "Multiple plugins sharing same unique id. Not good.<p>";
+        exit;
+    }
+    if($limit<1) {
+        header("Location: /index.php?id=".$site_start);
+    }
+    $content = $modx->db->getRow($rs);
+    $_SESSION['itemname']=$content['name'];
+    if($content['locked']==1 && $_SESSION['mgrRole']!=1) {
+        $e->setError(3);
+        $e->dumpError();
+    }
 } else {
 	$_SESSION['itemname']="New Plugin";
 }

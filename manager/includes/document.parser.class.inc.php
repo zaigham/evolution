@@ -48,6 +48,11 @@ class DocumentParser {
     var $documentMap;
     var $forwards= 3;
 
+	/**
+	 * @var is this an RSS feed request?
+	 */
+	var $is_rss = false;
+
     /**
      * @var array Map forked snippet names to names of earlier compatible snippets.
      * Note that keys are all lowercase.
@@ -91,7 +96,7 @@ class DocumentParser {
             case 'DBAPI' :
                 if (!include_once MODX_BASE_PATH . 'manager/includes/extenders/dbapi.' . $database_type . '.class.inc.php')
                     return false;
-                $this->db= new DBAPI;
+                $this->db= new DBAPI($this);
                 return true;
                 break;
 
@@ -388,12 +393,12 @@ class DocumentParser {
     /**
      * Get the method by which the current document/resource was requested
      *
-     * @return string 'alias' (friendly url alias) or 'id'
+     * @return string 'alias' (friendly url alias), 'rss' (friendly url alias with rss/ at the start of $_REQUEST['q']) or 'id' (may or may not be an RSS request).
      */
     function getDocumentMethod() {
         // function to test the query and find the retrieval method
         if (isset ($_REQUEST['q'])) {
-            return "alias";
+            return preg_match('/^\/?rss\//', $_REQUEST['q']) ? 'rss' : 'alias';
         }
         elseif (isset ($_REQUEST['id'])) {
             return "id";
@@ -412,6 +417,17 @@ class DocumentParser {
         // function to test the query and find the retrieval method
         $docIdentifier= $this->config['site_start'];
         switch ($method) {
+        	case 'rss':
+        		if (!is_string($_REQUEST['q'])) { // If an array is passed (TimGS)
+            		$this->sendErrorPage();
+            	}
+            	$q = preg_replace('/^\/?rss\//', '', $_REQUEST['q']);
+            	if ($q) {
+            	    $docIdentifier = $this->db->escape($q);
+            	} else {
+            		$docIdentifier = $this->config['site_start'];
+                }
+                break;
             case 'alias' :
             	if (!is_string($_REQUEST['q'])) { // If an array is passed (TimGS)
             		$this->sendErrorPage();
@@ -564,7 +580,7 @@ class DocumentParser {
                             $tbldg= $this->getFullTableName("document_groups");
                             $secrs= $this->db->query("SELECT id FROM $tbldg WHERE document = '" . $id . "' LIMIT 1;");
                             if ($secrs)
-                                $seclimit= mysql_num_rows($secrs);
+                                $seclimit= $this->db->getRecordCount($secrs);
                         }
                         if ($seclimit > 0) {
                             // match found but not publicly accessible, send the visitor to the unauthorized_page
@@ -644,13 +660,21 @@ class DocumentParser {
         }
 
         $this->documentOutput= $this->rewriteUrls($this->documentOutput);
+        
+        // In RSS feeds change relative URLs to absolute URLs.
+        if ($this->is_rss) {
+            $this->documentOutput = preg_replace('/href="(?!http)/', 'href="'.$this->config['site_url'], $this->documentOutput);
+        }
 
         // send out content-type and content-disposition headers
         if (IN_PARSER_MODE == "true") {
-            $type= !empty ($this->contentTypes[$this->documentIdentifier]) ? $this->contentTypes[$this->documentIdentifier] : "text/html";
-            header('Content-Type: ' . $type . '; charset=' . $this->config['modx_charset']);
-//            if (($this->documentIdentifier == $this->config['error_page']) || $redirect_error)
-//                header('HTTP/1.0 404 Not Found');
+            if ($this->is_rss) {
+                header('Content-Type: application/rss+xml; charset='.$this->config['modx_charset']);
+            } else {
+                $type= !empty ($this->contentTypes[$this->documentIdentifier]) ? $this->contentTypes[$this->documentIdentifier] : "text/html";
+                header('Content-Type: ' . $type . '; charset=' . $this->config['modx_charset']);
+            }
+
             if (!$this->checkPreview() && $this->documentObject['content_dispo'] == 1) {
                 if ($this->documentObject['alias'])
                     $name= $this->documentObject['alias'];
@@ -811,7 +835,6 @@ class DocumentParser {
     /**
      * Merge meta tags
      *
-     * @deprecated Meta tags to be removed from manager.
      * @param string $template
      * @return string
      */
@@ -965,7 +988,20 @@ class DocumentParser {
         if (is_array($params)) {
             extract($params, EXTR_SKIP);
         }
+        ob_start();
         eval ($pluginCode);
+        $msg= ob_get_contents();
+        ob_end_clean();
+        if ($msg && isset ($php_errormsg)) {
+            if (!strpos($php_errormsg, 'Deprecated')) { // ignore php5 strict errors
+                // log error
+                $this->logEvent(1, 3, "<b>$php_errormsg</b><br /><br /> $msg", $this->Event->activePlugin . " - Plugin");
+                if ($this->isBackend())
+                    $this->Event->alert("An error occurred while loading. Please see the event log for more information.<p />$msg");
+            }
+        } else {
+            echo $msg;
+        }
         unset ($modx->event->params);
     }
 
@@ -987,7 +1023,14 @@ class DocumentParser {
         $snip= eval ($snippet);
         $msg= ob_get_contents();
         ob_end_clean();
-
+        if ($msg && isset ($php_errormsg)) {
+            if (!strpos($php_errormsg, 'Deprecated')) { // ignore php5 strict errors
+                // log error
+                $this->logEvent(1, 3, "<b>$php_errormsg</b><br /><br /> $msg", $this->currentSnippet . " - Snippet");
+                if ($this->isBackend())
+                    $this->Event->alert("An error occurred while loading. Please see the event log for more information<p />$msg");
+            }
+        }
         unset ($modx->event->params);
         return $msg . $snip;
     }
@@ -1196,7 +1239,7 @@ class DocumentParser {
                 // check if file is not public
                 $secrs= $this->db->query($q);
                 if ($secrs)
-                    $seclimit= mysql_num_rows($secrs);
+                    $seclimit= $this->db->getRecordCount($secrs);
             }
             if ($seclimit > 0) {
                 // match found but not publicly accessible, send the visitor to the unauthorized_page
@@ -1298,14 +1341,14 @@ class DocumentParser {
      */
     function executeParser() {
 
+        $this->set_error_handler();
+
         $this->db->connect();
 
         // get the settings
         if (empty ($this->config)) {
             $this->getSettings();
         }
-
-        $this->set_error_handler();
 
         // IIS friendly url fix
         if ($this->config['friendly_urls'] == 1 && strpos($_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS') !== false) {
@@ -1347,16 +1390,23 @@ class DocumentParser {
             // find out which document we need to display
             $this->documentMethod= $this->getDocumentMethod();
             $this->documentIdentifier= $this->getDocumentIdentifier($this->documentMethod);
+
+            $this->is_rss = ($this->documentMethod == 'rss' || !empty($_GET['rss']));
+
+            if (is_int($this->documentIdentifier)) {
+                $this->documentMethod = 'id';
+            }
         }
 
         if ($this->documentMethod == "none") {
             $this->documentMethod= "id"; // now we know the site_start, change the none method to id
         }
-        if ($this->documentMethod == "alias") {
+
+        if ($this->documentMethod == 'alias' || $this->documentMethod == 'rss') {
             $this->documentIdentifier= $this->cleanDocumentIdentifier($this->documentIdentifier);
         }
 
-        if ($this->documentMethod == "alias") {
+        if ($this->documentMethod == 'alias' || $this->documentMethod == 'rss') {
             // Check use_alias_path and check if $this->virtualDir is set to anything, then parse the path
             if ($this->config['use_alias_path'] == 1) {
                 $alias= (strlen($this->virtualDir) > 0 ? $this->virtualDir . '/' : '') . $this->documentIdentifier;
@@ -1448,21 +1498,26 @@ class DocumentParser {
                 $this->config['track_visitors']= 0;
             }
 
-            // get the template and start parsing!
-            if (!$this->documentObject['template'])
-                $this->documentContent= "[*content*]"; // use blank template
-            else {
-                $sql= "SELECT `content` FROM " . $this->getFullTableName("site_templates") . " WHERE " . $this->getFullTableName("site_templates") . ".`id` = '" . $this->documentObject['template'] . "';";
-                $result= $this->db->query($sql);
-                $rowCount= $this->db->getRecordCount($result);
-                if ($rowCount > 1) {
-                    $this->messageQuit("Incorrect number of templates returned from database", $sql);
-                }
-                elseif ($rowCount == 1) {
-                    $row= $this->db->getRow($result);
-                    $this->documentContent= $row['content'];
-                }
-            }
+            if ($this->is_rss) {
+                // The following line could be a config option
+                $this->documentContent = '[[List? &format=`rss` &depth=`0` &display=`'.$this->config['rss_len'].'` &summarize=`'.$this->config['rss_len'].'` &parents=`'.($this->documentIdentifier == $this->config['site_start'] ? 0 : $this->documentIdentifier).'`]]';
+            } else {
+		        // get the template and start parsing!
+		        if (!$this->documentObject['template'])
+		            $this->documentContent= "[*content*]"; // use blank template
+		        else {
+		            $sql= "SELECT `content` FROM " . $this->getFullTableName("site_templates") . " WHERE " . $this->getFullTableName("site_templates") . ".`id` = '" . $this->documentObject['template'] . "';";
+		            $result= $this->db->query($sql);
+		            $rowCount= $this->db->getRecordCount($result);
+		            if ($rowCount > 1) {
+		                $this->messageQuit("Incorrect number of templates returned from database", $sql);
+		            }
+		            elseif ($rowCount == 1) {
+		                $row= $this->db->getRow($result);
+		                $this->documentContent= $row['content'];
+		            }
+		        }
+		    }
 
             // invoke OnLoadWebDocument event
             $this->invokeEvent("OnLoadWebDocument");
@@ -2784,7 +2839,7 @@ class DocumentParser {
               WHERE mu.id = '$uid'
               ";
         $rs= $this->db->query($sql);
-        $limit= mysql_num_rows($rs);
+        $limit= $this->db->getRecordCount($rs);
         if ($limit == 1) {
             $row= $this->db->getRow($rs);
             if (!$row["usertype"])
@@ -2807,7 +2862,7 @@ class DocumentParser {
               WHERE wu.id='$uid'
               ";
         $rs= $this->db->query($sql);
-        $limit= mysql_num_rows($rs);
+        $limit= $this->db->getRecordCount($rs);
         if ($limit == 1) {
             $row= $this->db->getRow($rs);
             if (!$row["usertype"])
@@ -2884,7 +2939,7 @@ class DocumentParser {
         if ($_SESSION["webValidated"] == 1) {
             $tbl= $this->getFullTableName("web_users");
             $ds= $this->db->query("SELECT `id`, `username`, `password` FROM $tbl WHERE `id`='" . $this->getLoginUserID() . "'");
-            $limit= mysql_num_rows($ds);
+            $limit= $this->db->getRecordCount($ds);
             if ($limit == 1) {
                 $row= $this->db->getRow($ds);
                 if ($row["password"] == md5($oldPwd)) {
@@ -3310,232 +3365,23 @@ class DocumentParser {
         return $parameter;
     }
 
-    /*############################################
-      Etomite_dbFunctions.php
-      New database functions for Etomite CMS
-      Author: Ralph A. Dahlgren - rad14701@yahoo.com
-      Etomite ID: rad14701
-      See documentation for usage details
-      ############################################*/
-      
     /**
-     * @depracted Etomite db method
+     * Set PHP error handler
+     * 
+     * @return void
      */
-    function getIntTableRows($fields= "*", $from= "", $where= "", $sort= "", $dir= "ASC", $limit= "") {
-        // function to get rows from ANY internal database table
-        if ($from == "") {
-            return false;
-        } else {
-            $where= ($where != "") ? "WHERE $where" : "";
-            $sort= ($sort != "") ? "ORDER BY $sort $dir" : "";
-            $limit= ($limit != "") ? "LIMIT $limit" : "";
-            $tbl= $this->getFullTableName($from);
-            $sql= "SELECT $fields FROM $tbl $where $sort $limit;";
-            $result= $this->db->query($sql);
-            $resourceArray= array ();
-            for ($i= 0; $i < @ $this->db->getRecordCount($result); $i++) {
-                array_push($resourceArray, @ $this->db->getRow($result));
+    function set_error_handler()
+        {
+        if (version_compare(PHP_VERSION, '5.3.0') >= 0)
+            {
+            // PHP 5.3
+            set_error_handler(array (&$this, 'phpError'), (error_reporting() & ~E_DEPRECATED & ~E_USER_DEPRECATED) | ($this->config['error_handling_deprecated'] ? E_DEPRECATED | E_USER_DEPRECATED : 0));
             }
-            return $resourceArray;
-        }
-    }
-
-    /**
-     * @depracted Etomite db method
-     */
-    function putIntTableRow($fields= "", $into= "") {
-        // function to put a row into ANY internal database table
-        if (($fields == "") || ($into == "")) {
-            return false;
-        } else {
-            $tbl= $this->getFullTableName($into);
-            $sql= "INSERT INTO $tbl SET ";
-            foreach ($fields as $key => $value) {
-                $sql .= $key . "=";
-                if (is_numeric($value))
-                    $sql .= $value . ",";
-                else
-                    $sql .= "'" . $value . "',";
-            }
-            $sql= rtrim($sql, ",");
-            $sql .= ";";
-            $result= $this->db->query($sql);
-            return $result;
-        }
-    }
-
-    /**
-     * @depracted Etomite db method
-     */
-    function updIntTableRow($fields= "", $into= "", $where= "", $sort= "", $dir= "ASC", $limit= "") {
-        // function to update a row into ANY internal database table
-        if (($fields == "") || ($into == "")) {
-            return false;
-        } else {
-            $where= ($where != "") ? "WHERE $where" : "";
-            $sort= ($sort != "") ? "ORDER BY $sort $dir" : "";
-            $limit= ($limit != "") ? "LIMIT $limit" : "";
-            $tbl= $this->getFullTableName($into);
-            $sql= "UPDATE $tbl SET ";
-            foreach ($fields as $key => $value) {
-                $sql .= $key . "=";
-                if (is_numeric($value))
-                    $sql .= $value . ",";
-                else
-                    $sql .= "'" . $value . "',";
-            }
-            $sql= rtrim($sql, ",");
-            $sql .= " $where $sort $limit;";
-            $result= $this->db->query($sql);
-            return $result;
-        }
-    }
-
-    /**
-     * @depracted Etomite db method
-     */
-    function getExtTableRows($host= "", $user= "", $pass= "", $dbase= "", $fields= "*", $from= "", $where= "", $sort= "", $dir= "ASC", $limit= "") {
-        // function to get table rows from an external MySQL database
-        if (($host == "") || ($user == "") || ($pass == "") || ($dbase == "") || ($from == "")) {
-            return false;
-        } else {
-            $where= ($where != "") ? "WHERE  $where" : "";
-            $sort= ($sort != "") ? "ORDER BY $sort $dir" : "";
-            $limit= ($limit != "") ? "LIMIT $limit" : "";
-            $tbl= $dbase . "." . $from;
-            $this->dbExtConnect($host, $user, $pass, $dbase);
-            $sql= "SELECT $fields FROM $tbl $where $sort $limit;";
-            $result= $this->db->query($sql);
-            $resourceArray= array ();
-            for ($i= 0; $i < @ $this->db->getRecordCount($result); $i++) {
-                array_push($resourceArray, @ $this->db->getRow($result));
-            }
-            return $resourceArray;
-        }
-    }
-
-    /**
-     * @depracted Etomite db method
-     */
-    function putExtTableRow($host= "", $user= "", $pass= "", $dbase= "", $fields= "", $into= "") {
-        // function to put a row into an external database table
-        if (($host == "") || ($user == "") || ($pass == "") || ($dbase == "") || ($fields == "") || ($into == "")) {
-            return false;
-        } else {
-            $this->dbExtConnect($host, $user, $pass, $dbase);
-            $tbl= $dbase . "." . $into;
-            $sql= "INSERT INTO $tbl SET ";
-            foreach ($fields as $key => $value) {
-                $sql .= $key . "=";
-                if (is_numeric($value))
-                    $sql .= $value . ",";
-                else
-                    $sql .= "'" . $value . "',";
-            }
-            $sql= rtrim($sql, ",");
-            $sql .= ";";
-            $result= $this->db->query($sql);
-            return $result;
-        }
-    }
-
-    /**
-     * @depracted Etomite db method
-     */
-    function updExtTableRow($host= "", $user= "", $pass= "", $dbase= "", $fields= "", $into= "", $where= "", $sort= "", $dir= "ASC", $limit= "") {
-        // function to update a row into an external database table
-        if (($fields == "") || ($into == "")) {
-            return false;
-        } else {
-            $this->dbExtConnect($host, $user, $pass, $dbase);
-            $tbl= $dbase . "." . $into;
-            $where= ($where != "") ? "WHERE $where" : "";
-            $sort= ($sort != "") ? "ORDER BY $sort $dir" : "";
-            $limit= ($limit != "") ? "LIMIT $limit" : "";
-            $sql= "UPDATE $tbl SET ";
-            foreach ($fields as $key => $value) {
-                $sql .= $key . "=";
-                if (is_numeric($value))
-                    $sql .= $value . ",";
-                else
-                    $sql .= "'" . $value . "',";
-            }
-            $sql= rtrim($sql, ",");
-            $sql .= " $where $sort $limit;";
-            $result= $this->db->query($sql);
-            return $result;
-        }
-    }
-
-    /**
-     * @depracted Etomite db method
-     */
-    function dbExtConnect($host, $user, $pass, $dbase) {
-        // function to connect to external database
-        $tstart= $this->getMicroTime();
-        if (@ !$this->rs= mysql_connect($host, $user, $pass)) {
-            $this->messageQuit("Failed to create connection to the $dbase database!");
-        } else {
-            mysql_select_db($dbase);
-            $tend= $this->getMicroTime();
-            $totaltime= $tend - $tstart;
-            if ($this->dumpSQL) {
-                $this->queryCode .= "<fieldset style='text-align:left'><legend>Database connection</legend>" . sprintf("Database connection to %s was created in %2.4f s", $dbase, $totaltime) . "</fieldset><br />";
-            }
-            $this->queryTime= $this->queryTime + $totaltime;
-        }
-    }
-
-    /**
-     * @depracted Etomite db method
-     */
-    function getFormVars($method= "", $prefix= "", $trim= "", $REQUEST_METHOD) {
-        //  function to retrieve form results into an associative array
-        $results= array ();
-        $method= strtoupper($method);
-        if ($method == "")
-            $method= $REQUEST_METHOD;
-        if ($method == "POST")
-            $method= & $_POST;
-        elseif ($method == "GET") $method= & $_GET;
         else
-            return false;
-        reset($method);
-        foreach ($method as $key => $value) {
-            if (($prefix != "") && (substr($key, 0, strlen($prefix)) == $prefix)) {
-                if ($trim) {
-                    $pieces= explode($prefix, $key, 2);
-                    $key= $pieces[1];
-                    $results[$key]= $value;
-                } else
-                    $results[$key]= $value;
+            {
+            set_error_handler(array (&$this, 'phpError'), error_reporting());
             }
-            elseif ($prefix == "") $results[$key]= $value;
         }
-        return $results;
-    }
-
-    ####################################
-    // END Etomite database functions //
-    ####################################
-
-	/**
-	 * Set PHP error handler
-	 * 
-	 * @return void
-	 */
-	function set_error_handler()
-		{
-		if (version_compare(PHP_VERSION, '5.3.0') >= 0)
-			{
-			// PHP 5.3
-			set_error_handler(array (&$this, 'phpError'), (error_reporting() & ~E_DEPRECATED & ~E_USER_DEPRECATED) | ($this->config['error_handling_deprecated'] ? E_DEPRECATED | E_USER_DEPRECATED : 0));
-			}
-		else
-			{
-			set_error_handler(array (&$this, 'phpError'), error_reporting());
-			}
-		}
 
     /**
      * PHP error handler set by http://www.php.net/manual/en/function.set-error-handler.php
@@ -3555,6 +3401,7 @@ class DocumentParser {
         if (error_reporting() == 0 || $nr == 0 || ($nr == 8 && $this->stopOnNotice == false)) {
             return true;
         }
+        
         if (version_compare(PHP_VERSION, '5.3.0') >= 0 && ($nr & (E_DEPRECATED | E_USER_DEPRECATED))) { // TimGS. Handle deprecated functions according to config.
                 switch ($this->config['error_handling_deprecated']) {
                         case 1:
@@ -3701,8 +3548,10 @@ class DocumentParser {
         }
         ob_end_flush();
 
-        // Log error
-        $this->logEvent(0, 3, $parsedMessageString, $source= 'Parser');
+        // Log error if a connection to the db exists
+        if ($this->db->conn) {
+             $this->logEvent(0, 3, $parsedMessageString, $source= 'Parser');
+        }
 
         // Make sure and die!
         exit();

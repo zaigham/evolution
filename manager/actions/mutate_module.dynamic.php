@@ -51,17 +51,17 @@ function createGUID(){
 
 // Check to see the editor isn't locked
 $sql = 'SELECT internalKey, username FROM '.$tbl_active_users.' WHERE action=108 AND id=\''.$id.'\'';
-$rs = mysql_query($sql);
-$limit = mysql_num_rows($rs);
+$rs = $modx->db->query($sql);
+$limit = $modx->db->getRecordCount($rs);
 if ($limit > 1) {
-	for ($i = 0; $i < $limit; $i++) {
-		$lock = mysql_fetch_assoc($rs);
-		if ($lock['internalKey'] != $modx->getLoginUserID()) {
-			$msg = sprintf($_lang['lock_msg'], $lock['username'], 'module');
-			$e->setError(5, $msg);
-			$e->dumpError();
-		}
-	}
+    for ($i = 0; $i < $limit; $i++) {
+        $lock = $modx->db->getRow($rs);
+        if ($lock['internalKey'] != $modx->getLoginUserID()) {
+            $msg = sprintf($_lang['lock_msg'], $lock['username'], 'module');
+            $e->setError(5, $msg);
+            $e->dumpError();
+        }
+    }
 }
 // end check for lock
 
@@ -72,23 +72,23 @@ if (!is_numeric($id)) {
 }
 
 if (isset($_GET['id'])) {
-	$sql = 'SELECT * FROM '.$tbl_site_modules.' WHERE id=\''.$id.'\'';
-	$rs = mysql_query($sql);
-	$limit = mysql_num_rows($rs);
-	if ($limit > 1) {
-		echo '<p>Multiple modules sharing same unique id. Not good.<p>';
-		exit;
-	}
-	if ($limit < 1) {
-		echo '<p>No record found for id: '.$id.'.</p>';
-		exit;
-	}
-	$content = mysql_fetch_assoc($rs);
-	$_SESSION['itemname'] = $content['name'];
-	if ($content['locked'] == 1 && $_SESSION['mgrRole'] != 1) {
-		$e->setError(3);
-		$e->dumpError();
-	}
+    $sql = 'SELECT * FROM '.$tbl_site_modules.' WHERE id=\''.$id.'\'';
+    $rs = $modx->db->query($sql);
+    $limit = $modx->db->getRecordCount($rs);
+    if ($limit > 1) {
+        echo '<p>Multiple modules sharing same unique id. Not good.<p>';
+        exit;
+    }
+    if ($limit < 1) {
+        echo '<p>No record found for id: '.$id.'.</p>';
+        exit;
+    }
+    $content = $modx->db->getRow($rs);
+    $_SESSION['itemname'] = $content['name'];
+    if ($content['locked'] == 1 && $_SESSION['mgrRole'] != 1) {
+        $e->setError(3);
+        $e->dumpError();
+    }
 } else {
 	$_SESSION['itemname'] = 'New Module';
 	$content['wrap'] = '1';
@@ -492,15 +492,15 @@ function SetUrl(url, width, height, alt) {
 
 <?php
 if ($use_udperms == 1) {
-	// fetch user access permissions for the module
-	$groupsarray = array();
-	$sql = 'SELECT * FROM '.$tbl_site_module_access.' WHERE module=\''.$id.'\'';
-	$rs = mysql_query($sql);
-	$limit = mysql_num_rows($rs);
-	for ($i = 0; $i < $limit; $i++) {
-		$currentgroup = mysql_fetch_assoc($rs);
-		$groupsarray[$i] = $currentgroup['usergroup'];
-	}
+    // fetch user access permissions for the module
+    $groupsarray = array();
+    $sql = 'SELECT * FROM '.$tbl_site_module_access.' WHERE module=\''.$id.'\'';
+    $rs = $modx->db->query($sql);
+    $limit = $modx->db->getRecordCount($rs);
+    for ($i = 0; $i < $limit; $i++) {
+        $currentgroup = $modx->db->getRow($rs);
+        $groupsarray[$i] = $currentgroup['usergroup'];
+    }
 
 	if($modx->hasPermission('access_permissions')) { ?>
 <!-- User Group Access Permissions -->
@@ -528,26 +528,26 @@ if ($use_udperms == 1) {
 	</script>
 	<p><?php echo $_lang['module_group_access_msg']?></p>
 <?php
-	}
-	$chk = '';
-	$sql = "SELECT name, id FROM ".$tbl_membergroup_names;
-	$rs = mysql_query($sql);
-	$limit = mysql_num_rows($rs);
-	for ($i = 0; $i < $limit; $i++) {
-		$row = mysql_fetch_assoc($rs);
-		$groupsarray = is_numeric($id) && $id > 0 ? $groupsarray : array();
-		$checked = in_array($row['id'], $groupsarray);
-		if($modx->hasPermission('access_permissions')) {
-			if ($checked) $notPublic = true;
-			$chks .= '<input type="checkbox" name="usrgroups[]" value="'.$row['id'].'"'.($checked ? ' checked="checked"' : '').' onclick="makePublic(false)" />'.$row['name']."<br />\n";
-		} else {
-			if ($checked) $chks = '<input type="hidden" name="usrgroups[]"  value="'.$row['id'].'" />' . "\n" . $chks;
-		}
-	}
-	if($modx->hasPermission('access_permissions')) {
-		$chks = '<input type="checkbox" name="chkallgroups"'.(!$notPublic ? ' checked="checked"' : '').' onclick="makePublic(true)" /><span class="warning">'.$_lang['all_usr_groups'].'</span><br />' . "\n" . $chks;
-	}
-	echo $chks;
+    }
+    $chk = '';
+    $sql = "SELECT name, id FROM ".$tbl_membergroup_names;
+    $rs = $modx->db->query($sql);
+    $limit = $modx->db->getRecordCount($rs);
+    for ($i = 0; $i < $limit; $i++) {
+        $row = $modx->db->getRow($rs);
+        $groupsarray = is_numeric($id) && $id > 0 ? $groupsarray : array();
+        $checked = in_array($row['id'], $groupsarray);
+        if($modx->hasPermission('access_permissions')) {
+            if ($checked) $notPublic = true;
+            $chks .= '<input type="checkbox" name="usrgroups[]" value="'.$row['id'].'"'.($checked ? ' checked="checked"' : '').' onclick="makePublic(false)" />'.$row['name']."<br />\n";
+        } else {
+            if ($checked) $chks = '<input type="hidden" name="usrgroups[]"  value="'.$row['id'].'" />' . "\n" . $chks;
+        }
+    }
+    if($modx->hasPermission('access_permissions')) {
+        $chks = '<input type="checkbox" name="chkallgroups"'.(!$notPublic ? ' checked="checked"' : '').' onclick="makePublic(true)" /><span class="warning">'.$_lang['all_usr_groups'].'</span><br />' . "\n" . $chks;
+    }
+    echo $chks;
 ?>
 </div>
 <?php } ?>

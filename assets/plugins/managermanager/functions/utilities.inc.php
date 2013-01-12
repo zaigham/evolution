@@ -139,10 +139,12 @@ function tplUseTvs($tpl_id, $tvs='', $types='') {
 
 // Create a MySQL-safe list from an array
 function makeSqlList($arr) {
+	global $modx;
+	
 	$arr = makeArray($arr);
 	foreach($arr as $k=>$tv) {
         //if (substr($tv, 0, 2) == 'tv') {$tv=substr($tv,2);}
-		$arr[$k] = "'".mysql_escape_string($tv)."'"; // Escape them for MySQL
+		$arr[$k] = "'".$modx->db->escape($tv)."'"; // Escape them for MySQL
 	}
 	$sql = " (".implode(',',$arr).") ";
 	return $sql;
@@ -181,34 +183,3 @@ function includeCss($url, $output_type='js') {
 		return;	
 	}
 }
-
-
-
-//function tvIdFromName($tv_id) {
-//	
-//	global $modx;
-//	
-//	// Get the DB table names
-//	$tv_table = $modx->getFullTableName('site_tmplvars');
-//	
-//	$tv_id = mysql_escape_string($tv_id);
-//	
-//	$result = $modx->db->query("SELECT id FROM $tv_table tvs WHERE name = '$tv_id'");
-//	$result = $modx->db->makeArray($result);
-//	
-//	
-//	
-//	
-//	
-//	// If we have results, return them, otherwise return false
-//	if ( $modx->db->getRecordCount($result) == 0) {
-//		return false;	
-//	} else {
-//		print_r($result);
-//		return $result[0]['id'];
-//	}
-//
-//}
-
-
-?>

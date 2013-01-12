@@ -16,12 +16,12 @@ if(!isset($_SESSION['mgrValidated'])) {
 	exit();
 }
 // connect to the database
-if(@!$modxDBConn = mysql_connect($database_server, $database_user, $database_password)) {
+/*if(@!$modxDBConn = Xysql_connect($database_server, $database_user, $database_password)) {
 	die("Failed to create the database connection!");
 } else {
-	mysql_select_db($dbase);
-    @mysql_query("{$database_connection_method} {$database_connection_charset}");
-}
+	Xysql_select_db($dbase);
+    @Xysql_query("{$database_connection_method} {$database_connection_charset}");
+}*/
 
 define('IN_MANAGER_MODE', 'true'); // set this so that settings will trust us.
 include("../../includes/settings.inc.php"); // get the settings from the database
