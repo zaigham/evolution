@@ -63,9 +63,21 @@ $(document).ready(function($) {
 		"bJQueryUI": true
 	});
 	
-	$('.js-confirm-delete').click(function(e){
+	$('.js-confirm-delete, .js-confirm-duplicate').click(function(e){
+		
+		var message = '';
+		
 		e.preventDefault();
-		if(confirm(temp_lang.confirm_delete) == true) {
+		
+		if($(this).hasClass('js-confirm-delete')){
+			message = temp_lang.confirm_delete;
+		}
+		
+		if($(this).hasClass('js-confirm-duplicate')){
+			message = temp_lang.confirm_duplicate;
+		}
+		
+		if(confirm(message) == true) {
 			window.location.href= $(this).attr('href');
 			return true;
 		}

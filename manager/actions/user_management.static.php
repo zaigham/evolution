@@ -89,7 +89,7 @@ $_PAGE['vs']['lm'] = $listmode;
 	if($modx->hasPermission('delete_user')){
 		$actionCol = "<a href='index.php?a=33&id=[+id+]' title='".$_lang['delete']."' class='js-confirm-delete'><img width='16' align='absmiddle' height='16' src='media/style/$manager_theme/images/icons/delete.png'></a>";
 	}else{
-		$actionCol = "<img width='16' align='absmiddle' height='16' src='media/style/$manager_theme/images/icons/delete.png' style='opacity:.5'>";
+		$actionCol = "<img width='16' align='absmiddle' height='16' src='media/style/$manager_theme/images/icons/delete.png' class='disabled-action'>";
 	}
 	
 	
