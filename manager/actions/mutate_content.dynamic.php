@@ -164,27 +164,8 @@ if (isset ($_POST['which_editor'])) {
     $which_editor = $_POST['which_editor'];
 }
 ?>
-<script type="text/javascript" src="media/calendar/datepicker.js"></script>
-<script type="text/javascript">
-/* <![CDATA[ */
-window.addEvent('domready', function(){
-    var dpOffset = <?php echo $modx->config['datepicker_offset']; ?>;
-    var dpformat = "<?php echo $modx->config['datetime_format']; ?>" + ' hh:mm:00';
-    new DatePicker($('pub_date'), {'yearOffset': dpOffset,'format':dpformat});
-    new DatePicker($('unpub_date'), {'yearOffset': dpOffset,'format':dpformat});
 
-    if( !window.ie6 ) {
-        $$('img[src=<?php echo $_style["icons_tooltip_over"]?>]').each(function(help_img) {
-            help_img.removeProperty('onclick');
-            help_img.removeProperty('onmouseover');
-            help_img.removeProperty('onmouseout');
-            help_img.setProperty('title', help_img.getProperty('alt') );
-            help_img.setProperty('class', 'tooltip' );
-            if (window.ie) help_img.removeProperty('alt');
-        });
-        new Tips($$('.tooltip'),{className:'custom'} );
-    }
-});
+<script type="text/javascript">
 
 // save tree folder state
 if (parent.tree) parent.tree.saveFolderState();
@@ -500,92 +481,99 @@ function decode(s) {
 </script>
 
 <form name="mutate" id="mutate" class="content" method="post" enctype="multipart/form-data" action="index.php">
-<?php
-// invoke OnDocFormPrerender event
-$evtOut = $modx->invokeEvent('OnDocFormPrerender', array(
-    'id' => $id
-));
-if (is_array($evtOut))
-    echo implode('', $evtOut);
-?>
-<input type="hidden" name="a" value="5" />
-<input type="hidden" name="id" value="<?php echo $content['id']?>" />
-<input type="hidden" name="mode" value="<?php echo (int) $_REQUEST['a']?>" />
-<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo isset($upload_maxsize) ? $upload_maxsize : 1048576?>" />
-<input type="hidden" name="refresh_preview" value="0" />
-<input type="hidden" name="newtemplate" value="" />
 
-<fieldset id="create_edit">
-    <h1><?php if ($_REQUEST['id']){ echo $_lang['edit_resource_title']; } else { echo $_lang['create_resource_title'];}?></h1>
-
-<div id="actions">
-      <ul class="actionButtons">
-          <li id="Button1">
-            <a href="#" onclick="documentDirty=false; document.mutate.save.click();">
-              <img alt="icons_save" src="<?php echo $_style["icons_save"]?>" /> <?php echo $_lang['save']?>
-            </a><span class="and"> + </span>
-            <select id="stay" name="stay">
-              <?php if ($modx->hasPermission('new_document')) { ?>
-              <option id="stay1" value="1" <?php echo $_REQUEST['stay']=='1' ? ' selected=""' : ''?> ><?php echo $_lang['stay_new']?></option>
-              <?php } ?>
-              <option id="stay2" value="2" <?php echo $_REQUEST['stay']=='2' ? ' selected="selected"' : ''?> ><?php echo $_lang['stay']?></option>
-              <option id="stay3" value=""  <?php echo $_REQUEST['stay']=='' ? ' selected=""' : ''?>  ><?php echo $_lang['close']?></option>
-            </select>
-          </li>
-          <?php
-            if ($_REQUEST['a'] == '4' || $_REQUEST['a'] == '72') { ?>
-          <li id="Button2" class="disabled"><a href="#" onclick="deletedocument();"><img src="<?php echo $_style["icons_delete_document"] ?>" alt="icons_delete_document" /> <?php echo $_lang['delete']?></a></li>
-          <?php } else { ?>
-          <li id="Button6"><a href="#" onclick="duplicatedocument();"><img src="<?php echo $_style["icons_resource_duplicate"] ?>" alt="icons_resource_duplicate" /> <?php echo $_lang['duplicate']?></a></li>
-          <li id="Button3"><a href="#" onclick="deletedocument();"><img src="<?php echo $_style["icons_delete_document"] ?>" alt="icons_delete_document" /> <?php echo $_lang['delete']?></a></li>
-          <?php } ?>
-          <li id="Button4"><a href="#" onclick="documentDirty=false;<?php echo $id==0 ? "document.location.href='index.php?a=2';" : "document.location.href='index.php?a=3&amp;id=$id';"?>"><img alt="icons_cancel" src="<?php echo $_style["icons_cancel"] ?>" /> <?php echo $_lang['cancel']?></a></li>
-          <li id="Button5"><a href="#" onclick="window.open('<?php echo $modx->makeUrl($id); ?>','previeWin');"><img alt="icons_preview_resource" src="<?php echo $_style["icons_preview_resource"] ?>" /> <?php echo $_lang['preview']?></a></li>
-      </ul>
-</div>
-
-<!-- start main wrapper -->
-<div class="sectionBody">
-<script type="text/javascript" src="media/script/tabpane.js"></script>
-
-<div class="tab-pane" id="documentPane">
-    <script type="text/javascript">
-    tpSettings = new WebFXTabPane( document.getElementById( "documentPane" ), <?php echo $modx->config['remember_last_tab'] == 1 ? 'true' : 'false'; ?> );
-    </script>
-
-    <!-- General -->
-    <div class="tab-page" id="tabGeneral">
-        <h2 class="tab"><?php echo $_lang['settings_general']?></h2>
-        <script type="text/javascript">tpSettings.addTabPage( document.getElementById( "tabGeneral" ) );</script>
-
+	
+	<?php
+	// invoke OnDocFormPrerender event
+	$evtOut = $modx->invokeEvent('OnDocFormPrerender', array(
+	    'id' => $id
+	));
+	if (is_array($evtOut))
+	    echo implode('', $evtOut);
+	?>
+	<input type="hidden" name="a" value="5" />
+	<input type="hidden" name="id" value="<?php echo $content['id']?>" />
+	<input type="hidden" name="mode" value="<?php echo (int) $_REQUEST['a']?>" />
+	<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo isset($upload_maxsize) ? $upload_maxsize : 1048576?>" />
+	<input type="hidden" name="refresh_preview" value="0" />
+	<input type="hidden" name="newtemplate" value="" />
+	
+	<fieldset id="create_edit">
+	    <h1><?php if ($_REQUEST['id']){ echo $_lang['edit_resource_title']; } else { echo $_lang['create_resource_title'];}?></h1>
+	
+		<div id="actions">
+		      <ul class="actionButtons">
+		          <li id="Button1">
+		            <a href="#" onclick="documentDirty=false; document.mutate.save.click();">
+		              <img alt="icons_save" src="<?php echo $_style["icons_save"]?>" /> <?php echo $_lang['save']?>
+		            </a><span class="and"> + </span>
+		            <select id="stay" name="stay">
+		              <?php if ($modx->hasPermission('new_document')) { ?>
+		              <option id="stay1" value="1" <?php echo $_REQUEST['stay']=='1' ? ' selected=""' : ''?> ><?php echo $_lang['stay_new']?></option>
+		              <?php } ?>
+		              <option id="stay2" value="2" <?php echo $_REQUEST['stay']=='2' ? ' selected="selected"' : ''?> ><?php echo $_lang['stay']?></option>
+		              <option id="stay3" value=""  <?php echo $_REQUEST['stay']=='' ? ' selected=""' : ''?>  ><?php echo $_lang['close']?></option>
+		            </select>
+		          </li>
+		          <?php
+		            if ($_REQUEST['a'] == '4' || $_REQUEST['a'] == '72') { ?>
+		          <li id="Button2" class="disabled"><a href="#" onclick="deletedocument();"><img src="<?php echo $_style["icons_delete_document"] ?>" alt="icons_delete_document" /> <?php echo $_lang['delete']?></a></li>
+		          <?php } else { ?>
+		          <li id="Button6"><a href="#" onclick="duplicatedocument();"><img src="<?php echo $_style["icons_resource_duplicate"] ?>" alt="icons_resource_duplicate" /> <?php echo $_lang['duplicate']?></a></li>
+		          <li id="Button3"><a href="#" onclick="deletedocument();"><img src="<?php echo $_style["icons_delete_document"] ?>" alt="icons_delete_document" /> <?php echo $_lang['delete']?></a></li>
+		          <?php } ?>
+		          <li id="Button4"><a href="#" onclick="documentDirty=false;<?php echo $id==0 ? "document.location.href='index.php?a=2';" : "document.location.href='index.php?a=3&amp;id=$id';"?>"><img alt="icons_cancel" src="<?php echo $_style["icons_cancel"] ?>" /> <?php echo $_lang['cancel']?></a></li>
+		          <li id="Button5"><a href="#" onclick="window.open('<?php echo $modx->makeUrl($id); ?>','previeWin');"><img alt="icons_preview_resource" src="<?php echo $_style["icons_preview_resource"] ?>" /> <?php echo $_lang['preview']?></a></li>
+		      </ul>
+		</div>
+		
+		<!-- start main wrapper -->
+		<div class="sectionBody">
+		
+			<div id="tabs">
+				<ul>
+					<li><a href="#tabGeneral"><?php echo $_lang['settings_general']?></a></li>
+					<li><a href="#tabSettings"><?php echo $_lang['settings_page_settings']?></a></li>
+					
+					<?php if ($modx->hasPermission('edit_doc_metatags') && $modx->config['show_meta']) { ?>
+					<li><a href="#tabMeta"><?php echo $_lang['meta_keywords']?></a></li>
+					<?php } ?>
+					
+					<?php if ($use_udperms == 1) { //TODO: hide tab when permissions are empty either in php either in js. js looks simple in this case - detect empty tab content and remove tab?>
+					<li><a href="#tabAccess"><?php echo $_lang['access_permissions']?></a></li>
+					<?php } ?>
+				</ul>
+				
+				<div id="tabGeneral">
+		
         <table width="99%" border="0" cellspacing="5" cellpadding="0">
             <tr style="height: 24px;"><td width="100" align="left"><span class="warning"><?php echo $_lang['resource_title']?></span></td>
                 <td><input name="pagetitle" type="text" maxlength="255" value="<?php echo htmlspecialchars(stripslashes($content['pagetitle']))?>" class="inputBox" onchange="documentDirty=true;" spellcheck="true" />
-                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['resource_title_help']?>" onclick="alert(this.alt);" style="cursor:help;" /></td></tr>
+                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_title_help']?>" class="tooltip"/></td></tr>
             <tr style="height: 24px;"><td align="left"><span class="warning"><?php echo $_lang['long_title']?></span></td>
                 <td><input name="longtitle" type="text" maxlength="255" value="<?php echo htmlspecialchars(stripslashes($content['longtitle']))?>" class="inputBox" onchange="documentDirty=true;" spellcheck="true" />
-                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['resource_long_title_help']?>" onclick="alert(this.alt);" style="cursor:help;" /></td></tr>
+                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_long_title_help']?>" class="tooltip"/></td></tr>
             <tr style="height: 24px;"><td><span class="warning"><?php echo $_lang['resource_description']?></span></td>
                 <td><input name="description" type="text" maxlength="255" value="<?php echo htmlspecialchars(stripslashes($content['description']))?>" class="inputBox" onchange="documentDirty=true;" spellcheck="true" />
-                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['resource_description_help']?>" onclick="alert(this.alt);" style="cursor:help;" /></td></tr>
+                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_description_help']?>" class="tooltip"/></td></tr>
             <tr style="height: 24px;"><td><span class="warning"><?php echo $_lang['resource_alias']?></span></td>
                 <td><input name="alias" type="text" maxlength="100" value="<?php echo stripslashes($content['alias'])?>" class="inputBox" onchange="documentDirty=true;" />
-                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['resource_alias_help']?>" onclick="alert(this.alt);" style="cursor:help;" /></td></tr>
+                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_alias_help']?>" class="tooltip"/></td></tr>
             <tr style="height: 24px;"><td><span class="warning"><?php echo $_lang['link_attributes']?></span></td>
                 <td><input name="link_attributes" type="text" maxlength="255" value="<?php echo htmlspecialchars(stripslashes($content['link_attributes']))?>" class="inputBox" onchange="documentDirty=true;" />
-                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['link_attributes_help']?>" onclick="alert(this.alt);" style="cursor:help;" /></td></tr>
+                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['link_attributes_help']?>" class="tooltip"/></td></tr>
 
 <?php if ($content['type'] == 'reference' || $_REQUEST['a'] == '72') { // Web Link specific ?>
 
             <tr style="height: 24px;"><td><span class="warning"><?php echo $_lang['weblink']?></span> <img name="llock" src="<?php echo $_style["tree_folder"] ?>" alt="tree_folder" onclick="enableLinkSelection(!allowLinkSelection);" style="cursor:pointer;" /></td>
                 <td><input name="ta" type="text" maxlength="255" value="<?php echo !empty($content['content']) ? stripslashes($content['content']) : "http://"?>" class="inputBox" onchange="documentDirty=true;" />
-                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['resource_weblink_help']?>" onclick="alert(this.alt);" style="cursor:help;" /></td></tr>
+                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_weblink_help']?>" class="tooltip"/></td></tr>
 
 <?php } ?>
 
             <tr style="height: 24px;"><td valign="top" width="100" align="left"><span class="warning"><?php echo $_lang['resource_summary']?></span></td>
                 <td valign="top"><textarea name="introtext" class="inputBox" rows="3" cols="" onchange="documentDirty=true;"><?php echo htmlspecialchars(stripslashes($content['introtext']))?></textarea>
-                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['resource_summary_help']?>" onclick="alert(this.alt);" style="cursor:help;" spellcheck="true"/></td></tr>
+                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_summary_help']?>" class="tooltip" spellcheck="true"/></td></tr>
             <tr style="height: 24px;"><td><span class="warning"><?php echo $_lang['page_data_template']?></span></td>
                 <td><select id="template" name="template" class="inputBox" onchange="templateWarning();" style="width:308px">
                     <option value="0">(blank)</option>
@@ -646,16 +634,16 @@ if (is_array($evtOut))
                     echo "\t\t\t\t\t</optgroup>\n";
                 }
 ?>
-                </select> &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['page_data_template_help']?>" onclick="alert(this.alt);" style="cursor:help;" /></td></tr>
+                </select> &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['page_data_template_help']?>" class="tooltip"/></td></tr>
             <tr style="height: 24px;"><td align="left" style="width:100px;"><span class="warning"><?php echo $_lang['resource_opt_menu_title']?></span></td>
                 <td><input name="menutitle" type="text" maxlength="255" value="<?php echo htmlspecialchars(stripslashes($content['menutitle']))?>" class="inputBox" onchange="documentDirty=true;" />
-                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['resource_opt_menu_title_help']?>" onclick="alert(this.alt);" style="cursor:help;" /></td></tr>
+                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_opt_menu_title_help']?>" class="tooltip"/></td></tr>
             <tr style="height: 24px;"><td align="left" style="width:100px;"><span class="warning"><?php echo $_lang['resource_opt_menu_index']?></span></td>
                 <td><table border="0" cellspacing="0" cellpadding="0" style="width:333px;"><tr>
                     <td><input name="menuindex" type="text" maxlength="3" value="<?php echo $content['menuindex']?>" class="inputBox" style="width:30px;" onchange="documentDirty=true;" /><input type="button" value="&lt;" onclick="var elm = document.mutate.menuindex;var v=parseInt(elm.value+'')-1;elm.value=v>0? v:0;elm.focus();documentDirty=true;" /><input type="button" value="&gt;" onclick="var elm = document.mutate.menuindex;var v=parseInt(elm.value+'')+1;elm.value=v>0? v:0;elm.focus();documentDirty=true;" />
-                    &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['resource_opt_menu_index_help']?>" onclick="alert(this.alt);" style="cursor:help;" /></td>
+                    &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_opt_menu_index_help']?>" class="tooltip"/></td>
                     <td align="right" style="text-align:right;"><span class="warning"><?php echo $_lang['resource_opt_show_menu']?></span>&nbsp;<input name="hidemenucheck" type="checkbox" class="checkbox" <?php echo $content['hidemenu']!=1 ? 'checked="checked"':''?> onclick="changestate(document.mutate.hidemenu);" /><input type="hidden" name="hidemenu" class="hidden" value="<?php echo ($content['hidemenu']==1) ? 1 : 0?>" />
-                    &nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['resource_opt_show_menu_help']?>" onclick="alert(this.alt);" style="cursor:help;" /></td>
+                    &nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_opt_show_menu_help']?>" class="tooltip"/></td>
                 </tr></table></td></tr>
 
             <tr><td colspan="2"><div class="split"></div></td></tr>
@@ -698,7 +686,7 @@ if (is_array($evtOut))
                     $parentname = $parentrs['pagetitle'];
                 }
                 ?>&nbsp;<img alt="tree_folder" name="plock" src="<?php echo $_style["tree_folder"] ?>" onclick="enableParentSelection(!allowParentSelection);" style="cursor:pointer;" /> <b><span id="parentName"><?php echo isset($_REQUEST['pid']) ? $_REQUEST['pid'] : $content['parent']?> (<?php echo $parentname?>)</span></b>
-    &nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['resource_parent_help']?>" onclick="alert(this.alt);" style="cursor:help;" />
+    &nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_parent_help']?>" class="tooltip"/>
                 <input type="hidden" name="parent" value="<?php echo isset($_REQUEST['pid']) ? $_REQUEST['pid'] : $content['parent']?>" onchange="documentDirty=true;" />
                 </td></tr>
         </table>
@@ -813,46 +801,43 @@ if (is_array($evtOut))
             </div>
             <!-- end .sectionBody .tmplvars -->
         <?php } ?>
-
+    
     </div><!-- end #tabGeneral -->
-
-    <!-- Settings -->
-    <div class="tab-page" id="tabSettings">
-        <h2 class="tab"><?php echo $_lang['settings_page_settings']?></h2>
-        <script type="text/javascript">tpSettings.addTabPage( document.getElementById( "tabSettings" ) );</script>
-
-        <table width="99%" border="0" cellspacing="5" cellpadding="0">
+				
+				<div id="tabSettings">
+		
+		<table width="99%" border="0" cellspacing="5" cellpadding="0">
 
         <?php $mx_can_pub = $modx->hasPermission('publish_document') ? '' : 'disabled="disabled" '; ?>
             <tr style="height: 24px;">
                 <td><span class="warning"><?php echo $_lang['resource_opt_published']?></span></td>
                 <td><input <?php echo $mx_can_pub ?>name="publishedcheck" type="checkbox" class="checkbox" <?php echo (isset($content['published']) && $content['published']==1) || (!isset($content['published']) && $publish_default==1) ? "checked" : ''?> onclick="changestate(document.mutate.published);" />
                 <input type="hidden" name="published" value="<?php echo (isset($content['published']) && $content['published']==1) || (!isset($content['published']) && $publish_default==1) ? 1 : 0?>" />
-                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['resource_opt_published_help']?>" onclick="alert(this.alt);" style="cursor:help;" /></td>
+                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_opt_published_help']?>" class="tooltip"/></td>
             </tr>
             <tr style="height: 24px;">
                 <td><span class="warning"><?php echo $_lang['page_data_publishdate']?></span></td>
                 <td><input id="pub_date" <?php echo $mx_can_pub ?>name="pub_date" class="DatePicker" value="<?php echo $content['pub_date']=="0" || !isset($content['pub_date']) ? '' : $modx->toDateFormat($content['pub_date'])?>" onblur="documentDirty=true;" />
                 <a href="javascript:void(0);" onclick="javascript:document.mutate.pub_date.value=''; return true;" onmouseover="window.status='<?php echo $_lang['remove_date']?>'; return true;" onmouseout="window.status=''; return true;" style="cursor:pointer; cursor:hand;">
                 <img src="<?php echo $_style["icons_cal_nodate"] ?>" width="16" height="16" border="0" alt="<?php echo $_lang['remove_date']?>" /></a>
-                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['page_data_publishdate_help']?>" onclick="alert(this.alt);" style="cursor:help;" />
+                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['page_data_publishdate_help']?>" class="tooltip"/>
                 </td>
             </tr>
             <tr>
                 <td></td>
-                <td style="color: #555;font-size:10px"><em> <?php echo $modx->config['datetime_format']; ?> HH:MM:SS</em></td>
+                <td style="color: #555;font-size:10px"><em> <?php echo $modx->config['date_format']; ?> <?php echo $modx->config['time_format']; ?></em></td>
             </tr>
             <tr style="height: 24px;">
                 <td><span class="warning"><?php echo $_lang['page_data_unpublishdate']?></span></td>
                 <td><input id="unpub_date" <?php echo $mx_can_pub ?>name="unpub_date" class="DatePicker" value="<?php echo $content['unpub_date']=="0" || !isset($content['unpub_date']) ? '' : $modx->toDateFormat($content['unpub_date'])?>" onblur="documentDirty=true;" />
                 <a onclick="document.mutate.unpub_date.value=''; return true;" onmouseover="window.status='<?php echo $_lang['remove_date']?>'; return true;" onmouseout="window.status=''; return true;" style="cursor:pointer; cursor:hand">
                 <img src="<?php echo $_style["icons_cal_nodate"] ?>" width="16" height="16" border="0" alt="<?php echo $_lang['remove_date']?>" /></a>
-                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['page_data_unpublishdate_help']?>" onclick="alert(this.alt);" style="cursor:help;" />
+                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['page_data_unpublishdate_help']?>" class="tooltip"/>
                 </td>
             </tr>
             <tr>
                 <td></td>
-                <td style="color: #555;font-size:10px"><em> <?php echo $modx->config['datetime_format']; ?> HH:MM:SS</em></td>
+                <td style="color: #555;font-size:10px"><em> <?php echo $modx->config['date_format']; ?> <?php echo $modx->config['time_format']; ?></em></td>
             </tr>
             <tr>
               <td colspan="2"><div class='split'></div></td>
@@ -868,7 +853,7 @@ if ($_SESSION['mgrRole'] == 1 || $_REQUEST['a'] != '27' || $_SESSION['mgrInterna
                     <option value="document"<?php echo (($content['type'] == "document" || $_REQUEST['a'] == '85' || $_REQUEST['a'] == '4') ? ' selected="selected"' : "");?> ><?php echo $_lang["resource_type_webpage"];?></option>
                     <option value="reference"<?php echo (($content['type'] == "reference" || $_REQUEST['a'] == '72') ? ' selected="selected"' : "");?> ><?php echo $_lang["resource_type_weblink"];?></option>
                     </select>
-                    &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['resource_type_message']?>" onclick="alert(this.alt);" style="cursor:help;" /></td></tr>
+                    &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_type_message']?>" class="tooltip"/></td></tr>
 
             <tr style="height: 24px;"><td><span class="warning"><?php echo $_lang['page_data_contentType']?></span></td>
                 <td><select name="contentType" class="inputBox" onchange="documentDirty=true;" style="width:200px">
@@ -882,13 +867,13 @@ if ($_SESSION['mgrRole'] == 1 || $_REQUEST['a'] != '27' || $_SESSION['mgrInterna
                 }
             ?>
                 </select>
-                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['page_data_contentType_help']?>" onclick="alert(this.alt);" style="cursor:help;" /></td></tr>
+                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['page_data_contentType_help']?>" class="tooltip"/></td></tr>
             <tr style="height: 24px;"><td><span class="warning"><?php echo $_lang['resource_opt_contentdispo']?></span></td>
                 <td><select name="content_dispo" size="1" onchange="documentDirty=true;" style="width:200px">
                     <option value="0"<?php echo !$content['content_dispo'] ? ' selected="selected"':''?>><?php echo $_lang['inline']?></option>
                     <option value="1"<?php echo $content['content_dispo']==1 ? ' selected="selected"':''?>><?php echo $_lang['attachment']?></option>
                 </select>
-                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['resource_opt_contentdispo_help']?>" onclick="alert(this.alt);" style="cursor:help;" /></td></tr>
+                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_opt_contentdispo_help']?>" class="tooltip"/></td></tr>
 
             <tr>
               <td colspan="2"><div class='split'></div></td>
@@ -916,291 +901,313 @@ if ($_SESSION['mgrRole'] == 1 || $_REQUEST['a'] != '27' || $_SESSION['mgrInterna
                 <td width="150"><span class="warning"><?php echo $_lang['resource_opt_folder']?></span></td>
                 <td><input name="isfoldercheck" type="checkbox" class="checkbox" <?php echo ($content['isfolder']==1||$_REQUEST['a']=='85') ? "checked" : ''?> onclick="changestate(document.mutate.isfolder);" />
                 <input type="hidden" name="isfolder" value="<?php echo ($content['isfolder']==1||$_REQUEST['a']=='85') ? 1 : 0?>" onchange="documentDirty=true;" />
-                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['resource_opt_folder_help']?>" onclick="alert(this.alt);" style="cursor:help;" /></td>
+                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_opt_folder_help']?>" class="tooltip"/></td>
             </tr>
             <tr style="height: 24px;">
                 <td><span class="warning"><?php echo $_lang['resource_opt_richtext']?></span></td>
                 <td><input name="richtextcheck" type="checkbox" class="checkbox" <?php echo $content['richtext']==0 && $_REQUEST['a']=='27' ? '' : "checked"?> onclick="changestate(document.mutate.richtext);" />
                 <input type="hidden" name="richtext" value="<?php echo $content['richtext']==0 && $_REQUEST['a']=='27' ? 0 : 1?>" onchange="documentDirty=true;" />
-                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['resource_opt_richtext_help']?>" onclick="alert(this.alt);" style="cursor:help;" /></td>
+                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_opt_richtext_help']?>" class="tooltip"/></td>
             </tr>
             <tr style="height: 24px;">
                 <td width="150"><span class="warning"><?php echo $_lang['track_visitors_title']?></span></td>
                 <td><input name="donthitcheck" type="checkbox" class="checkbox" <?php echo ($content['donthit']!=1) ? 'checked="checked"' : ''?> onclick="changestate(document.mutate.donthit);" /><input type="hidden" name="donthit" value="<?php echo ($content['donthit']==1) ? 1 : 0?>" onchange="documentDirty=true;" />
-                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['resource_opt_trackvisit_help']?>" onclick="alert(this.alt);" style="cursor:help;" /></td>
+                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_opt_trackvisit_help']?>" class="tooltip"/></td>
             </tr>
             <tr style="height: 24px;">
                 <td><span class="warning"><?php echo $_lang['page_data_searchable']?></span></td>
                 <td><input name="searchablecheck" type="checkbox" class="checkbox" <?php echo (isset($content['searchable']) && $content['searchable']==1) || (!isset($content['searchable']) && $search_default==1) ? "checked" : ''?> onclick="changestate(document.mutate.searchable);" /><input type="hidden" name="searchable" value="<?php echo (isset($content['searchable']) && $content['searchable']==1) || (!isset($content['searchable']) && $search_default==1) ? 1 : 0?>" onchange="documentDirty=true;" />
-                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['page_data_searchable_help']?>" onclick="alert(this.alt);" style="cursor:help;" /></td>
+                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['page_data_searchable_help']?>" class="tooltip"/></td>
             </tr>
             <tr style="height: 24px;">
                 <td><span class="warning"><?php echo $_lang['page_data_cacheable']?></span></td>
                 <td><input name="cacheablecheck" type="checkbox" class="checkbox" <?php echo (isset($content['cacheable']) && $content['cacheable']==1) || (!isset($content['cacheable']) && $cache_default==1) ? "checked" : ''?> onclick="changestate(document.mutate.cacheable);" />
                 <input type="hidden" name="cacheable" value="<?php echo (isset($content['cacheable']) && $content['cacheable']==1) || (!isset($content['cacheable']) && $cache_default==1) ? 1 : 0?>" onchange="documentDirty=true;" />
-                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['page_data_cacheable_help']?>" onclick="alert(this.alt);" style="cursor:help;" /></td>
+                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['page_data_cacheable_help']?>" class="tooltip"/></td>
             </tr>
             <tr style="height: 24px;">
                 <td><span class="warning"><?php echo $_lang['resource_opt_emptycache']?></span></td>
                 <td><input name="syncsitecheck" type="checkbox" class="checkbox" checked="checked" onclick="changestate(document.mutate.syncsite);" />
                 <input type="hidden" name="syncsite" value="1" />
-                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip_over"]?>" onmouseover="this.src='<?php echo $_style["icons_tooltip"]?>';" onmouseout="this.src='<?php echo $_style["icons_tooltip_over"]?>';" alt="<?php echo $_lang['resource_opt_emptycache_help']?>" onclick="alert(this.alt);" style="cursor:help;" /></td>
+                &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_opt_emptycache_help']?>" class="tooltip"/></td>
             </tr>
         </table>
-    </div><!-- end #tabSettings -->
+    
+    
+    </div> <!-- end tabSettings -->
+				
+				<?php if ($modx->hasPermission('edit_doc_metatags') && $modx->config['show_meta']) { ?>
+				<div id="tabMeta">
+				
+				<?php	
+					
+					// get list of site keywords
+				    $keywords = array();
+				    $ds = $modx->db->select('*', $tbl_site_keywords, '', 'keyword ASC');
+				    $limit = $modx->db->getRecordCount($ds);
+				    if ($limit > 0) {
+				        for ($i = 0; $i < $limit; $i++) {
+				            $row = $modx->db->getRow($ds);
+				            $keywords[$row['id']] = $row['keyword'];
+				        }
+				    }
+				    // get selected keywords using document's id
+				    if (isset ($content['id']) && count($keywords) > 0) {
+				        $keywords_selected = array();
+				        $ds = $modx->db->select('keyword_id', $tbl_keyword_xref, 'content_id=\''.$content['id'].'\'');
+				        $limit = $modx->db->getRecordCount($ds);
+				        if ($limit > 0) {
+				            for ($i = 0; $i < $limit; $i++) {
+				                $row = $modx->db->getRow($ds);
+				                $keywords_selected[$row['keyword_id']] = ' selected="selected"';
+				            }
+				        }
+				    }
+				
+				    // get list of site META tags
+				    $metatags = array();
+				    $ds = $modx->db->select('*', $tbl_site_metatags);
+				    $limit = $modx->db->getRecordCount($ds);
+				    if ($limit > 0) {
+				        for ($i = 0; $i < $limit; $i++) {
+				            $row = $modx->db->getRow($ds);
+				            $metatags[$row['id']] = $row['name'];
+				        }
+				    }
+				    // get selected META tags using document's id
+				    if (isset ($content['id']) && count($metatags) > 0) {
+				        $metatags_selected = array();
+				        $ds = $modx->db->select('metatag_id', $tbl_site_content_metatags, 'content_id=\''.$content['id'].'\'');
+				        $limit = $modx->db->getRecordCount($ds);
+				        if ($limit > 0) {
+				            for ($i = 0; $i < $limit; $i++) {
+				                $row = $modx->db->getRow($ds);
+				                $metatags_selected[$row['metatag_id']] = ' selected="selected"';
+				            }
+				        }
+				    }
+					
+				?>
+					<table width="99%" border="0" cellspacing="5" cellpadding="0">
+			        <tr style="height: 24px;"><td><?php echo $_lang['resource_metatag_help']?><br /><br />
+			            <table border="0" style="width:inherit;"><tr>
+			            <td><span class="warning"><?php echo $_lang['keywords']?></span><br />
+			                <select name="keywords[]" multiple="multiple" size="16" class="inputBox" style="width: 200px;" onchange="documentDirty=true;">
+			                <?php
+			                    $keys = array_keys($keywords);
+			                    for ($i = 0; $i < count($keys); $i++) {
+			                        $key = $keys[$i];
+			                        $value = $keywords[$key];
+			                        $selected = $keywords_selected[$key];
+			                        echo "\t\t\t\t".'<option value="'.$key.'"'.$selected.'>'.$value."</option>\n";
+			                    }
+			                ?>
+			                </select>
+			                <br />
+			                <input type="button" value="<?php echo $_lang['deselect_keywords']?>" onclick="clearKeywordSelection();" />
+			            </td>
+			            <td><span class="warning"><?php echo $_lang['metatags']?></span><br />
+			                <select name="metatags[]" multiple="multiple" size="16" class="inputBox" style="width: 220px;" onchange="documentDirty=true;">
+			                <?php
+			                    $keys = array_keys($metatags);
+			                    for ($i = 0; $i < count($keys); $i++) {
+			                        $key = $keys[$i];
+			                        $value = $metatags[$key];
+			                        $selected = $metatags_selected[$key];
+			                        echo "\t\t\t\t".'<option value="'.$key.'"'.$selected.'>'.$value."</option>\n";
+			                    }
+			                ?>
+			                </select>
+			                <br />
+			                <input type="button" value="<?php echo $_lang['deselect_metatags']?>" onclick="clearMetatagSelection();" />
+			            </td>
+			            </table>
+			            </td>
+			        </tr>
+			        </table>
+				
+				
+				 
+				</div> <!-- end tabMeta -->
+				<?php } ?>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<?php 
+			
+			/*******************************
+			 * Document Access Permissions */
+			if ($use_udperms == 1) {
+			    $groupsarray = array();
+			    $sql = '';
+			
+			    $documentId = ($_REQUEST['a'] == '27' ? $id : (!empty($_REQUEST['pid']) ? $_REQUEST['pid'] : $content['parent']));
+			    if ($documentId > 0) {
+			        // Load up, the permissions from the parent (if new document) or existing document
+			        $sql = 'SELECT id, document_group FROM '.$tbl_document_groups.' WHERE document=\''.$documentId.'\'';
+			        $rs = mysql_query($sql);
+			        while ($currentgroup = mysql_fetch_assoc($rs))
+			            $groupsarray[] = $currentgroup['document_group'].','.$currentgroup['id'];
+			
+			        // Load up the current permissions and names
+			        $sql = 'SELECT dgn.*, groups.id AS link_id '.
+			               'FROM '.$tbl_document_group_names.' AS dgn '.
+			               'LEFT JOIN '.$tbl_document_groups.' AS groups ON groups.document_group = dgn.id '.
+			               '  AND groups.document = '.$documentId.' '.
+			               'ORDER BY name';
+			    } else {
+			        // Just load up the names, we're starting clean
+			        $sql = 'SELECT *, NULL AS link_id FROM '.$tbl_document_group_names.' ORDER BY name';
+			    }
+			
+			    // retain selected doc groups between post
+			    if (isset($_POST['docgroups']))
+			        $groupsarray = array_merge($groupsarray, $_POST['docgroups']);
+			
+			    // Query the permissions and names from above
+			    $rs = mysql_query($sql);
+			    $limit = mysql_num_rows($rs);
+			
+			    $isManager = $modx->hasPermission('access_permissions');
+			    $isWeb     = $modx->hasPermission('web_access_permissions');
+			
+			    // Setup Basic attributes for each Input box
+			    $inputAttributes = array(
+			        'type' => 'checkbox',
+			        'class' => 'checkbox',
+			        'name' => 'docgroups[]',
+			        'onclick' => 'makePublic(false);',
+			    );
+			    $permissions = array(); // New Permissions array list (this contains the HTML)
+			    $permissions_yes = 0; // count permissions the current mgr user has
+			    $permissions_no = 0; // count permissions the current mgr user doesn't have
+			
+			    // Loop through the permissions list
+			    for ($i = 0; $i < $limit; $i++) {
+			        $row = mysql_fetch_assoc($rs);
+			
+			        // Create an inputValue pair (group ID and group link (if it exists))
+			        $inputValue = $row['id'].','.($row['link_id'] ? $row['link_id'] : 'new');
+			        $inputId    = 'group-'.$row['id'];
+			
+			        $checked    = in_array($inputValue, $groupsarray);
+			        if ($checked) $notPublic = true; // Mark as private access (either web or manager)
+			
+			        // Skip the access permission if the user doesn't have access...
+			        if ((!$isManager && $row['private_memgroup'] == '1') || (!$isWeb && $row['private_webgroup'] == '1'))
+			            continue;
+			
+			        // Setup attributes for this Input box
+			        $inputAttributes['id']    = $inputId;
+			        $inputAttributes['value'] = $inputValue;
+			        if ($checked)
+			                $inputAttributes['checked'] = 'checked';
+			        else    unset($inputAttributes['checked']);
+			
+			        // Create attribute string list
+			        $inputString = array();
+			        foreach ($inputAttributes as $k => $v) $inputString[] = $k.'="'.$v.'"';
+			
+			        // Make the <input> HTML
+			        $inputHTML = '<input '.implode(' ', $inputString).' />';
+			
+			        // does user have this permission?
+			        $sql = "SELECT COUNT(mg.id) FROM {$tbl_membergroup_access} mga, {$tbl_member_groups} mg
+			 WHERE mga.membergroup = mg.user_group
+			 AND mga.documentgroup = {$row['id']}
+			 AND mg.member = {$_SESSION['mgrInternalKey']};";
+			        $rsp = $modx->db->query($sql);
+			        $count = $modx->db->getValue($rsp);
+			        if($count > 0) {
+			            ++$permissions_yes;
+			        } else {
+			            ++$permissions_no;
+			        }
+			        $permissions[] = "\t\t".'<li>'.$inputHTML.'<label for="'.$inputId.'">'.$row['name'].'</label></li>';
+			    }
+			    // if mgr user doesn't have access to any of the displayable permissions, forget about them and make doc public
+			    if($_SESSION['mgrRole'] != 1 && ($permissions_yes == 0 && $permissions_no > 0)) {
+			        $permissions = array();
+			    }
+			
+			    // See if the Access Permissions section is worth displaying...
+			    if (!empty($permissions)) {
+			        // Add the "All Document Groups" item if we have rights in both contexts
+			        if ($isManager && $isWeb)
+			            array_unshift($permissions,"\t\t".'<li><input type="checkbox" class="checkbox" name="chkalldocs" id="groupall"'.(!$notPublic ? ' checked="checked"' : '').' onclick="makePublic(true);" /><label for="groupall" class="warning">' . $_lang['all_doc_groups'] . '</label></li>');
+			        // Output the permissions list...
+			?>
+			<!-- Access Permissions -->
+			<div id="tabAccess">
 
-<?php if ($modx->hasPermission('edit_doc_metatags') && $modx->config['show_meta']) {
-    // get list of site keywords
-    $keywords = array();
-    $ds = $modx->db->select('*', $tbl_site_keywords, '', 'keyword ASC');
-    $limit = $modx->db->getRecordCount($ds);
-    if ($limit > 0) {
-        for ($i = 0; $i < $limit; $i++) {
-            $row = $modx->db->getRow($ds);
-            $keywords[$row['id']] = $row['keyword'];
-        }
-    }
-    // get selected keywords using document's id
-    if (isset ($content['id']) && count($keywords) > 0) {
-        $keywords_selected = array();
-        $ds = $modx->db->select('keyword_id', $tbl_keyword_xref, 'content_id=\''.$content['id'].'\'');
-        $limit = $modx->db->getRecordCount($ds);
-        if ($limit > 0) {
-            for ($i = 0; $i < $limit; $i++) {
-                $row = $modx->db->getRow($ds);
-                $keywords_selected[$row['keyword_id']] = ' selected="selected"';
-            }
-        }
-    }
-
-    // get list of site META tags
-    $metatags = array();
-    $ds = $modx->db->select('*', $tbl_site_metatags);
-    $limit = $modx->db->getRecordCount($ds);
-    if ($limit > 0) {
-        for ($i = 0; $i < $limit; $i++) {
-            $row = $modx->db->getRow($ds);
-            $metatags[$row['id']] = $row['name'];
-        }
-    }
-    // get selected META tags using document's id
-    if (isset ($content['id']) && count($metatags) > 0) {
-        $metatags_selected = array();
-        $ds = $modx->db->select('metatag_id', $tbl_site_content_metatags, 'content_id=\''.$content['id'].'\'');
-        $limit = $modx->db->getRecordCount($ds);
-        if ($limit > 0) {
-            for ($i = 0; $i < $limit; $i++) {
-                $row = $modx->db->getRow($ds);
-                $metatags_selected[$row['metatag_id']] = ' selected="selected"';
-            }
-        }
-    }
-    ?>
-    <!-- META Keywords -->
-    <div class="tab-page" id="tabMeta">
-        <h2 class="tab"><?php echo $_lang['meta_keywords']?></h2>
-        <script type="text/javascript">tpSettings.addTabPage( document.getElementById( "tabMeta" ) );</script>
-
-        <table width="99%" border="0" cellspacing="5" cellpadding="0">
-        <tr style="height: 24px;"><td><?php echo $_lang['resource_metatag_help']?><br /><br />
-            <table border="0" style="width:inherit;"><tr>
-            <td><span class="warning"><?php echo $_lang['keywords']?></span><br />
-                <select name="keywords[]" multiple="multiple" size="16" class="inputBox" style="width: 200px;" onchange="documentDirty=true;">
-                <?php
-                    $keys = array_keys($keywords);
-                    for ($i = 0; $i < count($keys); $i++) {
-                        $key = $keys[$i];
-                        $value = $keywords[$key];
-                        $selected = $keywords_selected[$key];
-                        echo "\t\t\t\t".'<option value="'.$key.'"'.$selected.'>'.$value."</option>\n";
-                    }
-                ?>
-                </select>
-                <br />
-                <input type="button" value="<?php echo $_lang['deselect_keywords']?>" onclick="clearKeywordSelection();" />
-            </td>
-            <td><span class="warning"><?php echo $_lang['metatags']?></span><br />
-                <select name="metatags[]" multiple="multiple" size="16" class="inputBox" style="width: 220px;" onchange="documentDirty=true;">
-                <?php
-                    $keys = array_keys($metatags);
-                    for ($i = 0; $i < count($keys); $i++) {
-                        $key = $keys[$i];
-                        $value = $metatags[$key];
-                        $selected = $metatags_selected[$key];
-                        echo "\t\t\t\t".'<option value="'.$key.'"'.$selected.'>'.$value."</option>\n";
-                    }
-                ?>
-                </select>
-                <br />
-                <input type="button" value="<?php echo $_lang['deselect_metatags']?>" onclick="clearMetatagSelection();" />
-            </td>
-            </table>
-            </td>
-        </tr>
-        </table>
-    </div><!-- end #tabMeta -->
-<?php
-}
-
-/*******************************
- * Document Access Permissions */
-if ($use_udperms == 1) {
-    $groupsarray = array();
-    $sql = '';
-
-    $documentId = ($_REQUEST['a'] == '27' ? $id : (!empty($_REQUEST['pid']) ? $_REQUEST['pid'] : $content['parent']));
-    if ($documentId > 0) {
-        // Load up, the permissions from the parent (if new document) or existing document
-        $sql = 'SELECT id, document_group FROM '.$tbl_document_groups.' WHERE document=\''.$documentId.'\'';
-        $rs = $modx->db->query($sql);
-        while ($currentgroup = $modx->db->getRow($rs))
-            $groupsarray[] = $currentgroup['document_group'].','.$currentgroup['id'];
-
-        // Load up the current permissions and names
-        $sql = 'SELECT dgn.*, groups.id AS link_id '.
-               'FROM '.$tbl_document_group_names.' AS dgn '.
-               'LEFT JOIN '.$tbl_document_groups.' AS groups ON groups.document_group = dgn.id '.
-               '  AND groups.document = '.$documentId.' '.
-               'ORDER BY name';
-    } else {
-        // Just load up the names, we're starting clean
-        $sql = 'SELECT *, NULL AS link_id FROM '.$tbl_document_group_names.' ORDER BY name';
-    }
-
-    // retain selected doc groups between post
-    if (isset($_POST['docgroups']))
-        $groupsarray = array_merge($groupsarray, $_POST['docgroups']);
-
-    // Query the permissions and names from above
-    $rs = $modx->db->query($sql);
-    $limit = $modx->db->getRecordCount($rs);
-
-    $isManager = $modx->hasPermission('access_permissions');
-    $isWeb     = $modx->hasPermission('web_access_permissions');
-
-    // Setup Basic attributes for each Input box
-    $inputAttributes = array(
-        'type' => 'checkbox',
-        'class' => 'checkbox',
-        'name' => 'docgroups[]',
-        'onclick' => 'makePublic(false);',
-    );
-    $permissions = array(); // New Permissions array list (this contains the HTML)
-    $permissions_yes = 0; // count permissions the current mgr user has
-    $permissions_no = 0; // count permissions the current mgr user doesn't have
-
-    // Loop through the permissions list
-    for ($i = 0; $i < $limit; $i++) {
-        $row = $modx->db->getRow($rs);
-
-        // Create an inputValue pair (group ID and group link (if it exists))
-        $inputValue = $row['id'].','.($row['link_id'] ? $row['link_id'] : 'new');
-        $inputId    = 'group-'.$row['id'];
-
-        $checked    = in_array($inputValue, $groupsarray);
-        if ($checked) $notPublic = true; // Mark as private access (either web or manager)
-
-        // Skip the access permission if the user doesn't have access...
-        if ((!$isManager && $row['private_memgroup'] == '1') || (!$isWeb && $row['private_webgroup'] == '1'))
-            continue;
-
-        // Setup attributes for this Input box
-        $inputAttributes['id']    = $inputId;
-        $inputAttributes['value'] = $inputValue;
-        if ($checked)
-                $inputAttributes['checked'] = 'checked';
-        else    unset($inputAttributes['checked']);
-
-        // Create attribute string list
-        $inputString = array();
-        foreach ($inputAttributes as $k => $v) $inputString[] = $k.'="'.$v.'"';
-
-        // Make the <input> HTML
-        $inputHTML = '<input '.implode(' ', $inputString).' />';
-
-        // does user have this permission?
-        $sql = "SELECT COUNT(mg.id) FROM {$tbl_membergroup_access} mga, {$tbl_member_groups} mg
- WHERE mga.membergroup = mg.user_group
- AND mga.documentgroup = {$row['id']}
- AND mg.member = {$_SESSION['mgrInternalKey']};";
-        $rsp = $modx->db->query($sql);
-        $count = $modx->db->getValue($rsp);
-        if($count > 0) {
-            ++$permissions_yes;
-        } else {
-            ++$permissions_no;
-        }
-        $permissions[] = "\t\t".'<li>'.$inputHTML.'<label for="'.$inputId.'">'.$row['name'].'</label></li>';
-    }
-    // if mgr user doesn't have access to any of the displayable permissions, forget about them and make doc public
-    if($_SESSION['mgrRole'] != 1 && ($permissions_yes == 0 && $permissions_no > 0)) {
-        $permissions = array();
-    }
-
-    // See if the Access Permissions section is worth displaying...
-    if (!empty($permissions)) {
-        // Add the "All Document Groups" item if we have rights in both contexts
-        if ($isManager && $isWeb)
-            array_unshift($permissions,"\t\t".'<li><input type="checkbox" class="checkbox" name="chkalldocs" id="groupall"'.(!$notPublic ? ' checked="checked"' : '').' onclick="makePublic(true);" /><label for="groupall" class="warning">' . $_lang['all_doc_groups'] . '</label></li>');
-        // Output the permissions list...
-?>
-<!-- Access Permissions -->
-<div class="tab-page" id="tabAccess">
-    <h2 class="tab" id="tab_access_header"><?php echo $_lang['access_permissions']?></h2>
-    <script type="text/javascript">tpSettings.addTabPage( document.getElementById( "tabAccess" ) );</script>
-    <script type="text/javascript">
-        /* <![CDATA[ */
-        function makePublic(b) {
-            var notPublic = false;
-            var f = document.forms['mutate'];
-            var chkpub = f['chkalldocs'];
-            var chks = f['docgroups[]'];
-            if (!chks && chkpub) {
-                chkpub.checked=true;
-                return false;
-            } else if (!b && chkpub) {
-                if (!chks.length) notPublic = chks.checked;
-                else for (i = 0; i < chks.length; i++) if (chks[i].checked) notPublic = true;
-                chkpub.checked = !notPublic;
-            } else {
-                if (!chks.length) chks.checked = (b) ? false : chks.checked;
-                else for (i = 0; i < chks.length; i++) if (b) chks[i].checked = false;
-                chkpub.checked = true;
-            }
-        }
-        /* ]]> */
-    </script>
-    <p><?php echo $_lang['access_permissions_docs_message']?></p>
-    <ul>
-    <?php echo implode("\n", $permissions)."\n"; ?>
-    </ul>
-</div><!--div class="tab-page" id="tabAccess"-->
-<?php
-    } // !empty($permissions)
-    elseif($_SESSION['mgrRole'] != 1 && ($permissions_yes == 0 && $permissions_no > 0) && ($_SESSION['mgrPermissions']['access_permissions'] == 1 || $_SESSION['mgrPermissions']['web_access_permissions'] == 1)) {
-?>
-    <p><?php echo $_lang["access_permissions_docs_collision"];?></p>
-<?php
-
-    }
-}
-/* End Document Access Permissions *
- ***********************************/
-?>
-
-<input type="submit" name="save" style="display:none" />
-<?php
-
-// invoke OnDocFormRender event
-$evtOut = $modx->invokeEvent('OnDocFormRender', array(
-    'id' => $id,
-));
-if (is_array($evtOut)) echo implode('', $evtOut);
-?>
-</div><!--div class="tab-pane" id="documentPane"-->
-</div><!--div class="sectionBody"-->
-</fieldset>
+			    <script type="text/javascript">
+			        /* <![CDATA[ */
+			        function makePublic(b) {
+			            var notPublic = false;
+			            var f = document.forms['mutate'];
+			            var chkpub = f['chkalldocs'];
+			            var chks = f['docgroups[]'];
+			            if (!chks && chkpub) {
+			                chkpub.checked=true;
+			                return false;
+			            } else if (!b && chkpub) {
+			                if (!chks.length) notPublic = chks.checked;
+			                else for (i = 0; i < chks.length; i++) if (chks[i].checked) notPublic = true;
+			                chkpub.checked = !notPublic;
+			            } else {
+			                if (!chks.length) chks.checked = (b) ? false : chks.checked;
+			                else for (i = 0; i < chks.length; i++) if (b) chks[i].checked = false;
+			                chkpub.checked = true;
+			            }
+			        }
+			        /* ]]> */
+			    </script>
+			    <p><?php echo $_lang['access_permissions_docs_message']?></p>
+			    <ul>
+			    <?php echo implode("\n", $permissions)."\n"; ?>
+			    </ul>
+			</div><!--div class="tab-page" id="tabAccess"-->
+			<?php
+			    } // !empty($permissions)
+			    elseif($_SESSION['mgrRole'] != 1 && ($permissions_yes == 0 && $permissions_no > 0) && ($_SESSION['mgrPermissions']['access_permissions'] == 1 || $_SESSION['mgrPermissions']['web_access_permissions'] == 1)) {
+			?>
+			    <div id="tabAccess"><p><?php echo $_lang["access_permissions_docs_collision"];?></p></div>
+			<?php
+			
+			    }
+			}
+			/* End Document Access Permissions *
+			 ***********************************/
+			?>
+			
+			
+				<input type="submit" name="save" style="display:none" />
+				<?php
+				
+				// invoke OnDocFormRender event
+				$evtOut = $modx->invokeEvent('OnDocFormRender', array(
+				    'id' => $id,
+				));
+				if (is_array($evtOut)) echo implode('', $evtOut);
+				?>
+			
+			
+			</div> <!-- end tabs -->
+			
+			
+		</div><!--div class="sectionBody"-->
+		
+	
+	</fieldset>
 </form>
+
+
 
 <script type="text/javascript">
     storeCurTemplate();

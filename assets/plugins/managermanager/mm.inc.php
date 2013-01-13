@@ -235,7 +235,7 @@ case 'OnPluginFormRender':
 		
 		// Load the jquery library
 		$output = '<!-- Begin ManagerManager output -->' . "\n";
-		$output .= $modx->getJqueryTag();
+		//$output .= $modx->getJqueryTag();
 		
 		$output .= '<script type="text/javascript">' . "\n";
 		$output .= "var \$j = jQuery.noConflict(); \n"; //produces var  $j = jQuery.noConflict();

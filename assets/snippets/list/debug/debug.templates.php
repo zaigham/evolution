@@ -1,4 +1,7 @@
 <?php
+
+//TODO: remove tabpane.js dependency
+
 $dbg_templates = array();
 $dbg_templates["main"] = <<<TPL
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -16,9 +19,9 @@ $dbg_templates["main"] = <<<TPL
         <body>
 		<div class="sectionHeader">&nbsp;[+title+]</div>
 				   <div class="sectionBody"> 
-			       <div class="tab-pane" id="docManagerPane"> 
-			       <script type="text/javascript"> 
-						tpResources = new WebFXTabPane( document.getElementById( "docManagerPane" ) ); 
+			       <div class="tab-pane" id="resManagerPane"> 
+			       <script type="text/javascript">
+						tpResources = new WebFXTabPane( document.getElementById( "resManagerPane" ) ); 
 		</script>
 		[+content+]
 		</body>

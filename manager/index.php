@@ -244,7 +244,7 @@ switch ($action) {
 /********************************************************************/
     case 2:
         // get the home page
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/welcome.static.php";
         include_once "footer.inc.php";
     break;
@@ -253,7 +253,7 @@ switch ($action) {
 /********************************************************************/
     case 3:
         // get the page to show document's data
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/document_data.static.php";
         include_once "footer.inc.php";
     break;
@@ -262,19 +262,19 @@ switch ($action) {
 /********************************************************************/
     case 85:
         // get the mutate page for adding a folder
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_content.dynamic.php";
         include_once "footer.inc.php";
     break;
     case 27:
         // get the mutate page for changing content
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_content.dynamic.php";
         include_once "footer.inc.php";
     break;
     case 4:
         // get the mutate page for adding content
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_content.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -292,7 +292,7 @@ switch ($action) {
     break;
     case 51:
         // get the move action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/move_document.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -313,7 +313,7 @@ switch ($action) {
 /********************************************************************/
     case 7:
         // get the wait page (so the tree can reload)
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/wait.static.php";
         include_once "footer.inc.php";
     break;
@@ -329,13 +329,13 @@ switch ($action) {
 /********************************************************************/
     case 87:
         // get the new web user page
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_web_user.dynamic.php";
         include_once "footer.inc.php";
     break;
     case 88:
         // get the edit web user page
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_web_user.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -349,13 +349,13 @@ switch ($action) {
     break;
     case 11:
         // get the new user page
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_user.dynamic.php";
         include_once "footer.inc.php";
     break;
     case 12:
         // get the edit user page
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_user.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -365,7 +365,7 @@ switch ($action) {
     break;
     case 28:
         // get the change password page
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_password.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -382,13 +382,13 @@ switch ($action) {
 /********************************************************************/
     case 38:
         // get the new role page
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_role.dynamic.php";
         include_once "footer.inc.php";
     break;
     case 35:
         // get the edit role page
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_role.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -405,13 +405,13 @@ switch ($action) {
 /********************************************************************/
     case 16:
         // get the edit template action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_templates.dynamic.php";
         include_once "footer.inc.php";
     break;
     case 19:
         // get the new template action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_templates.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -429,7 +429,6 @@ switch ($action) {
     break;
     case 117:
         // change the tv rank for selected template
-        //include_once "header.inc.php"; - in action file
         include_once "actions/mutate_template_tv_rank.dynamic.php";
         include_once "footer.inc.php";
         break;
@@ -438,13 +437,13 @@ switch ($action) {
 /********************************************************************/
     case 22:
         // get the edit snippet action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_snippet.dynamic.php";
         include_once "footer.inc.php";
     break;
     case 23:
         // get the new snippet action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_snippet.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -465,13 +464,13 @@ switch ($action) {
 /********************************************************************/
     case 78:
         // get the edit snippet action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_htmlsnippet.dynamic.php";
         include_once "footer.inc.php";
     break;
     case 77:
         // get the new snippet action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_htmlsnippet.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -488,20 +487,11 @@ switch ($action) {
         include_once "processors/duplicate_htmlsnippet.processor.php";
     break;
 /********************************************************************/
-/* show the credits page                                            */
-/********************************************************************/
-    case 18:
-        // get the credits page
-        include_once "header.inc.php";
-        include_once "actions/credits.static.php";
-        include_once "footer.inc.php";
-    break;
-/********************************************************************/
 /* empty cache & synchronisation                                    */
 /********************************************************************/
     case 26:
         // get the cache emptying processor
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/refresh_site.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -510,19 +500,19 @@ switch ($action) {
 /********************************************************************/
     case 106:
         // get module management
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/modules.static.php";
         include_once "footer.inc.php";
     break;
     case 107:
         // get the new module action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_module.dynamic.php";
         include_once "footer.inc.php";
     break;
     case 108:
         // get the edit module action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_module.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -540,13 +530,11 @@ switch ($action) {
     break;
     case 112:
         // execute/run the module
-        //include_once "header.inc.php";
         include_once "processors/execute_module.processor.php";
-        //include_once "footer.inc.php";
-        break;
+    break;
     case 113:
         // get the module resources (dependencies) action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_module_resources.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -555,19 +543,18 @@ switch ($action) {
 /********************************************************************/
     case 100:
         // change the plugin priority
-        //include_once "header.inc.php"; - in action file
         include_once "actions/mutate_plugin_priority.dynamic.php";
         include_once "footer.inc.php";
     break;
     case 101:
         // get the new plugin action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_plugin.dynamic.php";
         include_once "footer.inc.php";
     break;
     case 102:
         // get the edit plugin action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_plugin.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -589,7 +576,7 @@ switch ($action) {
     case 200:
         // show phpInfo
         if($modx->hasPermission('logs')) {
-            include_once "header.inc.php";
+            include_once "header-jquery.inc.php";
             include_once "actions/phpinfo.static.php";
             include_once "footer.inc.php";
         }
@@ -606,7 +593,7 @@ switch ($action) {
 /********************************************************************/
     case 31:
         // get the page to manage files
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/files.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -614,12 +601,12 @@ switch ($action) {
 /* access permissions                                               */
 /********************************************************************/
     case 40:
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/access_permissions.dynamic.php";
         include_once "footer.inc.php";
     break;
     case 91:
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/web_access_permissions.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -637,7 +624,7 @@ switch ($action) {
 /********************************************************************/
     case 17:
         // get the settings editor
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_settings.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -658,7 +645,7 @@ switch ($action) {
 /********************************************************************/
     case 53:
         // get the settings editor
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/sysinfo.static.php";
         include_once "footer.inc.php";
     break;
@@ -674,7 +661,7 @@ switch ($action) {
 /********************************************************************/
     case 13:
         // view logging
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/logging.static.php";
         include_once "footer.inc.php";
     break;
@@ -684,15 +671,6 @@ switch ($action) {
     case 55:
         // get the settings editor
         include_once "processors/empty_table.processor.php";
-    break;
-/********************************************************************/
-/* calls test page                                                      */
-/********************************************************************/
-    case 999:
-        // get the test page
-        include_once "header.inc.php";
-        include_once "test_page.php";
-        include_once "footer.inc.php";
     break;
 /********************************************************************/
 /* Empty recycle bin                                                */
@@ -713,7 +691,7 @@ switch ($action) {
 /********************************************************************/
     case 70:
         // get the schedule page
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/site_schedule.static.php";
         include_once "footer.inc.php";
     break;
@@ -722,17 +700,8 @@ switch ($action) {
 /********************************************************************/
     case 71:
         // get the search page
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/search.static.php";
-        include_once "footer.inc.php";
-    break;
-/********************************************************************/
-/* About                                                            */
-/********************************************************************/
-    case 59:
-        // get the about page
-        include_once "header.inc.php";
-        include_once "actions/about.static.php";
         include_once "footer.inc.php";
     break;
 /********************************************************************/
@@ -740,7 +709,7 @@ switch ($action) {
 /********************************************************************/
     case 72:
         // get the weblink page
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_content.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -748,17 +717,17 @@ switch ($action) {
 /* User management                                                  */
 /********************************************************************/
     case 75:
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/user_management.static.php";
         include_once "footer.inc.php";
     break;
     case 99:
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/web_user_management.static.php";
         include_once "footer.inc.php";
     break;
     case 86:
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/role_management.static.php";
         include_once "footer.inc.php";
     break;
@@ -766,7 +735,7 @@ switch ($action) {
 /* template/ snippet management                                                 */
 /********************************************************************/
     case 76:
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/resources.static.php";
         include_once "footer.inc.php";
     break;
@@ -774,7 +743,7 @@ switch ($action) {
 /* keywords management                                              */
 /********************************************************************/
     case 81:
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/manage_metatags.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -785,7 +754,7 @@ switch ($action) {
 /* Export to file                                                   */
 /********************************************************************/
     case 83:
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/export_site.static.php";
         include_once "footer.inc.php";
     break;
@@ -813,7 +782,7 @@ switch ($action) {
 /* Import Document from file                                        */
 /********************************************************************/
     case 95:
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/import_site.static.php";
         include_once "footer.inc.php";
     break;
@@ -822,7 +791,7 @@ switch ($action) {
 /********************************************************************/
     case 9:
         // get the help page
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/help.static.php";
         include_once "footer.inc.php";
     break;
@@ -831,13 +800,13 @@ switch ($action) {
 /********************************************************************/
     case 300:
         // get the new document variable action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_tmplvars.dynamic.php";
         include_once "footer.inc.php";
     break;
     case 301:
         // get the edit document variable action
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/mutate_tmplvars.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -859,13 +828,13 @@ switch ($action) {
 /********************************************************************/
     case 114:
         // get event logs
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/eventlog.dynamic.php";
         include_once "footer.inc.php";
     break;
     case 115:
         // get event log details viewer
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/eventlog_details.dynamic.php";
         include_once "footer.inc.php";
     break;
@@ -885,7 +854,7 @@ switch ($action) {
     case 10: // Messages page
     case 65: // Delete msg
     case 66: // Send msg
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         echo "
             <div class='sectionHeader'>{$_lang['function_no_longer_impl']}</div>
 			<div class='sectionBody'>
@@ -898,7 +867,7 @@ switch ($action) {
 /********************************************************************/
     default :
         // say that what was requested doesn't do anything yet
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         echo "
             <div class='sectionHeader'>{$_lang['functionnotimpl']}</div>
 			<div class='sectionBody'>

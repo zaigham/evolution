@@ -16,7 +16,7 @@ $udperms->document = $id;
 $udperms->role = $_SESSION['mgrRole'];
 
 if(!$udperms->checkPermissions()) {
-	include "header.inc.php";
+	include "header-jquery.inc.php";
 	?><div class="sectionHeader"><?php echo $_lang['access_permissions']; ?></div>
 	<div class="sectionBody">
 	<p><?php echo $_lang['access_permission_denied']; ?></p>

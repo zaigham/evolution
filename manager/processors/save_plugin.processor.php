@@ -65,7 +65,7 @@ switch ($_POST['mode']) {
 			$content['moduleguid'] = $moduleguid;
 			$content['sysevents'] = $sysevents;
 
-			include 'header.inc.php';
+			include 'header-jquery.inc.php';
 			include(dirname(dirname(__FILE__)).'/actions/mutate_plugin.dynamic.php');
 			include 'footer.inc.php';
 			

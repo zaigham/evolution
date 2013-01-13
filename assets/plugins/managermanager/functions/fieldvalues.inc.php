@@ -31,14 +31,14 @@ function mm_default($field, $value='', $roles='', $templates='', $eval=false) {
 		
 		
 		// Work out the correct date time format based on the config setting
-		switch($modx->config['datetime_format']) {
-			case 'dd-mm-YYYY':
+		switch($modx->config['date_format']) {
+			case 'dd-mm-yy':
 				$date_format = 'd-m-Y';
 			break;	
-			case 'mm/dd/YYYY':
+			case 'mm/dd/yy':
 				$date_format = 'm-d-Y';
 			break;
-			case 'YYYY/mm/dd':
+			case 'yy/mm/dd':
 				$date_format = 'Y-m-d';
 			break;
 		}
