@@ -967,7 +967,8 @@ INSERT IGNORE INTO `{PREFIX}system_settings`
 ('jquery_url', 'assets/js/jquery.min.js'),
 ('jquery_plugin_dir', 'assets/js/'),
 ('jquery_noconflict', 0),
-('rss_len', 10);
+('rss_len', 10),
+('file_browser', 'kcfinder');
 
 REPLACE INTO `{PREFIX}system_settings`
 (setting_name, setting_value) VALUES

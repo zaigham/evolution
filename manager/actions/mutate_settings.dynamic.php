@@ -1177,10 +1177,27 @@ function confirmLangChange(el, lkey, elupd){
               <input onchange="documentDirty=true;" type='text' maxlength='255' style="width: 250px;" name="rb_base_url" value="<?php echo isset($rb_base_url) ? $rb_base_url : getResourceBaseUrl() ; ?>" />
               </td>
           </tr>
-          <tr id='rbRow8' class='row3' style="display: <?php echo $use_browser==1 ? $displayStyle : 'none' ; ?>">
+          </tr>
+           <tr id='rbRow8' class='row3' style="display: <?php echo $use_browser==1 ? $displayStyle : 'none' ; ?>">
             <td width="200">&nbsp;</td>
             <td class='comment'><?php echo $_lang["rb_base_url_message"]?></td>
           </tr>
+          <tr id='rbRow8a' style="display: <?php echo $use_browser==1 ? $displayStyle : 'none' ; ?>">
+            <td colspan="2"><div class='split'></div></td>
+          </tr>
+          <tr id='rbRow8b' class='row3' style="display: <?php echo $use_browser==1 ? $displayStyle : 'none' ; ?>">
+            <td nowrap class="warning"><b><?php echo $_lang['file_browser_title']; ?></b></td>
+            <td>
+              <select onchange="documentDirty=true;" name="file_browser">
+	              <?php
+	              $file_browser = isset($file_browser) ? $file_browser : 'kcfinder';
+	              $fb_options = dir($base_path.'manager/media/browser/');
+	              while($option = $fb_options->read()) {
+	              	if ($option[0] != '.') echo '<option'.($option == $file_browser ? ' selected="selected"' : '').'>'.$option.'</option>';
+	              }
+	              ?>
+              </select>
+            </td>
           <tr id='rbRow9' style="display: <?php echo $use_browser==1 ? $displayStyle : 'none' ; ?>">
             <td colspan="2"><div class='split'></div></td>
           </tr>
