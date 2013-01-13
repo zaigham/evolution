@@ -75,7 +75,7 @@ switch ($_POST['mode']) {
 			$content['locked'] = $content['locked'] == 'on' ? 1: 0;
 			$content['category'] = $_POST['categoryid'];
 
-			include 'header.inc.php';
+			include 'header-jquery.inc.php';
 			include(dirname(dirname(__FILE__)).'/actions/mutate_tmplvars.dynamic.php');
 			include 'footer.inc.php';
 			

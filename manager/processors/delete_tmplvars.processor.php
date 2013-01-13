@@ -17,7 +17,7 @@ if(!$modx->hasPermission('delete_template')) {
 		$drs = $modx->db->query($sql);
 		$count = $modx->db->getRecordCount($drs);
 		if($count>0){
-			include_once "header.inc.php";
+			include_once "header-jquery.inc.php";
 		?>	
 			<script>
 				function deletedocument() {
