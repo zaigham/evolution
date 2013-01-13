@@ -13,3 +13,4 @@ Further integration for the Clipper manager language affects:
 
 Further integration for the Clipper:
 - core/browser.php - line 706 to prevent index.html and mcpuk's thumbnails being shown.
+- browser.uploadURL setting in "tpl/tpl_javascript.php" to ensure correct URLs are returned. This may need future attention as 'assets' is hardcoded.
