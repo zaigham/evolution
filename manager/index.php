@@ -510,7 +510,7 @@ switch ($action) {
 /********************************************************************/
     case 106:
         // get module management
-        include_once "header.inc.php";
+        include_once "header-jquery.inc.php";
         include_once "actions/modules.static.php";
         include_once "footer.inc.php";
     break;

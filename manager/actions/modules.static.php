@@ -25,56 +25,15 @@ else {
 $listmode = isset($_REQUEST['listmode']) ? $_REQUEST['listmode']:$_PAGE['vs']['lm'];
 $_PAGE['vs']['lm'] = $listmode;
 
-
-// context menu
-include_once $base_path."manager/includes/controls/contextmenu.php";
-$cm = new ContextMenu("cntxm", 150);
-$cm->addItem($_lang["run_module"],"js:menuAction(1)",$_style['icons_save'],(!$modx->hasPermission('exec_module') ? 1:0));
-$cm->addSeparator();
-$cm->addItem($_lang["edit"],"js:menuAction(2)",$_style['icons_edit_document'],(!$modx->hasPermission('edit_module') ? 1:0));
-$cm->addItem($_lang["duplicate"],"js:menuAction(3)",$_style['icons_resource_duplicate'],(!$modx->hasPermission('new_module') ? 1:0));
-$cm->addItem($_lang["delete"], "js:menuAction(4)",$_style['icons_delete'],(!$modx->hasPermission('delete_module') ? 1:0));
-echo $cm->render();
-
 ?>
 <script type="text/javascript">
-	var selectedItem;
-	var contextm = <?php echo $cm->getClientScriptObject(); ?>;
-	function showContentMenu(id,e){
-		selectedItem=id;
-		contextm.style.left = (e.pageX || (e.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft)))<?php echo $modx_textdir ? '-190' : '';?>+"px"; //offset menu if RTL is selected
-		contextm.style.top = (e.pageY || (e.clientY + (document.documentElement.scrollTop || document.body.scrollTop)))+"px";
-		contextm.style.visibility = "visible";
-		e.cancelBubble=true;
-		return false;
-	};
-
-	function menuAction(a) {
-		var id = selectedItem;
-		switch(a) {
-			case 1:		// run module
-				dontShowWorker = true; // prevent worker from being displayed
-				window.location.href='index.php?a=112&id='+id;
-				break;
-			case 2:		// edit
-				window.location.href='index.php?a=108&id='+id;
-				break;
-			case 3:		// duplicate
-				if(confirm("<?php echo $_lang['confirm_duplicate_record'] ?>")==true) {
-					window.location.href='index.php?a=111&id='+id;
-				}
-				break;
-			case 4:		// delete
-				if(confirm("<?php echo $_lang['confirm_delete_module']; ?>")==true) {
-					window.location.href='index.php?a=110&id='+id;
-				}
-				break;
-		}
+	
+	var temp_lang = {
+		//setup temp generic values used in js e.g. confirm_delete_user -> confirm_delete so we can use only one js function
+		confirm_delete: '<?php echo $_lang['confirm_delete_module']; ?>',
+		confirm_duplicate: '<?php echo $_lang['confirm_duplicate_record']; ?>'
 	}
-
-	document.addEvent('click', function(){
-		contextm.style.visibility = "hidden";
-	});
+	
 </script>
 
 <h1><?php echo $_lang['module_management']; ?></h1>
@@ -91,6 +50,31 @@ echo $cm->render();
 
 	<div>
 	<?php
+	$action_col = '';
+	if($modx->hasPermission('exec_module')){
+		$action_col .= "<a href='index.php?a=112&id=[+id+]' title='".$_lang['run_module']."'><img width='16' align='absmiddle' height='16' src='media/style/$manager_theme/images/icons/module.gif'></a>";
+	}else{
+		$action_col .= "<img width='16' align='absmiddle' height='16' src='media/style/$manager_theme/images/icons/module.gif' class='disabled-action'>";
+	}
+	
+	if($modx->hasPermission('edit_module')){
+		$action_col .= "<a href='index.php?a=108&id=[+id+]' title='".$_lang['edit']."'><img width='16' align='absmiddle' height='16' src='".$_style['icons_edit_document']."'></a>";
+	}else{
+		$action_col .= "<img width='16' align='absmiddle' height='16' src='".$_style['icons_edit_document']."' class='disabled-action'>";
+	}
+	
+	if($modx->hasPermission('new_module')){
+		$action_col .= "<a href='index.php?a=111&id=[+id+]' class='js-confirm-duplicate' title='".$_lang['duplicate']."'><img width='16' align='absmiddle' height='16' src='".$_style['icons_resource_duplicate']."'></a>";
+	}else{
+		$action_col .= "<img width='16' align='absmiddle' height='16' src='".$_style['icons_resource_duplicate']."' class='disabled-action'>";
+	}
+	
+	if($modx->hasPermission('delete_module')){
+		$action_col .= "<a href='index.php?a=110&id=[+id+]' class='js-confirm-delete' title='".$_lang['delete']."'><img width='16' align='absmiddle' height='16' src='".$_style['icons_delete']."'></a>";
+	}else{
+		$action_col .= "<img width='16' align='absmiddle' height='16' src='".$_style['icons_delete']."' class='disabled-action'>";
+	}
+
 
 	$sql = "SELECT id,name,description,IF(locked,'Yes','-') as 'locked',IF(disabled,'".$_lang['yes']."','-') as 'disabled',IF(icon<>'',icon,'".$_style['icons_modules']."') as'icon' " .
 			"FROM ".$modx->getFullTableName("site_modules")." ".
@@ -105,10 +89,10 @@ echo $cm->render();
 	$grd->itemClass="gridItem";
 	$grd->altItemClass="gridAltItem";
 	$grd->fields="icon,name,description,locked,disabled";
-	$grd->columns=$_lang["icon"]." ,".$_lang["name"]." ,".$_lang["description"]." ,".$_lang["locked"]." ,".$_lang["disabled"];
-	$grd->colWidths="34,,,60,60";
-	$grd->colAligns="center,,,center,center";
-	$grd->colTypes="template:<a class='gridRowIcon' href='#' onclick='return showContentMenu([+id+],event);' title='".$_lang["click_to_context"]."'><img src='[+value+]' width='32' height='32' /></a>||template:<a href='index.php?a=108&id=[+id+]' title='".$_lang["module_edit_click_title"]."'>[+value+]</a>";
+	$grd->columns=$_lang["icon"]." ,".$_lang["name"]." ,".$_lang["description"]." ,".$_lang["locked"]." ,".$_lang["disabled"].','. $_lang['actions'];
+	$grd->colWidths="34,,,60,60,100";
+	$grd->colAligns="center,,,center,center,left";
+	$grd->colTypes="template:<img src='[+value+]' width='32' height='32' />||template:<a href='index.php?a=108&id=[+id+]' title='".$_lang["module_edit_click_title"]."'>[+value+]</a>||template:[+description+]||template:[+locked+]||template:[+disabled+]||template:" . $action_col;
 	if($listmode=='1') $grd->pageSize=0;
 	if($_REQUEST['op']=='reset') $grd->pageNumber = 1;
 	// render grid
