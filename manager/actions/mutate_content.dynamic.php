@@ -539,7 +539,7 @@ function decode(s) {
 					<li><a href="#tabMeta"><?php echo $_lang['meta_keywords']?></a></li>
 					<?php } ?>
 					
-					<?php if ($use_udperms == 1) { ?>
+					<?php if ($use_udperms == 1) { //TODO: hide tab when permissions are empty either in php either in js. js looks simple in this case - detect empty tab content and remove tab?>
 					<li><a href="#tabAccess"><?php echo $_lang['access_permissions']?></a></li>
 					<?php } ?>
 				</ul>
