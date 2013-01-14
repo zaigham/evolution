@@ -485,7 +485,7 @@ function showHide(what, onoff){
 				function BrowseServer() {
 					var w = screen.width * 0.7;
 					var h = screen.height * 0.7;
-					OpenServerBrowser("<?php echo $base_url; ?>manager/media/browser/mcpuk/browser.html?Type=images&Connector=<?php echo $base_url; ?>manager/media/browser/mcpuk/connectors/php/connector.php&ServerPath=<?php echo $base_url; ?>", w, h);
+					OpenServerBrowser("<?php echo $base_url; ?>manager/media/browser/<?php echo $modx->config['file_browser']; ?>/browser.html?Type=images&Connector=<?php echo $base_url; ?>manager/media/browser/<?php echo $modx->config['file_browser']; ?>/connectors/php/connector.php&ServerPath=<?php echo $base_url; ?>", w, h);
 				}
 				function SetUrl(url, width, height, alt){
 					document.userform.photo.value = url;
