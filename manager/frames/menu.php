@@ -39,9 +39,11 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 
     </script>
     
-	<script src="../assets/js/jquery.min.js" type="text/javascript"></script>
-    <script src="../assets/js/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
-    <script src="../assets/js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+	<?php
+	echo $modx->getJqueryTag();
+	echo $modx->getJqueryPluginTag('jquery-ui-custom-clippermanager', 'jquery-ui-custom-clippermanager.min.js');
+	echo $modx->getJqueryPluginTag('jquery-ui-timepicker', 'jquery-ui-timepicker-addon.js');
+	?>
     <script src="media/script/keep-session-alive.js" type="text/javascript"></script>
     <script src="media/script/main-menu.js" type="text/javascript"></script>
 
