@@ -3168,6 +3168,31 @@ class DocumentParser {
    }
 
     /**
+     * Get jquery plugin <script> tag as HTML.
+     *
+     * @param string $plugin_name Plugin name, use the name most likely to be used by other scripts (case insensitive)
+     * @param string $plugin_file Plugin URL. Relative to plugin directory if $use_plugin_dir is true
+     * @param bool $use_plugin_dir See above, defaults to true
+     */
+   function getJqueryPluginTag($plugin_name, $plugin_file, $use_plugin_dir = true, $only_once = true) {
+
+   		static $plugin_names = array();
+   		
+   		if (!in_array($plugin_name, $plugin_names) || !$only_once) {
+   		    $plugin_names[] = $plugin_name;
+   			if ($use_plugin_dir) {
+   			    $plugin_file = $this->config['jquery_plugin_dir'].$plugin_file;
+            }
+            $plugin_file = ($plugin_file[0] == '/') ? $this->config['site_url'].substr($plugin_file, 1) : $plugin_file;
+            $script_tag = '<script type="text/javascript" src="'.str_replace('&', '&amp;', $plugin_file)."\"></script>\n";
+   		} else {
+   			$script_tag = '';
+   		}
+
+		return $script_tag; 		
+   }
+
+    /**
      * Registers Client-side Startup HTML block
      *
      * @param string $html
