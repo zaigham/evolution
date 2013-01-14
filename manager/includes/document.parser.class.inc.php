@@ -3181,7 +3181,7 @@ class DocumentParser {
    		if (!in_array($plugin_name, $plugin_names) || !$only_once) {
    		    $plugin_names[] = $plugin_name;
    			if ($use_plugin_dir) {
-   			    $plugin_file = $this->config['jquery_plugin_dir'].$plugin_file;
+   			    $plugin_file = $this->config['site_url'].$this->config['jquery_plugin_dir'].$plugin_file; // Need [(site_url)] because <base> tags are not present in the backend.
             }
             $plugin_file = ($plugin_file[0] == '/') ? $this->config['site_url'].substr($plugin_file, 1) : $plugin_file;
             $script_tag = '<script type="text/javascript" src="'.str_replace('&', '&amp;', $plugin_file)."\"></script>\n";
