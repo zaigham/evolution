@@ -302,10 +302,6 @@ if($modx->hasPermission('import_static')) {
 	// import-html
 	$toolsmenu[] = '<li><a onclick="this.blur();" href="index.php?a=95" target="main">'.$_lang['import_site'].'</a></li>';
 }
-if($modx->hasPermission('export_static')) {
-	// export-static-site
-	$toolsmenu[] = '<li><a onclick="this.blur();" href="index.php?a=83" target="main">'.$_lang['export_site'].'</a></li>';
-}
 if($modx->hasPermission('settings')) {
 	// configuration
 	$toolsmenu[] = '<li><a onclick="this.blur();" href="index.php?a=17" target="main">'.$_lang['edit_settings'].'</a></li>';

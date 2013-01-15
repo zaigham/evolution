@@ -782,14 +782,6 @@ switch ($action) {
         include_once "processors/metatags.processor.php";
     break;
 /********************************************************************/
-/* Export to file                                                   */
-/********************************************************************/
-    case 83:
-        include_once "header.inc.php";
-        include_once "actions/export_site.static.php";
-        include_once "footer.inc.php";
-    break;
-/********************************************************************/
 /* Resource Selector                                                    */
 /********************************************************************/
     case 84:
