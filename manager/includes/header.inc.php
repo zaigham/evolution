@@ -11,20 +11,19 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo  $mxla . '" lang="' .  $mxla . '"' . ($modx_textdir ? ' dir="rtl"' : ''); ?>>
 <head>
-	<title><?php echo CMS_NAME; ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $modx_manager_charset; ?>" />
-	
-	<link rel="stylesheet" type="text/css" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>style.css" />
-	<link rel="stylesheet" type="text/css" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>manager.css" />
-	<link rel="stylesheet" type="text/css" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>jquery-ui/jquery-ui-1.9.2.custom.min.css" />
-    <title><?php echo CMS_NAME; ?></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $modx_manager_charset; ?>" />
-    <link rel="stylesheet" type="text/css" href="media/style/default/style.css" /> 
-    <link rel="stylesheet" type="text/css" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>style.css" />
+	<title><?php echo CMS_NAME; ?></title>
+    <link rel="stylesheet" type="text/css" href="media/style/common/style.css" />
+    <?php
+    if (is_file(MODX_MANAGER_PATH."media/style/$manager_theme/style.css")) {
+    	echo '<link rel="stylesheet" type="text/css" href="media/style/'.$manager_theme."/style.css\" />\n";
+    }
+    if (is_file(MODX_MANAGER_PATH."media/style/$manager_theme/manager.css")) {
+    	echo '<link rel="stylesheet" type="text/css" href="media/style/'.$manager_theme."/manager.css\" />\n";
+    }
 
-	<!-- OnManagerMainFrameHeaderHTMLBlock -->
-	<?php echo $onManagerMainFrameHeaderHTMLBlock; ?>
-	
+	echo $onManagerMainFrameHeaderHTMLBlock;
+	?>
 	<script src="media/script/mootools/mootools.js" type="text/javascript"></script>
 	<script src="media/script/mootools/moodx.js" type="text/javascript"></script>
 	
