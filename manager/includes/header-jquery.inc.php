@@ -19,7 +19,7 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 	<link rel="stylesheet" type="text/css" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>jquery-ui/jquery-ui-1.9.2.custom.min.css" />
     <title><?php echo CMS_NAME; ?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $modx_manager_charset; ?>" />
-    <link rel="stylesheet" type="text/css" href="media/style/common.css" /> 
+    <link rel="stylesheet" type="text/css" href="media/style/default/style.css.css" /> 
     <link rel="stylesheet" type="text/css" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>style.css" />
 
 	<!-- OnManagerMainFrameHeaderHTMLBlock -->

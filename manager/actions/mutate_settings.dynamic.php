@@ -958,7 +958,7 @@ function confirmLangChange(el, lkey, elupd){
                        <?php
                           $dir = dir("media/style/");
                           while ($file = $dir->read()) {
-                              if(is_dir("media/style/$file") && substr($file,0,1) != '.' && strtolower(substr($file, 0, 4)) != 'modx') {
+                              if(is_dir("media/style/$file") && substr($file,0,1) != '.' && strtolower(substr($file, 0, 4)) != 'modx' && $file != 'images') {
                                   $themename = $file;
                                   $selectedtext = $themename==$manager_theme ? "selected='selected'" : "" ;
                                   echo "<option value='$themename' $selectedtext>".ucwords(str_replace("_", " ", $themename))."</option>";

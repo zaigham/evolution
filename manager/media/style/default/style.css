@@ -1,3 +1,34 @@
+/**
+ * Common styles - used by all manager pages and linked to before the theme stylesheet 
+ */
+
+.help-table .tag {
+	width: 14em;
+	}
+
+.help-table * {
+	text-align: left;
+	}
+
+.help-table caption {
+	font-weight: bold;
+	font-size: 1.1em;
+	}
+
+.tooltip{
+	cursor: help;
+	opacity: 0.7;
+}
+
+.tooltip:hover{
+	opacity: 1;
+}
+
+.disabled-action{
+	opacity: .5;
+}
+
+
 /*! jQuery UI - v1.9.2 - 2012-12-07
 * http://jqueryui.com
 * Includes: jquery.ui.core.css, jquery.ui.resizable.css, jquery.ui.selectable.css, jquery.ui.accordion.css, jquery.ui.autocomplete.css, jquery.ui.button.css, jquery.ui.datepicker.css, jquery.ui.dialog.css, jquery.ui.menu.css, jquery.ui.progressbar.css, jquery.ui.slider.css, jquery.ui.spinner.css, jquery.ui.tabs.css, jquery.ui.tooltip.css
@@ -460,3 +491,4 @@ body .ui-tooltip { border-width: 2px; }
 /* Overlays */
 .ui-widget-overlay { background: #aaaaaa url(images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x; opacity: .3;filter:Alpha(Opacity=30); }
 .ui-widget-shadow { margin: -8px 0 0 -8px; padding: 8px; background: #aaaaaa url(images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x; opacity: .3;filter:Alpha(Opacity=30); -moz-border-radius: 8px; -khtml-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; }
+
