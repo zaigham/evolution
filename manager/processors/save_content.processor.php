@@ -94,14 +94,14 @@ if ($friendly_urls) {
 			if ($actionToTake == 'edit') {
 				$modx->manager->saveFormValues(27);
 				$url = "index.php?a=27&id=" . $id;
-				include_once "header-jquery.inc.php";
+				require_once('header.inc.php');
 				$modx->webAlert(sprintf($_lang["duplicate_alias_found"], $docid, $alias), $url);
 				include_once "footer.inc.php";
 				exit;
 			} else {
 				$modx->manager->saveFormValues(4);
 				$url = "index.php?a=4";
-				include_once "header-jquery.inc.php";
+				require_once('header.inc.php');
 				$modx->webAlert(sprintf($_lang["duplicate_alias_found"], $docid, $alias), $url);
 				include_once "footer.inc.php";
 				exit;
@@ -164,14 +164,14 @@ if($_SESSION['mgrRole'] != 1 && is_array($document_groups)) {
 			if ($actionToTake == 'edit') {
 				$modx->manager->saveFormValues(27);
 				$url = "index.php?a=27&id=" . $id;
-				include_once "header-jquery.inc.php";
+				require_once('header.inc.php');
 				$modx->webAlert(sprintf($_lang["resource_permissions_error"]), $url);
 				include_once "footer.inc.php";
 				exit;
 			} else {
 				$modx->manager->saveFormValues(4);
 				$url = "index.php?a=4";
-				include_once "header-jquery.inc.php";
+				require_once('header.inc.php');
 				$modx->webAlert(sprintf($_lang["resource_permissions_error"]), $url);
 				include_once "footer.inc.php";
 				exit;
@@ -260,14 +260,14 @@ if ($use_udperms == 1) {
 			if ($actionToTake == 'edit') {
 				$modx->manager->saveFormValues(27);
 				$url = "index.php?a=27&id=" . $id;
-				include_once "header-jquery.inc.php";
+				require_once('header.inc.php');
 				$modx->webAlert(sprintf($_lang['access_permission_parent_denied'], $docid, $alias), $url);
 				include_once "footer.inc.php";
 				exit;
 			} else {
 				$modx->manager->saveFormValues(4);
 				$url = "index.php?a=4";
-				include_once "header-jquery.inc.php";
+				require_once('header.inc.php');
 				$modx->webAlert(sprintf($_lang['access_permission_parent_denied'], $docid, $alias), $url);
 				include_once "footer.inc.php";
 				exit;

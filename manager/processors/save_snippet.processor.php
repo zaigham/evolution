@@ -70,7 +70,7 @@ switch ($_POST['mode']) {
 			$content['snippet'] = preg_replace("/^\s*\<\?php/m", '', $_POST['post']);
 			$content['snippet'] = preg_replace("/\?\>\s*/m", '', $content['snippet']);
 
-			include 'header-jquery.inc.php';
+			require('header.inc.php');
 			include(dirname(dirname(__FILE__)).'/actions/mutate_snippet.dynamic.php');
 			include 'footer.inc.php';
 			

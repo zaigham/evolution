@@ -69,7 +69,7 @@ if ($mode=='backup') {
 	}
 
 } else {
-	include_once "header-jquery.inc.php";  // start normal header
+	require('header.inc.php');  // start normal header
 }
 
 ?>

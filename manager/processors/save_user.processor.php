@@ -15,7 +15,7 @@ function webAlert($msg) {
 	$mode = $_POST['mode'];
 	$url = "index.php?a=$mode" . ($mode == '12' ? "&id=" . $id : "");
 	$modx->manager->saveFormValues($mode);
-	include_once "header-jquery.inc.php";
+	require_once('header.inc.php');
 	$modx->webAlert($msg, $url);
 	include_once "footer.inc.php";
 }
@@ -225,7 +225,7 @@ switch ($_POST['mode']) {
 				$stayUrl = "index.php?a=75&r=2";
 			}
 			
-			include_once "header-jquery.inc.php";
+			require_once('header.inc.php');
 ?>
 			<h1><?php echo $_lang['user_title']; ?></h1>
 
@@ -403,7 +403,7 @@ switch ($_POST['mode']) {
 				$stayUrl = "index.php?a=75&r=2";
 			}
 			
-			include_once "header-jquery.inc.php";
+			require_once('header.inc.php');
 ?>
 			<h1><?php echo $_lang['user_title']; ?></h1>
 

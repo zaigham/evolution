@@ -75,7 +75,7 @@ switch ($_POST['mode']) {
 			$content['usrgroups'] = $_POST['usrgroups'];
 
 
-			include 'header-jquery.inc.php';
+			require('header.inc.php');
 			include(dirname(dirname(__FILE__)).'/actions/mutate_module.dynamic.php');
 			include 'footer.inc.php';
 			
