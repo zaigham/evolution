@@ -22,26 +22,26 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
     	echo '<link rel="stylesheet" type="text/css" href="media/style/'.$manager_theme."/manager.css\" />\n";
     }
 
-	echo $onManagerMainFrameHeaderHTMLBlock;
-	?>
-	<script type="text/javascript">
-		
-		var config = {
-			date_format: '<?php echo $modx->config['date_format']; ?>',
-			time_format: '<?php echo $modx->config['time_format']; ?>',
-			datepicker_year_range: '<?php echo $modx->config['datepicker_year_range']; ?>'
-		}
-		
-	</script>
-	
-	<?php
 	echo $modx->getJqueryTag();
 	echo $modx->getJqueryPluginTag('jquery-ui-custom-clippermanager', 'jquery-ui-custom-clippermanager.min.js');
 	echo $modx->getJqueryPluginTag('jquery-ui-timepicker', 'jquery-ui-timepicker-addon.js');
 	?>
 	<script src="media/script/jquery.dataTables.min.js" type="text/javascript"></script>
 	<script src="media/script/manager.js" type="text/javascript"></script>
-	
+
+	<?php
+	// Include after JQuery, so this block can output code using jQuery.
+	echo $onManagerMainFrameHeaderHTMLBlock;
+	?>
+
+	<script type="text/javascript">
+		var config = {
+			date_format: '<?php echo $modx->config['date_format']; ?>',
+			time_format: '<?php echo $modx->config['time_format']; ?>',
+			datepicker_year_range: '<?php echo $modx->config['datepicker_year_range']; ?>'
+		}
+	</script>
+
 	<script type="text/javascript">
 	
 		//TODO: organize these js function better, maybe in a separate file or manager.js
