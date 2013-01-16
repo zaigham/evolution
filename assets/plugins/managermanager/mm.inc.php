@@ -377,13 +377,7 @@ $j(document).ready(function() {
 		});
 		
 		// Re-initiate the tooltips, in order for them to pick up any new help text which has been added
-		if( !window.ie6 ) {
-			jQuery(".tooltip").each(function() {	 
-				//help_img.setProperty("title", help_img.getProperty("alt") );			 
-				this.title = this.alt;
-			});
-			//new Tips($$(".tooltip"), {className:"custom"} ); <<<< Needs converting from mootools
-		}
+		$j(".tooltip").tooltip();
 	
 	} catch (e) {
 		// If theres an error, fail nicely
