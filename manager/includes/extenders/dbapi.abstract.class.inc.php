@@ -315,6 +315,15 @@ abstract class DBAPI_abstract {
     }
 
     /**
+     * Get the last insert ID
+     *
+     * @return void
+     */
+    final public function getInsertId() {
+        return $this->_getInsertId();
+    }
+    
+    /**
      * Get the number of affected rows.
      *
      * RDBMS specific.
