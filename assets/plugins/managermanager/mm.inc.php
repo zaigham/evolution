@@ -235,7 +235,7 @@ case 'OnPluginFormRender':
 		
 		// Load the jquery library
 		$output = '<!-- Begin ManagerManager output -->' . "\n";
-		$output .= $modx->getJqueryTag();
+		//$output .= $modx->getJqueryTag();
 		
 		$output .= '<script type="text/javascript">' . "\n";
 		$output .= "var \$j = jQuery.noConflict(); \n"; //produces var  $j = jQuery.noConflict();
@@ -377,13 +377,7 @@ $j(document).ready(function() {
 		});
 		
 		// Re-initiate the tooltips, in order for them to pick up any new help text which has been added
-		// This bit is MooTools, matching code inserted further up the page
-		if( !window.ie6 ) {
-			$$(".tooltip").each(function(help_img) {	 
-				help_img.setProperty("title", help_img.getProperty("alt") );			 
-			});
-			new Tips($$(".tooltip"), {className:"custom"} );
-		}
+		$j(".tooltip").tooltip();
 	
 	} catch (e) {
 		// If theres an error, fail nicely

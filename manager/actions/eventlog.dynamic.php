@@ -33,14 +33,6 @@ else {
 $listmode = isset($_REQUEST['listmode']) ? $_REQUEST['listmode']:$_PAGE['vs']['lm'];
 $_PAGE['vs']['lm'] = $listmode;
 
-// context menu
-include_once $base_path."manager/includes/controls/contextmenu.php";
-$cm = new ContextMenu("cntxm", 150);
-$cm->addItem($_lang['view_log'],"js:menuAction(1)","media/style/" . $manager_theme ."images/icons/save.png");
-$cm->addSeparator();
-$cm->addItem($_lang['delete'], "js:menuAction(2)","media/style/" . $manager_theme ."images/icons/delete.png",(!$modx->hasPermission('delete_eventlog') ? 1:0));
-echo $cm->render();
-
 ?>
 <script type="text/javascript">
   	function searchResource(){
@@ -60,33 +52,7 @@ echo $cm->render();
 		else document.resource.listmode.value=1;
 		document.resource.submit();
 	};
-
-	var selectedItem;
-	var contextm = <?php echo $cm->getClientScriptObject()?>;
-	function showContentMenu(id,e){
-		selectedItem=id;
-		contextm.style.left = (e.pageX || (e.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft)))+"px";
-		contextm.style.top = (e.pageY || (e.clientY + (document.documentElement.scrollTop || document.body.scrollTop)))+"px";
-		contextm.style.visibility = "visible";
-		e.cancelBubble=true;
-		return false;
-	};
-
-	function menuAction(a) {
-		var id = selectedItem;
-		switch(a) {
-			case 1:		// view log details
-				window.location.href='index.php?a=115&id='+id;
-				break;
-			case 2:		// clear log
-				window.location.href='index.php?a=116&id='+id;
-				break;
-		}
-	}
-
-	document.addEvent('click', function(){
-		contextm.style.visibility = "hidden";
-	});
+	
 </script>
 <form name="resource" method="post">
 <input type="hidden" name="id" value="<?php echo $id?>" />
@@ -118,6 +84,14 @@ echo $cm->render();
 	<br />
 	<div>
 	<?php
+	
+	
+	if($modx->hasPermission('delete_eventlog')){
+		$actionCol = "<a href='index.php?a=116&id=[+id+]' title='".$_lang['delete']."'><img width='16' align='absmiddle' height='16' src='media/style/ClipperModern/images/icons/delete.png'></a>";
+	}else{
+		$actionCol = "<img width='16' align='absmiddle' height='16' src='media/style/ClipperModern/images/icons/delete.png' class='disabled-action'>";
+	}
+	
 
 	$sql = "SELECT el.id, el.type, el.createdon, el.source, el.eventid,IFNULL(wu.username,mu.username) as 'username' " .
 	       "FROM ".$tbl_event_log." el ".
@@ -134,10 +108,11 @@ echo $cm->render();
 	$grd->itemClass="gridItem";
 	$grd->altItemClass="gridAltItem";
 	$grd->fields="type,source,createdon,eventid,username";
-	$grd->columns=$_lang['type']." ,".$_lang['source']." ,".$_lang['date']." ,".$_lang['event_id']." ,".$_lang['sysinfo_userid'];
-	$grd->colWidths="34,,150,60";
-	$grd->colAligns="center,,,center,center";
-	$grd->colTypes="template:<a class='gridRowIcon' href='#' onclick='return showContentMenu([+id+],event);' title='".$_lang['click_to_context']."'><img src='media/style/" . $manager_theme ."images/icons/event[+type+].png' width='16' height='16' /></a>||template:<a href='index.php?a=115&id=[+id+]' title='".$_lang['click_to_view_details']."'>[+source+]</a>||date: " . $modx->toDateFormat(null, 'formatOnly') . ' %I:%M %p';
+	$grd->columns=$_lang['type']." ,".$_lang['source']." ,".$_lang['date']." ,".$_lang['event_id']." ,".$_lang['sysinfo_userid'] .','. $_lang['actions'];
+	$grd->colWidths="34,,250,61,62,100";
+	$grd->colAligns="center,,left,left,left";
+	$grd->colTypes = "template:<img src='media/style/" . $manager_theme ."images/icons/event[+type+].png' width='16' height='16' />||template:<a href='index.php?a=115&id=[+id+]' title='".$_lang['click_to_view_details']."'>[+source+]</a>||date: " . $modx->toDateFormat(null, 'formatOnly') . ' %I:%M %p' . "||template:[+eventid+] ||template: [+username+] ||template: " . $actionCol;
+	
 	if($listmode=='1') $grd->pageSize=0;
 	if($_REQUEST['op']=='reset') $grd->pageNumber = 1;
 	// render grid

@@ -60,7 +60,7 @@ switch ($_POST['mode']) {
 			$content['locked'] = $_POST['locked'] == 'on' ? 1 : 0;
 			$content['category'] = $_POST['categoryid'];
 
-			include 'header.inc.php';
+			require('header.inc.php');
 			include(dirname(dirname(__FILE__)).'/actions/mutate_htmlsnippet.dynamic.php');
 			include 'footer.inc.php';
 			

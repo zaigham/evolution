@@ -48,15 +48,7 @@ $logs = array();
 while ($row = $modx->db->getRow($rs)) $logs[] = $row;
 
 ?>
-<script type="text/javascript" src="media/calendar/datepicker.js"></script>
-<script type="text/javascript">
-window.addEvent('domready', function() {
-	var dpOffset = <?php echo $modx->config['datepicker_offset']; ?>;
-	var dpformat = "<?php echo $modx->config['datetime_format']; ?>" + ' hh:mm:00';
-	new DatePicker($('datefrom'), {'yearOffset': dpOffset,'format':dpformat});
-	new DatePicker($('dateto'), {'yearOffset': dpOffset,'format':dpformat});
-});
-</script>
+
 <h1><?php echo $_lang["mgrlog_view"]?></h1>
 
 <div class="sectionHeader"><?php echo $_lang["mgrlog_query"]?></div><div class="sectionBody" id="lyr1">
@@ -254,15 +246,15 @@ if(isset($_REQUEST['log_submit'])) {
 		// Of course you can now play with array_row_paging in order to print
 		// only the results you would like...
 		?>
-		<script type="text/javascript" src="media/script/tablesort.js"></script>
-		<table border="0" cellpadding="2" cellspacing="1" bgcolor="#ccc" class="sortabletable rowstyle-even" id="table-1" width="%100">
+		<!-- TODO: - rewrite to use datatables jquery plugin and ajax for pages -->
+		<table border="0" cellpadding="2" cellspacing="1" bgcolor="#ccc" class="sortabletable rowstyle-even" id="manager-logs" width="100%">
 		<thead><tr>
-			<th class="sortable"><b><?php echo $_lang["mgrlog_username"]; ?></b></th>
-			<th class="sortable"><b><?php echo $_lang["mgrlog_actionid"]; ?></b></th>
-			<th class="sortable"><b><?php echo $_lang["mgrlog_itemid"]; ?></b></th>
-			<th class="sortable"><b><?php echo $_lang["mgrlog_itemname"]; ?></b></th>
-			<th class="sortable"><b><?php echo $_lang["mgrlog_msg"]; ?></b></th>
-			<th class="sortable"><b><?php echo $_lang["mgrlog_time"]; ?></b></th>
+			<th><b><?php echo $_lang["mgrlog_username"]; ?></b></th>
+			<th><b><?php echo $_lang["mgrlog_actionid"]; ?></b></th>
+			<th><b><?php echo $_lang["mgrlog_itemid"]; ?></b></th>
+			<th><b><?php echo $_lang["mgrlog_itemname"]; ?></b></th>
+			<th><b><?php echo $_lang["mgrlog_msg"]; ?></b></th>
+			<th><b><?php echo $_lang["mgrlog_time"]; ?></b></th>
 		</tr></thead>
 		<tbody>
 		<?php
@@ -270,7 +262,7 @@ if(isset($_REQUEST['log_submit'])) {
 		$logentries = array();
 		$i = 0;
 		while ($logentry = $modx->db->getRow($rs)) {
-			?><tr class="<?php echo ($i % 2 ? 'even' : ''); ?>">
+			?><tr>
 			<td><?php echo '<a href="index.php?a=12&amp;id='.$logentry['internalKey'].'">'.$logentry['username'].'</a>'; ?></td>
 			<td><?php echo $logentry['action']; ?></td>
 			<td><?php echo $logentry['itemid']=="-" ? "" : $logentry['itemid'] ; ?></td>

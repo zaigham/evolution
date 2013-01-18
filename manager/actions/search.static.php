@@ -72,15 +72,15 @@ if($limit<1) {
 } else {
 	printf('<p>'.$_lang['search_results_returned_msg'].'</p>', $limit);
 ?>
-	<script type="text/javascript" src="media/script/tablesort.js"></script>
-  <table border="0" cellpadding="2" cellspacing="0" class="sortabletable sortable-onload-2 rowstyle-even" id="table-1" width="90%"> 
+
+  <table id="search-documents"> 
     <thead> 
-      <tr bgcolor="#CCCCCC"> 
-		<th width="20"></th>
-        <th class="sortable"><b><?php echo $_lang['search_results_returned_id']; ?></b></th> 
-        <th class="sortable"><b><?php echo $_lang['search_results_returned_title']; ?></b></th> 
-        <th class="sortable"><b><?php echo $_lang['search_results_returned_desc']; ?></b></th>
-		<th width="20"></th>
+      <tr> 
+		<th width="5%"></th>
+        <th width="5%"><?php echo $_lang['search_results_returned_id']; ?></th> 
+        <th><?php echo $_lang['search_results_returned_title']; ?></th> 
+        <th><?php echo $_lang['search_results_returned_desc']; ?></th>
+		<th width="5%"></th>
       </tr> 
     </thead> 
     <tbody>

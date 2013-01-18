@@ -102,7 +102,6 @@ $_style['icons_tab_preview']        = $style_path.'icons/preview.png';
 
 // Indicators
 $_style['icons_tooltip']            = $style_path.'icons/b02.gif';
-$_style['icons_tooltip_over']       = $style_path.'icons/b02_trans.gif';
 
 // Large Icons
 $_style['icons_backup_large']       = $style_path.'icons/backup.gif';
