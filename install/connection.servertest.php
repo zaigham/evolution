@@ -19,7 +19,6 @@ if (! $install->db->testConnect($host, '', $uid, $pwd)) {
     $output .= '<span id="server_fail" style="color:#FF0000;"> '.$_lang['status_failed'].'</span>';
 }
 else {
-	$install->db->connect($host, '', $uid, $pwd);
     $output .= '<span id="server_pass" style="color:#80c000;"> '.$_lang['status_passed_server'].'</span>';
 
     // Mysql version check
@@ -28,7 +27,8 @@ else {
     }
 
     // Mode check
-    $mysqlmode = $install->db->query("SELECT @@session.sql_mode");
+	$sql = "SELECT @@session.sql_mode";
+    $mysqlmode = $install->db->testConnect($host, '', $uid, $pwd, $sql);
 
     if ($install->db->getRecordCount($mysqlmode) > 0){ 
         $modes = $install->db->getRow($mysqlmode, 'num'); 

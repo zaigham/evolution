@@ -47,7 +47,7 @@ else {
 		
         $query = "CREATE DATABASE `$database_name` CHARACTER SET " . $database_charset." COLLATE " . $database_collation;
 
-        if (! $install->db->query($query)) {
+        if (! $install->db->testConnect($host, '', $uid, $pwd, $query)) {
             $output .= '<span id="database_fail" style="color:#FF0000;">'.$_lang['status_failed_could_not_create_database'].'</span>';
         }
         else {

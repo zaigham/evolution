@@ -12,10 +12,10 @@ if ($installMode == 0 || $installMode == 2) {
 elseif ($installMode == 1) {
     include "../manager/includes/config.inc.php";
 
-    if ($install->db->connect($database_server, '', $database_user, $database_password)) {
-        if ($install->db->query("USE $dbase")) {
-            if (! $rs = $install->db->query("SHOW SESSION VARIABLES LIKE 'collation_database'")) {
-                $rs = $install->db->query("SHOW SESSION VARIABLES LIKE 'collation_server'");
+    if ($install->db->testConnect($database_server, '', $database_user, $database_password)) {
+        if ($install->db->testConnect($database_server, '', $database_user, "USE $dbase")) {
+            if (! $rs = $install->db->testConnect($database_server, '', $database_user, "SHOW SESSION VARIABLES LIKE 'collation_database'")) {
+                $rs = $install->db->testConnect($database_server, '', $database_user, "SHOW SESSION VARIABLES LIKE 'collation_server'");
             }
             if ($rs && $collation = $install->db->getRow($rs, 'num')) {
                 $database_collation = trim($collation[1]);
