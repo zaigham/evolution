@@ -84,7 +84,7 @@ $(document).ready(function($) {
 		return false;
 	});
 	
-	$('.sortableList').sortable({
+	$('.plugin-execution-order').sortable({
 		placeholder: "ui-state-highlight",
 		stop: function( event, ui ) {
 			var parent = $(ui.item).parent()
@@ -98,5 +98,38 @@ $(document).ready(function($) {
 			$('#list_' + parentId).val(list.join(','));
 		}
 	});
+	
+	$('#tv-sort-order').sortable({
+		placeholder: "ui-state-highlight",
+		stop: function( event, ui ) {
+		
+			var parent = $(ui.item).parent()
+			//make list to be send to form field
+			var list = [];
+			$(parent).find('li').each(function(i){
+			   list.push($(this).attr('id'));
+			});
+			
+			$('#list').val(list.join(';'));
+			
+			console.log($('#list').val());
+		
+/*
+			var parent = $(ui.item).parent()
+			var parentId = parent.attr('id');
+*/
+			
+/*
+			//make list to be send to form field
+			var list = [];
+			$(parent).find('li').each(function(i){
+			   list.push($(this).attr('id'));
+			});
+			$('#list_' + parentId).val(list.join(','));
+*/
+		}
+	});
+	
+	
 
 });

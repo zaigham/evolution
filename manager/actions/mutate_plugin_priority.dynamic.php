@@ -64,7 +64,7 @@ if($limit>1) {
         if ($preEvt !== $plugins['evtid']) {
             $sortables[] = $plugins['evtid'];
             $evtLists .= $insideUl? '</ul><br />': '';
-            $evtLists .= '<strong>'.$plugins['evtname'].'</strong><br /><ul id="'.$plugins['evtid'].'" class="sortableList">';
+            $evtLists .= '<strong>'.$plugins['evtname'].'</strong><br /><ul id="'.$plugins['evtid'].'" class="sortableList plugin-execution-order">';
             $insideUl = 1;
         }
         $evtLists .= '<li id="item_'.$plugins['pluginid'].'" class="ui-state-default">'.$plugins['name'].'</li>';
