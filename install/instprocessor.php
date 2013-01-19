@@ -63,7 +63,6 @@ if (! $install->db->testConnect($database_server, '', $database_user, $database_
     echo "<span class=\"notok\">".$_lang["setup_database_create_connection_failed"]."</span></p><p>".$_lang['setup_database_create_connection_failed_note']."</p>";
     return;
 } else {
-	$install->db->connect($database_server, '', $database_user, $database_password);
     echo "<span class=\"ok\">".$_lang['ok']."</span></p>";
 }
 
@@ -74,7 +73,7 @@ if (! $install->db->testConnect($database_server, $dbase, $database_user, $datab
 //    echo "<span class=\"notok\" style='color:#707070'>".$_lang['setup_database_selection_failed']."</span>".$_lang['setup_database_selection_failed_note']."</p>";
 //    $create = true;
     echo "<span class=\"notok\" style='color:#707070'>".$_lang['setup_database_selection_failed']."</span></p>";
-	$isntall->db->messageQuit($_lang["setup_database_creation_failed_note2"]);
+	$install->db->messageQuit($_lang["setup_database_creation_failed_note2"]);
 //	return;
 } else {
 	$install->db->connect($database_server, $dbase, $database_user, $database_password);
@@ -487,11 +486,13 @@ if (isset ($_POST['tv']) || $installData) {
                 foreach ($assignments as $assignment) {
                     $template = $install->db->escape($assignment);
                     $ts = $install->db->select("id", "`{$table_prefix}site_templates`", "templatename='$template'");
-                    if ($ds && $ts) {
-                        $tRow = $install->db->getRow($ts);
-                        $templateId = $tRow['id'];
-                        $install->db->insert("(tmplvarid, templateid) VALUES ($id, $templateId)", "`{$table_prefix}site_tmplvar_templates`");
-                   }
+                    if ($install->db->getRecordCount($ts) > 0) {
+	                    if ($ds && $ts) {
+	                        $tRow = $install->db->getRow($ts);
+	                        $templateId = $tRow['id'];
+	                        $install->db->insert("(tmplvarid, templateid) VALUES ($id, $templateId)", "`{$table_prefix}site_tmplvar_templates`");
+	                   }
+					}
                 }
             }
         }
