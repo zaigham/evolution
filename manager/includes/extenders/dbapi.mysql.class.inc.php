@@ -95,13 +95,11 @@ class DBAPI {
          $this->parent->messageQuit("Failed to create the database connection!");
          exit;
       } else {
-      	if (!empty($dbase)) {
          $dbase = str_replace('`', "", $dbase); // remove the `` chars
 	         if (!@ mysql_select_db($dbase, $this->conn)) {
 	            $this->parent->messageQuit("Failed to select the database '" . $dbase . "'!");
 	            exit;
 	         }
-      	}
          $this->host = $host;
          $this->dbase = $dbase;
          @mysql_query("{$connection_method} {$charset}", $this->conn);
@@ -561,7 +559,7 @@ class DBAPI {
     *
     * @return boolean
     */
-	function testConnect($host = '', $dbase = '', $uid = '', $pwd = '') {
+	function testConnect($host = '', $dbase = '', $uid = '', $pwd = '', $query = '') {
 		$connect = @ mysql_connect($host, $uid, $pwd); 
 		$output = $connect;
 		
@@ -569,6 +567,10 @@ class DBAPI {
 			$dbase = trim($dbase, '`');
 			$select = @ mysql_select_db($dbase, $connect);
 			$output = $select;
+		}
+		
+		elseif ($connect && !empty($query)) {
+			$output = @ mysql_query($query);			
 		}
 		
 		return $output;
