@@ -82,6 +82,21 @@ $(document).ready(function($) {
 			return true;
 		}
 		return false;
-	})
+	});
+	
+	$('.sortableList').sortable({
+		placeholder: "ui-state-highlight",
+		stop: function( event, ui ) {
+			var parent = $(ui.item).parent()
+			var parentId = parent.attr('id');
+			
+			//make list to be send to form field
+			var list = [];
+			$(parent).find('li').each(function(i){
+			   list.push($(this).attr('id'));
+			});
+			$('#list_' + parentId).val(list.join(','));
+		}
+	});
 
 });
