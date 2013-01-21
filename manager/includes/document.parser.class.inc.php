@@ -3170,6 +3170,10 @@ class DocumentParser {
     /**
      * Get jquery plugin <script> tag as HTML.
      *
+     * Currently used plugin names:
+     *	- jquery-ui-custom-clippermanager The custom jquery-ui file for the Clipper manager
+     *  - jquery-ui-timepicker
+     *
      * @param string $plugin_name Plugin name, use the name most likely to be used by other scripts (case insensitive)
      * @param string $plugin_file Plugin URL. Relative to plugin directory if $use_plugin_dir is true
      * @param bool $use_plugin_dir See above, defaults to true
