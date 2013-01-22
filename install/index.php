@@ -23,6 +23,7 @@ require_once("lang.php");
 require_once('../manager/includes/version.inc.php');
 
 // include DBAPI and timer functions
+require_once ('../manager/includes/extenders/dbapi.abstract.class.inc.php');
 require_once ('../manager/includes/extenders/dbapi.mysql.class.inc.php');
 require_once ('includes/install.class.inc.php');
 
