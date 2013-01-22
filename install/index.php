@@ -85,8 +85,8 @@ $action= isset ($_GET['action']) ? trim(strip_tags($_GET['action'])) : 'language
 ob_start();
 include ('header.php');
 
-if (!@include ('action/action.' . $action . '.php')) {
-    die ('Invalid install action attempted. [action=' . $action . ']');
+if (!ctype_alpha($action) || !@include ('action/action.'.$action.'.php')) {
+    exit('Invalid install action attempted. [action='.$action.']');
 }
 
 include ('footer.php');
