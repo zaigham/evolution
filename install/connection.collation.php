@@ -16,9 +16,9 @@ $install = new Install();
 $output = '<select id="database_collation" name="database_collation">
 <option value="'.$database_collation.'" selected >'.$database_collation.'</option></select>';
 
-if ($install->db->testConnect($host, '', $uid, $pwd)) {
+if ($install->db->test_connect($host, '', $uid, $pwd)) {
     // get collation
-    $getCol = $install->db->testConnect($host, '', $uid, $pwd, "SHOW COLLATION");
+    $getCol = $install->db->test_connect($host, '', $uid, $pwd, "SHOW COLLATION");
 
     if ($install->db->getRecordCount($getCol) > 0) {
         $output = '<select id="database_collation" name="database_collation">';

@@ -16,7 +16,7 @@ $install = new Install();
 @$install->db = new DBAPI($install);
 
 $output = $_lang["status_checking_database"];
-if (! $install->db->testConnect($host, '', $uid, $pwd)) {
+if (! $install->db->test_connect($host, '', $uid, $pwd)) {
     $output .= '<span id="database_fail" style="color:#FF0000;">'.$_lang['status_failed'].'</span>';
 }
 else {
@@ -34,7 +34,7 @@ else {
     $database_collation = $install->db->escape($_POST['database_collation']);
     $database_connection_method = $install->db->escape($_POST['database_connection_method']);
 
-	if ($install->db->testConnect($host, $database_name, $uid, $pwd)) {
+	if ($install->db->test_connect($host, $database_name, $uid, $pwd)) {
 	// Prefix test. Requires MySQL 5.0+
 		$sql = "SELECT COUNT(*) FROM information_schema.tables
 		WHERE `table_schema` = '$database_name' AND `table_name` = '" . $_POST['tableprefix'] . "site_content' ";
@@ -42,13 +42,13 @@ else {
 		$prefix_used = $install->db->getValue($sql);
 	}
 
-    if (! $install->db->testConnect($host, $database_name, $uid, $pwd)) {
+    if (! $install->db->test_connect($host, $database_name, $uid, $pwd)) {
         // create database
         $database_charset = substr($database_collation, 0, strpos($database_collation, '_'));
 		
         $query = "CREATE DATABASE `$database_name` CHARACTER SET " . $database_charset." COLLATE " . $database_collation;
 
-        if (! $install->db->testConnect($host, '', $uid, $pwd, $query)) {
+        if (! $install->db->test_connect($host, '', $uid, $pwd, $query)) {
             $output .= '<span id="database_fail" style="color:#FF0000;">'.$_lang['status_failed_could_not_create_database'].'</span>';
         }
         else {

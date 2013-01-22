@@ -16,7 +16,7 @@ $install = new Install();
 
 $output = $_lang["status_connecting"];
 
-if (! $install->db->testConnect($host, '', $uid, $pwd)) {
+if (! $install->db->test_connect($host, '', $uid, $pwd)) {
     $output .= '<span id="server_fail" style="color:#FF0000;"> '.$_lang['status_failed'].'</span>';
 }
 else {
@@ -29,7 +29,7 @@ else {
 
     // Mode check
 	$sql = "SELECT @@session.sql_mode";
-    $mysqlmode = $install->db->testConnect($host, '', $uid, $pwd, $sql);
+    $mysqlmode = $install->db->test_connect($host, '', $uid, $pwd, $sql);
 
     if ($install->db->getRecordCount($mysqlmode) > 0){ 
         $modes = $install->db->getRow($mysqlmode, 'num'); 

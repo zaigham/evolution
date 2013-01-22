@@ -155,7 +155,7 @@ if ($installMode == 1) {
 
 echo "<p>".$_lang['creating_database_connection'];
 
-if (! $install->db->testConnect($database_server, '', $database_user, $database_password)) {
+if (! $install->db->test_connect($database_server, '', $database_user, $database_password)) {
     $errors += 1;
     echo "<span class=\"notok\">".$_lang['database_connection_failed']."</span><p />".$_lang['database_connection_failed_note']."</p>";
 } else {
@@ -163,7 +163,7 @@ if (! $install->db->testConnect($database_server, '', $database_user, $database_
 }
 
 // make sure we can use the database ($dbase should exist for all modes by now)
-if (! $install->db->testConnect($database_server, $dbase, $database_user, $database_password)) {
+if (! $install->db->test_connect($database_server, $dbase, $database_user, $database_password)) {
     $errors += 1;
     echo "<span class=\"notok\">".$_lang['database_use_failed']."</span><p />".$_lang["database_use_failed_note"]."</p>";
 } else {

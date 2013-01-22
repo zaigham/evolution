@@ -59,7 +59,7 @@ $base_path = $pth . (substr($pth, -1) != "/" ? "/" : "");
 // connect to the database
 echo "<p>". $_lang['setup_database_create_connection'];
 
-if (! $install->db->testConnect($database_server, '', $database_user, $database_password)) {
+if (! $install->db->test_connect($database_server, '', $database_user, $database_password)) {
     echo "<span class=\"notok\">".$_lang["setup_database_create_connection_failed"]."</span></p><p>".$_lang['setup_database_create_connection_failed_note']."</p>";
     return;
 } else {
@@ -68,7 +68,7 @@ if (! $install->db->testConnect($database_server, '', $database_user, $database_
 
 // select database
 echo "<p>".$_lang['setup_database_selection']. str_replace("`", "", $dbase) . "`: ";
-if (! $install->db->testConnect($database_server, $dbase, $database_user, $database_password)) {
+if (! $install->db->test_connect($database_server, $dbase, $database_user, $database_password)) {
 //  It is pointless to try to create database here - the name has been lost. Need to start again.
 //    echo "<span class=\"notok\" style='color:#707070'>".$_lang['setup_database_selection_failed']."</span>".$_lang['setup_database_selection_failed_note']."</p>";
 //    $create = true;

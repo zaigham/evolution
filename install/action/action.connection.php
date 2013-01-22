@@ -10,10 +10,10 @@ if ($installMode > 0) {
       include "../manager/includes/config.inc.php";
 
       if ($dbase) {
-          if (! $install->db->testConnect($database_server, '', $database_user, $database_password)) { 
+          if (! $install->db->test_connect($database_server, '', $database_user, $database_password)) { 
               $upgradeable = isset ($_POST['installmode']) && $_POST['installmode'] == 'new' ? 0 : 2;
           }
-          elseif (! $install->db->testConnect($database_server, $dbase, $database_user, $database_password)) { 
+          elseif (! $install->db->test_connect($database_server, $dbase, $database_user, $database_password)) { 
               $upgradeable = isset ($_POST['installmode']) && $_POST['installmode'] == 'new' ? 0 : 2;
           } else {
               $upgradeable = 1;
