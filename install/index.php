@@ -22,6 +22,13 @@ if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
 require_once("lang.php");
 require_once('../manager/includes/version.inc.php');
 
+// include DBAPI and timer functions
+require_once ('../manager/includes/extenders/dbapi.mysql.class.inc.php');
+require_once ('includes/install.class.inc.php');
+
+$install = new Install();
+$install->db = new DBAPI($install);
+
 // session loop-back tester
 if (!$_SESSION['test']) {
     $installBaseUrl = (!isset ($_SERVER['HTTPS']) || strtolower($_SERVER['HTTPS']) != 'on') ? 'http://' : 'https://';

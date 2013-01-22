@@ -89,8 +89,13 @@ class DBAPI extends DBAPI_abstract {
         return mysql_affected_rows($this->conn);
     }
 
-    public function getLastError() {
-        return mysql_error($this->conn);
+    public function getLastError($return_number = false) {
+		if ($return_number) {
+		  	$err = mysql_errno($this->conn);
+		} else {
+		  	$err = mysql_error($this->conn);
+		}
+        return $err;
     }
 
     public function getTableMetaData($table) {

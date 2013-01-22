@@ -85,8 +85,37 @@ abstract class DBAPI_abstract {
             $this->parent->queryTime += $totaltime;
         }
     }
-    
+
     /**
+      * Test database connection or selection
+      *
+      * @param $host db hostname
+      * @param $dbase Optional db schema name
+      * @param $uid db username
+      * @param $pwd db password
+      * @param $query Optional query to run
+      */
+	function test_connect($host = '', $dbase = '', $uid = '', $pwd = '', $query = '') {
+
+        $uid = $uid ? $uid : $this->config['user'];
+        $pwd = $pwd ? $pwd : $this->config['pass'];
+        $host = $host ? $host : $this->config['host'];
+
+		$output = @$this->make_connection($host, $uid, $pwd); 
+		
+		if ($this->conn && !empty($dbase)) {
+			$dbase = str_replace('`', '', $dbase ? $dbase : $this->config['dbase']);
+			$output = @$this->select_db($dbase);
+		}
+		
+		if ($this->conn && !empty($query)) {
+			$output = @$this->query($query);			
+		}
+		
+		return $output;
+	}
+	
+	/**
      * Make a persistent connection to the database.
      *
      * @return void
@@ -337,9 +366,10 @@ abstract class DBAPI_abstract {
      *
      * RDBMS specific.
      *
+     * @param string $type
      * @return string
      */
-    abstract public function getLastError();
+    abstract public function getLastError($return_number = false);
 
     /**
      * Get the number of rows in a resultset. Return 0 if resultset invalid.
