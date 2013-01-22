@@ -76,8 +76,9 @@ if (! $install->db->test_connect($database_server, $dbase, $database_user, $data
 	$install->db->messageQuit($_lang["setup_database_creation_failed_note2"]);
 //	return;
 } else {
+	$install->db->config['charset'] = $database_connection_charset;
+	$install->db->config['connection_method'] = $database_connection_method;
 	$install->db->connect($database_server, $dbase, $database_user, $database_password);
-    $install->db->query("{$database_connection_method} {$database_connection_charset}");
     echo "<span class=\"ok\">".$_lang['ok']."</span></p>";
 }
 

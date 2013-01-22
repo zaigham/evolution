@@ -163,11 +163,9 @@ if (! $install->db->test_connect($database_server, '', $database_user, $database
 }
 
 // make sure we can use the database ($dbase should exist for all modes by now)
-if (! $install->db->test_connect($database_server, $dbase, $database_user, $database_password)) {
+if (!$install->db->test_connect($database_server, $dbase, $database_user, $database_password)) {
     $errors += 1;
     echo "<span class=\"notok\">".$_lang['database_use_failed']."</span><p />".$_lang["database_use_failed_note"]."</p>";
-} else {
-	$install->db->connect($database_server, $dbase, $database_user, $database_password);
 }
 
 // check the database collation if not specified in the configuration
