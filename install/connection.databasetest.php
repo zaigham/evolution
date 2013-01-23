@@ -34,12 +34,9 @@ else {
     $database_collation = $install->db->escape($_POST['database_collation']);
     $database_connection_method = $install->db->escape($_POST['database_connection_method']);
 
-	if ($install->db->test_connect($host, $database_name, $uid, $pwd)) {
-	// Prefix test. Requires MySQL 5.0+
-		$sql = "SELECT COUNT(*) FROM information_schema.tables
-		WHERE `table_schema` = '$database_name' AND `table_name` = '" . $_POST['tableprefix'] . "site_content' ";
-		$install->db->connect($host, $database_name, $uid, $pwd);
-		$prefix_used = $install->db->getValue($sql);
+	// Prefix test.
+	if ($rs_prefix = $install->db->test_connect($host, '', $uid, $pwd, "SELECT COUNT(*) FROM information_schema.tables WHERE `table_schema` = '{$database_name}' AND `table_name` = '{$_POST['tableprefix']}site_content'")) {
+		$prefix_used = $install->db->getValue($rs_prefix);
 	}
 
     if (! $install->db->test_connect($host, $database_name, $uid, $pwd)) {
