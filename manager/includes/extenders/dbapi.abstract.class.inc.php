@@ -88,6 +88,11 @@ abstract class DBAPI_abstract {
 
     /**
       * Test database connection or selection
+	  *
+	  * Intended for installer use only.
+	  * Does not set character set of connection.
+	  *
+	  * Will return false on failure and will not log errors or display any errors via DocumentParser::MessageQuit().
       *
       * @param $host db hostname
       * @param $dbase Optional db schema name
