@@ -109,7 +109,7 @@ abstract class DBAPI_abstract {
 		}
 		
 		if ($this->conn && !empty($query)) {
-			$output = @$this->query($query);			
+			$output = $this->query($query, true);
 		}
 		
 		return $output;
@@ -186,13 +186,18 @@ abstract class DBAPI_abstract {
      * Developers should use select, update, insert (etc), delete where possible
      *
      * @param string $sql
+     * @param bool $suppress_errors If true, return false on error, otherwise quit via MessageQuit().
      * @return resource
      */
-    final public function query($sql) {
+    final public function query($sql, $suppress_errors = false) {
         $this->connection_check();
         $tstart = $this->parent->getMicroTime();
         if (!$result = @$this->_query($sql, $this->conn)) {
-            $this->parent->messageQuit("Execution of a query to the database failed - " . $this->getLastError(), $sql);
+        	if ($suppress_errors) {
+        		return false;
+        	} else {
+	            $this->parent->messageQuit("Execution of a query to the database failed - " . $this->getLastError(), $sql);
+	        }
         } else {
             $tend = $this->parent->getMicroTime();
             $totaltime = $tend - $tstart;
