@@ -119,7 +119,12 @@ class DBAPI extends DBAPI_abstract {
     public function is_handle($var) {
     	return is_resource($var);
     }
-    
+
+    public function tables_present($prefix) {
+    	return (bool)$this->getValue("SELECT COUNT(*) FROM information_schema.tables
+                                 WHERE `table_schema` = '{$this->dbase}' AND `table_name` = '{$prefix}site_content'");
+    }
+
 	// -------------------------------------------
 	// LOW LEVEL RBDMS-SPECIFIC INTERNAL FUNCTIONS
 	// -------------------------------------------

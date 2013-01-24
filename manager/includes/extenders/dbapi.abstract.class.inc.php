@@ -110,7 +110,9 @@ abstract class DBAPI_abstract {
 		
 		if ($this->conn && !empty($dbase)) {
 			$dbase = str_replace('`', '', $dbase ? $dbase : $this->config['dbase']);
-			$output = @$this->select_db($dbase);
+			if ($output = @$this->select_db($dbase)) {
+				$this->dbase = $dbase;
+			}
 		}
 		
 		if ($this->conn && !empty($query)) {
@@ -651,6 +653,14 @@ abstract class DBAPI_abstract {
 	 * @return bool
 	 */
 	abstract function is_handle($var);
+
+	/**
+	 * Test for presence of Clipper db tables
+	 *
+	 * @param string $prefix
+	 * @return bool;
+	 */
+	abstract function tables_present($prefix);
 
 	// -------------------------------------------
 	// LOW LEVEL RBDMS-SPECIFIC INTERNAL FUNCTIONS
