@@ -34,11 +34,6 @@ else {
     $database_collation = $install->db->escape($_POST['database_collation']);
     $database_connection_method = $install->db->escape($_POST['database_connection_method']);
 
-	// Prefix test.
-	if ($rs_prefix = $install->db->test_connect($host, '', $uid, $pwd, "SELECT COUNT(*) FROM information_schema.tables WHERE `table_schema` = '{$database_name}' AND `table_name` = '{$_POST['tableprefix']}site_content'")) {
-		$prefix_used = $install->db->getValue($rs_prefix);
-	}
-
     if (! $install->db->test_connect($host, $database_name, $uid, $pwd)) {
         // create database
         $database_charset = substr($database_collation, 0, strpos($database_collation, '_'));
@@ -51,19 +46,23 @@ else {
         else {
             $output .= '<span id="database_pass" style="color:#80c000;">'.$_lang['status_passed_database_created'].'</span>';
         }
-    }
+    } else {
 
-    elseif ($installMode == 0 && $prefix_used > 0) {
-			$output .= '<span id="database_fail" style="color:#FF0000;">'.$_lang['status_failed_table_prefix_already_in_use'].'</span>';
-    }
+    	// Prefix test.
+		$prefix_used = $install->db->tables_present($_POST['tableprefix']);
 
-    elseif (($database_connection_method != 'SET NAMES') && ($rs = $install->db->query("SHOW VARIABLES LIKE 'collation_database'")) && ($row = $install->db->getRow($rs, 'num')) && ($row[1] != $database_collation)) {
-        $output .= '<span id="database_fail" style="color:#FF0000;">'.sprintf($_lang['status_failed_database_collation_does_not_match'], $row[1]).'</span>';
-    }
+		if ($installMode == 0 && $prefix_used) {
+				$output .= '<span id="database_fail" style="color:#FF0000;">'.$_lang['status_failed_table_prefix_already_in_use'].'</span>';
+		}
 
-    else {
-        $output .= '<span id="database_pass" style="color:#80c000;">'.$_lang['status_passed'].'</span>';
-    }
+		elseif (($database_connection_method != 'SET NAMES') && ($rs = $install->db->query("SHOW VARIABLES LIKE 'collation_database'")) && ($row = $install->db->getRow($rs, 'num')) && ($row[1] != $database_collation)) {
+		    $output .= '<span id="database_fail" style="color:#FF0000;">'.sprintf($_lang['status_failed_database_collation_does_not_match'], $row[1]).'</span>';
+		}
+
+		else {
+		    $output .= '<span id="database_pass" style="color:#80c000;">'.$_lang['status_passed'].'</span>';
+		}
+	}
 }
 
 echo $output;
