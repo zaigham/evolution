@@ -195,13 +195,7 @@ if (!isset($database_connection_method) || empty($database_connection_method)) {
 if ($installMode == 0) {
     echo "<p>" . $_lang['checking_table_prefix'] . $table_prefix . "`: ";
 	
-// requires MySQL 5.0+
-	$sql = "SELECT COUNT(*) FROM information_schema.tables
-	WHERE `table_schema` = '$dbase' AND `table_name` = '" . $table_prefix . "site_content' ";
-
-	$rs = $install->db->getValue($sql);
-
-    if ($rs > 0) {
+    if ($install->db->tables_present($table_prefix)) {
         echo "<span class=\"notok\">" . $_lang['failed'] . "</span></b>" . $_lang['table_prefix_already_inuse'] . "</p>";
         $errors += 1;
         echo "<p>" . $_lang['table_prefix_already_inuse_note'] . "</p>";
@@ -211,13 +205,7 @@ if ($installMode == 0) {
 } elseif ($installMode == 2) {
     echo "<p>" . $_lang['checking_table_prefix'] . $table_prefix . "`: ";
 
-// requires MySQL 5.0+
-	$sql = "SELECT COUNT(*) FROM information_schema.tables
-	WHERE `table_schema` = '$dbase' AND `table_name` = '" . $table_prefix . "site_content' ";
-
-	$rs = $install->db->getValue($sql);
-
-    if ($rs == 0) {
+    if ($install->db->tables_present($table_prefix)) {
         echo "<span class=\"notok\">" . $_lang['failed'] . "</span></b>" . $_lang['table_prefix_not_exist'] . "</p>";
         $errors += 1;
         echo "<p>" . $_lang['table_prefix_not_exist_note'] . "</p>";

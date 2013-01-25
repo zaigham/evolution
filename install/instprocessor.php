@@ -107,10 +107,8 @@ if ($create) {
 if ($installMode == 0) {
     echo "<p>" . $_lang['checking_table_prefix'] . $table_prefix . "`: ";
 
-	$sql = "SELECT COUNT(*) FROM information_schema.tables
-	WHERE `table_schema` = '$database_name' AND `table_name` = '" . $_POST['tableprefix'] . "site_content' ";
-	$prefix_used = $install->db->getValue($sql);
-	if ($prefix_used > 0) {
+	$prefix_used = $install->db->tables_present($_POST['tableprefix']);
+	if ($prefix_used) {
         echo "<span class=\"notok\">" . $_lang['failed'] . "</span>" . $_lang['table_prefix_already_inuse'] . "</p>";
         $errors += 1;
         echo "<p>" . $_lang['table_prefix_already_inuse_note'] . "</p>";
