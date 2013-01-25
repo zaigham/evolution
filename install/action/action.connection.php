@@ -94,7 +94,7 @@ if ($upgradeable && (!isset($database_connection_method) || empty($database_conn
   <div class="status" id="serverstatus"></div>
 <!-- end connection test action/status message -->
 
-<div id="setCollation"><div id="collationMask">
+<div id="setCollation">
   <h3><?php echo $_lang['connection_screen_database_connection_information']?></h3>
   <p><?php echo $_lang['connection_screen_database_connection_note']?></p>
   <p class="labelHolder"><label for="database_name"><?php echo $_lang['connection_screen_database_name']?></label>
@@ -135,14 +135,14 @@ if ($upgradeable && (!isset($database_connection_method) || empty($database_conn
 	&rarr; <a id="databasetest" href="#"><?php echo $_lang['connection_screen_database_test_connection']?></a>
   </div>
   <div class="status" id="databasestatus">&nbsp;</div>
-</div></div>
+</div>
 
 
 <?php
   if ($installMode == 0) {
 ?>
 
-  <div id="AUH" style="margin-top:1.5em;"><div id="AUHMask">
+  <div id="AUH" style="margin-top:1.5em;">
   	<h2><?php echo $_lang['connection_screen_defaults']?></h2>
     <h3><?php echo $_lang['connection_screen_default_admin_user']?></h3>
     <p><?php echo $_lang['connection_screen_default_admin_note']?></p>
@@ -195,7 +195,7 @@ if ($upgradeable && (!isset($database_connection_method) || empty($database_conn
 ?>
   </select><br /><br />
   </p>
-</div></div>
+</div>
 
 <?php
 }
@@ -210,8 +210,7 @@ if ($upgradeable && (!isset($database_connection_method) || empty($database_conn
     </p>
 </form>
 
-
-<script type="text/javascript" src="../manager/media/script/mootools/mootools.js"></script>
+<script type="text/javascript" src="../assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="connection.js"></script>
 <script type="text/javascript">
 language ='<?php echo $install_language?>';

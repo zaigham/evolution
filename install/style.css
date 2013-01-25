@@ -530,13 +530,7 @@ p.labelHolder {
 
 
 #setCollation, #AUH {
-	background-color:#fff;
 	display:none;
-}
-
-#collationMask, #AUHMask {
-	background-color:#fff;
-	opacity:0;
 }
 
 tbody td {
