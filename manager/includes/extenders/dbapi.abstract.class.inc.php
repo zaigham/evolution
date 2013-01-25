@@ -65,7 +65,7 @@ abstract class DBAPI_abstract {
         $connection_method = $this->config['connection_method'];
 
         $tstart = $this->parent->getMicroTime();
-        if (!($persist ? $this->make_connection($host, $uid, $pwd) : $this->make_persistent_connection($host, $uid, $pwd))) {
+        if (!($persist ? $this->make_persistent_connection($host, $uid, $pwd) : $this->make_connection($host, $uid, $pwd))) {
             $this->parent->messageQuit('Failed to create the database connection!');
             exit;
         } else {
