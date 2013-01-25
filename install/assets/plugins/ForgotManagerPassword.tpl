@@ -5,7 +5,7 @@
  * Resets your manager login when you forget your password via email confirmation
  *
  * @category 	plugin
- * @version 	clipper-1.1.5
+ * @version 	clipper-1.1.6
  * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  * @internal	@events OnBeforeManagerLogin,OnManagerAuthentication,OnManagerLoginFormRender 
  * @internal	@modx_category Manager and Admin
@@ -88,24 +88,26 @@ EOD;
         function sendEmail($to) {
             global $modx, $_lang;
 
-            $subject = $_lang['password_change_request'];
-            $headers  = "MIME-Version: 1.0\r\n".
-                "Content-type: text/html; charset=\"{$modx->config['modx_charset']}\"\r\n".
-		"From: MODx <{$modx->config['emailsender']}>\r\n".
-                "Reply-To: no-reply@{$_SERVER['HTTP_HOST']}\r\n".
-                "X-Mailer: PHP/".phpversion();
-
             $user = $this->getUser(0, '', $to);
   
             if($user['username']) {
-                $body = <<<EOD
+
+				require($modx->config['base_path'].'manager/includes/controls/class.phpmailer.php');
+				
+				$mail = new PHPMailer();
+				$mail->CharSet = $modx->config['modx_charset'];
+				$mail->From = 'no-reply@'.$_SERVER['SERVER_NAME'];
+				$mail->FromName = $modx->config['site_name'];
+				$mail->Subject = $_lang['password_change_request'];
+				$mail->isHTML(true);
+				$mail->Body = <<<EOD
 <p>{$_lang['forgot_password_email_intro']} <a href="{$modx->config['site_url']}manager/processors/login.processor.php?username={$user['username']}&hash={$user['hash']}">{$_lang['forgot_password_email_link']}</a></p>
 <p>{$_lang['forgot_password_email_instructions']}</p>
 <p><small>{$_lang['forgot_password_email_fine_print']}</small></p>
 EOD;
+				$mail->AddAddress($to);
 
-                $mail = mail($to, $subject, $body, $headers);
-                if(!$mail) { $this->errors[] = $_lang['error_sending_email']; }
+                if(!$mail->Send()) { $this->errors[] = $_lang['error_sending_email']; }
    
                 return $mail;  
             }
