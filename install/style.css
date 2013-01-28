@@ -201,7 +201,7 @@ height:0;
 .element {
 clear:both;
 border-bottom: 1px solid #FFFFFF;
-padding-bottom: 1em;
+padding-bottom: 1.3em;
 }
 .element.not-applicable {
 color: #888;
@@ -447,13 +447,13 @@ font-size:1.3em;
 	border-top: 1px dotted #ddd;
 }
 #installChoices input {
-	margin: 0 10px 10px 0;
-	float: left;
-	display: block;
+	margin: 0 10px 0 0;
+	display: inline;
+	vertical-align: middle;
 }
 #rtl #installChoices input {
-	margin: 0 0 10px 10px;
 	float: right;
+	margin: 0 0 0 10px;
 }
 
 table {
