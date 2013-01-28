@@ -198,6 +198,14 @@ border-top: 1px solid #E6E6E6;
 color:#E6E6E6;
 height:0;
 }
+.element {
+clear:both;
+border-bottom: 1px solid #FFFFFF;
+padding-bottom: 1em;
+}
+.element.not-applicable {
+color: #888;
+}
 .clear, .cls {
 background-color:transparent;
 border:0 none;
