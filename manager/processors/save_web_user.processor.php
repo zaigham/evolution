@@ -402,7 +402,7 @@ function sendMailMessage($email, $uid, $pwd, $ufn) {
 	$message = str_replace("[+surl+]", $site_url, $message);
 	if (ini_get('safe_mode') == FALSE) {
 		if (!mail($email, $emailsubject, $message, "From: " . $emailsender . "\r\n" . "X-Mailer: Content Manager - PHP/" . phpversion(), "-f $emailsender")) {
-			webAlert("Error while sending mail to $mailto");
+			webAlert("Error while sending mail to $email");
 			exit;
 		}
 	} elseif (!mail($email, $emailsubject, $message, "From: " . $emailsender . "\r\n" . "X-Mailer: Content Manager - PHP/" . phpversion())) {
