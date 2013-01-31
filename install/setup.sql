@@ -150,8 +150,7 @@ CREATE TABLE IF NOT EXISTS `{PREFIX}site_content` (
   PRIMARY KEY  (`id`),
   KEY `id` (`id`),
   KEY `parent` (`parent`),
-  KEY aliasidx (alias),
-  FULLTEXT KEY `content_ft_idx` (`pagetitle`,`description`,`content`)
+  KEY aliasidx (alias)
 ) {GLOBAL_TABLE_OPTIONS} COMMENT='Contains the site document tree.';
 
 
