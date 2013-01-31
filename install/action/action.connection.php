@@ -103,6 +103,12 @@ if ($upgradeable && (!isset($database_connection_method) || empty($database_conn
   <p class="labelHolder"><label for="tableprefix"><?php echo $_lang['connection_screen_table_prefix']?></label>
     <input id="tableprefix" value="<?php echo isset($_POST['tableprefix']) ? $_POST['tableprefix']: $table_prefix ?>" name="tableprefix" />
   </p>
+  <p class="labelHolder"><label for="tableengine">Engine:</label>
+  	<select id="tableengine" name="tableengine">
+  		<option>InnoDB</option>
+  		<option>MyISAM</option>
+  	</select>
+  </p>
 <?php
   if (($installMode == 0) || ($installMode == 2)) {
 ?>

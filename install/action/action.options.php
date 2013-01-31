@@ -64,6 +64,7 @@ elseif ($installMode == 1) {
     <input type="hidden" value="<?php echo $installMode; ?>" name="installmode" />
     <input type="hidden" value="<?php echo trim($_POST['database_name'], '`'); ?>" name="database_name" />
     <input type="hidden" value="<?php echo $_POST['tableprefix']; ?>" name="tableprefix" />
+    <input type="hidden" value="<?php echo @$_POST['tableengine']; ?>" name="tableengine" />
     <input type="hidden" value="<?php echo $_POST['database_collation']; ?>" name="database_collation" />
     <input type="hidden" value="<?php echo $_POST['database_connection_charset']; ?>" name="database_connection_charset" />
     <input type="hidden" value="<?php echo $_POST['database_connection_method']; ?>" name="database_connection_method" />
