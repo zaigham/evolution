@@ -179,6 +179,7 @@ $install->adminpass = $adminpass;
 $install->managerlanguage = $managerlanguage;
 $install->autoTemplateLogic = $auto_template_logic;
 $install->ignoreDuplicateErrors = true;
+$install->table_options = 'ENGINE=MyISAM';
 
 // install/update database
 echo "<p>" . $_lang['setup_database_creating_tables'];

@@ -7,6 +7,7 @@ class Install {
 	public $mode, $fileManagerPath, $imgPath, $imgUrl;
 	public $errContinue = false;
 	public $autoTemplateLogic;
+	public $table_options;
 
     /**
      * Returns the current micro time
@@ -78,6 +79,7 @@ class Install {
 	$idata = str_replace('{FILEMANAGERPATH}', $this->fileManagerPath, $idata);
 	$idata = str_replace('{MANAGERLANGUAGE}', $this->managerlanguage, $idata);
 	$idata = str_replace('{AUTOTEMPLATELOGIC}', $this->autoTemplateLogic, $idata);
+	$idata = str_replace('{GLOBAL_TABLE_OPTIONS}', $this->table_options, $idata);
 
 	$sql_array = explode("\n\n", $idata);
 

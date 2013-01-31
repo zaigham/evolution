@@ -1,4 +1,6 @@
 <?php
+$_SESSION = array(); // reset if restarting install
+
 $langs = array();
 if( $handle = opendir('lang/') ) {
 	while( false !== ( $file = readdir( $handle ) ) ) {
