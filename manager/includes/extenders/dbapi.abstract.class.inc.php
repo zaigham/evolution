@@ -662,6 +662,13 @@ abstract class DBAPI_abstract {
 	 */
 	abstract function tables_present($prefix);
 
+	/**
+	 * Get table engine
+	 *
+	 * @return string
+	 */
+	abstract function table_engine($table);
+
 	// -------------------------------------------
 	// LOW LEVEL RBDMS-SPECIFIC INTERNAL FUNCTIONS
 	// -------------------------------------------

@@ -179,7 +179,14 @@ $install->adminpass = $adminpass;
 $install->managerlanguage = $managerlanguage;
 $install->autoTemplateLogic = $auto_template_logic;
 $install->ignoreDuplicateErrors = true;
-$install->table_options = 'ENGINE='.($_POST['tableengine'] ? $_POST['tableengine'] : 'MyISAM').' CHARSET='.$database_connection_charset.($database_collation ? ' COLLATE='.$database_collation : '');
+
+if ($installMode != 1) {
+	$install->table_options = 'ENGINE='.$_POST['tableengine'];
+} else {
+	$install->table_options = 'ENGINE='.$install->db->table_engine($table_prefix.'site_content');
+}
+
+$install->table_options .= ' CHARSET='.$database_connection_charset.($database_collation ? ' COLLATE='.$database_collation : '');
 
 // install/update database
 echo "<p>" . $_lang['setup_database_creating_tables'];

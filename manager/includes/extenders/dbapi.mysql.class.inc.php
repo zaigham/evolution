@@ -124,6 +124,10 @@ class DBAPI extends DBAPI_abstract {
     	return (bool)$this->getValue("SELECT COUNT(*) FROM information_schema.tables
                                  WHERE `table_schema` = '{$this->dbase}' AND `table_name` = '{$prefix}site_content'");
     }
+    
+    public function table_engine($table) {
+    	return $this->getValue('SELECT ENGINE FROM information_schema.TABLES where TABLE_SCHEMA = \''.$this->dbase.'\'');
+    }
 
 	// -------------------------------------------
 	// LOW LEVEL RBDMS-SPECIFIC INTERNAL FUNCTIONS
