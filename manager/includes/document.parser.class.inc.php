@@ -2296,6 +2296,15 @@ class DocumentParser {
         return $this->getChunk($chunkName);
     }
 
+	/**
+	 * Parse a chunk for placeholders
+	 *
+	 * @param string $chunkname Name of chunk to get from db
+	 * @param string $chunkArr Array of placeholder names (array keys) and replacements (array values)
+	 * @param string $prefix Placeholder prefix. Defaults to [+
+	 * @param string $suffix Placeholder suffix. Defaults to +]
+	 * @return string
+	 */
     function parseChunk($chunkName, $chunkArr, $prefix= "[+", $suffix= "+]") {
         if (!is_array($chunkArr)) {
             return false;
