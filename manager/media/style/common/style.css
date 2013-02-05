@@ -18,16 +18,32 @@
 .tooltip{
 	cursor: help;
 	opacity: 0.7;
-}
+	}
 
 .tooltip:hover{
 	opacity: 1;
-}
+	}
 
 .disabled-action{
 	opacity: .5;
-}
+	}
 
+/* jQuery sortable lists */
+
+.sortableList {
+	list-style-type: none; margin: 0; padding: 0;
+	}
+
+.sortableList li {
+	margin: 0 3px 3px 3px;
+	padding: 0.4em;
+	padding-left: 1.5em;
+	list-style: none;
+	}
+
+.sortableList li:hover {
+	cursor: move
+	}
 
 /*! jQuery UI - v1.9.2 - 2012-12-07
 * http://jqueryui.com
