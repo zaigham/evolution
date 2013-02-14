@@ -1,23 +1,14 @@
 <?php
-class Install {
+require_once(dirname(__FILE__).'/../../manager/includes/core.class.inc.php');
 
-	public $queryTime = 0, $executedQueries = 0, $dumpSQL = false, $queryCode = '';
+class Install extends Core {
+
 	public $installFailed, $mysqlErrors, $prefix;
 	public $sitename, $adminname, $adminemail, $adminpass, $managerlanguage;
 	public $mode, $fileManagerPath, $imgPath, $imgUrl;
 	public $errContinue = false;
 	public $autoTemplateLogic;
 	public $table_options;
-
-    /**
-     * Returns the current micro time
-     *
-     * @return float
-     */
-    function getMicroTime() {
-        list ($usec, $sec)= explode(' ', microtime());
-        return ((float) $usec + (float) $sec);
-    }
 
     /**
      * Exits with error message
