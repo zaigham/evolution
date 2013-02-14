@@ -6,7 +6,6 @@ $pwd = $_POST['pwd'];
 $database_collation = htmlentities($_POST['database_collation']);
 
 // include DBAPI and timer functions
-require_once ('../manager/includes/extenders/dbapi.abstract.class.inc.php');
 require_once ('../manager/includes/extenders/dbapi.mysql.class.inc.php');
 require_once ('includes/install.class.inc.php');
 
