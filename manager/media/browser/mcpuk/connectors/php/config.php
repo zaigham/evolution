@@ -53,10 +53,10 @@ if(!isset($_SESSION['mgrValidated'])) {
     @Xysql_query("{$database_connection_method} {$database_connection_charset}");
 }*/
 
-// Override system settings with user settings
-define('IN_MANAGER_MODE', 'true'); // set this so that user_settings will trust us.
-include("../../../../../includes/settings.inc.php");
-include("../../../../../includes/user_settings.inc.php");
+// get the settings from the database
+define('IN_MANAGER_MODE', 'true');
+require_once('../../../../../includes/settings.inc.php');
+require_once('../../../../../includes/user_settings.inc.php');
 
 if($settings['use_browser'] != 1){
 	die("<b>PERMISSION DENIED</b><br /><br />You do not have permission to access this file!");

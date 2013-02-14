@@ -23,10 +23,10 @@ if(!isset($_SESSION['mgrValidated'])) {
     @Xysql_query("{$database_connection_method} {$database_connection_charset}");
 }*/
 
-define('IN_MANAGER_MODE', 'true'); // set this so that settings will trust us.
-include("../../includes/settings.inc.php"); // get the settings from the database
-include("../../includes/user_settings.inc.php");// Override system settings with user settings
-
+// get the settings from the database
+define('IN_MANAGER_MODE', 'true');
+require('../../includes/settings.inc.php');
+require('../../includes/user_settings.inc.php');
 
 $IMConfig['modx']['folder_permissions'] = octdec($new_folder_permissions);
 
