@@ -3574,7 +3574,7 @@ class DocumentParser extends Core {
         ob_end_flush();
 
         // Log error if a connection to the db exists
-        if ($this->db->conn) {
+        if ($this->db->dbase) {
              $this->logEvent(0, 3, $parsedMessageString, $source= 'Parser');
         }
 
