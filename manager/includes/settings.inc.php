@@ -5,6 +5,7 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 $settings = array();
 if ($modx && count($modx->config)>0) $settings = $modx->config;
 else {
+	// WARNING: This creates a $modx Core object only. If subsequent code needs a DocumentParser object it must test for this specifically.
 	require_once(dirname(__FILE__).'/core.class.inc.php');
 	require_once(dirname(__FILE__).'/extenders/dbapi.'.(isset($database_type) ? $database_type : 'mysql').'.class.inc.php');
 	$modx = new Core();
