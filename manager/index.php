@@ -129,7 +129,6 @@ startCMSSession();
 
 // get the settings from the database
 require('settings.inc.php');
-require('user_settings.inc.php');
 
 // include_once the language file
 if(!isset($manager_language) || !file_exists(MODX_MANAGER_PATH."includes/lang/".$manager_language.".inc.php")) {

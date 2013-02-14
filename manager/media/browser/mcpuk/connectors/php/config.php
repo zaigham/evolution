@@ -56,7 +56,6 @@ if(!isset($_SESSION['mgrValidated'])) {
 // get the settings from the database
 define('IN_MANAGER_MODE', 'true');
 require_once('../../../../../includes/settings.inc.php');
-require_once('../../../../../includes/user_settings.inc.php');
 
 if($settings['use_browser'] != 1){
 	die("<b>PERMISSION DENIED</b><br /><br />You do not have permission to access this file!");

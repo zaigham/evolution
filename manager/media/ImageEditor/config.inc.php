@@ -26,7 +26,6 @@ if(!isset($_SESSION['mgrValidated'])) {
 // get the settings from the database
 define('IN_MANAGER_MODE', 'true');
 require('../../includes/settings.inc.php');
-require('../../includes/user_settings.inc.php');
 
 $IMConfig['modx']['folder_permissions'] = octdec($new_folder_permissions);
 
