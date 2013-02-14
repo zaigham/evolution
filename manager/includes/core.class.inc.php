@@ -38,6 +38,16 @@ class Core {
     }
     
     /**
+     * Returns the full table name based on db settings
+     *
+     * @param string $tbl Table name
+     * @return string Table name with prefix
+     */
+    function getFullTableName($tbl) {
+        return $this->db->config['dbase'] . ".`" . $this->db->config['table_prefix'] . $tbl . "`";
+    }
+
+    /**
      * Get system settings and user settings
      * 
      * @return void
@@ -47,7 +57,7 @@ class Core {
         if (!is_array($this->config) || !sizeof($this->config)) {
         
             // System settings
-            $rs = $this->db->select('setting_name, setting_value', $this->db->getFullTableName('system_settings'));
+            $rs = $this->db->select('setting_name, setting_value', $this->getFullTableName('system_settings'));
             while ($row = $this->db->getRow($rs)) {
                 $this->config[$row['setting_name']] = $row['setting_value'];
             }
@@ -55,7 +65,7 @@ class Core {
             // User settings
             $user_id = @$_SESSION['mgrInternalKey']; // Bypasses the normal API method. Not ideal, but unlikely to be an issue.
             if ($user_id) {
-                $rs = $this->db->select('setting_name, setting_value', $this->db->getFullTableName('user_settings'), 'user='.$user_id);
+                $rs = $this->db->select('setting_name, setting_value', $this->getFullTableName('user_settings'), 'user='.$user_id);
                 while ($row = $this->db->getRow($rs)) {
                     $this->config[$row['setting_name']] = $row['setting_value'];
                 }

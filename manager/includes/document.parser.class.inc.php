@@ -2628,16 +2628,6 @@ class DocumentParser extends Core {
         }
     }
 
-     /**
-     * Returns the full table name based on db settings
-     *
-     * @param string $tbl Table name
-     * @return string Table name with prefix
-     */
-    function getFullTableName($tbl) {
-        return $this->db->config['dbase'] . ".`" . $this->db->config['table_prefix'] . $tbl . "`";
-    }
-
     /**
      * Returns the placeholder value
      *
