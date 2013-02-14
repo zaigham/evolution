@@ -1,12 +1,13 @@
 <?php
+require_once('core.class.inc.php');
+
 /**
  * ClipperCMS Document Parser
  *
  * This class contains the main document parsing functions.
  *
  */
-class DocumentParser {
-    var $db; // db object
+class DocumentParser extends Core {
     var $event, $Event; // event object
     var $pluginEvent;
     var $config= null;
@@ -26,8 +27,6 @@ class DocumentParser {
     var $templateObject;
     var $snippetObjects;
     var $stopOnNotice;
-    var $executedQueries;
-    var $queryTime;
     var $currentSnippet;
     var $documentName;
     var $aliases;
@@ -38,8 +37,6 @@ class DocumentParser {
     var $chunkCache;
     var $snippetCache;
     var $contentTypes;
-    var $dumpSQL;
-    var $queryCode;
     var $virtualDir;
     var $placeholders;
     var $sjscripts;
@@ -111,16 +108,6 @@ class DocumentParser {
             default :
                 return false;
         }
-    }
-
-    /**
-     * Returns the current micro time
-     *
-     * @return float
-     */
-    function getMicroTime() {
-        list ($usec, $sec)= explode(' ', microtime());
-        return ((float) $usec + (float) $sec);
     }
 
     /**
