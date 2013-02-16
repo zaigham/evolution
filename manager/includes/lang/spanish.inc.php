@@ -8,7 +8,7 @@
  */
 $modx_lang_attribute = 'es'; // Manager HTML/XML Language Attribute see http://en.wikipedia.org/wiki/ISO_639-1
 $modx_manager_charset = 'iso-8859-1';
-setlocale (LC_ALL, 'es_MX');
+
 
 $_lang["about_msg"] = CMS_NAME.' es un <a href="http://'.CMS_DOMAIN.'" target="_blank">Sistema de Administración de Contenido y Esquema de PHP</a> bajo licencia <a href="../assets/docs/license.txt">GNU GPL</a>.';
 $_lang["about_title"] = 'Acerca de '.CMS_NAME;

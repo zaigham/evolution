@@ -11,7 +11,7 @@
  * Translated by:  Pertsev Dmitriy, Safronovich Victor, Russian ClipperCMS Community
  * Date:           15 october 2009
  */
-setlocale (LC_ALL, 'ru_RU.UTF-8');
+
 $_lang["agree_to_terms"] = 'Согласиться с условиями лицензии и приступить к установке';
 $_lang["alert_database_test_connection"] = 'Вы должны создать базу данных или выбрать базу данных для проверки!';
 $_lang["alert_database_test_connection_failed"] = 'Неудачная проверка выбранной базы данных!';

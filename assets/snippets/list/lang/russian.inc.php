@@ -8,7 +8,7 @@
  * Date:           9 May 2010
  * Version:        2.1.0
 */
-setlocale (LC_ALL, 'ru_RU.CP1251');
+
 $_lang['language'] = "russian";
 
 $_lang['abbr_lang'] = "ru";

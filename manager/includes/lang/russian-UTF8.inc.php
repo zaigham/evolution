@@ -9,7 +9,7 @@
 */
 $modx_lang_attribute = 'ru'; // Manager HTML/XML Language Attribute see http://en.wikipedia.org/wiki/ISO_639-1
 $modx_manager_charset = 'UTF-8';
-setlocale (LC_ALL, 'ru_RU.UTF-8');
+
 
 $_lang["about_msg"] = CMS_NAME.' - это <a href="http://'.CMS_DOMAIN.'" target="_blank">PHP Application Framework и Content Management System</a>, распространяемая по лицензии <a href="../assets/docs/license.txt">GNU GPL</a>.';
 $_lang["about_title"] = 'О '.CMS_NAME;
