@@ -6,7 +6,8 @@
 #php_value zlib.output_compression_level 5
 
 # Block directory listings
-IndexIgnore *
+# You are recommended to uncomment this unless this causes a server error.
+# IndexIgnore *
 
 Options +FollowSymlinks
 RewriteEngine On
