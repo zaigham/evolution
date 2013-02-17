@@ -821,7 +821,6 @@ $_lang["template_name"] = '模板名';
 $_lang["template_reset_all"] = '设置所有的文档使用默认的模板';
 $_lang["template_reset_specific"] = '只设置 \'%s\' 页面';
 $_lang["template_title"] = '建立编辑模板';
-$_lang["test_page"] = '测试页面';
 $_lang["this_month"] = '本月';
 $_lang["thursday"] = '星期四';
 $_lang["tmplvar_access_msg"] = '选择允许修改这个变量的内容和值的文档组';
