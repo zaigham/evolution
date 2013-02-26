@@ -824,8 +824,8 @@ class DocumentParser extends Core {
      *
      * @param string $template
      * @return string
+     * @deprecated
      */
-     //TODO: remove in the future
     function mergeDocumentMETATags($template) {
         //content removed as this function is deprecated
         return $template;
@@ -2150,9 +2150,8 @@ class DocumentParser extends Core {
      * @param int $id The docid, 0 means the current document
      *                Default: 0
      * @return array
+     * @deprecated
      */
-     
-     //TODO: remove in future updates
     function getKeywords($id= 0) {
     	//content removed as this function is deprecated
         $keywords= array ();
@@ -2165,9 +2164,8 @@ class DocumentParser extends Core {
      * @param int $id The document identifier, 0 means the current document
      *                Default: 0
      * @return array
+     * @deprecated
      */
-     
-     //TODO: remove in future updates
     function getMETATags($id= 0) {
     	//content removed as this function is deprecated
         $metatags= array ();
