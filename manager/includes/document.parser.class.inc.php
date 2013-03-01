@@ -838,6 +838,9 @@ class DocumentParser extends Core {
      * @return string
      */
     function mergeDocumentContent($template) {
+    
+        static $documentObjects = array(); // Could be improved by use of the modx cache. TODO below
+
         $replace= array ();
         preg_match_all('~\[\*(.*?)\*\]~', $template, $matches);
         $variableCount= count($matches[1]);
@@ -845,7 +848,62 @@ class DocumentParser extends Core {
         for ($i= 0; $i < $variableCount; $i++) {
             $key= $matches[1][$i];
             $key= substr($key, 0, 1) == '#' ? substr($key, 1) : $key; // remove # for QuickEdit format
-            $value= $this->documentObject[$key];
+
+            // Detect output modifiers
+            if (strpos($key, ';') != false) {
+                $modifiers = explode(';', $key);
+                $key = $modifiers[0];
+            } else {
+                $modifiers = null;
+            }
+
+            if (($sep_pos = strpos($key, ':')) !== false) {
+                // Handle [*<docid>:<fieldname/TVname>*]
+                // Identify the docid first.
+                // <docid> can be any id, 'parent', 'ultimateparent', or contain site settings placeholders e.g. [(site_start)]
+                $other_docid = null;
+                if (ctype_digit($other_docid = substr($key, 0, $sep_pos))) {
+                    $other_docid = (int)$other_docid;
+                } else {
+                    switch ($other_docid) {
+                        case 'parent':
+                            $other_docid = $this->documentObject['parent'];
+                            break;
+                        case 'ultimateparent':
+                            $other_docid = $this->getUltimateParentId($this->documentIdentifier);
+                            break;
+                        default:
+                            $other_docid = trim($this->mergeSettingsContent($other_docid));
+                            if (ctype_digit($other_docid)) {
+                                $other_docid = (int)$other_docid;
+                            } else {
+                                $other_docid = null;
+                            }
+                            break;
+                    }
+                }
+
+                if ($other_docid) {
+                    if ($other_docid != $this->documentIdentifier) {
+                        // Another docid is found, is valid, is not zero and is not the current document.
+                        // TODO: cache handling. May need to modify checkCache()
+                        if (!isset($documentObjects[$other_docid])) {
+                            $documentObjects[$other_docid] = $this->getDocumentObject('id', $other_docid);
+                        }
+                        $value = $documentObjects[$other_docid][substr($key, $sep_pos+1)];
+                    } else {
+                        // Using the current document.
+                        $value= $this->documentObject[substr($key, $sep_pos+1)];
+                    }
+                } else {
+                    // Invalid $other_docid
+                    $value = '';
+                }
+            } else {
+                // Using the current document.
+                $value= $this->documentObject[$key];
+            }
+
             if (is_array($value)) {
                 include_once $basepath . "/tmplvars.format.inc.php";
                 include_once $basepath . "/tmplvars.commands.inc.php";
@@ -853,11 +911,65 @@ class DocumentParser extends Core {
                 $h= "300";
                 $value= getTVDisplayFormat($value[0], $value[1], $value[2], $value[3], $value[4]);
             }
-            $replace[$i]= $value;
+
+            // Process output modifiers
+            if (is_array($modifiers)) {
+                foreach(array_slice($modifiers, 1) as $modifier) {
+                    $value = $this->modifyOutput($value, $modifier);
+                }
+            }
+
+            $replace[$i] = $value;
         }
         $template= str_replace($matches[0], $replace, $template);
 
         return $template;
+    }
+
+   /** 
+     * Modifies output
+     *
+     * @param string $string 
+     * @param string $modifier in the form 'modifier' or 'modifier(argument)'
+     * @return string
+     */
+    function modifyOutput($string, $modifier) {
+
+        if (($pos = strpos($modifier, '(')) !== false) {
+            $arg = substr(substr($modifier, $pos + 1), 0, -1);
+            $modifier = substr($modifier, 0, $pos);
+        } else {
+            $arg = null;
+        }
+
+        switch ($modifier) {
+            case 'strtolower':
+            case 'strtoupper':
+            case 'ucwords':
+            case 'ucfirst':
+            case 'strip_tags':
+            case 'urlencode':
+                $string = $modifier($string);
+                break;
+                
+            case 'html':
+                $string = htmlentities($string, ENT_QUOTES, $this->config['modx_charset']);
+                break;
+            
+            case 'limit':
+                if (ctype_digit($arg)) {
+                    $string = substr($string, 0, $arg);
+                }
+                break;
+
+            case 'ellipsis':
+                if (ctype_digit($arg) && strlen($string) > $arg) {
+                    $string = substr($string, 0, $arg).'&hellip';
+                }
+                break;
+        }
+
+    return $string;
     }
 
     /**
@@ -1518,6 +1630,20 @@ class DocumentParser extends Core {
             $parents[$pkey] = $id;
         }
         return $parents;
+    }
+
+    /**
+     * Returns the ultimate parent of a document
+     *
+     * @param int $id Docid to get ultimate parent.
+     * @return int
+     */
+    function getUltimateParentId($id) {
+        while ($id) {
+        	$last_id = $id;
+            $id = $this->aliasListing[$id]['parent'];
+        }
+        return $last_id;
     }
 
     /**
