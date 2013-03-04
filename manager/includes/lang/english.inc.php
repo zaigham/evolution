@@ -731,6 +731,7 @@ $_lang["role_delete_snippet"] = 'Delete Snippets';
 $_lang["role_delete_template"] = 'Delete Templates';
 $_lang["role_delete_user"] = 'Delete users';
 $_lang["role_delete_web_user"] = 'Delete web users';
+$_lang['role_duplicates_not_allowed'] = 'A role exists with the name.';
 $_lang["role_edit_chunk"] = 'Edit Chunks';
 $_lang["role_edit_doc"] = 'Edit a Resource';
 $_lang["role_edit_module"] = 'Edit Module';

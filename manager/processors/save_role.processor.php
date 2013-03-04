@@ -88,21 +88,26 @@ $fields = array (
     'remove_locks' => $remove_locks
 );
 
+$tbl = $modx->getFullTableName('user_roles');
+
 switch ($_POST['mode']) {
+
     case '38' :
-        $tbl = $modx->getFullTableName("user_roles");
-        $modx->db->insert($fields, $tbl);
-        $header = "Location: index.php?a=86&r=2";
-        header($header);
+		$rs = $modx->db->select('id', $tbl, "name='{$name}'");
+    	if ($modx->db->getRecordCount($rs)) {
+    		exit($_lang['role_duplicates_not_allowed']);
+    	}
+		$modx->db->insert($fields, $tbl);
         break;
+
     case '35' :
-        $tbl = $modx->getFullTableName("user_roles");
         $modx->db->update($fields, $tbl, "id=$id");
-        $header = "Location: index.php?a=86&r=2";
-        header($header);
         break;
+
     default :
-    	echo "Erm... You supposed to be here now?";
         exit;
+
 }
-?>
+
+header('Location: index.php?a=86&r=2');
+
