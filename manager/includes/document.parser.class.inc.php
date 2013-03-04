@@ -1071,10 +1071,10 @@ class DocumentParser extends Core {
         eval ($pluginCode);
         $msg= ob_get_contents();
         ob_end_clean();
-        if ($msg && isset ($php_errormsg)) {
+        if (isset ($php_errormsg)) {
             if (!strpos($php_errormsg, 'Deprecated')) { // ignore php5 strict errors
                 // log error
-                $this->logEvent(1, 3, "<b>$php_errormsg</b><br /><br /> $msg", $this->Event->activePlugin . " - Plugin");
+                $this->logEvent(1, 3, "<b>$php_errormsg</b><br /><br /> $msg", $this->Event->activePlugin . " - Plugin".error_reporting());
                 if ($this->isBackend())
                     $this->Event->alert("An error occurred while loading. Please see the event log for more information.<p />$msg");
             }
@@ -1089,9 +1089,10 @@ class DocumentParser extends Core {
      *
      * @param string $snippet Code to run
      * @param array $params
+     * @param string $name Snippet name. Optional but advised.
      * @return string
      */
-    function evalSnippet($snippet, $params) {
+    function evalSnippet($snippet, $params, $name = null) {
         $etomite= $modx= & $this;
 
         $modx->event->params= & $params; // store params inside event object
@@ -1102,13 +1103,15 @@ class DocumentParser extends Core {
         $snip= eval ($snippet);
         $msg= ob_get_contents();
         ob_end_clean();
-        if ($msg && isset ($php_errormsg)) {
+        if (isset ($php_errormsg)) {
             if (!strpos($php_errormsg, 'Deprecated')) { // ignore php5 strict errors
                 // log error
                 $this->logEvent(1, 3, "<b>$php_errormsg</b><br /><br /> $msg", $this->currentSnippet . " - Snippet");
                 if ($this->isBackend())
                     $this->Event->alert("An error occurred while loading. Please see the event log for more information<p />$msg");
             }
+        } elseif ($snip === false) {
+        	$this->logEvent(0, 3, "Snippet missing or PHP Parse error in snippet {$name}");
         }
         unset ($modx->event->params);
         return $msg . $snip;
@@ -1210,7 +1213,7 @@ class DocumentParser extends Core {
                         }
                     }
                 }
-                $executedSnippets[$i]= $this->evalSnippet($snippets[$i]['snippet'], $parameter);
+                $executedSnippets[$i]= $this->evalSnippet($snippets[$i]['snippet'], $parameter, $snippets[$i]['name']);
                 if ($this->dumpSnippets == 1) {
                     echo "<fieldset><legend><b>$snippetName</b></legend><textarea style='width:60%; height:200px'>" . htmlentities($executedSnippets[$i]) . "</textarea></fieldset><br />";
                 }
@@ -2336,7 +2339,7 @@ class DocumentParser extends Core {
         $parameters= $this->parseProperties($properties);
         $parameters= array_merge($parameters, $params);
         // run snippet
-        return $this->evalSnippet($snippet, $parameters);
+        return $this->evalSnippet($snippet, $parameters, $snippetName);
     }
 
     /**
