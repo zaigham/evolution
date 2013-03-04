@@ -11,29 +11,29 @@
  * @internal    @installset base, sample
  */
 
-// All users
+// Uncomment this line (remove the leading '// ') to hide longtitle if you do not use it.
+// mm_hideFields('longtitle');
 
-// Uncomment if you don't use longtitle anywhere in your templates
-//mm_hideFields('longtitle');
+// Uncomment this if you use [*description*] in a description meta tag
+// mm_changeFieldHelp('description', 'Description for search engines. Optional. Leave blank if unsure'); 
 
-mm_hideFields('log');
-mm_hideFields('parent');
-mm_hideFields('link_attributes');
-mm_hideFields('which_editor');
-mm_hideFields('is_richtext');
+// Uncomment the following to hide some often unused fields from all users
+// mm_hideFields('log');
+// mm_hideFields('parent');
+// mm_hideFields('link_attributes');
+// mm_hideFields('which_editor');
+// mm_hideFields('is_richtext');
 
-mm_changeFieldHelp('pagetitle', 'Title of this page');
-mm_changeFieldHelp('menutitle', 'An optional title for this page to be used in menus. Usually shorter if used.');
+// Examples of changing the help text. Uncomment to use these or write your own.
+// mm_changeFieldHelp('pagetitle', 'Title of this page');
+// mm_changeFieldHelp('menutitle', 'An optional title for this page to be used in menus. Usually shorter if used.');
 
-// Uncomment this if you use [*description*] in the description meta tag
-//mm_changeFieldHelp('description', 'Description for search engines. Optional. Leave blank if unsure'); 
-
-// Only displayed for admins
-mm_hideFields('cacheable', '!1');
-mm_hideFields('clear_cache', '!1');
-mm_hideFields('is_folder', '!1');
-mm_hideFields('content_dispo', '!1');
-mm_hideFields('content_type', '!1');
+// Uncomment the following to hide the fields from all but admins
+// mm_hideFields('cacheable', '!1');
+// mm_hideFields('clear_cache', '!1');
+// mm_hideFields('is_folder', '!1');
+// mm_hideFields('content_dispo', '!1');
+// mm_hideFields('content_type', '!1');
 
 // Always give a preview of Image TVs
 mm_widget_showimagetvs();
