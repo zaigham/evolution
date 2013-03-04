@@ -1067,20 +1067,12 @@ class DocumentParser extends Core {
         if (is_array($params)) {
             extract($params, EXTR_SKIP);
         }
-        unset($php_errormsg);
         ob_start();
-        eval ($pluginCode);
-        $msg= ob_get_contents();
+        $plug = eval ($pluginCode);
+        $msg = ob_get_contents();
         ob_end_clean();
-        if (isset ($php_errormsg)) {
-            if (!strpos($php_errormsg, 'Deprecated')) { // ignore php5 strict errors
-                // log error
-                $this->logEvent(1, 3, "<b>$php_errormsg</b><br /><br /> $msg", $this->Event->activePlugin . " - Plugin".error_reporting());
-                if ($this->isBackend())
-                    $this->Event->alert("An error occurred while loading. Please see the event log for more information.<p />$msg");
-            }
-        } else {
-            echo $msg;
+        if ($plug === false) {
+        	$this->logEvent(0, 3, "Plugin missing or PHP Parse error in plugin {$name}", "Plugin {$name}");
         }
         unset ($modx->event->params);
     }
@@ -1100,20 +1092,12 @@ class DocumentParser extends Core {
         if (is_array($params)) {
             extract($params, EXTR_SKIP);
         }
-        unset($php_errormsg);
         ob_start();
-        $snip= eval ($snippet);
-        $msg= ob_get_contents();
+        $snip = eval ($snippet);
+        $msg = ob_get_contents();
         ob_end_clean();
-        if (isset ($php_errormsg)) {
-            if (!strpos($php_errormsg, 'Deprecated')) { // ignore php5 strict errors
-                // log error
-                $this->logEvent(1, 3, "<b>$php_errormsg</b><br /><br /> $msg", $this->currentSnippet . " - Snippet");
-                if ($this->isBackend())
-                    $this->Event->alert("An error occurred while loading. Please see the event log for more information<p />$msg");
-            }
-        } elseif ($snip === false) {
-        	$this->logEvent(0, 3, "Snippet missing or PHP Parse error in snippet {$name}");
+        if ($snip === false) {
+        	$this->logEvent(0, 3, "Snippet missing or PHP Parse error in snippet {$name}", "Snippet {$name}");
         }
         unset ($modx->event->params);
         return $msg . $snip;
