@@ -74,7 +74,8 @@ class DocumentParser extends Core {
         $this->Event= & $this->event; //alias for backward compatibility
         $this->pluginEvent= array ();
         // set track_errors ini variable
-        @ ini_set("track_errors", "1"); // enable error tracking in $php_errormsg
+        // @ini_set("track_errors", "1"); // enable error tracking in $php_errormsg
+        register_shutdown_function(array(&$this, 'fatalErrorCheck'));
     }
 
     /**
@@ -786,6 +787,19 @@ class DocumentParser extends Core {
             }
         }
     }
+
+	/** 
+	 * Check for and log fatal errors
+	 *
+	 * @return void
+	 */
+	 function fatalErrorCheck() {
+	 	// Log fatal errors
+		$error = error_get_last();
+		if ($error['type'] == E_ERROR || $error['type'] == 'E_USER_ERROR') {
+			$this->logEvent(0, 3, 'Fatal '.($error['type'] == 'E_USER_ERROR' ? '(user) ' : '')."error: {$error['message']}");
+		}
+	}
 
     /**
      * Final jobs.
