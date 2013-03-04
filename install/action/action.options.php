@@ -5,6 +5,9 @@ function install_class($installset) {
     return $class;
 }
 
+// Get timezone from php.ini
+$tz_ini = ini_get('date.timezone');
+
 $installMode = intval($_POST['installmode']);
 if ($installMode == 0 || $installMode == 2) {
     $database_collation = isset($_POST['database_collation']) ? $_POST['database_collation'] : 'utf8_general_ci';
@@ -198,12 +201,24 @@ if ($limit > 0) {
     </div>
 <?php
 // Timezone (PHP >= 5.2)
-$ini_tv = ini_get('date.timezone');
 $timezones = class_exists('DateTimeZone') ? DateTimeZone::listIdentifiers() : null;
+if ($installMode == 1) {
+	preg_match('/^date_default_timezone_set\([\'"](.*)[\'"]\);/m', file_get_contents('../manager/includes/config.inc.php'), $matches);
+	$tz_config = $matches[1];
+}
 if ($timezones) {
 	echo
 	'<h3>Timezone</h3>
-	<p><label>Timezone: <select name="tz"><option value="">Do not set timezone - use server setting (currently '.($ini_tv ? $ini_tv : 'not set').') </option>';
+	<p>Current php.ini value: '.($tz_ini ? $tz_ini : 'not set');
+	if ($installMode == 1) {
+		echo '<br />Current config setting: '.(isset($tz_config) ? $tz_config : 'not set');
+	}
+	echo
+	'</p>
+	<p><label>Timezone: <select name="tz"><option value="">Do not set timezone - use php.ini setting)</option>';
+	if (isset($tz_config)) {
+		echo '<option value="'.$tz_config.'" selected="selected">Use current config setting ('.$tz_config.')</option>';
+	}
 	foreach($timezones as $timezone) {
 		echo '<option>'.$timezone.'</option>';
 	}
