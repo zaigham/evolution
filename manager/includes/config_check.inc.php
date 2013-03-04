@@ -28,8 +28,9 @@ if (isset($clipper_config['locale_lc_all'])) {
         $locales = explode(';', $locales);
         foreach($locales as $locale) {
             $l = explode('=', $locale);
-            if ($clipper_config['locale_lc_all'] != $l[1] && (!isset($clipper_config['locale_lc_numeric']) || $l[0] != 'LC_NUMERIC')) {
-                exit(var_dump($l));
+            if ($clipper_config['locale_lc_all'] != $l[1]
+            		&& !(($clipper_config['locale_lc_all'] == 'POSIX' && $l[1] == 'C') || ($clipper_config['locale_lc_all'] == 'C' && $l[1] == 'POSIX'))
+            		&& (!isset($clipper_config['locale_lc_numeric']) || $l[0] != 'LC_NUMERIC')) {
                 $warnings[] = array($_lang['configcheck_locale_LC_ALL_warning']);
                 break;
             }
