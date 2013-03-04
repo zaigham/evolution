@@ -85,27 +85,6 @@ require("{$setupPath}/setup.info.php");
 
 echo "<h2>" . $_lang['optional_items'] . "</h2><p>" . $_lang['optional_items_note'] . "</p>";
 
-// Locales
-$locales = trim(@shell_exec('locale -a'));
-if ($locales) {
-	$locales = explode("\n", $locales);
-	$lc_numeric = isset($locale_lc_numeric) ? $locale_lc_numeric : setlocale(LC_NUMERIC, 0);
-	echo
-	'<h3>Locales</h3>
-	<p><label>LC_ALL: <select name="locale_lc_all"><option></option>';
-	foreach($locales as $locale) {
-		echo '<option'.((isset($locale_lc_all) && $locale_lc_all == $locale) ? ' selected="selected"' : '').'>'.$locale.'</option>';
-	}
-	echo '</select></label></p>
-	<p>'.$_lang['locales_note'].'</p>
-	<p><label>LC_NUMERIC: <select name="locale_lc_numeric"><option></option>';
-	foreach($locales as $locale) {
-		echo '<option'.(($lc_numeric == $locale) ? ' selected="selected"' : '').'>'.$locale.'</option>';
-	}
-	echo '</select></label></p>
-	<p>'.$_lang['locales_note_LC_NUMERIC'].'</p>';
-}
-
 $chk = isset ($_POST['installdata']) && $_POST['installdata'] == "1" ? 'checked="checked"' : "";
 //echo '<img src="img/sample_site.png" class="options" alt="Sample Data" />';
 echo "<h3>" . $_lang['sample_web_site'] . "</h3>";
@@ -214,8 +193,32 @@ if ($limit > 0) {
         echo $snippetOutput;
     }
 }
+
 ?>
     </div>
+<?php
+// Locales
+$locales = trim(@shell_exec('locale -a'));
+if ($locales) {
+	$locales = explode("\n", $locales);
+	$lc_numeric = isset($locale_lc_numeric) ? $locale_lc_numeric : setlocale(LC_NUMERIC, 0);
+	echo
+	'<h3>Locales</h3>
+	<p><label>LC_ALL: <select name="locale_lc_all"><option></option>';
+	foreach($locales as $locale) {
+		echo '<option'.((isset($locale_lc_all) && $locale_lc_all == $locale) ? ' selected="selected"' : '').'>'.$locale.'</option>';
+	}
+	echo '</select></label></p>
+	<p>'.$_lang['locales_note'].'</p>
+	<p><label>LC_NUMERIC: <select name="locale_lc_numeric"><option></option>';
+	foreach($locales as $locale) {
+		echo '<option'.(($lc_numeric == $locale) ? ' selected="selected"' : '').'>'.$locale.'</option>';
+	}
+	echo '</select></label></p>
+	<p>'.$_lang['locales_note_LC_NUMERIC'].'</p>';
+}
+
+?>
     <p class="buttonlinks">
         <a href="javascript:document.getElementById('install_form').action='index.php?action=<?php echo (($installMode == 1) ? 'mode' : 'connection'); ?>';document.getElementById('install_form').submit();" class="prev" title="<?php echo $_lang['btnback_value']?>"><span><?php echo $_lang['btnback_value']?></span></a>
         <a href="javascript:document.getElementById('install_form').submit();" title="<?php echo $_lang['install']?>"><span><?php echo $_lang['install']?></span></a>
