@@ -262,6 +262,9 @@ if ($installMode == 0) {
 	}
 }
 
+// TZ
+$tz_string = $_POST['tz'] ? "date_default_timezone_set('{$_POST['tz']}');\n" : '';
+
 // Locales
 $locale_string = '';
 if ($_POST['locale_lc_all']) {
@@ -278,6 +281,7 @@ $configString = '<?php
  * CMS Configuration file
  */
 '.$locale_string.'
+'.$tz_string.'
 $database_type = \'mysql\';
 $database_server = \'' . $database_server . '\';
 $database_user = \'' . $install->db->escape($database_user) . '\';

@@ -197,6 +197,23 @@ if ($limit > 0) {
 ?>
     </div>
 <?php
+// Timezone (PHP >= 5.2)
+$ini_tv = ini_get('date.timezone');
+$timezones = class_exists('DateTimeZone') ? DateTimeZone::listIdentifiers() : null;
+if ($timezones) {
+	echo
+	'<h3>Timezone</h3>
+	<p><label>Timezone: <select name="tz"><option value="">Do not set timezone - use server setting (currently '.($ini_tv ? $ini_tv : 'not set').') </option>';
+	foreach($timezones as $timezone) {
+		echo '<option>'.$timezone.'</option>';
+	}
+	echo
+	'</select></p>
+	<p>'.$_lang['timezone_note'].'</p>';
+} else {
+	echo '<fieldset><input type="hidden" name="tz" value="" /></fieldset>';
+}
+
 // Locales
 $locales = trim(@shell_exec('locale -a'));
 if ($locales) {

@@ -173,6 +173,7 @@ $_lang["table_prefix_already_inuse_note"] = 'Setup couldn\'t install into the se
 $_lang["table_prefix_not_exist"] = ' - Table prefix does not exist in this database!';
 $_lang["table_prefix_not_exist_note"] = 'Setup couldn\'t install into the selected database, as it does not contain existing tables with the prefix you specified to be upgraded. Please choose an existing table prefix, and run Setup again.';
 $_lang["templates"] = 'Templates';
+$_lang['timezone_note'] = 'Setting the timezone explicitly makes porting sites across servers more reliable. It also avoid issues with PHP 5.4 if a timezone is not set in php.ini.';
 $_lang["to_log_into_content_manager"] = 'To log into the Content Manager (manager/index.php) you can click on the `Close` button.';
 $_lang["toggle"] = 'Toggle';
 $_lang['tvs'] = 'Template Variables';
