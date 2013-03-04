@@ -291,11 +291,7 @@ $database_connection_method = \'' . $database_connection_method . '\';
 $dbase = \'`' . str_replace("`", "", $dbase) . '`\';
 $table_prefix = \'' . $table_prefix . '\';
 
-if (version_compare(PHP_VERSION, \'5.3.0\') >= 0) {
-	error_reporting(E_ALL & E_DEPRECATED & ~E_NOTICE);
-} else {
-	error_reporting(E_ALL & ~E_NOTICE);
-}
+error_reporting(E_ALL & ~E_NOTICE);
 
 $lastInstallTime = '.time().';
 
