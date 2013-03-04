@@ -1067,6 +1067,7 @@ class DocumentParser extends Core {
         if (is_array($params)) {
             extract($params, EXTR_SKIP);
         }
+        unset($php_errormsg);
         ob_start();
         eval ($pluginCode);
         $msg= ob_get_contents();
@@ -1099,6 +1100,7 @@ class DocumentParser extends Core {
         if (is_array($params)) {
             extract($params, EXTR_SKIP);
         }
+        unset($php_errormsg);
         ob_start();
         $snip= eval ($snippet);
         $msg= ob_get_contents();
