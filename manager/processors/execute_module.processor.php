@@ -113,9 +113,12 @@ if(is_array($parameter)) {
 $modx->set_error_handler();
 
 ob_start();
-	$mod = eval($content['modulecode']);
-	$msg = ob_get_contents();
+$mod = eval($content['modulecode']);
+$msg = ob_get_contents();
 ob_end_clean();
+if ($mod === false) {
+	$this->logEvent(0, 3, "PHP Parse error in module {$content['name']}", "Module {$content['name']}");
+}
 
 unset($modx->event->params); 
 echo $mod.$msg;
