@@ -203,7 +203,7 @@ if ($limit > 0) {
 // Timezone (PHP >= 5.2)
 $timezones = class_exists('DateTimeZone') ? DateTimeZone::listIdentifiers() : null;
 if ($installMode == 1) {
-	preg_match('/^date_default_timezone_set\([\'"](.*)[\'"]\);/m', file_get_contents('../manager/includes/config.inc.php'), $matches);
+	preg_match('/^date_default_timezone_set\(.*?[\'"]([^\'"]*)[\'"]\);/m', file_get_contents('../manager/includes/config.inc.php'), $matches);
 	$tz_config = $matches[1];
 }
 if ($timezones) {
@@ -233,12 +233,12 @@ if ($timezones) {
 $locales = trim(@shell_exec('locale -a'));
 if ($locales) {
 	$locales = explode("\n", $locales);
-	$lc_numeric = isset($locale_lc_numeric) ? $locale_lc_numeric : setlocale(LC_NUMERIC, 0);
+	$lc_numeric = isset($clipper_config['locale_lc_numeric']) ? $clipper_config['locale_lc_numeric'] : setlocale(LC_NUMERIC, 0);
 	echo
 	'<h3>Locales</h3>
 	<p><label>LC_ALL: <select name="locale_lc_all"><option></option>';
 	foreach($locales as $locale) {
-		echo '<option'.((isset($locale_lc_all) && $locale_lc_all == $locale) ? ' selected="selected"' : '').'>'.$locale.'</option>';
+		echo '<option'.((isset($clipper_config['locale_lc_all']) && $clipper_config['locale_lc_all'] == $locale) ? ' selected="selected"' : '').'>'.$locale.'</option>';
 	}
 	echo '</select></label></p>
 	<p>'.$_lang['locales_note'].'</p>

@@ -263,14 +263,14 @@ if ($installMode == 0) {
 }
 
 // TZ
-$tz_string = $_POST['tz'] ? "date_default_timezone_set('{$_POST['tz']}');\n" : '';
+$tz_string = $_POST['tz'] ? "date_default_timezone_set(\$clipper_config['tz'] = '{$_POST['tz']}');\n" : '';
 
 // Locales
 $locale_string = '';
 if ($_POST['locale_lc_all']) {
-	$locale_string .= "setlocale(LC_ALL, \$locale_lc_all = '{$_POST['locale_lc_all']}');\n";
+	$locale_string .= "setlocale(LC_ALL, \$clipper_config['locale_lc_all'] = '{$_POST['locale_lc_all']}');\n";
 	if ($_POST['locale_lc_numeric']) {
-		$locale_string .= "setlocale(LC_NUMERIC, \$locale_lc_numeric = '{$_POST['locale_lc_numeric']}');\n";
+		$locale_string .= "setlocale(LC_NUMERIC, \$clipper_config['locale_lc_numeric'] = '{$_POST['locale_lc_numeric']}');\n";
 	}
 }
 

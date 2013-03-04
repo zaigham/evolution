@@ -21,25 +21,25 @@ if (ini_get('register_globals')==TRUE) {
     $warnings[] = array($_lang['configcheck_register_globals']);
 }
 
-if (isset($locale_lc_all)) {
+if (isset($clipper_config['locale_lc_all'])) {
     $locales = setlocale(LC_ALL, 0);
     if (strpos($locales, ';') !== false) {
         // Locales differ across categories
         $locales = explode(';', $locales);
         foreach($locales as $locale) {
             $l = explode('=', $locale);
-            if ($locale_lc_all != $l[1] && (!isset($locale_lc_numeric) || $l[0] != 'LC_NUMERIC')) {
+            if ($clipper_config['locale_lc_all'] != $l[1] && (!isset($clipper_config['locale_lc_numeric']) || $l[0] != 'LC_NUMERIC')) {
                 exit(var_dump($l));
                 $warnings[] = array($_lang['configcheck_locale_LC_ALL_warning']);
                 break;
             }
         }
-    } elseif ($locales != $locale_lc_all) {
+    } elseif ($locales != $clipper_config['locale_lc_all']) {
         $warnings[] = array($_lang['configcheck_locale_LC_ALL_warning']);
     }
 }
 
-if (isset($locale_lc_numeric) && setlocale(LC_NUMERIC, 0) != $locale_lc_numeric) {
+if (isset($clipper_config['locale_lc_numeric']) && setlocale(LC_NUMERIC, 0) != $clipper_config['locale_lc_numeric']) {
     $warnings[] = array($_lang['configcheck_locale_LC_NUMERIC_warning']);
 }
 
