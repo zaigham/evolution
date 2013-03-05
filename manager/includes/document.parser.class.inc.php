@@ -797,7 +797,7 @@ class DocumentParser extends Core {
 	 	// Log fatal errors
 		$error = error_get_last();
 		if ($error['type'] == E_ERROR || $error['type'] == 'E_USER_ERROR') {
-			$this->logEvent(0, 3, 'Fatal '.($error['type'] == 'E_USER_ERROR' ? '(user) ' : '')."error: {$error['message']}");
+			$this->messageQuit('Fatal '.($error['type'] == 'E_USER_ERROR' ? '(user) ' : '')."error: {$error['message']}", '', true, $error['type']);
 		}
 	}
 
