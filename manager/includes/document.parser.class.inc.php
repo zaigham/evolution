@@ -1111,6 +1111,7 @@ class DocumentParser extends Core {
             ob_end_clean();
             if ($plug === false) {
                 $this->logEvent(0, 3, "PHP Parse error in plugin {$this->event->activePlugin}", "Plugin {$this->event->activePlugin}");
+                $this->messageQuit("PHP Parse error in plugin {$this->event->activePlugin}");
             }
             unset ($this->event->params);
         } else {
@@ -1140,6 +1141,7 @@ class DocumentParser extends Core {
             ob_end_clean();
             if ($snip === false) {
                 $this->logEvent(0, 3, "PHP Parse error in snippet {$name}", "Snippet {$name}");
+                $this->messageQuit("PHP Parse error in snippet {$name}");
             }
             unset ($this->event->params);
             return $msg . $snip;
