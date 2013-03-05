@@ -57,6 +57,16 @@ class DocumentParser extends Core {
      * @todo Construct an API and/or config system for this. Currently only applies to core/bundled snippets.
      */
     var $snippetMap = array('ditto'=>'List', 'webloginpe'=>'WebUsers');
+    
+    /**
+     * @var hold type of code being eval'd
+     */
+    private $eval_type;
+    
+    /**
+     * @var hold name of code being eval'd
+     */
+    private $eval_name;
 
     /**
      * Document constructor
@@ -797,7 +807,7 @@ class DocumentParser extends Core {
 	 	// Log fatal errors
 		$error = error_get_last();
 		if ($error['type'] == E_ERROR || $error['type'] == 'E_USER_ERROR') {
-			$this->messageQuit('Fatal '.($error['type'] == 'E_USER_ERROR' ? '(user) ' : '')."error: {$error['message']}", '', true, $error['type']);
+			$this->messageQuit('Fatal '.($error['type'] == 'E_USER_ERROR' ? '(user) ' : '')."error in {$this->eval_type} {$this->eval_name}: {$error['message']}", '', true, $error['type']);
 		}
 	}
 
@@ -1081,6 +1091,8 @@ class DocumentParser extends Core {
         if (is_array($params)) {
             extract($params, EXTR_SKIP);
         }
+        $this->eval_type = 'plugin';
+        $this->eval_name = $this->event->activePlugin;
         ob_start();
         $plug = eval ($pluginCode);
         $msg = ob_get_contents();
@@ -1106,6 +1118,8 @@ class DocumentParser extends Core {
         if (is_array($params)) {
             extract($params, EXTR_SKIP);
         }
+        $this->eval_type = 'snippet';
+        $this->eval_name = $name;
         ob_start();
         $snip = eval ($snippet);
         $msg = ob_get_contents();
