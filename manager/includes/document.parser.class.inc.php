@@ -1099,6 +1099,8 @@ class DocumentParser extends Core {
      */
     function evalPlugin($pluginCode, $params) {
     	global $modx; // For eval'd code
+    	static $parse_errors = array();
+
         if ($pluginCode) {
             $this->event->params= &$params; // store params inside event object
             if (is_array($params)) {
@@ -1109,7 +1111,8 @@ class DocumentParser extends Core {
             $plug = eval ($pluginCode);
             $msg = ob_get_contents();
             ob_end_clean();
-            if ($plug === false) {
+            if ($plug === false && !in_array($this->event->activePlugin, $parse_errors)) {
+            	$parse_errors[] = $this->event->activePlugin; // Do not repeat logEvent for the same plugin
                 $this->logEvent(0, 3, "PHP Parse error in plugin {$this->event->activePlugin}", "Plugin {$this->event->activePlugin}");
             }
             unset ($this->event->params);
@@ -1128,6 +1131,8 @@ class DocumentParser extends Core {
      */
     function evalSnippet($snippet, $params, $name = null) {
     	global $modx; // For eval'd code
+        static $parse_errors = array();
+
         if ($snippet) {
             $this->event->params= & $params; // store params inside event object
             if (is_array($params)) {
@@ -1138,7 +1143,8 @@ class DocumentParser extends Core {
             $snip = eval ($snippet);
             $msg = ob_get_contents();
             ob_end_clean();
-            if ($snip === false) {
+            if ($snip === false && !in_array($name, $parse_errors)) {
+            	$parse_errors[] = $name; // Do not repeat logEvent for the same snippet
                 $this->logEvent(0, 3, "PHP Parse error in snippet {$name}", "Snippet {$name}");
             }
             unset ($this->event->params);
