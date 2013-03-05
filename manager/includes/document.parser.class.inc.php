@@ -1098,20 +1098,23 @@ class DocumentParser extends Core {
      * @param array $params
      */
     function evalPlugin($pluginCode, $params) {
-        $etomite= $modx= & $this;
-        $modx->event->params= & $params; // store params inside event object
-        if (is_array($params)) {
-            extract($params, EXTR_SKIP);
+        if ($pluginCode) {
+            $this->event->params= &$params; // store params inside event object
+            if (is_array($params)) {
+                extract($params, EXTR_SKIP);
+            }
+            $this->registerEvalInfo('plugin', $this->event->activePlugin);
+            ob_start();
+            $plug = eval ($pluginCode);
+            $msg = ob_get_contents();
+            ob_end_clean();
+            if ($plug === false) {
+                $this->logEvent(0, 3, "PHP Parse error in plugin {$name}", "Plugin {$name}");
+            }
+            unset ($this->event->params);
+        } else {
+            $this->logEvent(0, 3, "Plugin {$name} missing or empty");
         }
-        $this->registerEvalInfo('plugin', $this->event->activePlugin);
-        ob_start();
-        $plug = eval ($pluginCode);
-        $msg = ob_get_contents();
-        ob_end_clean();
-        if ($plug === false) {
-        	$this->logEvent(0, 3, "Plugin missing or PHP Parse error in plugin {$name}", "Plugin {$name}");
-        }
-        unset ($modx->event->params);
     }
 
     /**
@@ -1123,22 +1126,24 @@ class DocumentParser extends Core {
      * @return string
      */
     function evalSnippet($snippet, $params, $name = null) {
-        $etomite= $modx= & $this;
-
-        $modx->event->params= & $params; // store params inside event object
-        if (is_array($params)) {
-            extract($params, EXTR_SKIP);
+        if ($snippet) {
+            $this->event->params= & $params; // store params inside event object
+            if (is_array($params)) {
+                extract($params, EXTR_SKIP);
+            }
+            $this->registerEvalInfo('snippet', $name);
+            ob_start();
+            $snip = eval ($snippet);
+            $msg = ob_get_contents();
+            ob_end_clean();
+            if ($snip === false) {
+                $this->logEvent(0, 3, "PHP Parse error in snippet {$name}", "Snippet {$name}");
+            }
+            unset ($this->event->params);
+            return $msg . $snip;
+        } else {
+            $this->logEvent(0, 3, "Snippet {$name} missing or empty");
         }
-        $this->registerEvalInfo('snippet', $name);
-        ob_start();
-        $snip = eval ($snippet);
-        $msg = ob_get_contents();
-        ob_end_clean();
-        if ($snip === false) {
-        	$this->logEvent(0, 3, "Snippet missing or PHP Parse error in snippet {$name}", "Snippet {$name}");
-        }
-        unset ($modx->event->params);
-        return $msg . $snip;
     }
 
     /**
@@ -1195,7 +1200,7 @@ class DocumentParser extends Core {
                     }
                     if(!$added) {
                         $snippets[$i]['name']= $matches[1][$i];
-                        $snippets[$i]['snippet']= $this->snippetCache[$matches[1][$i]]= "return false;";
+                        $snippets[$i]['snippet']= $this->snippetCache[$matches[1][$i]]= null;
                         $snippets[$i]['properties']= '';
                     }
                 }
@@ -2355,7 +2360,7 @@ class DocumentParser extends Core {
                 $snippet= $this->snippetCache[$row['name']]= $row['snippet'];
                 $properties= $this->snippetCache[$row['name'] . "Props"]= $row['properties'];
             } else {
-                $snippet= $this->snippetCache[$snippetName]= "return false;";
+                $snippet= $this->snippetCache[$snippetName]= null;
                 $properties= '';
             }
         }
@@ -3439,7 +3444,7 @@ class DocumentParser extends Core {
                         $pluginCode= $this->pluginCache[$row['name']]= $row['plugincode'];
                         $pluginProperties= $this->pluginCache[$row['name'] . "Props"]= $row['properties'];
                     } else {
-                        $pluginCode= $this->pluginCache[$pluginName]= "return false;";
+                        $pluginCode= $this->pluginCache[$pluginName]= null;
                         $pluginProperties= '';
                     }
                 }
