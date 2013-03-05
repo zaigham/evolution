@@ -3551,16 +3551,8 @@ class DocumentParser extends Core {
         $parsedMessageString= "
               <html><head><title>".CMS_NAME." Content Manager $version &raquo; $release_date</title>
               <style>TD, BODY { font-size: 11px; font-family:verdana; }</style>
-              <script type='text/javascript'>
-              function copyToClip()
-              {
-                holdtext.innerText = sqlHolder.innerText;
-                Copied = holdtext.createTextRange();
-                Copied.execCommand('Copy');
-              }
-            </script>
-              </head><body>
-              ";
+              </head><body>";
+
         if ($is_error) {
             $parsedMessageString .= "<h3 style='color:red'>&laquo; ".CMS_NAME." Parse Error &raquo;</h3>
                     <table border='0' cellpadding='1' cellspacing='0'>
@@ -3574,8 +3566,7 @@ class DocumentParser extends Core {
         }
 
         if (!empty ($query)) {
-            $parsedMessageString .= "<tr><td colspan='3'><b style='color:#999;font-size: 9px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL:&nbsp;<span id='sqlHolder'>$query</span></b>
-                    <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:copyToClip();' style='color:#821517;font-size: 9px; text-decoration: none'>[Copy SQL to ClipBoard]</a><textarea id='holdtext' style='display:none;'></textarea></td></tr>";
+            $parsedMessageString .= "<tr><td colspan='3'><b style='color:#999;font-size: 9px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQL:&nbsp;<span id='sqlHolder'>$query</span></b></td></tr>";
         }
 
         if ($text != '') {
