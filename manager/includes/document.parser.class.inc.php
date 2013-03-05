@@ -1098,6 +1098,7 @@ class DocumentParser extends Core {
      * @param array $params
      */
     function evalPlugin($pluginCode, $params) {
+    	global $modx; // For eval'd code
         if ($pluginCode) {
             $this->event->params= &$params; // store params inside event object
             if (is_array($params)) {
@@ -1126,6 +1127,7 @@ class DocumentParser extends Core {
      * @return string
      */
     function evalSnippet($snippet, $params, $name = null) {
+    	global $modx; // For eval'd code
         if ($snippet) {
             $this->event->params= & $params; // store params inside event object
             if (is_array($params)) {
