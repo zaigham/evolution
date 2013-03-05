@@ -1109,7 +1109,7 @@ class DocumentParser extends Core {
             $msg = ob_get_contents();
             ob_end_clean();
             if ($plug === false) {
-                $this->logEvent(0, 3, "PHP Parse error in plugin {$name}", "Plugin {$name}");
+                $this->logEvent(0, 3, "PHP Parse error in plugin {$this->event->activePlugin}", "Plugin {$this->event->activePlugin}");
             }
             unset ($this->event->params);
         } else {
