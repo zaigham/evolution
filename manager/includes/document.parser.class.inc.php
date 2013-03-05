@@ -1110,8 +1110,7 @@ class DocumentParser extends Core {
             $msg = ob_get_contents();
             ob_end_clean();
             if ($plug === false) {
-                $this->logEvent(0, 3, "PHP Parse error in plugin {$this->event->activePlugin}", "Plugin {$this->event->activePlugin}");
-                $this->messageQuit("PHP Parse error in plugin {$this->event->activePlugin}");
+                $this->messageQuitFromElement("Plugin {$this->event->activePlugin}", "PHP Parse error in plugin {$this->event->activePlugin}");
             }
             unset ($this->event->params);
         } else {
@@ -1140,8 +1139,7 @@ class DocumentParser extends Core {
             $msg = ob_get_contents();
             ob_end_clean();
             if ($snip === false) {
-                $this->logEvent(0, 3, "PHP Parse error in snippet {$name}", "Snippet {$name}");
-                $this->messageQuit("PHP Parse error in snippet {$name}");
+                $this->messageQuitFromElement("Snippet {$name}", "PHP Parse error in snippet {$name}");
             }
             unset ($this->event->params);
             return $msg . $snip;
@@ -3549,11 +3547,8 @@ class DocumentParser extends Core {
     }
 
     /**
-     * Error logging and output.
+     * Generate display body for messageQuit()
      * 
-     * If error_handling_silent is 0, outputs an error page with detailed informations about the error.
-     * Always logs the error using logEvent()
-     *
      * @param string $msg Default: unspecified error
      * @param string $query Default: Empty string
      * @param boolean $is_error Default: true
@@ -3563,8 +3558,8 @@ class DocumentParser extends Core {
      * @param string $text Default: Empty string
      * @param string $line Default: Empty string
      */
-    function messageQuit($msg= 'unspecified error', $query= '', $is_error= true, $nr= '', $file= '', $source= '', $text= '', $line= '') {
-
+     function messageQuitText($msg= 'unspecified error', $query= '', $is_error= true, $nr= '', $file= '', $source= '', $text= '', $line= '') {
+     
         $version= isset ($GLOBALS['version']) ? $GLOBALS['version'] : '';
         $release_date= isset ($GLOBALS['release_date']) ? $GLOBALS['release_date'] : '';
         $parsedMessageString= "
@@ -3658,6 +3653,28 @@ class DocumentParser extends Core {
         $parsedMessageString= str_replace("[^qt^]", $queryTime, $parsedMessageString);
         $parsedMessageString= str_replace("[^p^]", $phpTime, $parsedMessageString);
         $parsedMessageString= str_replace("[^t^]", $totalTime, $parsedMessageString);
+        
+        return $parsedMessageString;
+        }
+
+    /**
+     * Error logging and output.
+     * 
+     * If error_handling_silent is 0, outputs an error page with detailed informations about the error.
+     * Always logs the error using logEvent()
+     *
+     * @param string $msg Default: unspecified error
+     * @param string $query Default: Empty string
+     * @param boolean $is_error Default: true
+     * @param string $nr Default: Empty string
+     * @param string $file Default: Empty string
+     * @param string $source Default: Empty string
+     * @param string $text Default: Empty string
+     * @param string $line Default: Empty string
+     */
+    function messageQuit($msg= 'unspecified error', $query= '', $is_error= true, $nr= '', $file= '', $source= '', $text= '', $line= '') {
+
+		$parsedMessageString = $this->messageQuitText($msg, $query, $is_error, $nr, $file, $source, $text, $line);
 
         // Set 500 response header
         header('HTTP/1.1 500 Internal Server Error');
@@ -3670,14 +3687,51 @@ class DocumentParser extends Core {
 
         // Log error if a connection to the db exists
         if ($this->db->conn) {
-             $this->logEvent(0, 3, $parsedMessageString, $source= 'Parser');
+             $this->logEvent(0, 3, $parsedMessageString, 'Parser');
         }
 
         // Make sure and die!
         exit();
     }
 
-    
+    /**
+     * Error logging and output.
+     * Takes an $element_name parameter (snippet or plugin name) for extra clarity in the System Events page.
+     * 
+     * If error_handling_silent is 0, outputs an error page with detailed informations about the error.
+     * Always logs the error using logEvent()
+     *
+     * @param string $element_name Name of snippet or plugin
+     * @param string $msg Default: unspecified error
+     * @param string $query Default: Empty string
+     * @param boolean $is_error Default: true
+     * @param string $nr Default: Empty string
+     * @param string $file Default: Empty string
+     * @param string $source Default: Empty string
+     * @param string $text Default: Empty string
+     * @param string $line Default: Empty string
+     */
+    function messageQuitFromElement($element_name, $msg= 'unspecified error', $query= '', $is_error= true, $nr= '', $file= '', $source= '', $text= '', $line= '') {
+
+		$parsedMessageString = $this->messageQuitText($msg, $query, $is_error, $nr, $file, $source, $text, $line);
+
+        // Set 500 response header
+        header('HTTP/1.1 500 Internal Server Error');
+
+        // Display error
+        if (!$this->config['error_handling_silent']) {
+        	echo $parsedMessageString;
+        }
+        ob_end_flush();
+
+        // Log error if a connection to the db exists
+        if ($this->db->conn) {
+             $this->logEvent(0, 3, $parsedMessageString, $element_name);
+        }
+
+        // Make sure and die!
+        exit();
+    }
 
     // End of class.
 
