@@ -61,12 +61,17 @@ class DocumentParser extends Core {
     /**
      * @var hold type of code being eval'd
      */
-    private $eval_type;
+    private $eval_type = null;
     
     /**
      * @var hold name of code being eval'd
      */
-    private $eval_name;
+    private $eval_name = null;
+
+	/**
+	 * @var stack for nested eval'd elements using registerEvalInfo()
+	 */
+	private $eval_stack = array();
 
     /**
      * Document constructor
@@ -1081,14 +1086,26 @@ class DocumentParser extends Core {
 
     /**
      * Set eval type and name
+     * Used by the fatal error handler.
+     * After the eval'd code is run, call unregisterEvalInfo().
      *
      * @param string $type
      * @param string $name
      * @return void
      */
     function registerEvalInfo($type, $name) {
+    	$this->eval_stack[] = array($this->eval_type, $this->eval_name);
     	$this->eval_type = $type;
     	$this->eval_name = $name;
+    }
+    
+    /**
+     * Unset eval type and name
+     *
+     * @return void
+     */
+    function unregisterEvalInfo() {
+    	list($this->eval_type, $this->eval_name) = array_pop($this->eval_stack);
     }
 
     /**
@@ -1109,6 +1126,7 @@ class DocumentParser extends Core {
             $plug = eval ($pluginCode);
             $msg = ob_get_contents();
             ob_end_clean();
+            $this->unregisterEvalInfo();
             if ($plug === false) {
                 $this->messageQuitFromElement("Plugin {$this->event->activePlugin}", "PHP Parse error in plugin {$this->event->activePlugin}");
             }
@@ -1138,6 +1156,7 @@ class DocumentParser extends Core {
             $snip = eval ($snippet);
             $msg = ob_get_contents();
             ob_end_clean();
+            $this->unregisterEvalInfo();
             if ($snip === false) {
                 $this->messageQuitFromElement("Snippet {$name}", "PHP Parse error in snippet {$name}");
             }
