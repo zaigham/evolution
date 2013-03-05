@@ -126,8 +126,8 @@ startCMSSession();
 require('settings.inc.php');
 
 // include_once the language file
-if(!isset($manager_language) || !file_exists(MODX_MANAGER_PATH."includes/lang/".$manager_language.".inc.php")) {
-    $manager_language = "english"; // if not set, get the english language file.
+if(!isset($manager_language) || !ctype_alnum(str_replace('_', '', str_replace('-', '', $manager_language))) || !file_exists(MODX_MANAGER_PATH."includes/lang/".$manager_language.".inc.php")) {
+    $manager_language = 'english'; // if not set or invalid, get the english language file.
 }
 $_lang = array();
 include_once "lang/english.inc.php";
