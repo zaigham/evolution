@@ -112,6 +112,8 @@ if(is_array($parameter)) {
 
 $modx->set_error_handler();
 
+$modx->registerEvalInfo('module', $content['name']);
+
 ob_start();
 $mod = eval($content['modulecode']);
 $msg = ob_get_contents();

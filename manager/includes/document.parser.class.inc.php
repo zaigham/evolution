@@ -1080,6 +1080,18 @@ class DocumentParser extends Core {
     }
 
     /**
+     * Set eval type and name
+     *
+     * @param string $type
+     * @param string $name
+     * @return void
+     */
+    function registerEvalInfo($type, $name) {
+    	$this->eval_type = $type;
+    	$this->eval_name = $name;
+    }
+
+    /**
      * Run a plugin
      *
      * @param string $pluginCode Code to run
@@ -1091,8 +1103,7 @@ class DocumentParser extends Core {
         if (is_array($params)) {
             extract($params, EXTR_SKIP);
         }
-        $this->eval_type = 'plugin';
-        $this->eval_name = $this->event->activePlugin;
+        $this->registerEvalInfo('plugin', $this->event->activePlugin);
         ob_start();
         $plug = eval ($pluginCode);
         $msg = ob_get_contents();
@@ -1118,8 +1129,7 @@ class DocumentParser extends Core {
         if (is_array($params)) {
             extract($params, EXTR_SKIP);
         }
-        $this->eval_type = 'snippet';
-        $this->eval_name = $name;
+        $this->registerEvalInfo('snippet', $name);
         ob_start();
         $snip = eval ($snippet);
         $msg = ob_get_contents();
