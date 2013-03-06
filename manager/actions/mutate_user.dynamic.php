@@ -326,26 +326,21 @@ if (is_array($evtOut))
 				<td>&nbsp;</td>
 				<td>
 			<?php
-	
-	$notAdmin = ($_SESSION['mgrRole'] == 1) ? "" : "WHERE id != 1";
-	$sql = "select name, id from $dbase.`" . $table_prefix . "user_roles` $notAdmin";
-	$rs = ($sql);
-	?>
+			$rs = $modx->db->select('name,id', $modx->getFullTableName('user_roles'), ($_SESSION['mgrRole'] == 1) ? '' : 'id != 1');
+			?>
 			<select name="role" class="inputBox" onchange='documentDirty=true;' style="width:300px">
 			<?php
-	
-	while ($row = $modx->db->getRow($rs)) {
-	    if ($_REQUEST['a']=='11') {
-	        $selectedtext = $row['id'] == '1' ? ' selected="selected"' : '';
-	    } else {
-	        $selectedtext = $row['id'] == $userdata['role'] ? "selected='selected'" : '';
-	    }
-	?>
+			while ($row = $modx->db->getRow($rs)) {
+				if ($_REQUEST['a']=='11') {
+					$selectedtext = $row['id'] == '1' ? ' selected="selected"' : '';
+				} else {
+					$selectedtext = $row['id'] == $userdata['role'] ? "selected='selected'" : '';
+				}
+				?>
 				<option value="<?php echo $row['id']; ?>"<?php echo $selectedtext; ?>><?php echo $row['name']; ?></option>
-			<?php
-	
-	}
-	?>
+				<?php
+			}
+			?>
 			</select>
 				</td>
 			  </tr>
