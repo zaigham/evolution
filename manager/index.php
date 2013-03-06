@@ -69,7 +69,7 @@ header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 header("X-UA-Compatible: IE=8"); // Datepicker needs fixing
 
-error_reporting(E_ALL & ~E_NOTICE);
+error_reporting(E_ALL & ~E_STRICT & ~E_NOTICE);
 
 // set some runtime options
 $incPath = str_replace("\\","/",dirname(__FILE__)."/includes/"); // Mod by Raymond

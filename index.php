@@ -52,7 +52,7 @@ header('P3P: CP="NOI NID ADMa OUR IND UNI COM NAV"'); // header for weird cookie
 header('Cache-Control: private, must-revalidate');
 ob_start();
 
-error_reporting(E_ALL & ~E_NOTICE);
+error_reporting(E_ALL & ~E_STRICT & ~E_NOTICE);
 
 /**
  *	Filename: index.php

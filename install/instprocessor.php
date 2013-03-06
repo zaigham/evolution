@@ -291,7 +291,7 @@ $database_connection_method = \'' . $database_connection_method . '\';
 $dbase = \'`' . str_replace("`", "", $dbase) . '`\';
 $table_prefix = \'' . $table_prefix . '\';
 
-error_reporting(E_ALL & ~E_NOTICE);
+error_reporting(E_ALL & ~E_STRICT & ~E_NOTICE);
 
 $lastInstallTime = '.time().';
 
