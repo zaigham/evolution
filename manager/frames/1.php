@@ -14,7 +14,7 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 	<title><?php echo $site_name.' - '.CMS_NAME; ?> manager</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $modx_manager_charset?>" />
 </head>
-<frameset rows="70,*" border="0">
+<frameset rows="80,*" border="0">
 	<frame name="mainMenu" src="index.php?a=1&amp;f=menu" scrolling="no" frameborder="0" noresize="noresize">
 <?php if (!$modx_textdir) {
 	// Left-to-Right reading (sidebar on left)

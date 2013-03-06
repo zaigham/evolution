@@ -229,7 +229,7 @@ hr {
 	float: right;
 	background: transparent;
 	font-size: 12px;
-	padding: 0 0 30px;
+	padding: 0 0 40px 0;
 	margin: 0;
 	color: #DDD;
 }
@@ -881,7 +881,7 @@ a.hometblink:hover {
 	top: 0;
 	left: -20px;
 	float: left;
-	margin: 8px 0 0;
+	margin: 18px 0 0; /* TimGS */
 	padding: 0 0 0 10px;	
 	width: 100%;
 	font-size: 13px;
