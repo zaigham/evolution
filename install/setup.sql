@@ -906,6 +906,7 @@ INSERT IGNORE INTO `{PREFIX}system_settings`
 ('date_format','dd-mm-yy'),
 ('time_format','HH:mm:ss'),
 ('warning_visibility', '1'),
+('docid_visibility', '1'),
 ('remember_last_tab', '1'),
 ('error_handling_deprecated', '1'),
 ('error_handling_silent', '0'),

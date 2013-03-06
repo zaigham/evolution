@@ -1061,4 +1061,6 @@ $_lang['jquery_plugin_dir'] = 'jQuery plugin directory';
 $_lang['jquery_noconflict'] = 'Use jQuery.noConflict()';
 $_lang['file_browser_title'] = 'File browser';
 $_lang['actions'] = 'Actions';
+$_lang['docid_visibility'] = 'Resource ids in the site tree visible to';
+$_lang['docid_visibility_message'] = 'Control the visibility of the resource/document identifiers shown in the site tree.';
 

@@ -925,6 +925,20 @@ function confirmLangChange(el, lkey, elupd){
                        <td width="200">&nbsp;</td>
                        <td class='comment'><?php echo $_lang["warning_visibility_message"]?></td>
                      </tr>
+                    <tr>
+                      <td colspan="2"><div class='split'></div></td>
+                    </tr>
+                     <tr>
+                       <td nowrap class="warning"><b><?php echo $_lang["docid_visibility"] ?></b></td>
+                       <td> <input onchange="documentDirty=true;" type="radio" name="docid_visibility" value="0" <?php echo $docid_visibility=='0' ? 'checked="checked"' : ""; ?> />
+                         <?php echo $_lang["administrators"]?><br />
+                         <input onchange="documentDirty=true;" type="radio" name="docid_visibility" value="1" <?php echo (!isset($docid_visibility) || $docid_visibility=='1') ? 'checked="checked"' : ""; ?> />
+                         <?php echo $_lang["everybody"]?></td>
+                     </tr>
+                     <tr>
+                       <td width="200">&nbsp;</td>
+                       <td class='comment'><?php echo $_lang["docid_visibility_message"]?></td>
+                     </tr>
                     
                     <tr>
                       <td colspan="2"><div class='split'></div></td>

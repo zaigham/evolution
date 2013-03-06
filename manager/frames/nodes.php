@@ -140,7 +140,7 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
            $pagetitleDisplay = $published==0 ? "<span class=\"unpublishedNode\">$pagetitle</span>" : ($hidemenu==1 ? "<span class=\"notInMenuNode$protectedClass\">$pagetitle</span>":"<span class=\"publishedNode$protectedClass\">$pagetitle</span>");
            $pagetitleDisplay = $deleted==1 ? "<span class=\"deletedNode\">$pagetitle</span>" : $pagetitleDisplay;
            $weblinkDisplay = $type=="reference" ? '&nbsp;<img src="'.$_style["tree_linkgo"].'">' : '' ;
-		$pageIdDisplay = '<small>('.($modx_textdir ? '&rlm;':'').$id.')</small>';
+		$pageIdDisplay = ($_SESSION['mgrRole'] == 1 || $modx->config['docid_visibility']) ? '<small>('.($modx_textdir ? '&rlm;':'').$id.')</small>' : '';
 		$url = $modx->makeUrl($id);
 
            $alt = !empty($alias) ? $_lang['alias'].": ".$alias : $_lang['alias'].": -";
