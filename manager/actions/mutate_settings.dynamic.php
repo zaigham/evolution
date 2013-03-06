@@ -338,17 +338,6 @@ function confirmLangChange(el, lkey, elupd){
                   <tr>
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
-                  <tr>
-                    <td nowrap class="warning" valign="top"><b><?php echo $_lang["top_howmany_title"] ?></b></td>
-                    <td><input onchange="documentDirty=true;" type='text' maxlength='50' size="5" name="top_howmany" value="<?php echo isset($top_howmany) ? $top_howmany : 10 ; ?>" /></td>
-                  </tr>
-                  <tr>
-                    <td width="200">&nbsp;</td>
-                    <td class='comment'><?php echo $_lang["top_howmany_message"] ?></td>
-                  </tr>
-                  <tr>
-                    <td colspan="2"><div class='split'></div></td>
-                  </tr>
                     <tr>
                         <td nowrap class="warning" valign="top"><b><?php echo $_lang["defaulttemplate_logic_title"];?></b></td>
                         <td>
