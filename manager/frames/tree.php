@@ -170,7 +170,7 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
     function hideMenu() {
         if (_rc) return false;
-        jQuery('#mx_contextmenu').hide();
+        jQuery('#mx_contextmenu').css({'visibility':'hidden'});
     }
 
     function toggleNode(node,indent,parent,expandAll,privatenode) {
