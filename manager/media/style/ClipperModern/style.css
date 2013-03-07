@@ -247,6 +247,9 @@ hr {
 	margin: 0;
 	padding: 0;
 }
+*:focus {
+    outline: none;
+}
 
 /* -------------------------[ Forms ]--- */
 tbody, thead, tr {
