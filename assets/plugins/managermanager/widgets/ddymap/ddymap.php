@@ -56,13 +56,13 @@ function mm_ddYMap($tvs, $roles='', $templates='', $key='', $w='auto', $h='400')
 			// This can be obtained from the mm_fields array
 			$tv_id = 'tv'.$tv['id'];
 			$output .= '
-var coordinatesField = $j("#'.$tv_id.'");//TV с координатами
+var coordinatesField = $("#'.$tv_id.'");//TV с координатами
 var ddLatLng = coordinatesField.val();//Координаты
 //Скрываем поле, запоминаем название поля
 var sectionName = coordinatesField.parents("tr:first").hide().find(".warning").text();
 coordinatesField.parents("tr:first").prev("tr").hide();
 //Контейнер для карты
-var sectionConteiner = $j("<div class=\"sectionHeader\">"+sectionName+"</div><div class=\"sectionBody tmplvars\"><div class=\"ddYMap\" style=\"'.$style.'\"></div></div>");
+var sectionConteiner = $("<div class=\"sectionHeader\">"+sectionName+"</div><div class=\"sectionBody tmplvars\"><div class=\"ddYMap\" style=\"'.$style.'\"></div></div>");
 //Добавляем контейнер
 coordinatesField.parents(".tab-page:first").append(sectionConteiner);
 //Если координаты не заданны, то задаём дефолт
@@ -93,8 +93,8 @@ function ddyminitialize(){
 	map.addOverlay(overlay);//Добавляем на карту
 }
 //Подключаем карту
-$j("head").append("<script type=\"text/javascript\" src=\"http://api-maps.yandex.ru/1.1/index.xml?loadByRequire=1&key='.$key.'\">");
-$j(window).on("load.ddEvents",function(){
+$("head").append("<script type=\"text/javascript\" src=\"http://api-maps.yandex.ru/1.1/index.xml?loadByRequire=1&key='.$key.'\">");
+$(window).on("load.ddEvents",function(){
 	YMaps.load(ddyminitialize);
 });
 ';

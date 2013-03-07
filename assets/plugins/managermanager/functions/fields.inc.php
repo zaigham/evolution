@@ -21,21 +21,13 @@ function mm_renameField($field, $newlabel, $roles='', $templates='', $newhelp=''
 			switch ($field) {
 			
 				// Exceptions
-				case 'keywords':
-					$output .= '$j("select[name*=keywords]").siblings("span.warning").empty().prepend("'.jsSafe($newlabel).'");';
-				break;
-				
-				case 'metatags':
-					$output .= '$j("select[name*=metatags]").siblings("span.warning").empty().prepend("'.jsSafe($newlabel).'");';
-				break;
-						
 				case 'hidemenu':
 				case 'show_in_menu':
-					$output .= '$j("input[name=hidemenucheck]").siblings("span.warning").empty().prepend("'.jsSafe($newlabel).'");';
+					$output .= '$("input[name=hidemenucheck]").siblings("span.warning").empty().prepend("'.jsSafe($newlabel).'");';
 				break;
 				
 				case 'which_editor':
-					$output .= '$j("#which_editor").prev("span.warning").empty().prepend("'.jsSafe($newlabel).'");';
+					$output .= '$("#which_editor").prev("span.warning").empty().prepend("'.jsSafe($newlabel).'");';
 				break;
 							
 				// Ones that follow the regular pattern
@@ -44,7 +36,7 @@ function mm_renameField($field, $newlabel, $roles='', $templates='', $newhelp=''
 					if (isset($mm_fields[$field])) {
 						$fieldtype = $mm_fields[$field]['fieldtype'];
 						$fieldname = $mm_fields[$field]['fieldname'];                    
-						$output .= '$j("'.$fieldtype.'[name='.$fieldname.']").parents("td").prev("td").children("span.warning").empty().prepend("'.jsSafe($newlabel).'");';
+						$output .= '$("'.$fieldtype.'[name='.$fieldname.']").parents("td").prev("td").children("span.warning").empty().prepend("'.jsSafe($newlabel).'");';
 					} 
 				
 				break;
@@ -89,48 +81,40 @@ function mm_hideFields($fields, $roles='', $templates='') {
 			switch ($field) {	
 			
 				// Exceptions
-				case 'keywords':
-					$output .= '$j("select[name*=keywords]").parent("td").hide();';
-				break;
-				
-				case 'metatags':
-					$output .= '$j("select[name*=metatags]").parent("td").hide()';
-				break;
-						
 				case 'hidemenu':
 				case 'show_in_menu':
-					$output .= '$j("input[name=hidemenucheck]").parent("td").hide();';
+					$output .= '$("input[name=hidemenucheck]").parent("td").hide();';
 				break;
 						
 				case 'menuindex':
-					$output .= '$j("input[name=menuindex]").parents("table").parent("td").prev("td").children("span.warning").hide();' ."\n";
-					$output .= '$j("input[name=menuindex]").parent("td").hide();';
+					$output .= '$("input[name=menuindex]").parents("table").parent("td").prev("td").children("span.warning").hide();' ."\n";
+					$output .= '$("input[name=menuindex]").parent("td").hide();';
 				break;
 				
 				case 'which_editor':
-					$output .= '$j("select#which_editor").prev("span.warning").hide();' . "\n";
-					$output .= '$j("select#which_editor").hide();';
+					$output .= '$("select#which_editor").prev("span.warning").hide();' . "\n";
+					$output .= '$("select#which_editor").hide();';
 				break;
 				
 				case 'content':
-					$output .= '$j("#sectionContentHeader, #sectionContentBody").hide();'; // For 1.0.0
-					$output .= '$j("#ta").parent("div").parent("div").hide().prev("div").hide();'."\n"; // For 1.0.1
+					$output .= '$("#sectionContentHeader, #sectionContentBody").hide();'; // For 1.0.0
+					$output .= '$("#ta").parent("div").parent("div").hide().prev("div").hide();'."\n"; // For 1.0.1
 				break;
 				
 				case 'pub_date':
-					$output .= '$j("input[name=pub_date]").parents("tr").next("tr").hide(); '."\n";
-					$output .= '$j("input[name=pub_date]").parents("tr").hide(); ';
+					$output .= '$("input[name=pub_date]").parents("tr").next("tr").hide(); '."\n";
+					$output .= '$("input[name=pub_date]").parents("tr").hide(); ';
 				break;
 				
 				case 'unpub_date':
-					$output .= '$j("input[name=unpub_date]").parents("tr").next("tr").hide(); '."\n";
-					$output .= '$j("input[name=unpub_date]").parents("tr").hide(); ';
+					$output .= '$("input[name=unpub_date]").parents("tr").next("tr").hide(); '."\n";
+					$output .= '$("input[name=unpub_date]").parents("tr").hide(); ';
 				break;			
 			
 				// Ones that follow the regular pattern
 				default:				
 					if (isset($mm_fields[$field]))  { // Check the fields exist,  so we're not writing JS for elements that don't exist
-						$output .= '$j("'.$mm_fields[$field]['fieldtype'].'[name='.$mm_fields[$field]['fieldname'].']").parents("tr").hide().next("tr").find("td[colspan=2]").parent("tr").hide(); ';
+						$output .= '$("'.$mm_fields[$field]['fieldtype'].'[name='.$mm_fields[$field]['fieldname'].']").parents("tr").hide().next("tr").find("td[colspan=2]").parent("tr").hide(); ';
 					} 				
 				break;
 			} // end switch
@@ -174,7 +158,7 @@ function mm_changeFieldHelp($field, $helptext='', $roles='', $templates='') {
 						$fieldname = $mm_fields[$field]['fieldname'];
 						
 						// Give the help button an ID, and modify the alt/title text
-						$output .= '$j("'.$fieldtype.'[name='.$fieldname.']").next("img.tooltip").attr("id", "'.$fieldname.'-help").attr("alt", "'.jsSafe($helptext).'").attr("title", "'.jsSafe($helptext).'"); ';									
+						$output .= '$("'.$fieldtype.'[name='.$fieldname.']").next("img.tooltip").attr("id", "'.$fieldname.'-help").attr("alt", "'.jsSafe($helptext).'").attr("title", "'.jsSafe($helptext).'"); ';									
 					} else {
 						break;
 					}
@@ -219,17 +203,16 @@ function mm_moveFieldsToTab($fields, $newtab, $roles='', $templates='') {
 			case 'general':
 			case 'settings':
 			case 'access':
-			case 'meta': // version 1.0.0 only, removed in 1.0.1
 				$newtab = ucfirst($newtab);
 			break;
 		}
 		
 		// Make sure the new tab exists in the DOM
-		$output .= "if ( \$j('#tab".$newtab."').length > 0) { \n";
+		$output .= "if ( \$('#tab".$newtab."').length > 0) { \n";
 		$output .= 'var ruleHtml = \'<tr style="height: 10px"><td colspan="2"><div class="split"></div></td></tr>\'; ';
 		
 		// Try and identify any URL type TVs
-		$output .= '$j("select[id$=_prefix]").each( function() { $j(this).parents("tr:first").addClass("urltv"); }  ); ';
+		$output .= '$("select[id$=_prefix]").each( function() { $(this).parents("tr:first").addClass("urltv"); }  ); ';
 			
 		// Go through each field that has been supplied
 		foreach ($fields as $field) {
@@ -237,13 +220,11 @@ function mm_moveFieldsToTab($fields, $newtab, $roles='', $templates='') {
 			switch ($field) {
 				
 				case 'content':
-                    $output .= '$j("#content_body").appendTo("#tab'.$newtab.'");'. "\n";
-                    $output .= '$j("#content_header").hide();' . "\n";
+                    $output .= '$("#content_body").appendTo("#tab'.$newtab.'");'. "\n";
+                    $output .= '$("#content_header").hide();' . "\n";
 				break;	
 			
 				// We can't move these fields because they belong in a particular place
-				case 'keywords':
-				case 'metatags':
 				case 'which_editor':
 				case 'hidemenu':
 				case 'show_in_menu':
@@ -252,14 +233,14 @@ function mm_moveFieldsToTab($fields, $newtab, $roles='', $templates='') {
 				break;
 				
 				case 'pub_date':
-					$output .= 'var helpline = $j("input[name=pub_date]").parents("tr").next("tr").appendTo("#tab'.$newtab.'>table:first"); ' . "\n";
-					$output .= '$j(helpline).before($j("input[name=pub_date]").parents("tr")); ' . "\n";
+					$output .= 'var helpline = $("input[name=pub_date]").parents("tr").next("tr").appendTo("#tab'.$newtab.'>table:first"); ' . "\n";
+					$output .= '$(helpline).before($("input[name=pub_date]").parents("tr")); ' . "\n";
 					$output .= 'helpline.after(ruleHtml); '. "\n";
 				break;
 
 				case 'unpub_date':
-					$output .= 'var helpline = $j("input[name=unpub_date]").parents("tr").next("tr").appendTo("#tab'.$newtab.'>table:first"); ' . "\n";
-					$output .= '$j(helpline).before($j("input[name=unpub_date]").parents("tr")); ' . "\n";
+					$output .= 'var helpline = $("input[name=unpub_date]").parents("tr").next("tr").appendTo("#tab'.$newtab.'>table:first"); ' . "\n";
+					$output .= '$(helpline).before($("input[name=unpub_date]").parents("tr")); ' . "\n";
 					$output .= 'helpline.after(ruleHtml); '. "\n";
 				break;
 			
@@ -271,12 +252,12 @@ function mm_moveFieldsToTab($fields, $newtab, $roles='', $templates='') {
 						$fieldtype = $mm_fields[$field]['fieldtype'];
 						$fieldname = $mm_fields[$field]['fieldname'];
 						$output .= '
-						var toMove = $j(\''.$fieldtype.'[name="'.$fieldname.'"]\').parents("tr:not(.urltv)"); // Identify the table row to move
+						var toMove = $(\''.$fieldtype.'[name="'.$fieldname.'"]\').parents("tr:not(.urltv)"); // Identify the table row to move
 						toMove.next("tr").find("td[colspan=2]").parents("tr").remove(); // Get rid of line after, if there is one
 						var movedTV = toMove.appendTo("#tab'.$newtab.'>table:first"); // Move the table row
 						movedTV.after(ruleHtml); // Insert a rule after 
 						movedTV.find("td[width]").attr("width","");  // Remove widths from label column
-						$j("[name^='.$fieldname.']:first").parents("td").removeAttr( "style" );  // This prevents an IE6/7 bug where the moved field would not be visible until you switched tabs
+						$("[name^='.$fieldname.']:first").parents("td").removeAttr( "style" );  // This prevents an IE6/7 bug where the moved field would not be visible until you switched tabs
 						';
 					}	
 								
@@ -319,7 +300,7 @@ function mm_requireFields($fields, $roles='', $templates=''){
 
 		$output = " // ----------- Require field -------------- \n";
 		$output .= '		
-		$j("head").append("<style>.mmRequired { background-image: none !important; background-color: #ff9999 !important; } .requiredIcon { color: #ff0000; font-weight: bold; margin-left: 3px; cursor: help; }</style>");
+		$("head").append("<style>.mmRequired { background-image: none !important; background-color: #ff9999 !important; } .requiredIcon { color: #ff0000; font-weight: bold; margin-left: 3px; cursor: help; }</style>");
 		var requiredHTML = "<span class=\"requiredIcon\" title=\"Required\">*</span>";
 		';
 		
@@ -332,8 +313,6 @@ function mm_requireFields($fields, $roles='', $templates=''){
 			switch ($field) {
 
 				// fields for which this doesn't make sense - in my opinion anyway :)
-				case 'keywords':
-				case 'metatags':
 				case 'hidemenu':
 				case 'which_editor':
 				case 'template':
@@ -357,7 +336,7 @@ function mm_requireFields($fields, $roles='', $templates=''){
 				case 'unpub_date':
 				
 					$load_js .= '
-					$j("#pub_date, #unpub_date").each(function() { this.type = "text";  }); // Cant use jQuery attr function as datepicker class clashes with jQuery methods
+					$("#pub_date, #unpub_date").each(function() { this.type = "text";  }); // Cant use jQuery attr function as datepicker class clashes with jQuery methods
 					 ';
 					
 				
@@ -388,13 +367,13 @@ function mm_requireFields($fields, $roles='', $templates=''){
 						$submit_js .= '
 						
 						// The element we are targetting ('.$fieldname.')
-						var $sel = $j("'.$selector.'");
+						var $sel = $("'.$selector.'");
 						
 						// Check if its valid
 						if($j.trim($sel.val()) == ""){  // If it is empty
 						
 							// Find the label (this will be easier in Evo 1.1 with more semantic code)
-							var lbl = $sel.parent("td").prev("td").children("span.warning").text().replace($j(requiredHTML).text(), "");
+							var lbl = $sel.parent("td").prev("td").children("span.warning").text().replace($(requiredHTML).text(), "");
 													
 							// Add the label to the errors array. Would be nice to say which tab it is on, but no
 							// easy way of doing this in 1.0.x as no semantic link between tabs and tab body
@@ -402,7 +381,7 @@ function mm_requireFields($fields, $roles='', $templates=''){
 							
 							// Add an event so the hilight is removed upon focussing							
 							$sel.addClass("mmRequired").focus(function(){
-								$j(this).removeClass("mmRequired");
+								$(this).removeClass("mmRequired");
 							});
 						}
 						';	
@@ -411,7 +390,7 @@ function mm_requireFields($fields, $roles='', $templates=''){
 						$load_js .= '
 						
 						// Add an indicator this is required ('.$fieldname.')
-						var $sel = $j("'.$selector.'");
+						var $sel = $("'.$selector.'");
 						
 						// Find the label (this will be easier in Evo 1.1 with more semantic code)
 						var $lbl = $sel.parent("td").prev("td").children("span.warning").append(requiredHTML);
@@ -428,7 +407,7 @@ function mm_requireFields($fields, $roles='', $templates=''){
 
 		$output .= $load_js . '
 		
-		$j("#mutate").submit(function(){ 
+		$("#mutate").submit(function(){ 
 			
 			var errors = []; 
 			var msg = "";

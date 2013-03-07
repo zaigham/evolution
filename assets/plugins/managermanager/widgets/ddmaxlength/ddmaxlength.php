@@ -54,8 +54,8 @@ function mm_ddMaxLength($tvs='', $roles='', $templates='', $length=150){
 
 		foreach ($tvs as $tv){
 			$output .= '
-$j("#tv'.$tv['id'].'").addClass("ddMaxLengthField").each(function(){
-	$j(this).parent().append("<div class=\"ddMaxLengthCount\"><span></span></div>");
+$("#tv'.$tv['id'].'").addClass("ddMaxLengthField").each(function(){
+	$(this).parent().append("<div class=\"ddMaxLengthCount\"><span></span></div>");
 }).ddMaxLength({
 	max: '.$length.',
 	containerSelector: "div.ddMaxLengthCount span",
@@ -65,10 +65,10 @@ $j("#tv'.$tv['id'].'").addClass("ddMaxLengthField").each(function(){
 		}
 
 		$output .= '
-$j("#mutate").submit(function(){
+$("#mutate").submit(function(){
 	var ddErrors = new Array();
-	$j("div.ddMaxLengthCount span").each(function(){
-		var $this = $j(this), field = $this.parents(".ddMaxLengthCount:first").parent().find(".ddMaxLengthField");
+	$("div.ddMaxLengthCount span").each(function(){
+		var $this = $(this), field = $this.parents(".ddMaxLengthCount:first").parent().find(".ddMaxLengthField");
 		if (parseInt($this.text()) < 0){
 			field.addClass("maxLenghtErrorField").focus(function(){
 				field.removeClass("maxLenghtErrorField");

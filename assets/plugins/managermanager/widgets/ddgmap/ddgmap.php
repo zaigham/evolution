@@ -55,13 +55,13 @@ function mm_ddGMap($tvs, $roles='', $templates='', $w='auto', $h='400') {
 			// This can be obtained from the mm_fields array
 			$tv_id = 'tv'.$tv['id'];
 			$output .= '
-var coordinatesField = $j("#'.$tv_id.'");//TV с координатами
+var coordinatesField = $("#'.$tv_id.'");//TV с координатами
 var ddLatLng = coordinatesField.val();//Координаты
 //Скрываем поле, запоминаем название поля
 var sectionName = coordinatesField.parents("tr:first").hide().find(".warning").text();
 coordinatesField.parents("tr:first").prev("tr").hide();
 //Контейнер для карты
-var sectionConteiner = $j("<div class=\"sectionHeader\">"+sectionName+"</div><div class=\"sectionBody tmplvars\"><div class=\"ddGMap\" style=\"'.$style.'\"></div></div>");
+var sectionConteiner = $("<div class=\"sectionHeader\">"+sectionName+"</div><div class=\"sectionBody tmplvars\"><div class=\"ddGMap\" style=\"'.$style.'\"></div></div>");
 //Добавляем контейнер
 coordinatesField.parents(".tab-page:first").append(sectionConteiner);
 //Если координаты не заданны, то задаём дефолт
@@ -99,8 +99,8 @@ window.ddgminitialize = function(){
 	});
 };
 //Подключаем карту, вызываем callback функцию
-$j(window).on("load.ddEvents", function(){
-	$j("body").append("<script type=\"text/javascript\" src=\"http://maps.google.com/maps/api/js?sensor=false&hl='.$modx_lang_attribute.'&callback=ddgminitialize\">");
+$(window).on("load.ddEvents", function(){
+	$("body").append("<script type=\"text/javascript\" src=\"http://maps.google.com/maps/api/js?sensor=false&hl='.$modx_lang_attribute.'&callback=ddgminitialize\">");
 });
 ';
 		}

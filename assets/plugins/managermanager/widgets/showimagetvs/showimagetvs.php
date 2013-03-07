@@ -53,9 +53,9 @@ function mm_widget_showimagetvs($tvs='', $w=300, $h=100, $thumbnailerUrl='', $ro
 			$new_html = '';
 			
 			$output .= '// Adding preview for tv'.$tv['id'].'
-			$j("#tv'.$tv['id'].'").addClass("imageField").bind( "change load", function() {
+			$("#tv'.$tv['id'].'").addClass("imageField").bind( "change load", function() {
 				// Get the new URL
-				var url = $j(this).val();
+				var url = $(this).val();
 				url = (url != "" && url.search(/http:\/\//i) == -1) ? ("'.$site.'" + url) : url;
 				
 				';
@@ -67,14 +67,14 @@ function mm_widget_showimagetvs($tvs='', $w=300, $h=100, $thumbnailerUrl='', $ro
 				
 			$output .= '	
 				// Remove the old preview tv'.$tv['id'].'
-				$j("#tv'.$tv['id'].'PreviewContainer").remove();
+				$("#tv'.$tv['id'].'PreviewContainer").remove();
 				
 				if (url != "") {
 					// Create a new preview
-					$j("#tv'.$tv['id'].'").parents("td").append("<div class=\"tvimage\" id=\"tv'.$tv['id'].'PreviewContainer\"><img src=\""+url+"\" style=\""+'.$style.'+"\" id=\"tv'.$tv['id'].'Preview\"/></div>");	
+					$("#tv'.$tv['id'].'").parents("td").append("<div class=\"tvimage\" id=\"tv'.$tv['id'].'PreviewContainer\"><img src=\""+url+"\" style=\""+'.$style.'+"\" id=\"tv'.$tv['id'].'Preview\"/></div>");	
 					
 					// Attach a browse event to the picture, so it can trigger too
-					$j("#tv'.$tv['id'].'Preview").click( function() {
+					$("#tv'.$tv['id'].'Preview").click( function() {
 														BrowseServer("tv'.$tv['id'].'");		 
 																 });
 				}
@@ -91,8 +91,8 @@ function mm_widget_showimagetvs($tvs='', $w=300, $h=100, $thumbnailerUrl='', $ro
 		
 			// Monitor the image TVs for changes
 			checkImageTVupdates = function () {
-					$j(".imageField").each( function() {
-						var $this = $j(this);
+					$(".imageField").each( function() {
+						var $this = $(this);
 						if ($this.val() != $this.data("lastvalue") ) {
 							$this.trigger("change").data("lastvalue", $this.val());
 						}						

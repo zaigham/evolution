@@ -19,8 +19,8 @@ function mm_hideTemplates($tplIds, $roles='', $templates='') {
 				$output = " // ----------- Hide templates -------------- \n";
 
         		foreach ($tplIds as $tpl) {
-					$output .= 'if ($j("select#template").val() != '.$tpl. ') { '. "\n";
-        			$output .= '$j("select#template option[value='.$tpl.']").hide();' . "\n";
+					$output .= 'if ($("select#template").val() != '.$tpl. ') { '. "\n";
+        			$output .= '$("select#template option[value='.$tpl.']").hide();' . "\n";
 					$output .= '}' . "\n";
         		}
         		$e->output($output . "\n");

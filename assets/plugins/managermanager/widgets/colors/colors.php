@@ -45,14 +45,14 @@ function mm_widget_colors($fields, $default='#ffffff', $roles='', $templates='')
 				
 				$output .= ' 
 				// ----------- Color widget for  '.$tv_id.'  --------------
-                $j("#'.$tv_id.'").css("background-image","none");
-				$j("#'.$tv_id.'").after(\'<div id="colorpicker'.$tv_id.'"></div>\');
-				if ($j("#'.$tv_id.'").val() == "") { 
-					$j("#'.$tv_id.'").val("'.$default.'");	
+                $("#'.$tv_id.'").css("background-image","none");
+				$("#'.$tv_id.'").after(\'<div id="colorpicker'.$tv_id.'"></div>\');
+				if ($("#'.$tv_id.'").val() == "") { 
+					$("#'.$tv_id.'").val("'.$default.'");	
 				}
-				$j("#colorpicker'.$tv_id.'").farbtastic("#'.$tv_id.'");
-				$j("#colorpicker'.$tv_id.'").mouseup( function() { // mark the document as dirty, or the value wont be saved
-														$j("#'.$tv_id.'").trigger("change");
+				$("#colorpicker'.$tv_id.'").farbtastic("#'.$tv_id.'");
+				$("#colorpicker'.$tv_id.'").mouseup( function() { // mark the document as dirty, or the value wont be saved
+														$("#'.$tv_id.'").trigger("change");
 															   });
 				';
 		}

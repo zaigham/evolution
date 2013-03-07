@@ -27,6 +27,9 @@ $(document).ready(function($) {
 
 	//tabs and tab history
 	(function ($) {
+		
+		//see on document load for the way tabs are remebered
+		
 		$(".js-tabs").tabs({
 			activate: function( event, ui ) {
 				//set session storage with the latest selected tab
@@ -45,6 +48,7 @@ $(document).ready(function($) {
 			var tabsId = $(".js-tabs").attr('id');
 			//get session storage
 			var savedPanelId = 0;
+			
 			if(config.remember_last_tab != 0){
 				 savedPanelId = sessionStorage.getItem(tabsId);
 			}
@@ -53,6 +57,7 @@ $(document).ready(function($) {
 				$(".js-tabs").tabs("option", "active", index);
 			}
 		}
+		
 	}(jQuery));
 	
 
@@ -146,3 +151,11 @@ $(document).ready(function($) {
 	
 
 });
+
+$(window).load(function () {
+
+	//called on load because MM added tabs will never get remebered because they are added after manager.js is called
+	
+
+});
+

@@ -47,98 +47,98 @@ function mm_default($field, $value='', $roles='', $templates='', $eval=false) {
 		switch ($field) {
 			case 'pub_date':
 				$new_value = ($new_value=='') ? date("$date_format H:i:s") : $new_value;
-				$output .= '$j("input[name=pub_date]").val("'.jsSafe($new_value).'"); '."\n";
+				$output .= '$("input[name=pub_date]").val("'.jsSafe($new_value).'"); '."\n";
 			break;
 			
 			case 'unpub_date':
 				$new_value = ($new_value=='') ? date("$date_format H:i:s") : $new_value;
-				$output .= '$j("input[name=unpub_date]").val("'.jsSafe($new_value).'"); '."\n";
+				$output .= '$("input[name=unpub_date]").val("'.jsSafe($new_value).'"); '."\n";
 			break;
 			
 			case 'published':
 				$new_value = ($value)?'1':'0';
-				$output .= '$j("input[name=published]").val("'.$new_value.'"); '."\n";
+				$output .= '$("input[name=published]").val("'.$new_value.'"); '."\n";
 				if ($value) {
-					$output .= '$j("input[name=publishedcheck]").attr("checked", "checked"); '."\n";
+					$output .= '$("input[name=publishedcheck]").attr("checked", "checked"); '."\n";
 				} else {
-					$output .= '$j("input[name=publishedcheck]").removeAttr("checked"); '."\n";
+					$output .= '$("input[name=publishedcheck]").removeAttr("checked"); '."\n";
 				}
 			break;
 			
 			case 'hide_menu':
 				$new_value = ($value)?'1':'0';
-				$output .= '$j("input[name=hidemenu]").val("'.$new_value.'"); '."\n";
+				$output .= '$("input[name=hidemenu]").val("'.$new_value.'"); '."\n";
 				if (!$value) {
-					$output .= '$j("input[name=hidemenucheck]").attr("checked", "checked"); '."\n";
+					$output .= '$("input[name=hidemenucheck]").attr("checked", "checked"); '."\n";
 				} else {
-					$output .= '$j("input[name=hidemenucheck]").removeAttr("checked"); '."\n";
+					$output .= '$("input[name=hidemenucheck]").removeAttr("checked"); '."\n";
 				}					
 			break;
 			
 			case 'show_in_menu':
 				$new_value = ($value)?'0':'1'; // Note these are reversed from what you'd think
-				$output .= '$j("input[name=hidemenu]").val("'.$new_value.'"); '."\n";
+				$output .= '$("input[name=hidemenu]").val("'.$new_value.'"); '."\n";
 				if ($value) {
-					$output .= '$j("input[name=hidemenucheck]").attr("checked", "checked"); '."\n";
+					$output .= '$("input[name=hidemenucheck]").attr("checked", "checked"); '."\n";
 				} else {
-					$output .= '$j("input[name=hidemenucheck]").removeAttr("checked"); '."\n";
+					$output .= '$("input[name=hidemenucheck]").removeAttr("checked"); '."\n";
 				}
 			break;
 			
 			case 'searchable':
 				$new_value = ($value)?'1':'0';
-				$output .= '$j("input[name=searchable]").val("'.$new_value.'"); '."\n";
+				$output .= '$("input[name=searchable]").val("'.$new_value.'"); '."\n";
 				if ($value) {
-					$output .= '$j("input[name=searchablecheck]").attr("checked", "checked"); '."\n";
+					$output .= '$("input[name=searchablecheck]").attr("checked", "checked"); '."\n";
 				} else {
-					$output .= '$j("input[name=searchablecheck]").removeAttr("checked"); '."\n";
+					$output .= '$("input[name=searchablecheck]").removeAttr("checked"); '."\n";
 				}
 			break;
 			
 			case 'cacheable':
 				$new_value = ($value)?'1':'0';
-				$output .= '$j("input[name=cacheable]").val("'.$new_value.'"); '."\n";
+				$output .= '$("input[name=cacheable]").val("'.$new_value.'"); '."\n";
 				if ($value) {
-					$output .= '$j("input[name=cacheablecheck]").attr("checked", "checked"); '."\n";
+					$output .= '$("input[name=cacheablecheck]").attr("checked", "checked"); '."\n";
 				} else {
-					$output .= '$j("input[name=cacheablecheck]").removeAttr("checked"); '."\n";
+					$output .= '$("input[name=cacheablecheck]").removeAttr("checked"); '."\n";
 				}
 			break;
 			
 			case 'clear_cache':
 				$new_value = ($value)?'1':'0';
-				$output .= '$j("input[name=syncsite]").val("'.$new_value.'"); '."\n";
+				$output .= '$("input[name=syncsite]").val("'.$new_value.'"); '."\n";
 				if ($value) {
-					$output .= '$j("input[name=syncsitecheck]").attr("checked", "checked"); '."\n";
+					$output .= '$("input[name=syncsitecheck]").attr("checked", "checked"); '."\n";
 				} else {
-					$output .= '$j("input[name=syncsitecheck]").removeAttr("checked"); '."\n";
+					$output .= '$("input[name=syncsitecheck]").removeAttr("checked"); '."\n";
 				}
 			break;
 			
 			case 'container':
 			case 'is_folder':
 				$new_value = ($value)?'1':'0';
-				$output .= '$j("input[name=isfolder]").val("'.$new_value.'"); '."\n";
+				$output .= '$("input[name=isfolder]").val("'.$new_value.'"); '."\n";
 				if ($value) {
-					$output .= '$j("input[name=isfoldercheck]").attr("checked", "checked"); '."\n";
+					$output .= '$("input[name=isfoldercheck]").attr("checked", "checked"); '."\n";
 				} else {
-					$output .= '$j("input[name=isfoldercheck]").removeAttr("checked"); '."\n";
+					$output .= '$("input[name=isfoldercheck]").removeAttr("checked"); '."\n";
 				}
 			break;
 			
 			case 'is_richtext':
 			case 'richtext':
 				$new_value = ($value)?'1':'0';
-				$output .= 'var originalRichtextValue = $j("#which_editor:first").val(); '."\n";
-				$output .= '$j("input[name=richtext]").val("'.$new_value.'"); '."\n";
+				$output .= 'var originalRichtextValue = $("#which_editor:first").val(); '."\n";
+				$output .= '$("input[name=richtext]").val("'.$new_value.'"); '."\n";
 				if ($value) {
-					$output .= '$j("input[name=richtextcheck]").attr("checked", "checked"); '."\n";
+					$output .= '$("input[name=richtextcheck]").attr("checked", "checked"); '."\n";
 				} else {
 					$output .= '
-					$j("input[name=richtextcheck]").removeAttr("checked");
+					$("input[name=richtextcheck]").removeAttr("checked");
 					// Make the RTE displayed match the default value that has been set here
 					if (originalRichtextValue != "none") {
-						$j("#which_editor").val("none");
+						$("#which_editor").val("none");
 						changeRTE();
 					}				
 					
@@ -151,23 +151,23 @@ function mm_default($field, $value='', $roles='', $templates='', $eval=false) {
 			
 			case 'log':
 				$new_value = ($value)?'0':'1';	// Note these are reversed from what you'd think
-				$output .= '$j("input[name=donthit]").val("'.$new_value.'"); '."\n";
+				$output .= '$("input[name=donthit]").val("'.$new_value.'"); '."\n";
 				if ($value) {
-					$output .= '$j("input[name=donthitcheck]").attr("checked", "checked"); '."\n";
+					$output .= '$("input[name=donthitcheck]").attr("checked", "checked"); '."\n";
 				} else {
-					$output .= '$j("input[name=donthitcheck]").removeAttr("checked"); '."\n";
+					$output .= '$("input[name=donthitcheck]").removeAttr("checked"); '."\n";
 				}
 			break;
 			
 			
 			case 'content_type':
-				$output .= '$j("select[name=contentType]").val("'.$new_value.'");' . "\n";			
+				$output .= '$("select[name=contentType]").val("'.$new_value.'");' . "\n";			
 			break;
 			
 			
 			
 			default:
-				$output .= '$j("*[name='.$field.']").val("'.$new_value.'");' . "\n"; //return;
+				$output .= '$("*[name='.$field.']").val("'.$new_value.'");' . "\n"; //return;
 			break;
 		}	
 		$e->output($output . "\n");	
@@ -236,7 +236,7 @@ function mm_inherit($fields, $roles='', $templates='') {
 				case 'log':
 				case 'hide_menu':
 				case 'show_in_menu':
-					$output .=  '$j("input[name='.$fieldname.']").attr("checked", "'.($newvalue?'':'checked').'"); ';
+					$output .=  '$("input[name='.$fieldname.']").attr("checked", "'.($newvalue?'':'checked').'"); ';
 				break;	
 				
 				case 'is_folder':
@@ -244,23 +244,23 @@ function mm_inherit($fields, $roles='', $templates='') {
 				case 'searchable':
 				case 'cacheable':
 				case 'published':			
-					$output .=  '$j("input[name='.$fieldname.']").attr("checked", "'.($newvalue?'checked':'').'"); ';
+					$output .=  '$("input[name='.$fieldname.']").attr("checked", "'.($newvalue?'checked':'').'"); ';
 				break;	
 				
 				case 'pub_date':
 				case 'unpub_date':
-					$output .=  '$j("input[name='.$fieldname.']").val("'.date('d-m-Y H:i:s', $newvalue).'"); ';
+					$output .=  '$("input[name='.$fieldname.']").val("'.date('d-m-Y H:i:s', $newvalue).'"); ';
 				break;					
 						
 				default:
 					
 					switch ($fieldtype) {
 						case 'textarea':
-							$output .=  '$j("textarea[name='.$fieldname.']").html("' . jsSafe($newvalue) . '"); ';
+							$output .=  '$("textarea[name='.$fieldname.']").html("' . jsSafe($newvalue) . '"); ';
 						break;
 						
 						default: 
-							$output .=  '$j("'.$fieldtype.'[name='.$fieldname.']").val("' . jsSafe($newvalue) . '"); ';
+							$output .=  '$("'.$fieldtype.'[name='.$fieldname.']").val("' . jsSafe($newvalue) . '"); ';
 						break;	
 					}
 				break;	
@@ -318,7 +318,7 @@ function mm_synch_fields($fields, $roles='', $templates='') {
 				
 				// Add this field to the array of fields being synched
 				$output .= '
-					synch_field[mm_sync_field_count].push($j("'.$fieldtype.'[name='.$fieldname.']"));
+					synch_field[mm_sync_field_count].push($("'.$fieldtype.'[name='.$fieldname.']"));
 				';
 			
 			// Or we don't recognise it
@@ -334,7 +334,7 @@ function mm_synch_fields($fields, $roles='', $templates='') {
 				$j.each(synch_field[mm_sync_field_count], function(j,m) {
 					if (i!=j) {
 						n.keyup( function() { 
-							m.val($j(this).val());
+							m.val($(this).val());
 						 } );
 					}
 				});

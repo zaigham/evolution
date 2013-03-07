@@ -159,7 +159,7 @@ function makeSqlList($arr) {
 function includeJs($url, $output_type='js') {
 	
 	if ($output_type == 'js') {
-		return '$j("head").append(\' <script src="'.$url.'" type="text/javascript"></scr\'+\'ipt> \'); ' . "\n";
+		return '$("head").append(\' <script src="'.$url.'" type="text/javascript"></scr\'+\'ipt> \'); ' . "\n";
 	} else if ($output_type == 'html') {
 		return '<script src="'.$url.'" type="text/javascript"></script>' . "\n";
 	} else {
@@ -176,7 +176,7 @@ function includeJs($url, $output_type='js') {
 // $output_type is either js or html - depending on where the output is appearing
 function includeCss($url, $output_type='js') {
 	if ($output_type == 'js') {
-		return  '$j("head").append(\' <link href="'.$url.'" rel="stylesheet" type="text/css" /> \'); ' . "\n";	
+		return  '$("head").append(\' <link href="'.$url.'" rel="stylesheet" type="text/css" /> \'); ' . "\n";	
 	} else if ($output_type == 'html') {
 		return  '<link href="'.$url.'" rel="stylesheet" type="text/css" />' . "\n";	
 	} else {

@@ -21,17 +21,17 @@ function mm_renameSection($section, $newname, $roles='', $templates='') {
 			
 				
 				case 'content': 
-					$output .= '$j("div#content_header").empty().prepend("'.jsSafe($newname).'");' . "\n";
+					$output .= '$("div#content_header").empty().prepend("'.jsSafe($newname).'");' . "\n";
 				break;
 				
 				case 'tvs': 
 					$output .= '
-						$j("div#tv_header").empty().prepend("'.jsSafe($newname).'");	
+						$("div#tv_header").empty().prepend("'.jsSafe($newname).'");	
 					' ;
 				break;
 				
 				case 'access': // These have moved to tabs in 1.0.1
-					$output .= '$j("div#sectionAccessHeader").empty().prepend("'.jsSafe($newname).'");' . "\n";
+					$output .= '$("div#sectionAccessHeader").empty().prepend("'.jsSafe($newname).'");' . "\n";
 				break;
 				
 				
@@ -69,22 +69,22 @@ function mm_hideSections($sections, $roles='', $templates='') {
 										
 				case 'content': 
 					$output .= '
-					$j("#content_header").hide();
-					$j("#content_body").hide(); 
+					$("#content_header").hide();
+					$("#content_body").hide(); 
 					';	
 				break;
 				
 				case 'tvs': 
 					$output .= ' 
-						$j("#tv_header").hide(); 
-						$j("#tv_body").hide();
+						$("#tv_header").hide(); 
+						$("#tv_body").hide();
 						';
 				break;
 				
 				case 'access': // These have moved to tabs in 1.0.1
 					$output .= '
-					$j("#sectionAccessHeader").hide();
-					$j("#sectionAccessBody").hide(); ';
+					$("#sectionAccessHeader").hide();
+					$("#sectionAccessBody").hide(); ';
 				break;
 				
 			} // end switch

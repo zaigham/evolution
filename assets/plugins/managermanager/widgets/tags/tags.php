@@ -88,7 +88,7 @@ function mm_widget_tags($fields, $delimiter=',', $source='', $display_count=fals
 				// Insert the list of tags after the field
 				$output .= '
 				//  -------------- Tag widget for '.$targetTv.' ('.$tv_id.') --------------
-				$j("#'.$tv_id.'").after(\''.$html_list.'\');
+				$("#'.$tv_id.'").after(\''.$html_list.'\');
 				';
 
 				// Initiate the tagCompleter class for this field

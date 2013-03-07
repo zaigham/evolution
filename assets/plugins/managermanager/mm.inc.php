@@ -1,7 +1,7 @@
 <?php
 /**
  * @name ManagerManager
- * @version clipper-0.3.12 (2012-09-07)
+ * @version clipper-0.3.13 (2012-09-07)
  * 
  * @for Clipper 1.1
  * 
@@ -16,7 +16,7 @@
  * @license Released under the GNU General Public License: http://creativecommons.org/licenses/GPL/2.0/
  */
 
-$mm_version = '0.3.11'; 
+$mm_version = '0.3.13'; 
 
 // Bring in some preferences which have been set on the configuration tab of the plugin, and normalise them
 
@@ -53,9 +53,9 @@ if ($handle = opendir($widget_dir)) {
 // Set variables
 global $content,$default_template, $mm_current_page, $mm_fields;
 $mm_current_page = array();
-$mm_current_page['template'] = isset($_POST['template']) ? $_POST['template'] : isset($content['template']) ? $content['template'] : $default_template;
-$mm_current_page['role'] = $_SESSION['mgrRole'];
 
+$mm_current_page['template'] = isset($_POST['template']) ? $_POST['template'] : (isset($content['template']) ? $content['template'] : $default_template);
+$mm_current_page['role'] = $_SESSION['mgrRole'];
 
 // What are the fields we can change, and what types are they?
 $mm_fields = array(
@@ -82,8 +82,6 @@ $mm_fields = array(
 	'clear_cache' => array('fieldtype'=>'input', 'fieldname'=>'syncsitecheck','dbname'=>'',  'tv'=>false),
 	'content_type' => array('fieldtype'=>'select', 'fieldname'=>'contentType', 'dbname'=>'contentType', 'tv'=>false),
 	'content_dispo' => array('fieldtype'=>'select', 'fieldname'=>'content_dispo', 'dbname'=>'content_dispo', 'tv'=>false),
-	'keywords' => array('fieldtype'=>'select', 'fieldname'=>'keywords[]', 'dbname'=>'', 'tv'=>false),
-	'metatags' => array('fieldtype'=>'select', 'fieldname'=>'metatags[]', 'dbname'=>'', 'tv'=>false),
 	'content' => array('fieldtype'=>'textarea', 'fieldname'=>'ta', 'dbname'=>'content', 'tv'=>false),
 	'which_editor' => array('fieldtype'=>'select', 'fieldname'=>'which_editor','dbname'=>'',  'tv'=>false),
 	'resource_type' => array('fieldtype'=>'select', 'fieldname'=>'type', 'dbname'=>'isfolder', 'tv'=>false),
@@ -233,7 +231,7 @@ case 'OnPluginFormRender':
 		//$output .= $modx->getJqueryTag();
 		
 		$output .= '<script type="text/javascript">' . "\n";
-		$output .= "var \$j = jQuery.noConflict(); \n"; //produces var  $j = jQuery.noConflict();
+		$output .= "//var \$j = jQuery.noConflict(); \n"; //produces var  $j = jQuery.noConflict();
 
 		$output .= "mm_lastTab = 'tabEvents'; \n";
 		$e->output($output);
@@ -278,9 +276,9 @@ case 'OnDocFormPrerender':
 	echo '		
 		<div id="loadingmask">&nbsp;</div>
 		<script type="text/javascript">
-		var $j = jQuery.noConflict();
+		//var $j = jQuery.noConflict();
 
-			$j("#loadingmask").css( {width: "100%", height: $j("body").height(), position: "absolute", zIndex: "1000", backgroundColor: "#ffffff"} );
+			$("#loadingmask").css( {width: "100%", height: $("body").height(), position: "absolute", zIndex: "1000", backgroundColor: "#ffffff"} );
 		</script>	
 	';
 	echo '<!-- End ManagerManager output -->';
@@ -300,27 +298,27 @@ case 'OnDocFormRender':
 <!-- You are logged into the following role: '. $mm_current_page['role'] .' -->
 		
 <script type="text/javascript" charset="'.$modx->config['modx_charset'].'">
-var $j = jQuery.noConflict();
+//var $j = jQuery.noConflict();
 		
 var mm_lastTab = "tabGeneral"; 
 var mm_sync_field_count = 0;
 var synch_field = new Array();
 
-$j(document).ready(function() {
+$(document).ready(function() {
 	
 	// Lets handle errors nicely...
 	try {
 						   					
 	  // Change section index depending on Content History running or not                  
-      var sidx = ($j("div.sectionBody:eq(1)").attr("id") == "ch-body")?1:0;  //ch-body is the CH id name (currently at least)
+      var sidx = ($("div.sectionBody:eq(1)").attr("id") == "ch-body")?1:0;  //ch-body is the CH id name (currently at least)
       
       // Give IDs to the sections of the form
       // This assumes they appear in a certain order
-      $j("div.sectionHeader:eq(sidx)").attr("id", "sectionContentHeader");
-      $j("div.sectionHeader:eq(sidx+1)").attr("id", "sectionTVsHeader");
+      $("div.sectionHeader:eq(sidx)").attr("id", "sectionContentHeader");
+      $("div.sectionHeader:eq(sidx+1)").attr("id", "sectionTVsHeader");
    
-      $j("div.sectionBody:eq(sidx+1)").attr("id", "sectionContentBody");
-      $j("div.sectionBody:eq(sidx+2)").attr("id", "sectionTVsBody");						   
+      $("div.sectionBody:eq(sidx+1)").attr("id", "sectionContentBody");
+      $("div.sectionBody:eq(sidx+2)").attr("id", "sectionTVsBody");						   
 
 	'			
 			);
@@ -352,27 +350,27 @@ $j(document).ready(function() {
 		// Misc tidying up
 		
 		// General tab table container is too narrow for receiving TVs -- make it a bit wider
-		$j("div#tabGeneral table").attr("width", "100%");
+		$("div#tabGeneral table").attr("width", "100%");
 		
 		// if template variables containers are empty, remove their section
-		if ($j("div.tmplvars :input").length == 0) {
-			$j("div.tmplvars").hide();	// Still contains an empty table and some dividers
-			$j("div.tmplvars").prev("div").hide();	// Still contains an empty table and some dividers
-			//$j("#sectionTVsHeader").hide(); 
+		if ($("div.tmplvars :input").length == 0) {
+			$("div.tmplvars").hide();	// Still contains an empty table and some dividers
+			$("div.tmplvars").prev("div").hide();	// Still contains an empty table and some dividers
+			//$("#sectionTVsHeader").hide(); 
 		}
 		
 		// If template category is empty, hide the optgroup
-		$j("#template optgroup").each( function() {
-			var $this = $j(this),
+		$("#template optgroup").each( function() {
+			var $this = $(this),
 			visibleOptions = 0;
 			$this.find("option").each( function() {
-				if ($j(this).css("display") != "none") 	visibleOptions++ ;
+				if ($(this).css("display") != "none") 	visibleOptions++ ;
 			});
 			if (visibleOptions == 0) $this.hide();	
 		});
 		
 		// Re-initiate the tooltips, in order for them to pick up any new help text which has been added
-		$j(".tooltip").tooltip();
+		$(".tooltip").tooltip();
 	
 	} catch (e) {
 		// If theres an error, fail nicely
@@ -381,13 +379,40 @@ $j(document).ready(function() {
 	} finally {	
 
 		// Whatever happens, hide the loading mask
-		$j("#loadingmask").hide();
+		$("#loadingmask").hide();
 	}
 });
 </script>
 <!-- ManagerManager Plugin :: End -->
 		');
 break;
+
+
+case 'OnTVFormRender':
+
+	if ($remove_deprecated_tv_types) {
+
+		// Load the jquery library
+		echo '<!-- Begin ManagerManager output -->';
+		echo $modx->getJqueryTag();
+	
+		// Create a mask to cover the page while the fields are being rearranged
+		echo '		
+			<script type="text/javascript">
+			//var $j = jQuery.noConflict();
+			$("select[name=type] option").each( function() {
+												var $this = $(this);
+												if( !($this.text().match("deprecated")==null )) {
+													$this.remove();	
+												}
+														  });
+			</script>	
+		';
+		echo '<!-- End ManagerManager output -->';
+	}
+
+break;
+
 
 case 'OnBeforeDocFormSave':
 	global $template;
