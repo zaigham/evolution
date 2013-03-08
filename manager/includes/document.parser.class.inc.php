@@ -803,18 +803,28 @@ class DocumentParser extends Core {
         }
     }
 
-	/** 
-	 * Check for and log fatal errors
-	 *
-	 * @return void
-	 */
-	 function fatalErrorCheck() {
-	 	// Log fatal errors
-		$error = error_get_last();
-		if ($error['type'] == E_ERROR || $error['type'] == 'E_USER_ERROR') {
-			$this->messageQuit('Fatal '.($error['type'] == 'E_USER_ERROR' ? '(user) ' : '')."error in {$this->eval_type} {$this->eval_name}: {$error['message']}", '', true, $error['type']);
-		}
-	}
+    /** 
+     * Check for and log fatal errors
+     *
+     * @return void
+     */
+     function fatalErrorCheck() {
+         // Log fatal errors
+        $error = error_get_last();
+        if ($error['type'] == E_ERROR || $error['type'] == 'E_USER_ERROR') {
+        
+            $file = $error['file'];
+            if (strpos($file, '/document.parser.class.inc.php') !== false) {
+                $file = 'DocumentParser'.(strpos($file, 'eval()\'d code') === false ? '' : ' eval\'d code');
+            }
+    
+            if ($this->eval_type) {
+                $this->messageQuitFromElement("{$this->eval_type} {$this->eval_name}", 'Fatal '.($error['type'] == 'E_USER_ERROR' ? '(user) ' : '')."error: {$error['message']}", '', true, $error['type'], $file, '', $error['message'], $error['line']);
+            } else {
+                $this->messageQuit('Fatal '.($error['type'] == 'E_USER_ERROR' ? '(user) ' : '')."error: {$error['message']}", '', true, $error['type'], $file, '', $error['message'], $error['line']);
+            }
+        }
+    }
 
     /**
      * Final jobs.
