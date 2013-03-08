@@ -3548,21 +3548,35 @@ class DocumentParser extends Core {
             return true;
         }
         
+        if (strpos($file, '/document.parser.class.inc.php') !== false) {
+        	$file = 'DocumentParser'.(strpos($file, 'eval()\'d code') === false ? '' : ' eval\'d code');
+        }
+        
         if (version_compare(PHP_VERSION, '5.3.0') >= 0 && ($nr & (E_DEPRECATED | E_USER_DEPRECATED))) { // TimGS. Handle deprecated functions according to config.
                 switch ($this->config['error_handling_deprecated']) {
                         case 1:
-                        	$this->logEvent(29,2,$text.'; File: '.$file.'; Line: '.$line);
+                        	if ($this->eval_type) {
+	                        	$this->logEvent(29,2,$text.'; File: '.$file.'; Line: '.$line, "{$this->eval_type} {$this->eval_name}");
+	                        } else {
+	                        	$this->logEvent(29,2,$text.'; File: '.$file.'; Line: '.$line);
+	                        }
                         case 0:
                                 return true;
                 }
         }
+        
         if (is_readable($file)) {
             $source= file($file);
             $source= htmlspecialchars($source[$line -1]);
         } else {
             $source= "";
         } //Error $nr in $file at $line: <div><code>$source</code></div>
-        $this->messageQuit("PHP Parse Error", '', true, $nr, $file, $source, $text, $line);
+
+		if ($this->eval_type) {
+        	$this->messageQuitFromElement("{$this->eval_type} {$this->eval_name}", 'PHP Parse Error', '', true, $nr, $file, $source, $text, $line);
+        } else {
+        	$this->messageQuit('PHP Parse Error', '', true, $nr, $file, $source, $text, $line);
+        }
     }
 
     /**
