@@ -815,7 +815,7 @@ class DocumentParser extends Core {
         
             $file = $error['file'];
             if (strpos($file, '/document.parser.class.inc.php') !== false) {
-                $file = 'DocumentParser'.(strpos($file, 'eval()\'d code') === false ? '' : ' eval\'d code');
+                $file = 'DocumentParser'.(strpos($file, 'eval()\'d code') === false ? '' : ' eval\'d code').($this->eval_type ? " in {$this->eval_type} {$this->eval_name}" : '');
             }
     
             if ($this->eval_type) {
@@ -3559,7 +3559,7 @@ class DocumentParser extends Core {
         }
         
         if (strpos($file, '/document.parser.class.inc.php') !== false) {
-        	$file = 'DocumentParser'.(strpos($file, 'eval()\'d code') === false ? '' : ' eval\'d code');
+        	$file = 'DocumentParser'.(strpos($file, 'eval()\'d code') === false ? '' : ' eval\'d code').($this->eval_type ? " in {$this->eval_type} {$this->eval_name}" : '');
         }
         
         if (version_compare(PHP_VERSION, '5.3.0') >= 0 && ($nr & (E_DEPRECATED | E_USER_DEPRECATED))) { // TimGS. Handle deprecated functions according to config.
