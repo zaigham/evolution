@@ -27,7 +27,7 @@ function mm_widget_accessdenied($ids='', $message='',  $roles='') {
 			
 			$output .= '
 			$("input, div, form[name=mutate]").remove(); // Remove all content from the page
-			$("body").prepend(\'<div id="aback"><div id="amessage">'.$message.'</div></div>\');
+			$("body").prepend(\'<div id="aback"><div id="amessage" style="background-image: url('.$modx->config['base_url'].'assets/plugins/managermanager/widgets/accessdenied/alert.png)">'.$message.'</div></div>\');
 			$("#aback").css({height: $("body").height()} );';
 		}
 	
