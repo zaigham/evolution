@@ -122,7 +122,7 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 		var managerPath = "";
 
 		function hideLoader() {
-			document.getElementById('preLoader').style.display = "none";
+			$('#preLoader').css({'display':'none'});
 		}
 
 		hideL = window.setTimeout("hideLoader()", 1500);
