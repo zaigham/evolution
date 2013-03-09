@@ -53,8 +53,12 @@ $(document).ready(function($) {
 				 savedPanelId = sessionStorage.getItem(tabsId);
 			}
 			if(savedPanelId){
-				var index = $('#'+tabsId+' a[href="#'+savedPanelId+'"]').parent().index(); 
-				$(".js-tabs").tabs("option", "active", index);
+				//activate if only exists, other plugins like MM will like to try activate tabs created by them
+				if($('#'+tabsId+' a[href="#'+savedPanelId+'"]').length){
+					var index = $('#'+tabsId+' a[href="#'+savedPanelId+'"]').parent().index(); 
+					$(".js-tabs").tabs("option", "active", index);
+				}
+				
 			}
 		}
 		

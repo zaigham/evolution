@@ -24,7 +24,7 @@ function mm_renameTab($tab, $newname, $roles='', $templates='') {
 				break;
 				
 				case 'settings': 
-					$output .= '$("[href=#tabSsettings]").text("'.jsSafe($newname).'");' . "\n";
+					$output .= '$("[href=#tabSettings]").text("'.jsSafe($newname).'");' . "\n";
 				break;				
 
 			} // end switch
@@ -119,13 +119,22 @@ function mm_createTab($name, $id, $roles='', $templates='', $intro='', $width='1
 
 		$output = " // ----------- Create tab -------------- \n";
 		
-		//TODO: make history plugin remeber the newly created tab 
-		
 		$output .= '
 			var mmTabs = $(".js-tabs");
-			mmTabs.find(".ui-tabs-nav").append("<li><a href=\"#'.$id.'\">'.$name.'</a></li>");
-			mmTabs.append("<div id=\"'.$id.'\">'.$intro.'</div><table width=\"'.$width.'\" border=\"0\" cellspacing=\"5\" cellpadding=\"0\" id=\"table-'.$id.'\"></table>");
+			var mmTabsId = $(".js-tabs").attr("id");
+			mmTabs.find(".ui-tabs-nav").append("<li><a href=\"#tab'.$id.'\">'.$name.'</a></li>");
+			mmTabs.append("<div id=\"tab'.$id.'\"><div class=\"tabIntro\">'.$intro.'</div><table width=\"'.$width.'\" border=\"0\" cellspacing=\"5\" cellpadding=\"0\" id=\"table-'.$id.'\"></table></div>");
 			mmTabs.tabs("refresh");
+			
+			if(config.remember_last_tab != 0){
+				savedPanelId = sessionStorage.getItem(mmTabsId);
+			}
+			
+			if(savedPanelId && savedPanelId == "tab'.$id.'"){
+				var index = $("#"+mmTabsId+"a[href=#"+savedPanelId+"]").parent().index();
+				mmTabs.tabs("option", "active", index);
+			}
+			
 		';
 	
 		$e->output($output . "\n");
