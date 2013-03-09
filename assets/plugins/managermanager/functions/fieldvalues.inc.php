@@ -330,8 +330,8 @@ function mm_synch_fields($fields, $roles='', $templates='') {
 		
 		// Output some javascript to sync these fields
 		$output .= '
-			$j.each(synch_field[mm_sync_field_count], function(i,n) {
-				$j.each(synch_field[mm_sync_field_count], function(j,m) {
+			$.each(synch_field[mm_sync_field_count], function(i,n) {
+				$.each(synch_field[mm_sync_field_count], function(j,m) {
 					if (i!=j) {
 						n.keyup( function() { 
 							m.val($(this).val());

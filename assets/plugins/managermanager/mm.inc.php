@@ -231,7 +231,6 @@ case 'OnPluginFormRender':
 		//$output .= $modx->getJqueryTag();
 		
 		$output .= '<script type="text/javascript">' . "\n";
-		$output .= "//var \$j = jQuery.noConflict(); \n"; //produces var  $j = jQuery.noConflict();
 
 		$output .= "mm_lastTab = 'tabEvents'; \n";
 		$e->output($output);
@@ -276,8 +275,6 @@ case 'OnDocFormPrerender':
 	echo '		
 		<div id="loadingmask">&nbsp;</div>
 		<script type="text/javascript">
-		//var $j = jQuery.noConflict();
-
 			$("#loadingmask").css( {width: "100%", height: $("body").height(), position: "absolute", zIndex: "1000", backgroundColor: "#ffffff"} );
 		</script>	
 	';
@@ -298,7 +295,6 @@ case 'OnDocFormRender':
 <!-- You are logged into the following role: '. $mm_current_page['role'] .' -->
 		
 <script type="text/javascript" charset="'.$modx->config['modx_charset'].'">
-//var $j = jQuery.noConflict();
 		
 var mm_lastTab = "tabGeneral"; 
 var mm_sync_field_count = 0;

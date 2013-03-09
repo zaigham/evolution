@@ -370,7 +370,7 @@ function mm_requireFields($fields, $roles='', $templates=''){
 						var $sel = $("'.$selector.'");
 						
 						// Check if its valid
-						if($j.trim($sel.val()) == ""){  // If it is empty
+						if($.trim($sel.val()) == ""){  // If it is empty
 						
 							// Find the label (this will be easier in Evo 1.1 with more semantic code)
 							var lbl = $sel.parent("td").prev("td").children("span.warning").text().replace($(requiredHTML).text(), "");
