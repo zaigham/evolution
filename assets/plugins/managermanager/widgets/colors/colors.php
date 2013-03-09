@@ -50,10 +50,14 @@ function mm_widget_colors($fields, $default='#ffffff', $roles='', $templates='')
 				if ($("#'.$tv_id.'").val() == "") { 
 					$("#'.$tv_id.'").val("'.$default.'");	
 				}
-				$("#colorpicker'.$tv_id.'").farbtastic("#'.$tv_id.'");
-				$("#colorpicker'.$tv_id.'").mouseup( function() { // mark the document as dirty, or the value wont be saved
-														$("#'.$tv_id.'").trigger("change");
-															   });
+				
+				if($("#colorpicker'.$tv_id.'").length && $("#'.$tv_id.'").length){
+					$("#colorpicker'.$tv_id.'").farbtastic("#'.$tv_id.'");
+					$("#colorpicker'.$tv_id.'").mouseup( function() { // mark the document as dirty, or the value wont be saved
+						$("#'.$tv_id.'").trigger("change");
+					});
+				}
+				
 				';
 		}
 		
