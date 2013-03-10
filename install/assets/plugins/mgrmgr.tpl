@@ -8,7 +8,7 @@
  * @version 	clipper-0.3.13
  * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  * @internal	@properties &config_chunk=Configuration Chunk;text;mm_demo_rules; &which_jquery=jQuery source;list;local (assets/js),remote (google code),manual url (specify below);local (assets/js) &js_src_type=jQuery URL override;text;
- * @internal	@events OnDocFormRender,OnDocFormPrerender,OnBeforeDocFormSave,OnPluginFormRender,OnTVFormRender
+ * @internal	@events OnDocFormRender,OnDocFormPrerender,OnBeforeDocFormSave,OnPluginFormRender
  * @internal	@modx_category Manager and Admin
  * @internal    @legacy_names Image TV Preview, Show Image TVs
  * @internal    @installset base, sample

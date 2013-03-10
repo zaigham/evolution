@@ -384,31 +384,6 @@ $(document).ready(function() {
 break;
 
 
-case 'OnTVFormRender':
-
-	if ($remove_deprecated_tv_types) {
-
-		// Load the jquery library
-		echo '<!-- Begin ManagerManager output -->';
-		echo $modx->getJqueryTag();
-	
-		// Create a mask to cover the page while the fields are being rearranged
-		echo '		
-			<script type="text/javascript">
-			//var $j = jQuery.noConflict();
-			$("select[name=type] option").each( function() {
-												var $this = $(this);
-												if( !($this.text().match("deprecated")==null )) {
-													$this.remove();	
-												}
-														  });
-			</script>	
-		';
-		echo '<!-- End ManagerManager output -->';
-	}
-
-break;
-
 
 case 'OnBeforeDocFormSave':
 	global $template;
