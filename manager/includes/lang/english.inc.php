@@ -1063,4 +1063,7 @@ $_lang['file_browser_title'] = 'File browser';
 $_lang['actions'] = 'Actions';
 $_lang['docid_visibility'] = 'Resource ids in the site tree visible to';
 $_lang['docid_visibility_message'] = 'Control the visibility of the resource/document identifiers shown in the site tree.';
+$_lang['default_child_template'] = 'Default child template';
+$_lang['restrict_children'] = 'Restrict child templates';
+$_lang['allowed_child_templates'] = 'Allowed child templates';
 

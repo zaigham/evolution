@@ -151,7 +151,7 @@ function deletedocument() {
 		      </tr>
 		      <tr>
 		        <td align="left"><?php echo $_lang['existing_category']; ?>:&nbsp;&nbsp;</td>
-		        <td align="left"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><select name="categoryid" style="width:300px;" onChange='documentDirty=true;'>
+		        <td align="left"><select name="categoryid" style="width:300px;" onChange='documentDirty=true;'>
 		                <option>&nbsp;</option>
 		                <?php
 		                    include_once "categories.inc.php";
@@ -164,8 +164,24 @@ function deletedocument() {
 		        </td>
 		      </tr>
 		      <tr>
-		        <td align="left" valign="top" style="padding-top:5px;"><?php echo $_lang['new_category']; ?>:</td>
-		        <td align="left" valign="top" style="padding-top:5px;"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><input name="newcategory" type="text" maxlength="45" value="<?php echo isset($content['newcategory']) ? $content['newcategory'] : '' ?>" class="inputBox" style="width:300px;" onChange='documentDirty=true;'></td>
+		        <td align="left"><?php echo $_lang['new_category']; ?>:</td>
+		        <td align="left"><input name="newcategory" type="text" maxlength="45" value="<?php echo isset($content['newcategory']) ? $content['newcategory'] : '' ?>" class="inputBox" style="width:300px;" onChange='documentDirty=true;'></td>
+		      </tr>
+		      <tr>
+		        <td align="left"><?php echo $_lang['default_child_template']; ?>:</td>
+		        <td align="left"><input name="default_child_template" type="text" maxlength="45" value="<?php echo @$content['default_child_template'] ? $content['default_child_template'] : '' ?>" class="inputBox" style="width:300px;" onChange='documentDirty=true;'></td>
+		      </tr>
+		      <tr>
+		        <td align="left"><?php echo $_lang['restrict_children']; ?>:</td>
+		        <td align="left">
+		            <select name="restrict_children" onChange="documentDirty=true; document.getElementById('allowed_child_templates_section').style.visibility = this.value == '1' ? 'visible' : 'collapse';">
+		                <option value="0"<?php if (!@$content['restrict_children']) echo ' selected="selected"'; ?>><?php echo $_lang['no']; ?></option>
+		                <option value="1"<?php if (@$content['restrict_children']) echo ' selected="selected"'; ?>><?php echo $_lang['yes']; ?></option>
+		            </select>
+		      </tr>
+		      <tr id="allowed_child_templates_section" style="visibility: <?php echo @$content['restrict_children'] ? 'visible' : 'collapse'; ?>">
+		        <td align="left"><?php echo $_lang['allowed_child_templates']; ?>:</td>
+		        <td align="left"><input name="allowed_child_templates" type="text" maxlength="45" value="<?php echo @$content['allowed_child_templates']; ?>" class="inputBox" style="width:300px;" onChange='documentDirty=true;'></td>
 		      </tr>
 		      <tr>
 		        <td align="left" colspan="2"><input name="locked" type="checkbox" <?php echo $content['locked']==1 ? "checked='checked'" : "" ;?> class="inputBox"> <?php echo $_lang['lock_template']; ?> <span class="comment"><?php echo $_lang['lock_template_msg']; ?></span></td>

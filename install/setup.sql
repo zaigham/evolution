@@ -241,6 +241,8 @@ CREATE TABLE IF NOT EXISTS `{PREFIX}site_templates` (
   `icon` varchar(255) NOT NULL default '' COMMENT 'url to icon file',
   `template_type` integer NOT NULL DEFAULT '0' COMMENT '0-page,1-content',
   `content` mediumtext,
+  `default_child_template` int NOT NULL DEFAULT 0,
+  `allowed_child_templates` varchar(50) NOT NULL DEFAULT '',
   `locked` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) {GLOBAL_TABLE_OPTIONS} COMMENT='Contains the site templates.';
@@ -582,6 +584,12 @@ ALTER TABLE `{PREFIX}site_templates` ADD COLUMN `editor_type` integer NOT NULL D
  ADD COLUMN `template_type` integer NOT NULL DEFAULT '0' COMMENT '0-page,1-content' AFTER `icon`;
 
 
+ALTER TABLE `{PREFIX}site_templates`
+ ADD COLUMN `default_child_template` int NOT NULL DEFAULT 0 AFTER content,
+ ADD COLUMN `restrict_children` bool NOT NULL DEFAULT 0 AFTER default_child_template,
+ ADD COLUMN `allowed_child_templates` varchar(50) NOT NULL DEFAULT '' AFTER restrict_children;
+
+
 ALTER TABLE `{PREFIX}document_groups` DROP INDEX `indx_doc_groups`;
 
 
@@ -846,6 +854,7 @@ INSERT IGNORE INTO `{PREFIX}system_settings`
 ('site_status','1'),
 ('site_unavailable_message','The site is currently unavailable'),
 ('track_visitors','0'),
+('top_howmany','10'),
 ('auto_template_logic','{AUTOTEMPLATELOGIC}'),
 ('default_template','3'),
 ('old_template',''),
@@ -906,7 +915,6 @@ INSERT IGNORE INTO `{PREFIX}system_settings`
 ('date_format','dd-mm-yy'),
 ('time_format','HH:mm:ss'),
 ('warning_visibility', '1'),
-('docid_visibility', '1'),
 ('remember_last_tab', '1'),
 ('error_handling_deprecated', '1'),
 ('error_handling_silent', '0'),
