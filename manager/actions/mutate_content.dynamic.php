@@ -550,10 +550,68 @@ function decode(s) {
                 <td valign="top"><textarea name="introtext" class="inputBox" rows="3" cols="" onchange="documentDirty=true;"><?php echo htmlspecialchars(stripslashes($content['introtext']))?></textarea>
                 &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_summary_help']?>" class="tooltip" spellcheck="true"/></td></tr>
             <tr style="height: 24px;"><td><span class="warning"><?php echo $_lang['page_data_template']?></span></td>
-                <td><select id="template" name="template" class="inputBox" onchange="templateWarning();" style="width:308px">
-                    <option value="0">(blank)</option>
-<?php
-                $sql = 'SELECT t.templatename, t.id, c.category FROM '.$tbl_site_templates.' t LEFT JOIN '.$tbl_categories.' c ON t.category = c.id ORDER BY c.category, t.templatename ASC';
+                <td>
+                   <select id="template" name="template" class="inputBox" onchange="templateWarning();" style="width:308px">
+                    <?php
+                    if (isset($_REQUEST['pid'])) { // <<<< can rationalise with parent code below
+                        $pid = intval($_REQUEST['pid']);
+                    } elseif (isset($_POST['parent'])) {
+                        $pid = intval($_POST['parent']);
+                    } elseif (isset($_REQUEST['id'])) {
+                        $pid = $content['parent'];
+                    }
+
+                    if ($pid) {
+                        $template_id = $modx->db->getValue($modx->db->select('template', $tbl_site_content, "id = $pid"));
+                        $rs_template = $modx->db->select('default_child_template, restrict_children, allowed_child_templates', $tbl_site_templates, "id=$template_id");
+                        if ($rs_template && ($row_template = $modx->db->getRow($rs_template)) && $row_template['restrict_children']) {
+                            $allowed_templates_list = str_replace(' ', '', $row_template['allowed_child_templates']);
+                            if (!preg_match('/^\d+(,\d+)*$/', $allowed_templates_list)) {
+                            	$allowed_templates_list = '0';
+                            }
+                        } else {
+                            $allowed_templates_list = implode(',', $modx->db->getColumn('id', $modx->db->select('id', $tbl_site_templates)));
+                            $allowed_templates_list .= ',0';
+                        }
+                    } else {
+                        $allowed_templates_list = implode(',',$modx->db->getColumn('id', $modx->db->select('id', $tbl_site_templates)));
+                        $allowed_templates_list .= ',0';
+                    }
+
+                    if ($pid && isset($row_template) && $row_template['default_child_template']) { // No need to differentiate between blank template being specified and no value - behaviour is the same
+                        $default_template = $row_template['default_child_template'];
+                    } else switch($auto_template_logic) { // <<<< moved out of loop
+                        case 'sibling':
+
+                            if ($sibl = $modx->getDocumentChildren($_REQUEST['pid'], 1, 0, 'template', '', 'menuindex', 'ASC', 1)) {
+                                $default_template = $sibl[0]['template'];
+                                break;
+                            } else if ($sibl = $modx->getDocumentChildren($_REQUEST['pid'], 0, 0, 'template', '', 'menuindex', 'ASC', 1)) {
+                                $default_template = $sibl[0]['template'];
+                                break;
+                            }
+
+                        case 'parent':
+
+                            if ($parent = $modx->getPageInfo($_REQUEST['pid'], 0, 'template')) {
+                                $default_template = $parent['template'];
+                                break;
+                            }
+
+                        case 'system':
+                        default:
+                            // default_template is already set
+                    }
+
+                    if (preg_match('/\b0\b/', $allowed_templates_list)) {
+                        echo '<option value="0">(blank)</option>';
+                    }
+
+                $sql = 'SELECT t.templatename, t.id, c.category
+                            FROM '.$tbl_site_templates.' t
+                            LEFT JOIN '.$tbl_categories.' c ON t.category = c.id
+                            WHERE t.id IN ('.$allowed_templates_list.')
+                            ORDER BY c.category, t.templatename ASC';
                 $rs = $modx->db->query($sql);
 
                 $currentCategory = '';
@@ -577,28 +635,6 @@ function decode(s) {
                         if (isset ($content['template'])) {
                             $selectedtext = $row['id'] == $content['template'] ? ' selected="selected"' : '';
                         } else {
-                            switch($auto_template_logic) {
-                                case 'sibling':
-
-                                    if ($sibl = $modx->getDocumentChildren($_REQUEST['pid'], 1, 0, 'template', '', 'menuindex', 'ASC', 1)) {
-                                        $default_template = $sibl[0]['template'];
-                                        break;
-                                    } else if ($sibl = $modx->getDocumentChildren($_REQUEST['pid'], 0, 0, 'template', '', 'menuindex', 'ASC', 1)) {
-                                        $default_template = $sibl[0]['template'];
-                                        break;
-                                    }
-
-                                case 'parent':
-
-                                    if ($parent = $modx->getPageInfo($_REQUEST['pid'], 0, 'template')) {
-                                        $default_template = $parent['template'];
-                                        break;
-                                    }
-
-                                case 'system':
-                                default:
-                                    // default_template is already set
-                            }
                             $selectedtext = $row['id'] == $default_template ? ' selected="selected"' : '';
                         }
                     }
