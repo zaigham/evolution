@@ -8,6 +8,7 @@ switch ($_REQUEST['a']) {
             $e->setError(3);
             $e->dumpError();
         }
+        $existing = true;
         break;
     case 85:
     case 72:
@@ -27,6 +28,7 @@ switch ($_REQUEST['a']) {
                 $e->dumpError();
             }
         }
+        $existing = false;
         break;
     default:
         $e->setError(3);
@@ -52,7 +54,7 @@ $tbl_site_tmplvar_contentvalues = $modx->getFullTableName('site_tmplvar_contentv
 $tbl_site_tmplvar_templates     = $modx->getFullTableName('site_tmplvar_templates');
 $tbl_site_tmplvars              = $modx->getFullTableName('site_tmplvars');
 
-if ($action == 27) {
+if ($existing) {
     //editing an existing document
     // check permissions on the document
     include_once(MODX_MANAGER_PATH.'processors/user_documents_permissions.class.php');
@@ -818,7 +820,7 @@ function decode(s) {
 
 <?php
 
-if ($_SESSION['mgrRole'] == 1 || $_REQUEST['a'] != '27' || $_SESSION['mgrInternalKey'] == $content['createdby']) {
+if ($_SESSION['mgrRole'] == 1 || !$existing || $_SESSION['mgrInternalKey'] == $content['createdby']) {
 ?>
             <tr style="height: 24px;"><td><span class="warning"><?php echo $_lang['resource_type']?></span></td>
                 <td><select name="type" class="inputBox" onchange="documentDirty=true;" style="width:200px">
@@ -878,8 +880,8 @@ if ($_SESSION['mgrRole'] == 1 || $_REQUEST['a'] != '27' || $_SESSION['mgrInterna
             </tr>
             <tr style="height: 24px;">
                 <td><span class="warning"><?php echo $_lang['resource_opt_richtext']?></span></td>
-                <td><input name="richtextcheck" type="checkbox" class="checkbox" <?php echo $content['richtext']==0 && $_REQUEST['a']=='27' ? '' : "checked"?> onclick="changestate(document.mutate.richtext);" />
-                <input type="hidden" name="richtext" value="<?php echo $content['richtext']==0 && $_REQUEST['a']=='27' ? 0 : 1?>" onchange="documentDirty=true;" />
+                <td><input name="richtextcheck" type="checkbox" class="checkbox" <?php echo $content['richtext']==0 && $existing ? '' : "checked"?> onclick="changestate(document.mutate.richtext);" />
+                <input type="hidden" name="richtext" value="<?php echo $content['richtext']==0 && $existing ? 0 : 1?>" onchange="documentDirty=true;" />
                 &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_opt_richtext_help']?>" class="tooltip"/></td>
             </tr>
             <tr style="height: 24px;">
@@ -918,7 +920,7 @@ if ($_SESSION['mgrRole'] == 1 || $_REQUEST['a'] != '27' || $_SESSION['mgrInterna
 			    $groupsarray = array();
 			    $sql = '';
 			
-			    $documentId = ($_REQUEST['a'] == '27' ? $id : (!empty($_REQUEST['pid']) ? $_REQUEST['pid'] : $content['parent']));
+			    $documentId = ($existing ? $id : (!empty($_REQUEST['pid']) ? $_REQUEST['pid'] : $content['parent']));
 			    if ($documentId > 0) {
 			        // Load up, the permissions from the parent (if new document) or existing document
 			        $sql = 'SELECT id, document_group FROM '.$tbl_document_groups.' WHERE document=\''.$documentId.'\'';
