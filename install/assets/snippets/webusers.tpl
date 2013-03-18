@@ -4,7 +4,7 @@
 	 * Enhanced web login/register snippet derived from WebLoginPE 1.3.1
 	 *
 	 * @package		WebUsers
-	 * @version		1.3.2
+	 * @version		1.3.3
 	 * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
 	 * @internal	@properties
 	 * @internal	@modx_category Login
