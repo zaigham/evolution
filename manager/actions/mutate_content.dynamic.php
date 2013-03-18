@@ -96,6 +96,7 @@ if ($_SESSION['mgrDocgroups']) {
     $docgrp = implode(',', $_SESSION['mgrDocgroups']);
 }
 
+// Get document content
 if (!empty ($id)) {
     $access = "1='" . $_SESSION['mgrRole'] . "' OR sc.privatemgr=0" .
         (!$docgrp ? '' : " OR dg.document_group IN ($docgrp)");
@@ -116,6 +117,15 @@ if (!empty ($id)) {
     $content = $modx->db->getRow($rs);
 } else {
     $content = array();
+}
+
+// Get parent docid
+if (isset($_REQUEST['pid'])) {
+    $pid = intval($_REQUEST['pid']);
+} elseif (isset($_POST['parent'])) {
+    $pid = intval($_POST['parent']);
+} elseif (isset($_REQUEST['id'])) {
+    $pid = $content['parent'];
 }
 
 // restore saved form
@@ -146,7 +156,6 @@ if ($formRestored == true || isset ($_REQUEST['newtemplate'])) {
 // increase menu index if this is a new document
 if (!isset ($_REQUEST['id'])) {
     if (!isset ($auto_menuindex) || $auto_menuindex) {
-        $pid = intval($_REQUEST['pid']);
         $sql = 'SELECT count(*) FROM '.$tbl_site_content.' WHERE parent=\''.$pid.'\'';
         $content['menuindex'] = $modx->db->getValue($sql);
     } else {
@@ -553,14 +562,6 @@ function decode(s) {
                 <td>
                    <select id="template" name="template" class="inputBox" onchange="templateWarning();" style="width:308px">
                     <?php
-                    if (isset($_REQUEST['pid'])) { // <<<< can rationalise with parent code below
-                        $pid = intval($_REQUEST['pid']);
-                    } elseif (isset($_POST['parent'])) {
-                        $pid = intval($_POST['parent']);
-                    } elseif (isset($_REQUEST['id'])) {
-                        $pid = $content['parent'];
-                    }
-
                     if ($pid) {
                         $template_id = $modx->db->getValue($modx->db->select('template', $tbl_site_content, "id = $pid"));
                         $rs_template = $modx->db->select('default_child_template, restrict_children, allowed_child_templates', $tbl_site_templates, "id=$template_id");
