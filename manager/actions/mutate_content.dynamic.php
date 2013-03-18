@@ -587,8 +587,7 @@ function decode(s) {
                     if ($template_rules) {
                         $allowed_templates_list = TemplateRules::getTemplateList($template_rules);
                         if (!$allowed_templates_list) {
-                            $allowed_templates_list = implode(',', $modx->db->getColumn('id', $modx->db->select('id', $tbl_site_templates)));
-                            $allowed_templates_list .= ',0';
+                            $allowed_templates_list = true; // All templates allowed
                         }
                     } elseif ($pid) {
                         $template_id = $modx->db->getValue($modx->db->select('template', $tbl_site_content, "id = $pid"));
@@ -599,12 +598,10 @@ function decode(s) {
                             	$allowed_templates_list = '0';
                             }
                         } else {
-                            $allowed_templates_list = implode(',', $modx->db->getColumn('id', $modx->db->select('id', $tbl_site_templates)));
-                            $allowed_templates_list .= ',0';
+                            $allowed_templates_list = true; // All templates allowed
                         }
                     } else {
-                        $allowed_templates_list = implode(',',$modx->db->getColumn('id', $modx->db->select('id', $tbl_site_templates)));
-                        $allowed_templates_list .= ',0';
+                        $allowed_templates_list = true; // All templates allowed
                     }
                     
                     if ($template_rules && !is_null($template_rules_default = TemplateRules::getDefaultTemplate($template_rules))) {
@@ -634,14 +631,14 @@ function decode(s) {
                             // default_template is already set
                     }
 
-                    if (preg_match('/\b0\b/', $allowed_templates_list)) {
+                    if ($allowed_templates_list === true || preg_match('/\b0\b/', $allowed_templates_list)) {
                         echo '<option value="0">(blank)</option>';
                     }
 
                 $sql = 'SELECT t.templatename, t.id, c.category
                             FROM '.$tbl_site_templates.' t
                             LEFT JOIN '.$tbl_categories.' c ON t.category = c.id
-                            WHERE t.id IN ('.$allowed_templates_list.')
+                            '.($allowed_templates_list !== true ? 'WHERE t.id IN ('.$allowed_templates_list.')' : '').'
                             ORDER BY c.category, t.templatename ASC';
                 $rs = $modx->db->query($sql);
 
