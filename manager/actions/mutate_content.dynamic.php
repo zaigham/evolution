@@ -126,6 +126,8 @@ if (isset($_REQUEST['pid'])) {
     $pid = intval($_POST['parent']);
 } elseif (isset($_REQUEST['id'])) {
     $pid = $content['parent'];
+} else {
+	$pid = 0;
 }
 
 // restore saved form
@@ -154,7 +156,7 @@ if ($formRestored == true || isset ($_REQUEST['newtemplate'])) {
 }
 
 // increase menu index if this is a new document
-if (!isset ($_REQUEST['id'])) {
+if (!$existing) {
     if (!isset ($auto_menuindex) || $auto_menuindex) {
         $sql = 'SELECT count(*) FROM '.$tbl_site_content.' WHERE parent=\''.$pid.'\'';
         $content['menuindex'] = $modx->db->getValue($sql);
@@ -584,17 +586,17 @@ function decode(s) {
                     } else switch($auto_template_logic) { // <<<< moved out of loop
                         case 'sibling':
 
-                            if ($sibl = $modx->getDocumentChildren($_REQUEST['pid'], 1, 0, 'template', '', 'menuindex', 'ASC', 1)) {
+                            if ($sibl = $modx->getDocumentChildren($pid, 1, 0, 'template', '', 'menuindex', 'ASC', 1)) {
                                 $default_template = $sibl[0]['template'];
                                 break;
-                            } else if ($sibl = $modx->getDocumentChildren($_REQUEST['pid'], 0, 0, 'template', '', 'menuindex', 'ASC', 1)) {
+                            } else if ($sibl = $modx->getDocumentChildren($pid, 0, 0, 'template', '', 'menuindex', 'ASC', 1)) {
                                 $default_template = $sibl[0]['template'];
                                 break;
                             }
 
                         case 'parent':
 
-                            if ($parent = $modx->getPageInfo($_REQUEST['pid'], 0, 'template')) {
+                            if ($pid && $parent = $modx->getPageInfo($pid, 0, 'template')) {
                                 $default_template = $parent['template'];
                                 break;
                             }
@@ -663,43 +665,14 @@ function decode(s) {
             <tr style="height: 24px;"><td valign="top"><span class="warning"><?php echo $_lang['resource_parent']?></span></td>
                 <td valign="top">
                 <?php
-                $parentlookup = false;
-                if (isset ($_REQUEST['id'])) {
-                    if ($content['parent'] == 0) {
-                        $parentname = $site_name;
-                    } else {
-                        $parentlookup = $content['parent'];
-                    }
-                } elseif (isset ($_REQUEST['pid'])) {
-                    if ($_REQUEST['pid'] == 0) {
-                        $parentname = $site_name;
-                    } else {
-                        $parentlookup = $_REQUEST['pid'];
-                    }
-                } elseif (isset($_POST['parent'])) {
-                    if ($_POST['parent'] == 0) {
-                        $parentname = $site_name;
-                    } else {
-                        $parentlookup = $_POST['parent'];
-                    }
+                if ($pid) {
+                    $parentname = $modx->db->getValue("SELECT pagetitle FROM $tbl_site_content WHERE id='$pid'");
                 } else {
-                    $parentname = $site_name;
-                    $content['parent'] = 0;
+                	$parentname = $site_name;
                 }
-                if($parentlookup !== false && is_numeric($parentlookup)) {
-                    $sql = 'SELECT pagetitle FROM '.$tbl_site_content.' WHERE id=\''.$parentlookup.'\'';
-                    $rs = $modx->db->query($sql);
-                    $limit = $modx->db->getRecordCount($rs);
-                    if ($limit != 1) {
-                        $e->setError(8);
-                        $e->dumpError();
-                    }
-                    $parentrs = $modx->db->getRow($rs);
-                    $parentname = $parentrs['pagetitle'];
-                }
-                ?>&nbsp;<img alt="tree_folder" name="plock" src="<?php echo $_style["tree_folder"] ?>" onclick="enableParentSelection(!allowParentSelection);" style="cursor:pointer;" /> <b><span id="parentName"><?php echo isset($_REQUEST['pid']) ? $_REQUEST['pid'] : $content['parent']?> (<?php echo $parentname?>)</span></b>
+                ?>&nbsp;<img alt="tree_folder" name="plock" src="<?php echo $_style["tree_folder"] ?>" onclick="enableParentSelection(!allowParentSelection);" style="cursor:pointer;" /> <b><span id="parentName"><?php echo $pid; ?> (<?php echo $parentname?>)</span></b>
     &nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_parent_help']?>" class="tooltip"/>
-                <input type="hidden" name="parent" value="<?php echo isset($_REQUEST['pid']) ? $_REQUEST['pid'] : $content['parent']?>" onchange="documentDirty=true;" />
+                <input type="hidden" name="parent" value="<?php echo $pid; ?>" onchange="documentDirty=true;" />
                 </td></tr>
         </table>
 
@@ -957,7 +930,7 @@ if ($_SESSION['mgrRole'] == 1 || !$existing || $_SESSION['mgrInternalKey'] == $c
 			    $groupsarray = array();
 			    $sql = '';
 			
-			    $documentId = ($existing ? $id : (!empty($_REQUEST['pid']) ? $_REQUEST['pid'] : $content['parent']));
+			    $documentId = $existing ? $id : $pid;
 			    if ($documentId > 0) {
 			        // Load up, the permissions from the parent (if new document) or existing document
 			        $sql = 'SELECT id, document_group FROM '.$tbl_document_groups.' WHERE document=\''.$documentId.'\'';
