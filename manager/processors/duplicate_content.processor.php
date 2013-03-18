@@ -11,7 +11,7 @@ $id=$_GET['id'];
 $children = array();
 
 // check permissions on the document
-include_once "./processors/user_documents_permissions.class.php";
+require_once('user_documents_permissions.class.php');
 $udperms = new udperms();
 $udperms->user = $modx->getLoginUserID();
 $udperms->document = $id;

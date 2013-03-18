@@ -37,7 +37,7 @@ $newParentID = $_REQUEST['new_parent'];
 if ($use_udperms == 1) {
 
 	if ($oldparent != $newParentID) {
-		include_once MODX_MANAGER_PATH . "processors/user_documents_permissions.class.php";
+		require_once('user_documents_permissions.class.php');
 		$udperms = new udperms();
 		$udperms->user = $modx->getLoginUserID();
 		$udperms->document = $newParentID;

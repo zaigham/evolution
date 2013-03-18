@@ -1,6 +1,8 @@
 <?php
 if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
+require_once('user_documents_permissions.class.php');
+
 // Get parent docid if specified explicitly in request
 if (isset($_REQUEST['pid'])) {
     $pid = intval($_REQUEST['pid']);
@@ -27,7 +29,6 @@ switch ($_REQUEST['a']) {
             $e->dumpError();
         } elseif ($pid) {
             // Check permissions on parent
-            include_once(MODX_MANAGER_PATH.'processors/user_documents_permissions.class.php');
             $udperms = new udperms();
             $udperms->user = $modx->getLoginUserID();
             $udperms->document = $pid;
@@ -56,7 +57,6 @@ if ($existing) {
 if ($existing) {
     //editing an existing document
     // check permissions on the document
-    include_once(MODX_MANAGER_PATH.'processors/user_documents_permissions.class.php');
     $udperms = new udperms();
     $udperms->user = $modx->getLoginUserID();
     $udperms->document = $docid;
