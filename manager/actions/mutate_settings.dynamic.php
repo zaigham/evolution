@@ -208,7 +208,7 @@ function confirmLangChange(el, lkey, elupd){
                 
                 <table border="0" cellspacing="0" cellpadding="3">
                     <tr>
-                      <td nowrap class="warning"><b><?php echo $_lang["sitename_title"] ?></b></td>
+                      <th><?php echo $_lang["sitename_title"] ?></th>
                       <td ><input onchange="documentDirty=true;" type='text' maxlength='255' style="width: 200px;" name="site_name" value="<?php echo isset($site_name) ? $site_name : 'My '.CMS_NAME.' Site'; ?>" /></td>
                     </tr>
                     <tr>
@@ -219,7 +219,7 @@ function confirmLangChange(el, lkey, elupd){
                       <td colspan="2"><div class='split'></div></td>
                     </tr>
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["charset_title"]?></b></td>
+                    <th><?php echo $_lang["charset_title"]?></th>
                     <td> <select name="modx_charset" size="1" class="inputBox" style="width:250px;" onchange="documentDirty=true;">
                         <?php include "charsets.php"; ?>
                       </select> </td>
@@ -233,7 +233,7 @@ function confirmLangChange(el, lkey, elupd){
                   </tr>
                   <tr>
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["xhtml_urls_title"] ?></b></td>
+                    <th><?php echo $_lang["xhtml_urls_title"] ?></th>
                     <td><input onchange="documentDirty=true;" type="radio" name="xhtml_urls" value="1" <?php echo $xhtml_urls=='1' ? 'checked="checked"' : "" ; ?> />
                       <?php echo $_lang["yes"]?><br />
                       <input onchange="documentDirty=true;" type="radio" name="xhtml_urls" value="0" <?php echo ($xhtml_urls=='0' || !isset($xhtml_urls)) ? 'checked="checked"' : "" ; ?> />
@@ -247,7 +247,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["sitestart_title"] ?></b></td>
+                    <th><?php echo $_lang["sitestart_title"] ?></th>
                     <td><input onchange="documentDirty=true;" type='text' maxlength='10' size='5' name="site_start" value="<?php echo isset($site_start) ? $site_start : 1 ; ?>" /></td>
                   </tr>
                   <tr>
@@ -258,7 +258,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["errorpage_title"] ?></b></td>
+                    <th><?php echo $_lang["errorpage_title"] ?></th>
                     <td><input onchange="documentDirty=true;" type='text' maxlength='10' size='5' name="error_page" value="<?php echo isset($error_page) ? $error_page : 1 ; ?>" /></td>
                   </tr>
                   <tr>
@@ -269,7 +269,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["unauthorizedpage_title"] ?></b></td>
+                    <th><?php echo $_lang["unauthorizedpage_title"] ?></th>
                     <td><input onchange="documentDirty=true;" type='text' maxlength='10' size='5' name="unauthorized_page" value="<?php echo isset($unauthorized_page) ? $unauthorized_page : 1 ; ?>" /></td>
                   </tr>
                   <tr>
@@ -280,7 +280,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["sitestatus_title"] ?></b></td>
+                    <th><?php echo $_lang["sitestatus_title"] ?></th>
                     <td><input onchange="documentDirty=true;" type="radio" name="site_status" value="1" <?php echo ($site_status=='1' || !isset($site_status)) ? 'checked="checked"' : "" ; ?> />
                       <?php echo $_lang["online"]?><br />
                       <input onchange="documentDirty=true;" type="radio" name="site_status" value="0" <?php echo $site_status=='0' ? 'checked="checked"' : "" ; ?> />
@@ -294,7 +294,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning" valign="top"><b><?php echo $_lang["siteunavailable_page_title"] ?></b></td>
+                    <th><?php echo $_lang["siteunavailable_page_title"] ?></th>
                     <td><input onchange="documentDirty=true;" name="site_unavailable_page" type="text" maxlength="10" size="5" value="<?php echo isset($site_unavailable_page) ? $site_unavailable_page : "" ; ?>" /></td>
                   </tr>
                   <tr>
@@ -305,13 +305,13 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning" valign="top"><b><?php echo $_lang["siteunavailable_title"] ?></b>
+                    <th><?php echo $_lang["siteunavailable_title"] ?></b>
                       <br />
                       <p><?php echo $_lang["update_settings_from_language"]; ?></p>
                       <select name="reload_site_unavailable" id="reload_site_unavailable_select" onchange="confirmLangChange(this, 'siteunavailable_message_default', 'site_unavailable_message_textarea');">
         <?php echo get_lang_options('siteunavailable_message_default');?>
                       </select>
-                    </td>
+                    </th>
                     <td> <textarea name="site_unavailable_message" id="site_unavailable_message_textarea" style="width:100%; height: 120px;"><?php echo $site_unavailable_message_view; ?></textarea>
                         <input type="hidden" name="siteunavailable_message_default" id="siteunavailable_message_default_hidden" value="<?php echo addslashes($_lang['siteunavailable_message_default']);?>" />
                     </td>
@@ -325,7 +325,7 @@ function confirmLangChange(el, lkey, elupd){
                   </tr>
         
                   <tr>
-                    <td nowrap class="warning" valign="top"><b><?php echo $_lang["track_visitors_title"] ?></b></td>
+                    <th><?php echo $_lang["track_visitors_title"] ?></b></td>
                     <td><input onchange="documentDirty=true;" type="radio" name="track_visitors" value="1" <?php echo ($track_visitors=='1' || !isset($track_visitors)) ? 'checked="checked"' : "" ; ?> />
                       <?php echo $_lang["yes"]?><br />
                       <input onchange="documentDirty=true;" type="radio" name="track_visitors" value="0" <?php echo $track_visitors=='0' ? 'checked="checked"' : "" ; ?> />
@@ -339,7 +339,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                     <tr>
-                        <td nowrap class="warning" valign="top"><b><?php echo $_lang["defaulttemplate_logic_title"];?></b></td>
+                        <th><?php echo $_lang["defaulttemplate_logic_title"];?></th>
                         <td>
                             <p><?php echo $_lang["defaulttemplate_logic_general_message"];?></p>
                             <input onchange="documentDirty=true;" type="radio" name="auto_template_logic" value="system"<?php if($auto_template_logic == 'system') {echo " checked='checked'";}?>/> <?php echo $_lang["defaulttemplate_logic_system_message"]; ?><br />
@@ -351,7 +351,7 @@ function confirmLangChange(el, lkey, elupd){
                         <td colspan="2"><div class='split'></div></td>
                     </tr>
                   <tr>
-                    <td nowrap class="warning" valign="top"><b><?php echo $_lang["defaulttemplate_title"] ?></b></td>
+                    <th><?php echo $_lang["defaulttemplate_title"] ?></th>
                     <td>
                     <?php
                         $sql = 'SELECT t.templatename, t.id, c.category FROM '.$table_prefix.'site_templates t LEFT JOIN '.$table_prefix.'categories c ON t.category = c.id ORDER BY c.category, t.templatename ASC';
@@ -406,7 +406,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning" valign="top"><b><?php echo $_lang["defaultpublish_title"] ?></b></td>
+                    <th><?php echo $_lang["defaultpublish_title"] ?></th>
                     <td> <input onchange="documentDirty=true;" type="radio" name="publish_default" value="1" <?php echo $publish_default=='1' ? 'checked="checked"' : "" ; ?> />
                       <?php echo $_lang["yes"]?><br />
                       <input onchange="documentDirty=true;" type="radio" name="publish_default" value="0" <?php echo ($publish_default=='0' || !isset($publish_default)) ? 'checked="checked"' : "" ; ?> />
@@ -421,7 +421,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning" valign="top"><b><?php echo $_lang["defaultcache_title"] ?></b></td>
+                    <th><?php echo $_lang["defaultcache_title"] ?></th>
                     <td> <input onchange="documentDirty=true;" type="radio" name="cache_default" value="1" <?php echo $cache_default=='1' ? 'checked="checked"' : "" ; ?> />
                       <?php echo $_lang["yes"]?><br />
                       <input onchange="documentDirty=true;" type="radio" name="cache_default" value="0" <?php echo ($cache_default=='0' || !isset($cache_default)) ? 'checked="checked"' : "" ; ?> />
@@ -435,7 +435,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning" valign="top"><b><?php echo $_lang["defaultsearch_title"] ?></b></td>
+                    <th><?php echo $_lang["defaultsearch_title"] ?></th>
                     <td> <input onchange="documentDirty=true;" type="radio" name="search_default" value="1" <?php echo $search_default=='1' ? 'checked="checked"' : "" ; ?> />
                       <?php echo $_lang["yes"]?><br />
                       <input onchange="documentDirty=true;" type="radio" name="search_default" value="0" <?php echo ($search_default=='0' || !isset($search_default)) ? 'checked="checked"' : "" ; ?> />
@@ -449,7 +449,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr> 
-                    <td nowrap class="warning" valign="top"><b><?php echo $_lang["defaultmenuindex_title"] ?></b></td> 
+                    <th><?php echo $_lang["defaultmenuindex_title"] ?></th> 
                     <td> <input onchange="documentDirty=true;" type="radio" name="auto_menuindex" value="1" <?php echo ($auto_menuindex=='1' || !isset($auto_menuindex)) ? 'checked="checked"' : "" ; ?> /> 
                     <?php echo $_lang["yes"]?><br /> 
                     <input onchange="documentDirty=true;" type="radio" name="auto_menuindex" value="0" <?php echo ($auto_menuindex=='0') ? 'checked="checked"' : "" ; ?> /> 
@@ -463,7 +463,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td> 
                   </tr>
                   <tr>
-                    <td nowrap class="warning" valign="top"><b><?php echo $_lang["custom_contenttype_title"] ?></b></td>
+                    <th><?php echo $_lang["custom_contenttype_title"] ?></th>
                     <td><input name="txt_custom_contenttype" type="text" maxlength="100" style="width: 200px;" value="" /> <input type="button" value="<?php echo $_lang["add"]; ?>" onclick='addContentType()' /><br />
                     <table border="0" cellspacing="0" cellpadding="0"><tr><td valign="top">
                     <select name="lst_custom_contenttype" style="width:200px;" size="5">
@@ -486,7 +486,7 @@ function confirmLangChange(el, lkey, elupd){
                   <tr>
                     <td colspan="2"><div class='split'></div></td>
                     <tr>
-                      <td nowrap class="warning"><b><?php echo $_lang["serveroffset_title"] ?></b></td>
+                      <th><?php echo $_lang["serveroffset_title"] ?></th>
                       <td> <select name="server_offset_time" size="1" class="inputBox">
                           <?php
                       for($i=-24; $i<25; $i++) {
@@ -507,7 +507,7 @@ function confirmLangChange(el, lkey, elupd){
                       <td colspan="2"><div class='split'>&nbsp;</div></td>
                     </tr>
                     <tr>
-                      <td nowrap class="warning"><b><?php echo $_lang["server_protocol_title"] ?></b></td>
+                      <th><?php echo $_lang["server_protocol_title"] ?></th>
                       <td> <input onchange="documentDirty=true;" type="radio" name="server_protocol" value="http" <?php echo ($server_protocol=='http' || !isset($server_protocol))? 'checked="checked"' : "" ; ?> />
                         <?php echo $_lang["server_protocol_http"]?><br />
                         <input onchange="documentDirty=true;" type="radio" name="server_protocol" value="https" <?php echo $server_protocol=='https' ? 'checked="checked"' : "" ; ?> />
@@ -521,7 +521,7 @@ function confirmLangChange(el, lkey, elupd){
                       <td colspan="2"><div class='split'></div></td>
                     </tr>
                     <tr>
-                        <td nowrap class="warning" valign="top"><b><?php echo $_lang["rss_len_title"] ?></b></td>
+                        <th><?php echo $_lang["rss_len_title"] ?></th>
                         <td><input onchange="documentDirty=true;" type='text' maxlength='50' size="5" name="rss_len" value="<?php echo isset($rss_len) ? $rss_len : 10 ; ?>" /></td>
                     </tr>
                     <tr>
@@ -532,7 +532,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                     </tr>
                     <tr>
-                       <td nowrap class="warning"><?php echo $_lang['error_handling_deprecated_label'] ?></td>
+                       <th><?php echo $_lang['error_handling_deprecated_label'] ?></th>
                        <td>
                              <select onchange="documentDirty=true;" name="error_handling_deprecated">
                                     <?php if (!isset($error_handling_deprecated)) $error_handling_deprecated = 1; ?>
@@ -546,7 +546,7 @@ function confirmLangChange(el, lkey, elupd){
                       <td colspan="2"><div class='split'></div></td>
                     </tr>
                     <tr>
-                       <td nowrap class="warning"><?php echo $_lang['error_handling_silent_label'] ?></td>
+                       <th><?php echo $_lang['error_handling_silent_label'] ?></th>
                        <td>
                             <select onchange="documentDirty=true;" name="error_handling_silent">
                                     <?php if (!isset($error_handling_silent)) $error_handling_silent = 0; ?>
@@ -559,15 +559,15 @@ function confirmLangChange(el, lkey, elupd){
                       <td colspan="2"><div class='split'></div></td>
                     </tr>
                     <tr>
-                      <td nowrap class="warning"><?php echo $_lang["jquery_url_label"] ?></td>
+                      <th><?php echo $_lang["jquery_url_label"] ?></th>
                       <td ><input onchange="documentDirty=true;" type='text' maxlength='350' style="width: 350px;" name="jquery_url" value="<?php echo isset($jquery_url) ? $jquery_url : 'assets/js/jquery.min.js'; ?>" /></td>
                     </tr>
                     <tr>
-                      <td nowrap class="warning"><?php echo $_lang["jquery_plugin_dir"] ?></td>
+                      <th><?php echo $_lang["jquery_plugin_dir"] ?></th>
                       <td ><input onchange="documentDirty=true;" type='text' maxlength='350' style="width: 350px;" name="jquery_plugin_dir" value="<?php echo isset($jquery_plugin_dir) ? $jquery_plugin_dir : 'assets/js/'; ?>" /></td>
                     </tr>
                     <tr>
-                      <td nowrap class="warning"><?php echo $_lang["jquery_noconflict"] ?></td>
+                      <th><?php echo $_lang["jquery_noconflict"] ?></th>
                        <td>
                             <select onchange="documentDirty=true;" name="jquery_noconflict">
                                     <?php if (!isset($jquery_noconflict)) $jquery_noconflict = 0; ?>
@@ -597,7 +597,7 @@ function confirmLangChange(el, lkey, elupd){
                 
                 <table border="0" cellspacing="0" cellpadding="3">
                   <tr>
-                    <td nowrap class="warning" valign="top"><b><?php echo $_lang["friendlyurls_title"] ?></b></td>
+                    <th><?php echo $_lang["friendlyurls_title"] ?></th>
                     <td> <input onchange="documentDirty=true;" type="radio" name="friendly_urls" value="1" <?php echo $friendly_urls=='1' ? 'checked="checked"' : "" ; ?> onclick='showHide(/furlRow/, 1);' />
                       <?php echo $_lang["yes"]?><br />
                       <input onchange="documentDirty=true;" type="radio" name="friendly_urls" value="0" <?php echo ($friendly_urls=='0' || !isset($friendly_urls)) ? 'checked="checked"' : "" ; ?> onclick='showHide(/furlRow/, 0);' />
@@ -611,7 +611,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr id='furlRow1' class='row1' style="display: <?php echo $friendly_urls==1 ? $displayStyle : 'none' ; ?>">
-                    <td nowrap class="warning" valign="top"><b><?php echo $_lang["friendlyurlsprefix_title"] ?></b></td>
+                    <th><?php echo $_lang["friendlyurlsprefix_title"] ?></th>
                     <td><input onchange="documentDirty=true;" type='text' maxlength='50' style="width: 200px;" name="friendly_url_prefix" value="<?php echo isset($friendly_url_prefix) ? $friendly_url_prefix : "p" ; ?>" /></td>
                   </tr>
                   <tr id='furlRow2' class='row1' style="display: <?php echo $friendly_urls==1 ? $displayStyle : 'none' ; ?>">
@@ -622,7 +622,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr id='furlRow4' class='row1' style="display: <?php echo $friendly_urls==1 ? $displayStyle : 'none' ; ?>">
-                    <td nowrap class="warning" valign="top"><b><?php echo $_lang["friendlyurlsuffix_title"] ?></b></td>
+                    <th><?php echo $_lang["friendlyurlsuffix_title"] ?></th>
                     <td><input onchange="documentDirty=true;" type='text' maxlength='50' style="width: 200px;" name="friendly_url_suffix" value="<?php echo isset($friendly_url_suffix) ? $friendly_url_suffix : ".html" ; ?>" /></td>
                   </tr>
                   <tr id='furlRow5' class='row1' style="display: <?php echo $friendly_urls==1 ? $displayStyle : 'none' ; ?>">
@@ -633,7 +633,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr id='furlRow7' class='row1' style="display: <?php echo $friendly_urls==1 ? $displayStyle : 'none' ; ?>">
-                    <td nowrap class="warning" valign="top"><b><?php echo $_lang["friendly_alias_title"] ?></b></td>
+                    <th><?php echo $_lang["friendly_alias_title"] ?></th>
                     <td> <input onchange="documentDirty=true;" type="radio" name="friendly_alias_urls" value="1" <?php echo $friendly_alias_urls=='1' ? 'checked="checked"' : "" ; ?> />
                       <?php echo $_lang["yes"]?><br />
                       <input onchange="documentDirty=true;" type="radio" name="friendly_alias_urls" value="0" <?php echo ($friendly_alias_urls=='0' || !isset($friendly_alias_urls)) ? 'checked="checked"' : "" ; ?> />
@@ -647,7 +647,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr id='furlRow10' class='row1' style="display: <?php echo $friendly_urls==1 ? $displayStyle : 'none' ; ?>">
-                    <td nowrap class="warning" valign="top"><b><?php echo $_lang["use_alias_path_title"] ?></b></td>
+                    <th><?php echo $_lang["use_alias_path_title"] ?></th>
                     <td> <input onchange="documentDirty=true;" type="radio" name="use_alias_path" value="1" <?php echo $use_alias_path=='1' ? 'checked="checked"' : "" ; ?> />
                       <?php echo $_lang["yes"]?><br />
                       <input onchange="documentDirty=true;" type="radio" name="use_alias_path" value="0" <?php echo ($use_alias_path=='0' || !isset($use_alias_path)) ? 'checked="checked"' : "" ; ?> />
@@ -661,7 +661,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr id='furlRow16' class='row2' style="display: <?php echo $friendly_urls==1 ? $displayStyle : 'none' ; ?>">
-                    <td nowrap class="warning" valign="top"><b><?php echo $_lang["duplicate_alias_title"] ?></b></td>
+                    <th><?php echo $_lang["duplicate_alias_title"] ?></th>
                     <td> <input onchange="documentDirty=true;" type="radio" name="allow_duplicate_alias" value="1" <?php echo $allow_duplicate_alias=='1' ? 'checked="checked"' : "" ; ?> />
                       <?php echo $_lang["yes"]?><br />
                       <input onchange="documentDirty=true;" type="radio" name="allow_duplicate_alias" value="0" <?php echo ($allow_duplicate_alias=='0' || !isset($allow_duplicate_alias)) ? 'checked="checked"' : "" ; ?> />
@@ -675,7 +675,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr id='furlRow13' class='row1' style="display: <?php echo $friendly_urls==1 ? $displayStyle : 'none' ; ?>">
-                    <td nowrap class="warning" valign="top"><b><?php echo $_lang["automatic_alias_title"] ?></b></td>
+                    <th><?php echo $_lang["automatic_alias_title"] ?></th>
                     <td> <input onchange="documentDirty=true;" type="radio" name="automatic_alias" value="1" <?php echo $automatic_alias=='1' ? 'checked="checked"' : "" ; ?> />
                       <?php echo $_lang["yes"]?><br />
                       <input onchange="documentDirty=true;" type="radio" name="automatic_alias" value="0" <?php echo ($automatic_alias=='0' || !isset($automatic_alias)) ? 'checked="checked"' : "" ; ?> />
@@ -706,7 +706,7 @@ function confirmLangChange(el, lkey, elupd){
                 
                 <table border="0" cellspacing="0" cellpadding="3">
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["udperms_title"] ?></b></td>
+                    <th><?php echo $_lang["udperms_title"] ?></th>
                     <td> <input onchange="documentDirty=true;" type="radio" name="use_udperms" value="1" <?php echo $use_udperms=='1' ? 'checked="checked"' : "" ; ?> onclick='showHide(/udPerms/, 1);' />
                       <?php echo $_lang["yes"]?><br />
                       <input onchange="documentDirty=true;" type="radio" name="use_udperms" value="0" <?php echo ($use_udperms=='0' || !isset($use_udperms)) ? 'checked="checked"' : "" ; ?> onclick='showHide(/udPerms/, 0);' />
@@ -720,7 +720,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr id='udPermsRow1' class='row1' style="display: <?php echo $use_udperms==1 ? $displayStyle : 'none' ; ?>">
-                    <td nowrap class="warning"><b><?php echo $_lang["udperms_allowroot_title"] ?></b></td>
+                    <th><?php echo $_lang["udperms_allowroot_title"] ?></th>
                     <td> <input onchange="documentDirty=true;" type="radio" name="udperms_allowroot" value="1" <?php echo $udperms_allowroot=='1' ? 'checked="checked"' : "" ; ?> />
                       <?php echo $_lang["yes"]?><br />
                       <input onchange="documentDirty=true;" type="radio" name="udperms_allowroot" value="0" <?php echo ($udperms_allowroot=='0' || !isset($udperms_allowroot)) ? 'checked="checked"' : "" ; ?> />
@@ -734,7 +734,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["failed_login_title"] ?></b></td>
+                    <th><?php echo $_lang["failed_login_title"] ?></th>
                     <td><input type="text" name="failed_login_attempts" style="width:50px" value="<?php echo isset($failed_login_attempts) ? $failed_login_attempts : "3" ; ?>" /></td>
                   </tr>
                   <tr>
@@ -745,7 +745,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["blocked_minutes_title"] ?></b></td>
+                    <th><?php echo $_lang["blocked_minutes_title"] ?></th>
                     <td><input type="text" name="blocked_minutes" style="width:100px" value="<?php echo isset($blocked_minutes) ? $blocked_minutes : "60" ; ?>" /></td>
                   </tr>
                   <tr>
@@ -756,13 +756,13 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["captcha_words_title"] ?></b>
+                    <th><?php echo $_lang["captcha_words_title"] ?></b>
                       <br />
                       <p><?php echo $_lang["update_settings_from_language"]; ?></p>
                       <select name="reload_captcha_words" id="reload_captcha_words_select" onchange="confirmLangChange(this, 'captcha_words_default', 'captcha_words_input');">
         <?php echo get_lang_options('captcha_words_default');?>
                       </select>
-                    </td>
+                    </th>
                     <td><input type="text" id="captcha_words_input" name="captcha_words" style="width:250px" value="<?php echo isset($captcha_words) ? $captcha_words : $_lang["captcha_words_default"] ; ?>" />
                         <input type="hidden" name="captcha_words_default" id="captcha_words_default_hidden" value="<?php echo addslashes($_lang["captcha_words_default"]);?>" />
                     </td>
@@ -775,7 +775,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["emailsender_title"] ?></b></td>
+                    <th><?php echo $_lang["emailsender_title"] ?></th>
                     <td ><input onchange="documentDirty=true;" type='text' maxlength='255' style="width: 250px;" name="emailsender" value="<?php echo isset($emailsender) ? $emailsender : "you@example.com" ; ?>" /></td>
                   </tr>
                   <tr>
@@ -786,13 +786,13 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["emailsubject_title"] ?></b>
+                    <th><?php echo $_lang["emailsubject_title"] ?></b>
                       <br />
                       <p><?php echo $_lang["update_settings_from_language"]; ?></p>
                       <select name="reload_emailsubject" id="reload_emailsubject_select" onchange="confirmLangChange(this, 'emailsubject_default', 'emailsubject_field');">
         <?php echo get_lang_options('emailsubject_default');?>
                       </select>
-                    </td>
+                    </th>
                     <td ><input id="emailsubject_field" name="emailsubject" onchange="documentDirty=true;" type='text' maxlength='255' style="width: 250px;" value="<?php echo isset($emailsubject) ? $emailsubject : $_lang["emailsubject_default"] ; ?>" />
                         <input type="hidden" name="emailsubject_default" id="emailsubject_default_hidden" value="<?php echo addslashes($_lang['emailsubject_default']);?>" />
                     </td>
@@ -805,13 +805,13 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning" valign="top"><b><?php echo $_lang["signupemail_title"] ?></b>
+                    <th><?php echo $_lang["signupemail_title"] ?></b>
                       <br />
                       <p><?php echo $_lang["update_settings_from_language"]; ?></p>
                       <select name="reload_signupemail_message" id="reload_signupemail_message_select" onchange="confirmLangChange(this, 'system_email_signup', 'signupemail_message_textarea');">
         <?php echo get_lang_options('system_email_signup');?>
                       </select>
-                    </td>
+                    </th>
                     <td> <textarea id="signupemail_message_textarea" name="signupemail_message" style="width:100%; height: 120px;"><?php echo isset($signupemail_message) ? $signupemail_message : $_lang["system_email_signup"] ?></textarea>
                         <input type="hidden" name="system_email_signup_default" id="system_email_signup_hidden" value="<?php echo addslashes($_lang['system_email_signup']);?>" />
                     </td>
@@ -824,13 +824,13 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning" valign="top"><b><?php echo $_lang["websignupemail_title"] ?></b>
+                    <th><?php echo $_lang["websignupemail_title"] ?></b>
                       <br />
                       <p><?php echo $_lang["update_settings_from_language"]; ?></p>
                       <select name="reload_websignupemail_message" id="reload_websignupemail_message_select" onchange="confirmLangChange(this, 'system_email_websignup', 'websignupemail_message_textarea');">
         <?php echo get_lang_options('system_email_websignup');?>
                       </select>
-                    </td>
+                    </th>
                     <td> <textarea id="websignupemail_message_textarea" name="websignupemail_message" style="width:100%; height: 120px;"><?php echo isset($websignupemail_message) ? $websignupemail_message : $_lang["system_email_websignup"] ?></textarea>
                         <input type="hidden" name="system_email_websignup_default" id="system_email_websignup_hidden" value="<?php echo addslashes($_lang['system_email_websignup']);?>" />
                     </td>
@@ -843,13 +843,13 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning" valign="top"><b><?php echo $_lang["webpwdreminder_title"] ?></b>
+                    <th><?php echo $_lang["webpwdreminder_title"] ?></b>
                       <br />
                       <p><?php echo $_lang["update_settings_from_language"]; ?></p>
                       <select name="reload_system_email_webreminder_message" id="reload_system_email_webreminder_select" onchange="confirmLangChange(this, 'system_email_webreminder', 'system_email_webreminder_textarea');">
         <?php echo get_lang_options('system_email_webreminder');?>
                       </select>
-                    </td>
+                    </th>
                     <td> <textarea id="system_email_webreminder_textarea" name="webpwdreminder_message" style="width:100%; height: 120px;"><?php echo isset($webpwdreminder_message) ? $webpwdreminder_message : $_lang["system_email_webreminder"]; ?></textarea>
                         <input type="hidden" name="system_email_webreminder_default" id="system_email_webreminder_hidden" value="<?php echo addslashes($_lang['system_email_webreminder']);?>" />
                     </td>
@@ -875,7 +875,7 @@ function confirmLangChange(el, lkey, elupd){
                 
                 <table border="0" cellspacing="0" cellpadding="3">
                    <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["language_title"]?></b></td>
+                    <th><?php echo $_lang["language_title"]?></th>
                     <td>
                        <select name="manager_language" size="1" class="inputBox" onchange="documentDirty=true;">
                        <?php echo get_lang_options(null, $manager_language);?>
@@ -891,7 +891,7 @@ function confirmLangChange(el, lkey, elupd){
                   </tr>
 
                     <tr>
-                      <td nowrap class="warning"><b><?php echo $_lang["manager_theme"]?></b></td>
+                      <th><?php echo $_lang["manager_theme"]?></th>
                       <td> <select name="manager_theme" size="1" class="inputBox" onchange="documentDirty=true;">
                        <?php
                           $dir = dir("media/style/");
@@ -915,7 +915,7 @@ function confirmLangChange(el, lkey, elupd){
                       <td colspan="2"><div class='split'></div></td>
                     </tr>
                      <tr>
-                       <td nowrap class="warning"><b><?php echo $_lang["warning_visibility"] ?></b></td>
+                       <th><?php echo $_lang["warning_visibility"] ?></th>
                        <td> <input onchange="documentDirty=true;" type="radio" name="warning_visibility" value="0" <?php echo $warning_visibility=='0' ? 'checked="checked"' : ""; ?> />
                          <?php echo $_lang["administrators"]?><br />
                          <input onchange="documentDirty=true;" type="radio" name="warning_visibility" value="1" <?php echo (!isset($warning_visibility) || $warning_visibility=='1') ? 'checked="checked"' : ""; ?> />
@@ -929,7 +929,7 @@ function confirmLangChange(el, lkey, elupd){
                       <td colspan="2"><div class='split'></div></td>
                     </tr>
                      <tr>
-                       <td nowrap class="warning"><b><?php echo $_lang["docid_visibility"] ?></b></td>
+                       <th><?php echo $_lang["docid_visibility"] ?></th>
                        <td> <input onchange="documentDirty=true;" type="radio" name="docid_visibility" value="0" <?php echo $docid_visibility=='0' ? 'checked="checked"' : ""; ?> />
                          <?php echo $_lang["administrators"]?><br />
                          <input onchange="documentDirty=true;" type="radio" name="docid_visibility" value="1" <?php echo (!isset($docid_visibility) || $docid_visibility=='1') ? 'checked="checked"' : ""; ?> />
@@ -944,7 +944,7 @@ function confirmLangChange(el, lkey, elupd){
                       <td colspan="2"><div class='split'></div></td>
                     </tr>
                      <tr>
-                         <td nowrap class="warning"><b><?php echo $_lang["tree_page_click"] ?></b></td>
+                         <th><?php echo $_lang["tree_page_click"] ?></th>
                          <td> <input onchange="documentDirty=true;" type="radio" name="tree_page_click" value="27" <?php echo $tree_page_click=='27' ? 'checked="checked"' : ""; ?> />
                            <?php echo $_lang["edit_resource"]?><br />
                            <input onchange="documentDirty=true;" type="radio" name="tree_page_click" value="3" <?php echo ($tree_page_click=='3' || !isset($tree_page_click)) ? 'checked="checked"' : ""; ?> />
@@ -958,7 +958,7 @@ function confirmLangChange(el, lkey, elupd){
                       <td colspan="2"><div class='split'></div></td>
                     </tr>
                      <tr>
-                       <td nowrap class="warning"><b><?php echo $_lang["remember_last_tab"] ?></b></td>
+                       <th><?php echo $_lang["remember_last_tab"] ?></th>
                        <td> <input onchange="documentDirty=true;" type="radio" name="remember_last_tab" value="1" <?php echo $remember_last_tab=='1' ? 'checked="checked"' : ""; ?> />
                          <?php echo $_lang["yes"]?><br />
                          <input onchange="documentDirty=true;" type="radio" name="remember_last_tab" value="0" <?php echo (!isset($remember_last_tab) || $remember_last_tab=='0') ? 'checked="checked"' : ""; ?> />
@@ -972,7 +972,7 @@ function confirmLangChange(el, lkey, elupd){
                       <td colspan="2"><div class='split'></div></td>
                     </tr>
                      <tr>
-                         <td nowrap class="warning"><b><?php echo $_lang["tree_show_protected"] ?></b></td>
+                         <th><?php echo $_lang["tree_show_protected"] ?></th>
                          <td> <input onchange="documentDirty=true;" type="radio" name="tree_show_protected" value="1" <?php echo (!isset($tree_show_protected) || $tree_show_protected=='0') ? '' : 'checked="checked" '; ?>/>
                            <?php echo $_lang["yes"]?><br />
                            <input onchange="documentDirty=true;" type="radio" name="tree_show_protected" value="0" <?php echo (!isset($tree_show_protected) || $tree_show_protected=='0') ? 'checked="checked" ' : ''; ?>/>
@@ -986,7 +986,7 @@ function confirmLangChange(el, lkey, elupd){
                       <td colspan="2"><div class='split'></div></td>
                     </tr>
                     <tr>
-                      <td nowrap class="warning"><?php echo $_lang["rss_url_news_title"] ?></td>
+                      <th><?php echo $_lang["rss_url_news_title"] ?></th>
                       <td ><input onchange="documentDirty=true;" type='text' maxlength='350' style="width: 350px;" name="rss_url_news" value="<?php echo isset($rss_url_news) ? $rss_url_news : $_lang["rss_url_news_default"] ; ?>" /></td>
                     </tr>
                     <tr>
@@ -997,7 +997,7 @@ function confirmLangChange(el, lkey, elupd){
                       <td colspan="2"><div class='split'></div></td>
                     </tr>
                     <tr>
-                      <td nowrap class="warning"><?php echo $_lang["rss_url_security_title"] ?></td>
+                      <th><?php echo $_lang["rss_url_security_title"] ?></th>
                       <td ><input onchange="documentDirty=true;" type='text' maxlength='350' style="width: 350px;" name="rss_url_security" value="<?php echo isset($rss_url_security) ? $rss_url_security : $_lang["rss_url_security_default"] ; ?>" /></td>
                     </tr>
                     <tr>
@@ -1008,7 +1008,7 @@ function confirmLangChange(el, lkey, elupd){
                       <td colspan="2"><div class='split'></div></td>
                     </tr>
                     <tr>
-                        <td nowrap class="warning"><b><?php echo $_lang["datepicker_year_range"] ?></b></td>
+                        <th><?php echo $_lang["datepicker_year_range"] ?></th>
                         <td><input onchange="documentDirty=true;" type='text' maxlength='50' size="5" name="datepicker_year_range" value="<?php echo isset($datepicker_year_range) ? $datepicker_year_range : '10' ; ?>" /></td>
                     </tr>
                     <tr>
@@ -1022,7 +1022,7 @@ function confirmLangChange(el, lkey, elupd){
                     
                     
                     <tr>
-                        <td nowrap class="warning"><b><?php echo $_lang["date_format"] ?></b></td>
+                        <th><?php echo $_lang["date_format"] ?></th>
                         <td>
                             <select name="date_format" size="1" class="inputBox">
                                 <?php
@@ -1049,7 +1049,7 @@ function confirmLangChange(el, lkey, elupd){
                     </tr>
                     
                     <tr>
-                        <td nowrap class="warning"><b><?php echo $_lang["time_format"] ?></b></td>
+                        <th><?php echo $_lang["time_format"] ?></th>
                         <td>
                             <select name="time_format" size="1" class="inputBox">
                                 <?php
@@ -1076,7 +1076,7 @@ function confirmLangChange(el, lkey, elupd){
                     </tr>
         
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["nologentries_title"]?></b></td>
+                    <th><?php echo $_lang["nologentries_title"]?></th>
                     <td><input onchange="documentDirty=true;" type='text' maxlength='50' size="5" name="number_of_logs" value="<?php echo isset($number_of_logs) ? $number_of_logs : 100 ; ?>" /></td>
                   </tr>
                   <tr>
@@ -1087,7 +1087,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["noresults_title"]?></b></td>
+                    <th><?php echo $_lang["noresults_title"]?></th>
                     <td><input onchange="documentDirty=true;" type='text' maxlength='50' size="5" name="number_of_results" value="<?php echo isset($number_of_results) ? $number_of_results : 30 ; ?>" /></td>
                   </tr>
                   <tr>
@@ -1098,7 +1098,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                     <tr>
-                      <td nowrap class="warning"><b><?php echo $_lang["validate_referer_title"] ?></b></td>
+                      <th><?php echo $_lang["validate_referer_title"] ?></th>
                       <td><input onchange="documentDirty=true;" type="radio" name="validate_referer" value="1" <?php echo ($validate_referer=='1' || !isset($validate_referer)) ? 'checked="checked"' : "" ; ?> />
                         <?php echo $_lang["yes"]?><br />
                         <input onchange="documentDirty=true;" type="radio" name="validate_referer" value="0" <?php echo $validate_referer=='0' ? 'checked="checked"' : "" ; ?> />
@@ -1112,7 +1112,7 @@ function confirmLangChange(el, lkey, elupd){
                       <td colspan="2"><div class='split'></div></td>
                     </tr>
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["settings_strip_image_paths_title"]?></b></td>
+                    <th><?php echo $_lang["settings_strip_image_paths_title"]?></th>
                     <td><input onchange="documentDirty=true;" type="radio" name="strip_image_paths" value="1" <?php echo $strip_image_paths=='1' ? 'checked="checked"' : "" ; ?> />
                       <?php echo $_lang["yes"]?><br />
                       <input onchange="documentDirty=true;" type="radio" name="strip_image_paths" value="0" <?php echo ($strip_image_paths=='0' || !isset($strip_image_paths)) ? 'checked="checked"' : "" ; ?> />
@@ -1126,7 +1126,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["rb_title"]?></b></td>
+                    <th><?php echo $_lang["rb_title"]?></th>
                     <td> <input onchange="documentDirty=true;" type="radio" name="use_browser" value="1" <?php echo ($use_browser=='1' || !isset($use_browser)) ? 'checked="checked"' : "" ; ?> onclick="showHide(/rbRow/, 1);" />
                       <?php echo $_lang["yes"]?><br />
                       <input onchange="documentDirty=true;" type="radio" name="use_browser" value="0" <?php echo $use_browser=='0' ? 'checked="checked"' : "" ; ?> onclick="showHide(/rbRow/, 0);" />
@@ -1143,7 +1143,7 @@ function confirmLangChange(el, lkey, elupd){
                   <?php if(!isset($use_browser)) $use_browser=1; ?>
                   
                   <tr id='rbRow1' class="row3" style="display: <?php echo $use_browser==1 ? $displayStyle : 'none' ; ?>">
-                    <td nowrap class="warning"><b><?php echo $_lang["rb_webuser_title"]?></b></td>
+                    <th><?php echo $_lang["rb_webuser_title"]?></th>
                     <td><input onchange="documentDirty=true;" type="radio" name="rb_webuser" value="1" <?php echo $rb_webuser=='1' ? 'checked="checked"' : "" ; ?> />
                       <?php echo $_lang["yes"]?><br />
                       <input onchange="documentDirty=true;" type="radio" name="rb_webuser" value="0" <?php echo ($rb_webuser=='0' || !isset($rb_webuser)) ? 'checked="checked"' : "" ; ?> />
@@ -1157,7 +1157,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr id='rbRow4' class='row3' style="display: <?php echo $use_browser==1 ? $displayStyle : 'none' ; ?>">
-                    <td nowrap class="warning"><b><?php echo $_lang["rb_base_dir_title"]?></b></td>
+                    <th><?php echo $_lang["rb_base_dir_title"]?></th>
                     <td><?php
                     function getResourceBaseDir() {
                         global $base_path;
@@ -1176,7 +1176,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr id='rbRow7' class='row3' style="display: <?php echo $use_browser==1 ? $displayStyle : 'none' ; ?>">
-                    <td nowrap class="warning"><b><?php echo $_lang["rb_base_url_title"]?></b></td>
+                    <th><?php echo $_lang["rb_base_url_title"]?></th>
                     <td> <?php
                         function getResourceBaseUrl() {
                             global $site_url;
@@ -1194,7 +1194,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr id='rbRow8b' class='row3' style="display: <?php echo $use_browser==1 ? $displayStyle : 'none' ; ?>">
-                    <td nowrap class="warning"><b><?php echo $_lang['file_browser_title']; ?></b></td>
+                    <th><?php echo $_lang['file_browser_title']; ?></th>
                     <td>
                       <select onchange="documentDirty=true;" name="file_browser">
 	                     <?php
@@ -1211,7 +1211,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr id='rbRow10' class='row3' style="display: <?php echo $use_browser==1 ? $displayStyle : 'none' ; ?>">
-                    <td nowrap class="warning"><b><?php echo $_lang["uploadable_images_title"]?></b></td>
+                    <th><?php echo $_lang["uploadable_images_title"]?></th>
                     <td>
                       <input onchange="documentDirty=true;" type='text' maxlength='255' style="width: 250px;" name="upload_images" value="<?php echo isset($upload_images) ? $upload_images : "jpg,gif,png,ico,bmp,psd" ; ?>" />
                     </td>
@@ -1224,7 +1224,7 @@ function confirmLangChange(el, lkey, elupd){
                   <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr id='rbRow13' class='row3' style="display: <?php echo $use_browser==1 ? $displayStyle : 'none' ; ?>">
-                    <td nowrap class="warning"><b><?php echo $_lang["uploadable_media_title"]?></b></td>
+                    <th><?php echo $_lang["uploadable_media_title"]?></th>
                     <td>
                       <input onchange="documentDirty=true;" type='text' maxlength='255' style="width: 250px;" name="upload_media" value="<?php echo isset($upload_media) ? $upload_media : "mp3,wav,au,wmv,avi,mpg,mpeg" ; ?>" />
                     </td>
@@ -1237,7 +1237,7 @@ function confirmLangChange(el, lkey, elupd){
                   <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr id='rbRow16' class='row3' style="display: <?php echo $use_browser==1 ? $displayStyle : 'none' ; ?>">
-                    <td nowrap class="warning"><b><?php echo $_lang["uploadable_flash_title"]?></b></td>
+                    <th><?php echo $_lang["uploadable_flash_title"]?></th>
                     <td>
                       <input onchange="documentDirty=true;" type='text' maxlength='255' style="width: 250px;" name="upload_flash" value="<?php echo isset($upload_flash) ? $upload_flash : "swf,fla" ; ?>" />
                     </td>
@@ -1250,7 +1250,7 @@ function confirmLangChange(el, lkey, elupd){
                       <td colspan="2"><div class='split'></div></td>
                     </tr>
                   <tr id='rbRow172' class='row3' style="display: <?php echo $use_browser==1 ? $displayStyle : 'none' ; ?>">
-                      <td nowrap class="warning"><b><?php echo $_lang["clean_uploaded_filename"]?></b></td>
+                      <th><?php echo $_lang["clean_uploaded_filename"]?></th>
                       <td> <input onchange="documentDirty=true;" type="radio" name="clean_uploaded_filename" value="1" <?php echo $clean_uploaded_filename=='1' ? 'checked="checked"' : "" ; ?> />
                         <?php echo $_lang["yes"]?><br />
                         <input onchange="documentDirty=true;" type="radio" name="clean_uploaded_filename" value="0" <?php echo ($clean_uploaded_filename=='0' || !isset($clean_uploaded_filename)) ? 'checked="checked"' : "" ; ?> />
@@ -1265,7 +1265,7 @@ function confirmLangChange(el, lkey, elupd){
                   </tr>
         
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["use_editor_title"]?></b></td>
+                    <th><?php echo $_lang["use_editor_title"]?></th>
                     <td> <input onchange="documentDirty=true;" type="radio" name="use_editor" value="1" <?php echo ($use_editor=='1' || !isset($use_editor)) ? 'checked="checked"' : "" ; ?> onclick="showHide(/editorRow/, 1); checkCustomIcons();" />
                       <?php echo $_lang["yes"]?><br />
                       <input onchange="documentDirty=true;" type="radio" name="use_editor" value="0" <?php echo $use_editor=='0' ? 'checked="checked"' : "" ; ?> onclick="showHide(/editorRow/, 0);" />
@@ -1282,7 +1282,7 @@ function confirmLangChange(el, lkey, elupd){
                   <?php if(!isset($use_editor)) $use_editor=1; ?>
                   
                   <tr id='editorRow0' class="row3" style="display: <?php echo $use_editor==1 ? $displayStyle : 'none' ; ?>">
-                    <td nowrap class="warning"><b><?php echo $_lang["which_editor_title"]?></b></td>
+                    <th><?php echo $_lang["which_editor_title"]?></th>
                     <td>
                         <select name="which_editor" onchange="documentDirty=true;">
                             <?php
@@ -1305,7 +1305,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr id='editorRow4' class="row3" style="display: <?php echo $use_editor==1 ? $displayStyle : 'none' ; ?>">
-                    <td nowrap class="warning"><b><?php echo $_lang["fe_editor_lang_title"]?></b></td>
+                    <th><?php echo $_lang["fe_editor_lang_title"]?></th>
                     <td> <select name="fe_editor_lang" size="1" class="inputBox" onchange="documentDirty=true;">
         <?php echo get_lang_options(null, $fe_editor_lang);?>
                       </select> </td>
@@ -1318,7 +1318,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr id='editorRow14' class="row3" style="display: <?php echo $use_editor==1 ? $displayStyle : 'none' ; ?>">
-                    <td nowrap class="warning"><b><?php echo $_lang["editor_css_path_title"]?></b></td>
+                    <th><?php echo $_lang["editor_css_path_title"]?></th>
                     <td><input onchange="documentDirty=true;" type='text' maxlength='255' style="width: 250px;" name="editor_css_path" value="<?php echo isset($editor_css_path) ? $editor_css_path : "" ; ?>" />
                     </td>
                   </tr>
@@ -1345,7 +1345,7 @@ function confirmLangChange(el, lkey, elupd){
             <div id="tabSettingsMisc">
                 <table border="0" cellspacing="0" cellpadding="3">
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["filemanager_path_title"]?></b></td>
+                    <th><?php echo $_lang["filemanager_path_title"]?></th>
                     <td>
                       <?php echo $_lang['default']; ?> <span id="default_filemanager_path"><?php echo $base_path; ?></span><br />
                       <input onchange="documentDirty=true;" type='text' maxlength='255' style="width: 250px;" name="filemanager_path" id="filemanager_path" value="<?php echo isset($filemanager_path) ? $filemanager_path : $base_path; ?>" /> <input type="button" onclick="reset_path('filemanager_path');" value="<?php echo $_lang["reset"]; ?>" name="reset_filemanager_path">
@@ -1359,7 +1359,7 @@ function confirmLangChange(el, lkey, elupd){
                   <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["uploadable_files_title"]?></b></td>
+                    <th><?php echo $_lang["uploadable_files_title"]?></th>
                     <td>
                       <input onchange="documentDirty=true;" type='text' maxlength='255' style="width: 250px;" name="upload_files" value="<?php echo isset($upload_files) ? $upload_files : "txt,php,html,htm,xml,js,css,cache,zip,gz,rar,z,tgz,tar,htaccess,pdf" ; ?>" />
                     </td>
@@ -1372,7 +1372,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["upload_maxsize_title"]?></b></td>
+                    <th><?php echo $_lang["upload_maxsize_title"]?></th>
                     <td>
                       <input onchange="documentDirty=true;" type='text' maxlength='255' style="width: 250px;" name="upload_maxsize" value="<?php echo isset($upload_maxsize) ? $upload_maxsize : "1048576" ; ?>" />
                     </td>
@@ -1385,7 +1385,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["new_file_permissions_title"]?></b></td>
+                    <th><?php echo $_lang["new_file_permissions_title"]?></th>
                     <td>
                       <input onchange="documentDirty=true;" type='text' maxlength='4' style="width: 50px;" name="new_file_permissions" value="<?php echo isset($new_file_permissions) ? $new_file_permissions : "0644" ; ?>" />
                     </td>
@@ -1398,7 +1398,7 @@ function confirmLangChange(el, lkey, elupd){
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
                   <tr>
-                    <td nowrap class="warning"><b><?php echo $_lang["new_folder_permissions_title"]?></b></td>
+                    <th><?php echo $_lang["new_folder_permissions_title"]?></th>
                     <td>
                       <input onchange="documentDirty=true;" type='text' maxlength='4' style="width: 50px;" name="new_folder_permissions" value="<?php echo isset($new_folder_permissions) ? $new_folder_permissions : "0755" ; ?>" />
                     </td>
