@@ -181,12 +181,13 @@ if (isset ($_POST['which_editor'])) {
 }
 
 // Functionality from template rules plugin by Cipa, now in the core
-$rs_tr = $modx->db->select('id', $tbl_site_tmplvars, "name = 'TemplateRules'"); // <<<< To be a config option
-if ($modx->db->getRecordCount($rs_tr)) {
-    require_once('template_rules.class.inc.php');
-    $template_rules = TemplateRules::getTvValueAndLevel($pid, reset($modx->db->getRow($rs_tr)));
-} else {
-    $template_rules = null;
+$template_rules = null;
+if ($modx->config['template_rules_tv']) {
+    $rs_tr = $modx->db->select('id', $tbl_site_tmplvars, "name = '{$modx->config['template_rules_tv']}'");
+    if ($modx->db->getRecordCount($rs_tr)) {
+        require_once('template_rules.class.inc.php');
+        $template_rules = TemplateRules::getTvValueAndLevel($pid, reset($modx->db->getRow($rs_tr)));
+    }
 }
 ?>
 
@@ -608,7 +609,7 @@ function decode(s) {
                         $default_template = $template_rules_default;
                     } elseif ($pid && isset($row_template) && $row_template['default_child_template']) { // No need to differentiate between blank template being specified and no value - behaviour is the same
                         $default_template = $row_template['default_child_template'];
-                    } else switch($auto_template_logic) { // <<<< moved out of loop
+                    } else switch($modx->config['auto_template_logic']) {
                         case 'sibling':
 
                             if ($sibl = $modx->getDocumentChildren($pid, 1, 0, 'template', '', 'menuindex', 'ASC', 1)) {

@@ -347,9 +347,16 @@ function confirmLangChange(el, lkey, elupd){
                             <input onchange="documentDirty=true;" type="radio" name="auto_template_logic" value="sibling"<?php if($auto_template_logic == 'sibling') {echo " checked='checked'";}?>/> <?php echo $_lang["defaulttemplate_logic_sibling_message"]; ?><br />
                         </td>
                     </tr>
-                    <tr>
-                        <td colspan="2"><div class='split'></div></td>
-                    </tr>
+                  <tr>
+                    <td colspan="2"><div class='split'></div></td>
+                  </tr>
+                  <tr>
+                     <th><?php echo $_lang['template_rules_tv_label']; ?></th>
+                     <td><input type="text" name="template_rules_tv" id="template_rules_tv" value="<?php echo $template_rules_tv;?>" /></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><div class='split'></div></td>
+                  </tr>
                   <tr>
                     <th><?php echo $_lang["defaulttemplate_title"] ?></th>
                     <td>

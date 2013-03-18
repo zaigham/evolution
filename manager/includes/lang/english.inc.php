@@ -1066,4 +1066,4 @@ $_lang['docid_visibility_message'] = 'Control the visibility of the resource/doc
 $_lang['default_child_template'] = 'Default child template';
 $_lang['restrict_children'] = 'Restrict child templates';
 $_lang['allowed_child_templates'] = 'Allowed child templates';
-
+$_lang['template_rules_tv_label'] = 'TV to use for document-specific template rules';
