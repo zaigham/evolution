@@ -179,6 +179,15 @@ if (!$existing) {
 if (isset ($_POST['which_editor'])) {
     $which_editor = $_POST['which_editor'];
 }
+
+// Functionality from template rules plugin by Cipa, now in the core
+$rs_tr = $modx->db->select('id', $tbl_site_tmplvars, "name = 'TemplateRules'"); // <<<< To be a config option
+if ($modx->db->getRecordCount($rs_tr)) {
+    require_once('template_rules.class.inc.php');
+    $template_rules = TemplateRules::getTvValueAndLevel($pid, reset($modx->db->getRow($rs_tr)));
+} else {
+    $template_rules = null;
+}
 ?>
 
 <script type="text/javascript">
@@ -575,7 +584,13 @@ function decode(s) {
                 <td>
                    <select id="template" name="template" class="inputBox" onchange="templateWarning();" style="width:308px">
                     <?php
-                    if ($pid) {
+                    if ($template_rules) {
+                        $allowed_templates_list = TemplateRules::getTemplateList($template_rules);
+                        if (!$allowed_templates_list) {
+                            $allowed_templates_list = implode(',', $modx->db->getColumn('id', $modx->db->select('id', $tbl_site_templates)));
+                            $allowed_templates_list .= ',0';
+                        }
+                    } elseif ($pid) {
                         $template_id = $modx->db->getValue($modx->db->select('template', $tbl_site_content, "id = $pid"));
                         $rs_template = $modx->db->select('default_child_template, restrict_children, allowed_child_templates', $tbl_site_templates, "id=$template_id");
                         if ($rs_template && ($row_template = $modx->db->getRow($rs_template)) && $row_template['restrict_children']) {
@@ -591,8 +606,10 @@ function decode(s) {
                         $allowed_templates_list = implode(',',$modx->db->getColumn('id', $modx->db->select('id', $tbl_site_templates)));
                         $allowed_templates_list .= ',0';
                     }
-
-                    if ($pid && isset($row_template) && $row_template['default_child_template']) { // No need to differentiate between blank template being specified and no value - behaviour is the same
+                    
+                    if ($template_rules && !is_null($template_rules_default = TemplateRules::getDefaultTemplate($template_rules))) {
+                        $default_template = $template_rules_default;
+                    } elseif ($pid && isset($row_template) && $row_template['default_child_template']) { // No need to differentiate between blank template being specified and no value - behaviour is the same
                         $default_template = $row_template['default_child_template'];
                     } else switch($auto_template_logic) { // <<<< moved out of loop
                         case 'sibling':
