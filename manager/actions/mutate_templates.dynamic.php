@@ -169,7 +169,16 @@ function deletedocument() {
 		      </tr>
 		      <tr>
 		        <td align="left"><?php echo $_lang['default_child_template']; ?>:</td>
-		        <td align="left"><input name="default_child_template" type="text" maxlength="45" value="<?php echo @$content['default_child_template'] ? $content['default_child_template'] : '' ?>" class="inputBox" style="width:300px;" onChange='documentDirty=true;'></td>
+		        <td align="left">
+		            <select name="default_child_template" onChange='documentDirty=true;'>
+		                <?php
+		                $rs_templates = $modx->db->select('id,templatename', $modx->getFullTablename('site_templates'), null, 'templatename ASC');
+		                while ($row_templates = $modx->db->getRow($rs_templates)) {
+		                    echo '<option value="'.$row_templates['id'].'"'.(isset($content['default_child_template']) && $content['default_child_template'] == $row_templates['id'] ? ' selected="selected"' : '').'>'.$row_templates['templatename'].'</option>';
+		                }
+		                ?>
+		            </select>
+		        </td>
 		      </tr>
 		      <tr>
 		        <td align="left"><?php echo $_lang['restrict_children']; ?>:</td>
