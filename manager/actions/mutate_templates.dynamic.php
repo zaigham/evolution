@@ -67,6 +67,15 @@ if(isset($_REQUEST['id']) && $_REQUEST['id']!='' && is_numeric($_REQUEST['id']))
 
 $content = array_merge($content, $_POST);
 
+// Template lists
+$allowed_child_templates = explode(',', $content['allowed_child_templates']);
+$output_act = '<label><input type="checkbox" value="0" name="allowed_child_templates[]" '.(in_array(0, $allowed_child_templates) ? ' checked="checked"' : '').'/>(blank)</label>';
+$output_dct = '<option value="0">(blank)</option>';
+$rs_templates = $modx->db->select('id,templatename', $modx->getFullTablename('site_templates'), null, 'templatename ASC');
+while ($row_templates = $modx->db->getRow($rs_templates)) {
+    $output_act .= '<label><input type="checkbox" value="'.$row_templates['id'].'"'.(in_array($row_templates['id'], $allowed_child_templates) ? ' checked="checked"' : '').' name="allowed_child_templates[]" >'.$row_templates['templatename'].'</label>';
+    $output_dct .= '<option value="'.$row_templates['id'].'"'.(isset($content['default_child_template']) && $content['default_child_template'] == $row_templates['id'] ? ' selected="selected"' : '').'>'.$row_templates['templatename'].'</option>';
+}
 ?>
 <script type="text/javascript">
 function duplicaterecord(){
@@ -170,13 +179,8 @@ function deletedocument() {
 		      <tr>
 		        <td align="left"><?php echo $_lang['default_child_template']; ?>:</td>
 		        <td align="left">
-		            <select name="default_child_template" onChange='documentDirty=true;'>
-		                <?php
-		                $rs_templates = $modx->db->select('id,templatename', $modx->getFullTablename('site_templates'), null, 'templatename ASC');
-		                while ($row_templates = $modx->db->getRow($rs_templates)) {
-		                    echo '<option value="'.$row_templates['id'].'"'.(isset($content['default_child_template']) && $content['default_child_template'] == $row_templates['id'] ? ' selected="selected"' : '').'>'.$row_templates['templatename'].'</option>';
-		                }
-		                ?>
+		            <select name="default_child_template" class="template_list" onChange='documentDirty=true;'>
+                        <?php echo $output_dct; ?>
 		            </select>
 		        </td>
 		      </tr>
@@ -190,7 +194,11 @@ function deletedocument() {
 		      </tr>
 		      <tr id="allowed_child_templates_section" style="visibility: <?php echo @$content['restrict_children'] ? 'visible' : 'collapse'; ?>">
 		        <td align="left"><?php echo $_lang['allowed_child_templates']; ?>:</td>
-		        <td align="left"><input name="allowed_child_templates" type="text" maxlength="45" value="<?php echo @$content['allowed_child_templates']; ?>" class="inputBox" style="width:300px;" onChange='documentDirty=true;'></td>
+		        <td align="left">
+		        	<fieldset class="template_list">
+		        	    <?php echo $output_act; ?>
+		            </fieldset>
+		        </td>
 		      </tr>
 		      <tr>
 		        <td align="left" colspan="2"><input name="locked" type="checkbox" <?php echo $content['locked']==1 ? "checked='checked'" : "" ;?> class="inputBox"> <?php echo $_lang['lock_template']; ?> <span class="comment"><?php echo $_lang['lock_template_msg']; ?></span></td>

@@ -14,7 +14,7 @@ $locked = $_POST['locked']=='on' ? 1 : 0 ;
 
 $default_child_template = intval($_POST['default_child_template']);
 $restrict_children = $_POST['restrict_children'] ? 1 : 0;
-$tmp_array = explode(',', $_POST['allowed_child_templates']);
+$tmp_array = is_array($_POST['allowed_child_templates']) ? $_POST['allowed_child_templates'] : array();
 $allowed_child_templates = '';
 foreach($tmp_array as $val) {
     $allowed_child_templates .= ','.intval($val);
