@@ -1,6 +1,15 @@
 <?php
 if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
+// Get parent docid if specified explicitly in request
+if (isset($_REQUEST['pid'])) {
+    $pid = intval($_REQUEST['pid']);
+} elseif (isset($_POST['parent'])) { // postback
+    $pid = intval($_POST['parent']);
+} else {
+	$pid = null;
+}
+
 // check permissions
 switch ($_REQUEST['a']) {
     case 27:
@@ -16,12 +25,12 @@ switch ($_REQUEST['a']) {
         if (!$modx->hasPermission('new_document')) {
             $e->setError(3);
             $e->dumpError();
-        } elseif(isset($_REQUEST['pid']) && $_REQUEST['pid'] != '0') {
-            // check user has permissions for parent
+        } elseif ($pid) {
+            // Check permissions on parent
             include_once(MODX_MANAGER_PATH.'processors/user_documents_permissions.class.php');
             $udperms = new udperms();
             $udperms->user = $modx->getLoginUserID();
-            $udperms->document = empty($_REQUEST['pid']) ? 0 : $_REQUEST['pid'];
+            $udperms->document = $pid;
             $udperms->role = $_SESSION['mgrRole'];
             if (!$udperms->checkPermissions()) {
                 $e->setError(3);
@@ -36,31 +45,21 @@ switch ($_REQUEST['a']) {
 }
 
 
-if (isset($_REQUEST['id']))
-        $id = (int)$_REQUEST['id'];
-else    $id = 0;
+// Get document id
+if ($existing) {
+    $docid = (int)$_REQUEST['id'];
+} else {
+    $docid = 0;
+}
 
-// Get table names (alphabetical)
-$tbl_active_users               = $modx->getFullTableName('active_users');
-$tbl_categories                 = $modx->getFullTableName('categories');
-$tbl_document_group_names       = $modx->getFullTableName('documentgroup_names');
-$tbl_member_groups              = $modx->getFullTableName('member_groups');
-$tbl_membergroup_access         = $modx->getFullTableName('membergroup_access');
-$tbl_document_groups            = $modx->getFullTableName('document_groups');
-$tbl_site_content               = $modx->getFullTableName('site_content');
-$tbl_site_templates             = $modx->getFullTableName('site_templates');
-$tbl_site_tmplvar_access        = $modx->getFullTableName('site_tmplvar_access');
-$tbl_site_tmplvar_contentvalues = $modx->getFullTableName('site_tmplvar_contentvalues');
-$tbl_site_tmplvar_templates     = $modx->getFullTableName('site_tmplvar_templates');
-$tbl_site_tmplvars              = $modx->getFullTableName('site_tmplvars');
-
+// Check permissions on existing document
 if ($existing) {
     //editing an existing document
     // check permissions on the document
     include_once(MODX_MANAGER_PATH.'processors/user_documents_permissions.class.php');
     $udperms = new udperms();
     $udperms->user = $modx->getLoginUserID();
-    $udperms->document = $id;
+    $udperms->document = $docid;
     $udperms->role = $_SESSION['mgrRole'];
 
     if (!$udperms->checkPermissions()) {
@@ -76,8 +75,22 @@ if ($existing) {
     }
 }
 
+// Get table names (alphabetical)
+$tbl_active_users               = $modx->getFullTableName('active_users');
+$tbl_categories                 = $modx->getFullTableName('categories');
+$tbl_document_group_names       = $modx->getFullTableName('documentgroup_names');
+$tbl_member_groups              = $modx->getFullTableName('member_groups');
+$tbl_membergroup_access         = $modx->getFullTableName('membergroup_access');
+$tbl_document_groups            = $modx->getFullTableName('document_groups');
+$tbl_site_content               = $modx->getFullTableName('site_content');
+$tbl_site_templates             = $modx->getFullTableName('site_templates');
+$tbl_site_tmplvar_access        = $modx->getFullTableName('site_tmplvar_access');
+$tbl_site_tmplvar_contentvalues = $modx->getFullTableName('site_tmplvar_contentvalues');
+$tbl_site_tmplvar_templates     = $modx->getFullTableName('site_tmplvar_templates');
+$tbl_site_tmplvars              = $modx->getFullTableName('site_tmplvars');
+
 // Check to see the document isn't locked
-$sql = 'SELECT internalKey, username FROM '.$tbl_active_users.' WHERE action=27 AND id=\''.$id.'\'';
+$sql = 'SELECT internalKey, username FROM '.$tbl_active_users.' WHERE action=27 AND id=\''.$docid.'\'';
 $rs = $modx->db->query($sql);
 $limit = $modx->db->getRecordCount($rs);
 if ($limit > 1) {
@@ -97,13 +110,13 @@ if ($_SESSION['mgrDocgroups']) {
 }
 
 // Get document content
-if (!empty ($id)) {
+if (!empty ($docid)) {
     $access = "1='" . $_SESSION['mgrRole'] . "' OR sc.privatemgr=0" .
         (!$docgrp ? '' : " OR dg.document_group IN ($docgrp)");
     $sql = 'SELECT DISTINCT sc.* '.
            'FROM '.$tbl_site_content.' AS sc '.
            'LEFT JOIN '.$tbl_document_groups.' AS dg ON dg.document=sc.id '.
-           'WHERE sc.id=\''.$id.'\' AND ('.$access.')';
+           'WHERE sc.id=\''.$docid.'\' AND ('.$access.')';
     $rs = $modx->db->query($sql);
     $limit = $modx->db->getRecordCount($rs);
     if ($limit > 1) {
@@ -119,15 +132,13 @@ if (!empty ($id)) {
     $content = array();
 }
 
-// Get parent docid
-if (isset($_REQUEST['pid'])) {
-    $pid = intval($_REQUEST['pid']);
-} elseif (isset($_POST['parent'])) {
-    $pid = intval($_POST['parent']);
-} elseif (isset($_REQUEST['id'])) {
-    $pid = $content['parent'];
-} else {
-	$pid = 0;
+// Get parent docid if not specified explicitly in request
+if (is_null($pid)) {
+    if (isset($content['parent'])) {
+        $pid = $content['parent'];
+    } else {
+        $pid = 0;
+    }
 }
 
 // restore saved form
@@ -193,7 +204,7 @@ function deletedocument() {
 
 function duplicatedocument(){
     if(confirm("<?php echo $_lang['confirm_resource_duplicate']?>")==true) {
-        document.location.href="index.php?id=<?php echo $_REQUEST['id']?>&a=94";
+        document.location.href="index.php?id=<?php echo $docid; ?>&a=94";
     }
 }
 
@@ -477,7 +488,7 @@ function decode(s) {
 	<?php
 	// invoke OnDocFormPrerender event
 	$evtOut = $modx->invokeEvent('OnDocFormPrerender', array(
-	    'id' => $id
+	    'id' => $docid
 	));
 	if (is_array($evtOut))
 	    echo implode('', $evtOut);
@@ -490,7 +501,7 @@ function decode(s) {
 	<input type="hidden" name="newtemplate" value="" />
 	
 	<fieldset id="create_edit">
-	    <h1><?php if ($_REQUEST['id']){ echo $_lang['edit_resource_title']; } else { echo $_lang['create_resource_title'];}?></h1>
+	    <h1><?php if ($existing){ echo $_lang['edit_resource_title']; } else { echo $_lang['create_resource_title'];}?></h1>
 	
 		<div id="actions">
 		      <ul class="actionButtons">
@@ -513,8 +524,8 @@ function decode(s) {
 		          <li id="Button6"><a href="#" onclick="duplicatedocument();"><img src="<?php echo $_style["icons_resource_duplicate"] ?>" alt="icons_resource_duplicate" /> <?php echo $_lang['duplicate']?></a></li>
 		          <li id="Button3"><a href="#" onclick="deletedocument();"><img src="<?php echo $_style["icons_delete_document"] ?>" alt="icons_delete_document" /> <?php echo $_lang['delete']?></a></li>
 		          <?php } ?>
-		          <li id="Button4"><a href="#" onclick="documentDirty=false;<?php echo $id==0 ? "document.location.href='index.php?a=2';" : "document.location.href='index.php?a=3&amp;id=$id';"?>"><img alt="icons_cancel" src="<?php echo $_style["icons_cancel"] ?>" /> <?php echo $_lang['cancel']?></a></li>
-		          <li id="Button5"><a href="#" onclick="window.open('<?php echo $modx->makeUrl($id); ?>','previeWin');"><img alt="icons_preview_resource" src="<?php echo $_style["icons_preview_resource"] ?>" /> <?php echo $_lang['preview']?></a></li>
+		          <li id="Button4"><a href="#" onclick="documentDirty=false;<?php echo $docid==0 ? "document.location.href='index.php?a=2';" : "document.location.href='index.php?a=3&amp;id=$docid';"?>"><img alt="icons_cancel" src="<?php echo $_style["icons_cancel"] ?>" /> <?php echo $_lang['cancel']?></a></li>
+		          <li id="Button5"><a href="#" onclick="window.open('<?php echo $modx->makeUrl($docid); ?>','previeWin');"><img alt="icons_preview_resource" src="<?php echo $_style["icons_preview_resource"] ?>" /> <?php echo $_lang['preview']?></a></li>
 		      </ul>
 		</div>
 		
@@ -729,7 +740,7 @@ function decode(s) {
                 $sql = 'SELECT DISTINCT tv.*, IF(tvc.value!=\'\',tvc.value,tv.default_text) as value '.
                        'FROM '.$tbl_site_tmplvars.' AS tv '.
                        'INNER JOIN '.$tbl_site_tmplvar_templates.' AS tvtpl ON tvtpl.tmplvarid = tv.id '.
-                       'LEFT JOIN '.$tbl_site_tmplvar_contentvalues.' AS tvc ON tvc.tmplvarid=tv.id AND tvc.contentid=\''.$id.'\' '.
+                       'LEFT JOIN '.$tbl_site_tmplvar_contentvalues.' AS tvc ON tvc.tmplvarid=tv.id AND tvc.contentid=\''.$docid.'\' '.
                        'LEFT JOIN '.$tbl_site_tmplvar_access.' AS tva ON tva.tmplvarid=tv.id '.
                        'WHERE tvtpl.templateid=\''.$template.'\' AND (1=\''.$_SESSION['mgrRole'].'\' OR ISNULL(tva.documentgroup)'.
                        (!$docgrp ? '' : ' OR tva.documentgroup IN ('.$docgrp.')').
@@ -930,7 +941,7 @@ if ($_SESSION['mgrRole'] == 1 || !$existing || $_SESSION['mgrInternalKey'] == $c
 			    $groupsarray = array();
 			    $sql = '';
 			
-			    $documentId = $existing ? $id : $pid;
+			    $documentId = $existing ? $docid : $pid;
 			    if ($documentId > 0) {
 			        // Load up, the permissions from the parent (if new document) or existing document
 			        $sql = 'SELECT id, document_group FROM '.$tbl_document_groups.' WHERE document=\''.$documentId.'\'';
@@ -1075,7 +1086,7 @@ if ($_SESSION['mgrRole'] == 1 || !$existing || $_SESSION['mgrInternalKey'] == $c
 				
 				// invoke OnDocFormRender event
 				$evtOut = $modx->invokeEvent('OnDocFormRender', array(
-				    'id' => $id,
+				    'id' => $docid,
 				));
 				if (is_array($evtOut)) echo implode('', $evtOut);
 				?>
