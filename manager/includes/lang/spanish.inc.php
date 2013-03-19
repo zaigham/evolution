@@ -3,8 +3,6 @@
  * Filename:       includes/lang/spanish.inc.php
  * Function:       Language file.
  * Author:         The MODx Project Team, The ClipperCMS Project Team
- * Date:                   31st Aug 2012
- * ClipperCMS version:     1.1
  */
 $modx_lang_attribute = 'es'; // Manager HTML/XML Language Attribute see http://en.wikipedia.org/wiki/ISO_639-1
 $modx_manager_charset = 'iso-8859-1';
@@ -91,7 +89,7 @@ $_lang["change_password_new"] = 'Nueva contraseña';
 $_lang["charset_message"] = 'Por favor, selecciona qué codificación de caracteres deseas utilizar en el Admin.  Por favor nota que '.CMS_NAME.' ha sido probado con un buen número de estas codificación, pero no con todas ellas. Para la mayoría de los idiomas, la configuración prefijada a UTF-8 es la preferible.';
 $_lang["charset_title"] = 'Codificación del caracteres:';
 $_lang["chunk"] = 'Chunk';
-$_lang["chunk_code"] = 'Código de Chunk (html)';
+$_lang["chunk_code"] = 'Código de Chunk';
 $_lang["chunk_multiple_id"] = 'Error: Varios Chunks comparten la misma ID única.';
 $_lang["chunk_no_exist"] = 'El Chunk no existe.';
 $_lang["cleaningup"] = 'Limpiando';
@@ -846,7 +844,7 @@ $_lang["table_prefix"] = 'Prefijo de tabla';
 $_lang["tag"] = 'Etiqueta';
 $_lang["template"] = 'Template';
 $_lang["template_assignedtv_tab"] = 'Variables de Template Asignadas';
-$_lang["template_code"] = 'Código de template (html)';
+$_lang["template_code"] = 'Código de template';
 $_lang["template_desc"] = 'Descripción';
 $_lang["template_edit_tab"] = 'Editar template';
 $_lang["template_management_msg"] = 'Elige qué template deseas editar.';

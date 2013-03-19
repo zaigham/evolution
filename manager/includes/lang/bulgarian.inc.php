@@ -3,9 +3,7 @@
  * Filename:       includes/lang/bulgarian.inc.php
  * Function:       Language file.
  * Author:         The MODx Project Team, The ClipperCMS Project Team
- * Date:                   31st Aug 2012
- * ClipperCMS version:     1.1
-*/
+ */
 $modx_lang_attribute = 'bg'; // Manager HTML and XML Language Attribute
 $modx_manager_charset = 'UTF-8';
 
@@ -81,7 +79,7 @@ $_lang["change_password_confirm"] = 'Потвърждаване на парол�
 $_lang["change_password_message"] = 'Моля въведете нова парола и я потвърдете отново. Паролата трябва да бъде с дължина между 6 и 15 символа.';
 $_lang["change_password_new"] = 'Нова парола';
 $_lang["chunk"] = 'Чънк';
-$_lang["chunk_code"] = 'Код на Чънка (html)';
+$_lang["chunk_code"] = 'Код на Чънка';
 $_lang["cleaningup"] = 'Изчистване';
 $_lang["clear_log"] = 'Изчистете лог';
 $_lang["click_to_context"] = 'Щракнете, за да достъпите контекстното меню';
@@ -809,7 +807,7 @@ $_lang["table_prefix"] = 'Префикс на таблицата';
 $_lang["tag"] = 'Таг';
 $_lang["template"] = 'Шаблон';
 $_lang["template_assignedtv_tab"] = 'Присвоени Шаблонни Променливи (ШП)';
-$_lang["template_code"] = 'Код на шаблона (html)';
+$_lang["template_code"] = 'Код на шаблона';
 $_lang["template_desc"] = 'Описание';
 $_lang["template_edit_tab"] = 'Редактиране на Шаблон';
 $_lang["template_management_msg"] = 'Тук можете да изберете кой шаблон желаете да редактирате.';

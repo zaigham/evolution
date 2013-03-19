@@ -3,9 +3,7 @@
  * Filename:       includes/lang/svenska.inc.php
  * Function:       Swedish language file
  * Author:         Pontus Ågren (Pont), Johnny Chadda, The ClipperCMS Project Team
- * Date:                   31st Aug 2012
- * ClipperCMS version:     1.1
-*/
+ */
 
 //$modx_textdir = 'rtl'; // uncomment this line for RTL langauges
 $modx_lang_attribute = 'sv'; // Manager HTML/XML Language Attribute see http://en.wikipedia.org/wiki/ISO_639-1
@@ -93,7 +91,7 @@ $_lang["change_password_new"] = 'Nytt lösenord';
 $_lang["charset_message"] = 'Välj den teckenkodning som ska användas som standard för systemvariabeln [(modx_charset)]. Det här påverkar inte hanteraren.';
 $_lang["charset_title"] = 'Teckenkodning';
 $_lang["chunk"] = 'Chunk';
-$_lang["chunk_code"] = 'Chunk-kod (html)';
+$_lang["chunk_code"] = 'Chunk-kod';
 $_lang["chunk_multiple_id"] = 'Fel: Flera chunks har samma unika ID.';
 $_lang["chunk_no_exist"] = 'Chunken existerar inte.';
 $_lang["cleaningup"] = 'Rensar upp';
@@ -880,7 +878,7 @@ $_lang["table_prefix"] = 'Tabellprefix';
 $_lang["tag"] = 'Tagg';
 $_lang["template"] = 'Mall';
 $_lang["template_assignedtv_tab"] = 'Tilldelade mallvariabler';
-$_lang["template_code"] = 'Mall-kod (html)';
+$_lang["template_code"] = 'Mall-kod';
 $_lang["template_desc"] = 'Beskrivning';
 $_lang["template_edit_tab"] = 'Redigera mall';
 $_lang["template_management_msg"] = 'Skapa en ny mall eller välja en redan befintlig för redigering.';
