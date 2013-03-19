@@ -3756,6 +3756,10 @@ class DocumentParser extends Core {
      */
     function messageQuitFromElement($element_name, $msg= 'unspecified error', $query= '', $is_error= true, $nr= '', $file= '', $source= '', $text= '', $line= '') {
 
+        if (is_null($element_name)) {
+            $element_name = "{$this->eval_type} {$this->eval_name}";
+        }
+
 		$parsedMessageString = $this->messageQuitText($msg, $query, $is_error, $nr, $file, $source, $text, $line);
 
         // Set 500 response header
