@@ -28,6 +28,10 @@
 	opacity: .5;
 	}
 
+fieldset.template-list label {
+	display: block;
+	}
+
 /* jQuery sortable lists */
 
 .sortableList {

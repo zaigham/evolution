@@ -137,6 +137,7 @@ function deletedocument() {
 		
 		<ul>
 			<li><a href="#tabTemplate"><?php echo $_lang["template_edit_tab"] ?></a></li>
+			<li><a href="#tabTemplateCode"><?php echo $_lang["template_code"] ?></a></li>
 			<li><a href="#tabAssignedTVs"><?php echo $_lang["template_assignedtv_tab"] ?></a></li>
 		</ul>
 		
@@ -179,7 +180,7 @@ function deletedocument() {
 		      <tr>
 		        <td align="left"><?php echo $_lang['default_child_template']; ?>:</td>
 		        <td align="left">
-		            <select name="default_child_template" class="template_list" onChange='documentDirty=true;'>
+		            <select name="default_child_template" class="template-list" onChange='documentDirty=true;'>
                         <?php echo $output_dct; ?>
 		            </select>
 		        </td>
@@ -195,7 +196,7 @@ function deletedocument() {
 		      <tr id="allowed_child_templates_section" style="visibility: <?php echo @$content['restrict_children'] ? 'visible' : 'collapse'; ?>">
 		        <td align="left"><?php echo $_lang['allowed_child_templates']; ?>:</td>
 		        <td align="left">
-		        	<fieldset class="template_list">
+		        	<fieldset class="template-list">
 		        	    <?php echo $output_act; ?>
 		            </fieldset>
 		        </td>
@@ -204,6 +205,10 @@ function deletedocument() {
 		        <td align="left" colspan="2"><input name="locked" type="checkbox" <?php echo $content['locked']==1 ? "checked='checked'" : "" ;?> class="inputBox"> <?php echo $_lang['lock_template']; ?> <span class="comment"><?php echo $_lang['lock_template_msg']; ?></span></td>
 		      </tr>
 		    </table>
+		</div><!-- tabTemplate -->
+		
+		<div id="tabTemplateCode">
+		
 			<!-- HTML text editor start -->
 		    <div style="width:100%;position:relative">
 		        <div style="padding:1px; width:100%; height:16px; background-color:#eeeeee; border:1px solid #e0e0e0;margin-top:5px">
@@ -215,11 +220,15 @@ function deletedocument() {
 			
 			<input type="submit" name="save" style="display:none">
 			
+            <div class="sectionBody">
+                <?php include(dirname(__FILE__).'/../help/includes/tag_syntax.inc.php'); ?>
+            </div>
+		
+		
+		</div><!-- tabTemplateCode -->
 		
 		<?php if ($_REQUEST['a'] == '16') { ?>
-		
-		</div><!-- tabTemplate -->
-		
+
 		<div id="tabAssignedTVs">
 			
 			<?php
@@ -255,15 +264,10 @@ function deletedocument() {
 
 		</div> <!-- tabAssignedTVs -->
 		
+        <?php } ?>
+
 	</div> <!-- tabs -->
 	
-	<?php } ?>
-
-
-<div class="sectionBody">
-	<?php include(dirname(__FILE__).'/../help/includes/tag_syntax.inc.php'); ?>
-</div>
-
 <?php
 // invoke OnTempFormRender event
 $evtOut = $modx->invokeEvent("OnTempFormRender",array("id" => $id));
