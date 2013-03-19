@@ -32,6 +32,16 @@ fieldset.template-list label {
 	display: block;
 	}
 
+.help-box {
+	margin: 1em 0;
+	}
+
+h2.editor-heading {
+	margin: 1em 0 0.5em 0;
+	font-size: 1em;
+	font-weight: bold;
+	}
+
 /* jQuery sortable lists */
 
 .sortableList {

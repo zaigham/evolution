@@ -211,20 +211,17 @@ function deletedocument() {
 		
 			<!-- HTML text editor start -->
 		    <div style="width:100%;position:relative">
-		        <div style="padding:1px; width:100%; height:16px; background-color:#eeeeee; border:1px solid #e0e0e0;margin-top:5px">
-		            <span style="float:left;color:brown;font-weight:bold; padding:3px">&nbsp;<?php echo $_lang['template_code']; ?></span>
-		        </div>
-		        <textarea dir="ltr" name="post" class="phptextarea" style="width:100%; height: 370px;" onChange='documentDirty=true;'><?php echo isset($content['post']) ? htmlspecialchars($content['post']) : htmlspecialchars($content['content']); ?></textarea>
+                <h2 class="editor-heading"><?php echo $_lang['template_code']; ?></h2>
+                <textarea dir="ltr" name="post" class="phptextarea" style="width:100%; height: 370px;" onChange='documentDirty=true;'><?php echo isset($content['post']) ? htmlspecialchars($content['post']) : htmlspecialchars($content['content']); ?></textarea>
 		    </div>
 		    <!-- HTML text editor end -->
 			
 			<input type="submit" name="save" style="display:none">
 			
-            <div class="sectionBody">
+			<div class="help-box">
                 <?php include(dirname(__FILE__).'/../help/includes/tag_syntax.inc.php'); ?>
-            </div>
-		
-		
+	        </div>
+	        
 		</div><!-- tabTemplateCode -->
 		
 		<?php if ($_REQUEST['a'] == '16') { ?>
