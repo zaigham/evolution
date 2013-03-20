@@ -67,6 +67,15 @@ if(isset($_REQUEST['id']) && $_REQUEST['id']!='' && is_numeric($_REQUEST['id']))
 
 $content = array_merge($content, $_POST);
 
+// Template lists
+$allowed_child_templates = explode(',', $content['allowed_child_templates']);
+$output_act = '<label><input type="checkbox" value="0" name="allowed_child_templates[]" '.(in_array(0, $allowed_child_templates) ? ' checked="checked"' : '').'/>(blank)</label>';
+$output_dct = '<option value="0">(blank)</option>';
+$rs_templates = $modx->db->select('id,templatename', $modx->getFullTablename('site_templates'), null, 'templatename ASC');
+while ($row_templates = $modx->db->getRow($rs_templates)) {
+    $output_act .= '<label><input type="checkbox" value="'.$row_templates['id'].'"'.(in_array($row_templates['id'], $allowed_child_templates) ? ' checked="checked"' : '').' name="allowed_child_templates[]" >'.$row_templates['templatename'].'</label>';
+    $output_dct .= '<option value="'.$row_templates['id'].'"'.(isset($content['default_child_template']) && $content['default_child_template'] == $row_templates['id'] ? ' selected="selected"' : '').'>'.$row_templates['templatename'].'</option>';
+}
 ?>
 <script>
 function duplicaterecord(){
@@ -128,6 +137,7 @@ function deletedocument() {
 		
 		<ul>
 			<li><a href="#tabTemplate"><?php echo $_lang["template_edit_tab"] ?></a></li>
+			<li><a href="#tabTemplateCode"><?php echo $_lang["template_code"] ?></a></li>
 			<li><a href="#tabAssignedTVs"><?php echo $_lang["template_assignedtv_tab"] ?></a></li>
 		</ul>
 		
@@ -151,7 +161,7 @@ function deletedocument() {
 		      </tr>
 		      <tr>
 		        <td align="left"><?php echo $_lang['existing_category']; ?>:&nbsp;&nbsp;</td>
-		        <td align="left"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><select name="categoryid" style="width:300px;" onChange='documentDirty=true;'>
+		        <td align="left"><select name="categoryid" style="width:300px;" onChange='documentDirty=true;'>
 		                <option>&nbsp;</option>
 		                <?php
 		                    include_once "categories.inc.php";
@@ -164,29 +174,58 @@ function deletedocument() {
 		        </td>
 		      </tr>
 		      <tr>
-		        <td align="left" valign="top" style="padding-top:5px;"><?php echo $_lang['new_category']; ?>:</td>
-		        <td align="left" valign="top" style="padding-top:5px;"><span style="font-family:'Courier New', Courier, mono">&nbsp;&nbsp;</span><input name="newcategory" type="text" maxlength="45" value="<?php echo isset($content['newcategory']) ? $content['newcategory'] : '' ?>" class="inputBox" style="width:300px;" onChange='documentDirty=true;'></td>
+		        <td align="left"><?php echo $_lang['new_category']; ?>:</td>
+		        <td align="left"><input name="newcategory" type="text" maxlength="45" value="<?php echo isset($content['newcategory']) ? $content['newcategory'] : '' ?>" class="inputBox" style="width:300px;" onChange='documentDirty=true;'></td>
+		      </tr>
+		      <tr>
+		        <td align="left"><?php echo $_lang['default_child_template']; ?>:</td>
+		        <td align="left">
+		            <select name="default_child_template" class="template-list" onChange='documentDirty=true;'>
+                        <?php echo $output_dct; ?>
+		            </select>
+		        </td>
+		      </tr>
+		      <tr>
+		        <td align="left"><?php echo $_lang['restrict_children']; ?>:</td>
+		        <td align="left">
+		            <select name="restrict_children" onChange="documentDirty=true; document.getElementById('allowed_child_templates_section').style.visibility = this.value == '1' ? 'visible' : 'collapse';">
+		                <option value="0"<?php if (!@$content['restrict_children']) echo ' selected="selected"'; ?>><?php echo $_lang['no']; ?></option>
+		                <option value="1"<?php if (@$content['restrict_children']) echo ' selected="selected"'; ?>><?php echo $_lang['yes']; ?></option>
+		            </select>
+		      </tr>
+		      <tr id="allowed_child_templates_section" style="visibility: <?php echo @$content['restrict_children'] ? 'visible' : 'collapse'; ?>">
+		        <td align="left"><?php echo $_lang['allowed_child_templates']; ?>:</td>
+		        <td align="left">
+		        	<fieldset class="template-list">
+		        	    <?php echo $output_act; ?>
+		            </fieldset>
+		        </td>
 		      </tr>
 		      <tr>
 		        <td align="left" colspan="2"><input name="locked" type="checkbox" <?php echo $content['locked']==1 ? "checked='checked'" : "" ;?> class="inputBox"> <?php echo $_lang['lock_template']; ?> <span class="comment"><?php echo $_lang['lock_template_msg']; ?></span></td>
 		      </tr>
 		    </table>
+		</div><!-- tabTemplate -->
+		
+		<div id="tabTemplateCode">
+		
 			<!-- HTML text editor start -->
 		    <div style="width:100%;position:relative">
-		        <div style="padding:1px; width:100%; height:16px; background-color:#eeeeee; border:1px solid #e0e0e0;margin-top:5px">
-		            <span style="float:left;color:brown;font-weight:bold; padding:3px">&nbsp;<?php echo $_lang['template_code']; ?></span>
-		        </div>
-		        <textarea dir="ltr" name="post" class="phptextarea" style="width:100%; height: 370px;" onChange='documentDirty=true;'><?php echo isset($content['post']) ? htmlspecialchars($content['post']) : htmlspecialchars($content['content']); ?></textarea>
+                <h2 class="editor-heading"><?php echo $_lang['template_code']; ?></h2>
+                <textarea dir="ltr" name="post" class="phptextarea" style="width:100%; height: 370px;" onChange='documentDirty=true;'><?php echo isset($content['post']) ? htmlspecialchars($content['post']) : htmlspecialchars($content['content']); ?></textarea>
 		    </div>
 		    <!-- HTML text editor end -->
 			
 			<input type="submit" name="save" style="display:none">
 			
+			<div class="help-box">
+                <?php include(dirname(__FILE__).'/../help/includes/tag_syntax.inc.php'); ?>
+	        </div>
+	        
+		</div><!-- tabTemplateCode -->
 		
 		<?php if ($_REQUEST['a'] == '16') { ?>
-		
-		</div><!-- tabTemplate -->
-		
+
 		<div id="tabAssignedTVs">
 			
 			<?php
@@ -222,15 +261,10 @@ function deletedocument() {
 
 		</div> <!-- tabAssignedTVs -->
 		
+        <?php } ?>
+
 	</div> <!-- tabs -->
 	
-	<?php } ?>
-
-
-<div class="sectionBody">
-	<?php include(dirname(__FILE__).'/../help/includes/tag_syntax.inc.php'); ?>
-</div>
-
 <?php
 // invoke OnTempFormRender event
 $evtOut = $modx->invokeEvent("OnTempFormRender",array("id" => $id));
