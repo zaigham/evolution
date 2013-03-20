@@ -90,7 +90,6 @@ class DocumentParser extends Core {
         $this->pluginEvent= array ();
         // set track_errors ini variable
         // @ini_set("track_errors", "1"); // enable error tracking in $php_errormsg
-        register_shutdown_function(array(&$this, 'fatalErrorCheck'));
     }
 
     /**
@@ -3522,7 +3521,7 @@ class DocumentParser extends Core {
     }
 
     /**
-     * Set PHP error handler
+     * Set PHP error handlers
      * 
      * @return void
      */
@@ -3537,6 +3536,8 @@ class DocumentParser extends Core {
             {
             set_error_handler(array (&$this, 'phpError'), error_reporting());
             }
+        
+        register_shutdown_function(array(&$this, 'fatalErrorCheck'));
         }
 
     /**
