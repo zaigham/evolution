@@ -3,9 +3,7 @@
  * Filename:       includes/lang/russian.inc.php
  * Function:       Russian language file.
  * Author:         Russian MODx community, gabdullin, Jaroslav Sidorkin, Safronovich Victor, MARDEN, The ClipperCMS Project Team
- * Date:                   31st Aug 2012
- * ClipperCMS version:     1.1
-*/
+ */
 $modx_lang_attribute = 'ru'; // Manager HTML/XML Language Attribute see http://en.wikipedia.org/wiki/ISO_639-1
 $modx_manager_charset = 'windows-1251';
 
@@ -92,7 +90,7 @@ $_lang["change_password_new"] = 'Новый пароль';
 $_lang["charset_message"] = 'Выберите кодировку страниц сайта. Помните, что '.CMS_NAME.' тестировался не на всех кодировках. Для большинства языков подходит кодировка ISO-8859-1.';
 $_lang["charset_title"] = 'Кодировка:';
 $_lang["chunk"] = 'Чанк (HTML-элемент шаблона)';
-$_lang["chunk_code"] = 'Код чанка (HTML)';
+$_lang["chunk_code"] = 'Код чанка';
 $_lang["chunk_multiple_id"] = 'Ошибка: Несколько чанков имеют одинаковый идентификатор.';
 $_lang["chunk_no_exist"] = 'Чанк не найден.';
 $_lang["cleaningup"] = 'Очистка...';
@@ -879,7 +877,7 @@ $_lang["table_prefix"] = 'Префикс таблиц базы данных';
 $_lang["tag"] = 'Тег';
 $_lang["template"] = 'Шаблон';
 $_lang["template_assignedtv_tab"] = 'Назначенные параметры (TV)';
-$_lang["template_code"] = 'Код шаблона (HTML)';
+$_lang["template_code"] = 'Код шаблона';
 $_lang["template_desc"] = 'Описание';
 $_lang["template_edit_tab"] = 'Редактировать шаблон';
 $_lang["template_management_msg"] = '<b>Шаблоны</b> - это (X)HTML-разметка страниц сайта. Шаблон описывает структуру и дизайн отображения элементов страницы (статичных и генерируемых). Шаблон может содержать вызовы <i>сниппетов</i>, <i>чанков</i>, <i>параметров (TV)</i>, а также ссылки на CSS-файлы и другие объекты, определяющие визуальное отображение страницы и её элементов.<p><b>Использование:</b> назначьте шаблон какому-либо ресурсу.</p><p><br />Выберите шаблон для редактирования или создайте новый.'; 

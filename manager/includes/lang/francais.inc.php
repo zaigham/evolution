@@ -4,9 +4,7 @@
  * Function:       French language file
  * Encoding:       iso-8859-1
  * Author:         Nicolas Martignoni (Nissai), David Mollière (davidm) pour la 0.9.6.2, Jean-Christophe Brebion (Fairytree) et Coroico pour Evolution 1.0.4 / 1.0.5, The ClipperCMS Project Team
- * Date:                   31st Aug 2012
- * ClipperCMS version:     1.1
-*/
+ */
 //$modx_textdir = 'rtl'; // uncomment this line for RTL langages
 $modx_lang_attribute = 'fr'; // Manager HTML and XML Language Attribute
 $modx_manager_charset = 'iso-8859-1';
@@ -93,7 +91,7 @@ $_lang["change_password_new"] = 'Nouveau mot de passe';
 $_lang["charset_message"] = 'Veuillez choisir l\'encodage de caractères par défaut pour la variable de système [(modx_charset)]. Ceci n\'affectera pas le Gestionnaire.';
 $_lang["charset_title"] = 'Encodage des caractères:';
 $_lang["chunk"] = 'Chunk';
-$_lang["chunk_code"] = 'Code source du Chunk (html)';
+$_lang["chunk_code"] = 'Code source du Chunk';
 $_lang["chunk_multiple_id"] = 'Erreur: Plusieurs Chunks possèdent le même ID.';
 $_lang["chunk_no_exist"] = 'Le Chunk n\'existe pas.';
 $_lang["cleaningup"] = 'Nettoyage';
@@ -881,7 +879,7 @@ $_lang["table_prefix"] = 'Préfixe de la table';
 $_lang["tag"] = 'Balise';
 $_lang["template"] = 'Modèle';
 $_lang["template_assignedtv_tab"] = 'Variables de Modèle associées';
-$_lang["template_code"] = 'Code source du Modèle (html)';
+$_lang["template_code"] = 'Code source du Modèle';
 $_lang["template_desc"] = 'Description';
 $_lang["template_edit_tab"] = 'Modifier le Modèle';
 $_lang["template_management_msg"] = 'Choisissez le Modèle que vous souhaitez modifier.';

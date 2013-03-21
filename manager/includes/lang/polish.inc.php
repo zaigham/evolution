@@ -4,9 +4,7 @@
  * Function:       Language file.
  * Encoding:       ISO-8859-2
  * Author:         The MODx Project Team, Rados³aw W³odkowski - radoslaw@wlodkowski.net, Piotr Grzeszykowski - piotrek@gawinet.pl, Piotr £ukañko - piotr.lukanko@gmail.com, Lukasz Kowalczyk - lukasz@pixeligence.com, , The ClipperCMS Project Team
- * Date:                   31st Aug 2012
- * ClipperCMS version:     1.1
-*/
+ */
 
 $modx_lang_attribute = 'pl'; // Manager HTML/XML Language Attribute see http://en.wikipedia.org/wiki/ISO_639-1
 $modx_manager_charset = 'iso-8859-2';
@@ -93,7 +91,7 @@ $_lang["change_password_new"] = 'Nowe has³o';
 $_lang["charset_message"] = 'Proszê wybraæ, którego kodowania znaków chcesz u¿ywaæ w menad¿erze. '.CMS_NAME.' by³ testowany z wieloma zestawami znaków, ale nie ze wszystkimi. Dla wiêkszo¶ci jêzyków, wystarczaj±ce jest domy¶lne kodowanie ISO-8859-1.';
 $_lang["charset_title"] = 'Kodowanie znaków:';
 $_lang["chunk"] = 'Chunk';
-$_lang["chunk_code"] = 'Kod chunka (html)';
+$_lang["chunk_code"] = 'Kod chunka';
 $_lang["chunk_multiple_id"] = 'B³±d: Wiele Chunk\'ów posiada to samo ID.';
 $_lang["chunk_no_exist"] = 'Chunk nie istnieje.';
 $_lang["cleaningup"] = 'Czyszczenie';
@@ -866,7 +864,7 @@ $_lang["table_prefix"] = 'Prefiks tabel';
 $_lang["tag"] = 'Tag';
 $_lang["template"] = 'Szablon';
 $_lang["template_assignedtv_tab"] = 'Przypisane Zmienne Szablonu';
-$_lang["template_code"] = 'Kod szablonu (html)';
+$_lang["template_code"] = 'Kod szablonu';
 $_lang["template_desc"] = 'Opis';
 $_lang["template_edit_tab"] = 'Edytuj szablon';
 $_lang["template_management_msg"] = 'Tutaj mo¿esz wybraæ, które szablony chcesz edytowaæ.';
