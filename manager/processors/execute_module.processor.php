@@ -76,6 +76,16 @@ if($limit<1) {
 			"</script>";
 	exit;
 }
+
+if (empty($content['modulecode'])) {
+    echo "<script type='text/javascript'>" .
+			"function jsalert(){ alert('Module with id $id contains no code.');" .
+			"window.location.href='index.php?a=106';}" .
+			"setTimeout('jsalert()',100)".
+			"</script>";
+	exit;
+}
+
 $content = $modx->db->getRow($rs);
 
 if($content['disabled']) {
