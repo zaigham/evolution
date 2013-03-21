@@ -5,8 +5,9 @@ $(document).ready(function($) {
             url: this.href+'&ma=1',
             complete: function (r) {
                 var b = $(parent.main.document.body);
+                b.find('.m-p').remove();
                 b.append('<div class="m-p">');
-                $(b).find('.m-p').append(r.responseText);
+                $(b).find('.m-p').append(r.responseText).append('<div class="m-p-close"><a href="#" onclick="$(\'.m-p\').remove()">Close</a></div>');
             }
         });
         return false;
