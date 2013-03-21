@@ -212,7 +212,7 @@ function deletedocument() {
 			<!-- HTML text editor start -->
 		    <div style="width:100%;position:relative">
                 <h2 class="editor-heading"><?php echo $_lang['template_code']; ?></h2>
-                <textarea dir="ltr" name="post" class="phptextarea" style="width:100%; height: 370px;" onChange='documentDirty=true;'><?php echo isset($content['post']) ? htmlspecialchars($content['post']) : htmlspecialchars($content['content']); ?></textarea>
+                <textarea dir="ltr" name="post" class="phptextarea" style="height: 370px; width: 90%;" onChange='documentDirty=true;'><?php echo isset($content['post']) ? htmlspecialchars($content['post']) : htmlspecialchars($content['content']); ?></textarea>
 		    </div>
 		    <!-- HTML text editor end -->
 			
