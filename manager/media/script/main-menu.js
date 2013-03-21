@@ -1,4 +1,16 @@
 $(document).ready(function($) {
+
+    $('#clear-cache-link').click(function() {
+        $.ajax({
+            url: this.href+'&ma=1',
+            complete: function (r) {
+                var b = $(parent.main.document.body);
+                b.append('<div class="m-p">');
+                $(b).find('.m-p').append(r.responseText);
+            }
+        });
+        return false;
+    });
 	
 });
 
