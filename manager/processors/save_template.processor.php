@@ -70,7 +70,7 @@ switch ($_POST['mode']) {
 
 		$sql = "INSERT INTO " . $modx->getFullTableName('site_templates') . " 
 			(templatename, description, content, locked, category, default_child_template, restrict_children, allowed_child_templates) 
-			VALUES('$templatename', '$description', '$template', '$locked', $categoryid, $default_child_template, $restrict_children, $allowed_child_templates)";
+			VALUES('$templatename', '$description', '$template', '$locked', $categoryid, $default_child_template, $restrict_children, '$allowed_child_templates')";
 
 		$modx->db->query($sql);
 

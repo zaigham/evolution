@@ -242,6 +242,7 @@ CREATE TABLE IF NOT EXISTS `{PREFIX}site_templates` (
   `template_type` integer NOT NULL DEFAULT '0' COMMENT '0-page,1-content',
   `content` mediumtext,
   `default_child_template` int NOT NULL DEFAULT 0,
+  `restrict_children` bool NOT NULL DEFAULT 0,
   `allowed_child_templates` varchar(50) NOT NULL DEFAULT '',
   `locked` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`id`)
