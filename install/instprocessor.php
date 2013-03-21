@@ -280,8 +280,11 @@ $configString = '<?php
 /**
  * CMS Configuration file
  */
+
+'.(($locale_string || $tz_string) ? "if (!defined('MODX_API_MODE') || !MODX_API_MODE) {\n" : '').'
 '.$locale_string.'
 '.$tz_string.'
+'.(($locale_string || $tz_string) ? "}\n" : '').'
 $database_type = \'mysql\';
 $database_server = \'' . $database_server . '\';
 $database_user = \'' . $install->db->escape($database_user) . '\';
