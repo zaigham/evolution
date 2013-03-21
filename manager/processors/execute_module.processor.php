@@ -119,7 +119,8 @@ $mod = eval($content['modulecode']);
 $msg = ob_get_contents();
 ob_end_clean();
 if ($mod === false) {
-	$modx->messageQuit("PHP Parse error in module {$content['name']}");
+    $error = error_get_last();
+    $modx->messageQuitFromElement(null, "PHP Parse error: {$error['message']}", '', true, $error['type'], $file, '', $error['message'], $error['line']);
 }
 
 unset($modx->event->params); 

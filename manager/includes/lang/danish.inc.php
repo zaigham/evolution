@@ -3,9 +3,7 @@
  * Filename:       includes/lang/danish.inc.php
  * Function:       Danish language file.
  * Author:         Henrik Nielsen, Mads Vestmar, The ClipperCMS Project Team
- * Date:                   31st Aug 2012
- * ClipperCMS version:     1.1
-*/
+ */
 
 $modx_lang_attribute = 'da'; // Manager HTML/XML Language Attribute see http://en.wikipedia.org/wiki/ISO_639-1
 $modx_manager_charset = 'UTF-8';
@@ -92,7 +90,7 @@ $_lang["change_password_new"] = 'Nyt kodeord';
 $_lang["charset_message"] = 'Vælg karakter encoding til [(modx_charset)] system variablen. Dette har ingen betydning for CMS administrationen.';
 $_lang["charset_title"] = 'Karakter encoding:';
 $_lang["chunk"] = 'Chunk';
-$_lang["chunk_code"] = 'Chunk kode (html)';
+$_lang["chunk_code"] = 'Chunk kode';
 $_lang["chunk_multiple_id"] = 'Fejl: Flere chunks har det samme unikke ID.';
 $_lang["chunk_no_exist"] = 'Chunk eksisterer ikke.';
 $_lang["cleaningup"] = 'Rydder op';
@@ -880,7 +878,7 @@ $_lang["table_prefix"] = 'Tabel præfiks';
 $_lang["tag"] = 'Tag';
 $_lang["template"] = 'Skabelon';
 $_lang["template_assignedtv_tab"] = 'Tildelte skabelon variabler';
-$_lang["template_code"] = 'Skabelon kode (HTML)';
+$_lang["template_code"] = 'Skabelon kode';
 $_lang["template_desc"] = 'Beskrivelse';
 $_lang["template_edit_tab"] = 'Rediger skabelon';
 $_lang["template_management_msg"] = 'Vælg skabelonen der skal redigeres.';

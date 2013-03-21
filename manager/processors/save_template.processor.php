@@ -12,6 +12,15 @@ $templatename = $modx->db->escape(trim($_POST['templatename']));
 $description = $modx->db->escape($_POST['description']);
 $locked = $_POST['locked']=='on' ? 1 : 0 ;
 
+$default_child_template = intval($_POST['default_child_template']);
+$restrict_children = $_POST['restrict_children'] ? 1 : 0;
+$tmp_array = is_array($_POST['allowed_child_templates']) ? $_POST['allowed_child_templates'] : array();
+$allowed_child_templates = '';
+foreach($tmp_array as $val) {
+    $allowed_child_templates .= ','.intval($val);
+}
+$allowed_child_templates = substr($allowed_child_templates, 1);
+
 if (empty($_POST['newcategory']) && $_POST['categoryid'] > 0) {
     $categoryid = $modx->db->escape($_POST['categoryid']);
 } elseif (empty($_POST['newcategory']) && $_POST['categoryid'] <= 0) {
@@ -60,8 +69,8 @@ switch ($_POST['mode']) {
 		}
 
 		$sql = "INSERT INTO " . $modx->getFullTableName('site_templates') . " 
-			(templatename, description, content, locked, category) 
-			VALUES('$templatename', '$description', '$template', '$locked', $categoryid)";
+			(templatename, description, content, locked, category, default_child_template, restrict_children, allowed_child_templates) 
+			VALUES('$templatename', '$description', '$template', '$locked', $categoryid, $default_child_template, $restrict_children, $allowed_child_templates)";
 
 		$modx->db->query($sql);
 
@@ -121,7 +130,10 @@ switch ($_POST['mode']) {
 							
 		$sql = "UPDATE " . $modx->getFullTableName('site_templates') . " 
 			SET templatename='$templatename', description='$description', 
-			content='$template', locked='$locked', category=$categoryid 
+			content='$template', locked='$locked', category=$categoryid,
+			default_child_template = $default_child_template,
+			restrict_children = $restrict_children,
+			allowed_child_templates = '$allowed_child_templates'
 			WHERE id=$id;";
 
 		$modx->db->query($sql);

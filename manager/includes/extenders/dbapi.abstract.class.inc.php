@@ -342,13 +342,15 @@ abstract class DBAPI_abstract {
                 $keys = array_keys($fields);
                 $values = array_values($fields);
                 $flds = '('.implode(',', $keys).') '.(!$fromtable && $values ? 'VALUES(\''.implode('\',\'', $values).'\')' : '');
-                if ($fromtable) {
-                    if (is_array($fromfields)) $fromfields = implode(',', $fromfields);
-                    $where = ($where != '') ? "WHERE $where" : '';
-                    $limit = ($limit != '') ? "LIMIT $limit" : '';
-                    $sql = "SELECT $fromfields FROM $fromtable $where $limit";
-                }
             }
+            
+            if ($fromtable) {
+                if (is_array($fromfields)) $fromfields = implode(',', $fromfields);
+                $where = ($where != '') ? "WHERE $where" : '';
+                $limit = ($limit != '') ? "LIMIT $limit" : '';
+                $sql = "SELECT $fromfields FROM $fromtable $where $limit";
+            }
+
             $rt = $this->query("$insert_method $intotable $flds $sql");
             $lid = $this->_getInsertId();
             return $lid ? $lid : $rt;

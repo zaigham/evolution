@@ -4,9 +4,7 @@
  * Function:       Language file.
  * Encoding:       ?
  * Author:         The MODx Project Team, The ClipperCMS Project Team
- * Date:                   31st Aug 2012
- * ClipperCMS version:     1.1
-*/
+ */
 $_lang["about_msg"] = CMS_NAME.' er et <a href="http://'.CMS_DOMAIN.'" target="_blank">PHP applikasjonsrammeverk og system for innholdshåndtering</a> som er lisensiert under <a href=\'../assets/docs/license.txt\'>GPL</a>.';
 $_lang["about_title"] = 'Om '.CMS_NAME;
 $_lang["access_permission_denied"] = 'Du har ikke rettigheter til dette dokumentet.';
@@ -79,7 +77,7 @@ $_lang["change_password_new"] = 'Nytt passord';
 $_lang["charset_message"] = 'Velg tegnkodingen du ønsker å bruke i innholdsredigeringen.<br /><b>Obs: '.CMS_NAME.' har blitt testet med et antall av disse tegnkodingene, men ikke alle. For de fleste språk holder standardalternativet ISO-8859-1 utmerket.</b>';
 $_lang["charset_title"] = 'Tegnkoding';
 $_lang["chunk"] = 'Html-stykke';
-$_lang["chunk_code"] = 'Htmlstykke-kode (html)';
+$_lang["chunk_code"] = 'Htmlstykke-kode';
 $_lang["cleaningup"] = 'Rydder opp';
 $_lang["clear_log"] = 'Tøm logg';
 $_lang["click_to_context"] = 'Klikk for å komme til hurtigmenyen';
@@ -721,7 +719,7 @@ $_lang["system_email_webreminder"] = 'Hei [+uid+]\n\nKlikk på følgende link fo
 $_lang["system_email_websignup"] = 'Hei [+uid+]\n\nHer kommer dine innloggnings-opplysninger for [+sname+] ([+surl+]) innholdshåndterer:\n\nBrukernavn: [+uid+]\nPassord: [+pwd+]\n\nDu kan endre ditt passord når du har logget inn i innholdshåndtereren.\n\nV Med vennlig hilsen\nWebmaster';
 $_lang["tag"] = 'Tag';
 $_lang["template"] = 'Mal';
-$_lang["template_code"] = 'Mal-kode (html)';
+$_lang["template_code"] = 'Mal-kode';
 $_lang["template_desc"] = 'Beskrivelse';
 $_lang["template_locked_message"] = 'Denne malen er låst.';
 $_lang["template_management_msg"] = 'Her kan du opprette en ny mal eller velge en allerede eksisterende mal for redigering.';

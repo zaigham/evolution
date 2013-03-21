@@ -90,7 +90,6 @@ class DocumentParser extends Core {
         $this->pluginEvent= array ();
         // set track_errors ini variable
         // @ini_set("track_errors", "1"); // enable error tracking in $php_errormsg
-        register_shutdown_function(array(&$this, 'fatalErrorCheck'));
     }
 
     /**
@@ -1609,7 +1608,7 @@ class DocumentParser extends Core {
                     $this->sendErrorPage();
                 } else {
                     // Inculde the necessary files to check document permissions
-                    include_once ($this->config['base_path'] . '/manager/processors/user_documents_permissions.class.php');
+                    require_once('user_documents_permissions.class.php');
                     $udperms= new udperms();
                     $udperms->user= $this->getLoginUserID();
                     $udperms->document= $this->documentIdentifier;
@@ -2704,8 +2703,7 @@ class DocumentParser extends Core {
                 $query= "tv.id<>0";
             else
                 $query= (is_numeric($idnames[0]) ? "tv.id" : "tv.name") . " IN ('" . implode("','", $idnames) . "')";
-            if ($docgrp= $this->getUserDocGroups())
-                $docgrp= implode(",", $docgrp);
+
             $sql= "SELECT $fields, IF(tvc.value!='',tvc.value,tv.default_text) as value ";
             $sql .= "FROM " . $this->getFullTableName('site_tmplvars')." tv ";
             $sql .= "INNER JOIN " . $this->getFullTableName('site_tmplvar_templates')." tvtpl ON tvtpl.tmplvarid = tv.id ";
@@ -3522,7 +3520,7 @@ class DocumentParser extends Core {
     }
 
     /**
-     * Set PHP error handler
+     * Set PHP error handlers
      * 
      * @return void
      */
@@ -3537,6 +3535,8 @@ class DocumentParser extends Core {
             {
             set_error_handler(array (&$this, 'phpError'), error_reporting());
             }
+        
+        register_shutdown_function(array(&$this, 'fatalErrorCheck'));
         }
 
     /**
@@ -3755,6 +3755,10 @@ class DocumentParser extends Core {
      * @param string $line Default: Empty string
      */
     function messageQuitFromElement($element_name, $msg= 'unspecified error', $query= '', $is_error= true, $nr= '', $file= '', $source= '', $text= '', $line= '') {
+
+        if (is_null($element_name)) {
+            $element_name = "{$this->eval_type} {$this->eval_name}";
+        }
 
 		$parsedMessageString = $this->messageQuitText($msg, $query, $is_error, $nr, $file, $source, $text, $line);
 

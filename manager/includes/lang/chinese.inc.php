@@ -3,9 +3,7 @@
  * Filename:       includes/lang/chinese.inc.php
  * Function:       Simple Chinese language file.
  * Author:         changkong.org rerbin@gmail.com, The ClipperCMS Project Team
- * Date:                   31st Aug 2012
- * ClipperCMS version:     1.1
-*/
+ */
 //$modx_textdir = 'ltr'; // only needed for RTL langauges
 $modx_lang_attribute = 'zh'; // Manager HTML and XML Language Attribute
 $modx_manager_charset = 'UTF-8';
@@ -78,7 +76,7 @@ $_lang["change_password_confirm"] = '重复密码';
 $_lang["change_password_message"] = '请两次输入您的密码，密码长度限制为6-15位。';
 $_lang["change_password_new"] = '新密码';
 $_lang["chunk"] = '块元素';
-$_lang["chunk_code"] = '块元素代码 (html)';
+$_lang["chunk_code"] = '块元素代码';
 $_lang["cleaningup"] = '清除';
 $_lang["clear_log"] = '清除日志';
 $_lang["click_to_context"] = '前往关联菜单';
@@ -776,7 +774,7 @@ $_lang["table_prefix"] = '表前缀';
 $_lang["tag"] = '标签';
 $_lang["template"] = '模版';
 $_lang["template_assignedtv_tab"] = '管理模版变量';
-$_lang["template_code"] = '模版代码 (html)';
+$_lang["template_code"] = '模版代码';
 $_lang["template_desc"] = '描述';
 $_lang["template_edit_tab"] = '编辑模版';
 $_lang["template_management_msg"] = '选择您需要编辑的模版。';

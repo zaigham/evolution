@@ -9,9 +9,7 @@
  * 		Anpassungen für MODx 1.0.5 durch Anselm Hannemann
  * 		Anpassungen für ClipperCMS durch Michael Dreja
  * 		The ClipperCMS Project Team
- * Date:                   17th Oct 2012
- * ClipperCMS version:     1.1
-*/
+ */
 $modx_lang_attribute = 'de'; // Manager HTML and XML Language Attribute
 $modx_manager_charset = 'UTF-8';
 
@@ -97,7 +95,7 @@ $_lang["change_password_new"] = 'Neues Passwort';
 $_lang["charset_message"] = 'Wählen Sie die Zeichenkodierung für die [(modx_charset)]-Systemvariable. Diese Einstellung beeinflusst nicht den Manager.';
 $_lang["charset_title"] = 'Zeichenkodierung:';
 $_lang["chunk"] = 'Chunk';
-$_lang["chunk_code"] = 'Chunk-Code (HTML)';
+$_lang["chunk_code"] = 'Chunk-Code';
 $_lang["chunk_multiple_id"] = 'Fehler: Mehrere Chunks benutzen die selbe ID.';
 $_lang["chunk_no_exist"] = 'Chunk existiert nicht.';
 $_lang["cleaningup"] = 'Aufräumen';
@@ -886,7 +884,7 @@ $_lang["table_prefix"] = 'Tabellen-Präfix';
 $_lang["tag"] = 'Tag';
 $_lang["template"] = 'Template';
 $_lang["template_assignedtv_tab"] = 'Zugewiesene Template-Variablen';
-$_lang["template_code"] = 'Template-Code (HTML)';
+$_lang["template_code"] = 'Template-Code';
 $_lang["template_desc"] = 'Template-Beschreibung';
 $_lang["template_edit_tab"] = 'Template bearbeiten';
 $_lang["template_management_msg"] = 'Hier können Sie ein Template wählen, das Sie bearbeiten möchten.';

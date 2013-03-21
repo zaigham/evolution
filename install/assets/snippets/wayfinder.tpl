@@ -4,8 +4,10 @@
  * 
  * Completely template-driven and highly flexible menu builder
  *
+ * Version 2.0.1 as bundled with MODx 1.0.9. This differs from the version bundled with MODx <= 1.0.8.
+ *
  * @category 	snippet
- * @version 	2.0.1
+ * @version 	2.0.1+
  * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  * @internal	@properties
  * @internal	@modx_category Navigation
@@ -40,7 +42,7 @@ $wayfinder_base = $modx->config['base_path']."assets/snippets/wayfinder/";
 //Include a custom config file if specified
 $config = (isset($config)) ? "{$wayfinder_base}configs/{$config}.config.php" : "{$wayfinder_base}configs/default.config.php";
 if (file_exists($config)) {
-	include_once("$config");
+	include("$config");
 }
 
 include_once("{$wayfinder_base}wayfinder.inc.php");

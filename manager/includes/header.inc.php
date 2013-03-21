@@ -13,6 +13,7 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 <head>
 	<meta charset="<?php echo $modx_manager_charset; ?>">
 	<title><?php echo CMS_NAME; ?></title>
+    <link rel="stylesheet" href="media/style/common/clipper-jquery-ui.css" />
     <link rel="stylesheet" href="media/style/common/style.css" />
     <?php
     if (is_file(MODX_MANAGER_PATH."media/style/$manager_theme/style.css")) {
