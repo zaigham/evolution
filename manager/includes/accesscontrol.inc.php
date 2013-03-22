@@ -55,15 +55,7 @@ if (isset($lastInstallTime)) {
 if(!isset($_SESSION['mgrValidated'])){
 	include_once("browsercheck.inc.php");
 
-	if(isset($manager_language)) {
-		// establish fallback to English default
-		include_once "lang/english.inc.php";
-		// include localized overrides
-		include_once "lang/".$manager_language.".inc.php";
-	}
-	else {
-		include_once "lang/english.inc.php";
-	}
+    require_once('get_manager_language.inc.php');
 
 	$modx->setPlaceholder('modx_charset',$modx_manager_charset);
 	$modx->setPlaceholder('theme',$manager_theme);

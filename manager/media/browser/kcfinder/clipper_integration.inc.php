@@ -18,11 +18,8 @@ if (!defined('IN_MANAGER_MODE')) define('IN_MANAGER_MODE', 'true');
 require_once('../../../includes/document.parser.class.inc.php');
 $modx = new DocumentParser;
 $modx->getSettings();
-if (!$modx->config['manager_language'] || !file_exists(MODX_MANAGER_PATH.'includes/lang/'.$modx->config['manager_language'].'.inc.php')) {
-	include_once('../../../includes/lang/english.inc.php'); // Default
-} else {
-	include_once('../../../includes/lang/'.$modx->config['manager_language'].'.inc.php');
-}
+require_once('../../../includes/get_manager_language.inc.php');
+
 if (isset($modx_lang_attribute) && ctype_alpha($modx_lang_attribute) && strlen($modx_lang_attribute) == 2) {
 	$_GET['langCode'] = $_REQUEST['langCode'] = $modx_lang_attribute;
 }
