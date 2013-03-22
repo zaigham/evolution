@@ -1,7 +1,7 @@
 <?php
 define('CMS_DOMAIN', 'clippercms.org');
 define('CMS_NAME', 'ClipperCMS');
-define('CMS_RELEASE_VERSION', '1.1');
+define('CMS_RELEASE_VERSION', '1.1.1');
 define('CMS_RELEASE_NAME', 'Rainbow');
 define('CMS_RELEASE_DATE', '30th September 2012');
 
