@@ -18,3 +18,13 @@ if($manager_language!='english' && file_exists(MODX_MANAGER_PATH.'includes/lang/
     include_once 'lang/'.$manager_language.'.inc.php';
 }
 
+// Convert $_lang to modx_charset
+if (isset($modx->config['charset']) &&  $modx->config['charset'] != 'UTF-8') {
+    foreach($_lang as $__k => $__v) {
+        $_lang[$__k] = iconv('UTF-8', $modx->config['charset'], $_lang[$__k]);
+    }
+}
+
+// Make manager charset match site charset to avoid editing issues
+$modx_manager_charset = $modx->config['modx_charset'];
+
