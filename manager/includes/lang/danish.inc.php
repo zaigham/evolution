@@ -10,8 +10,8 @@
 $modx_lang_attribute = 'da'; // Manager HTML/XML Language Attribute see http://en.wikipedia.org/wiki/ISO_639-1
 $modx_manager_charset = 'UTF-8';
 
-$_lang["about_msg"] = CMS_NAME.' Evolution er et <a href="http://'.CMS_DOMAIN.'" target="_blank">PHP Application Framework og Content Management System</a> der er licenseret under <a href="../assets/docs/license.txt">GNU GPL</a>.';
-$_lang["about_title"] = 'Om '.CMS_NAME.' Evolution';
+$_lang["about_msg"] = CMS_NAME.' er et <a href="http://'.CMS_DOMAIN.'" target="_blank">PHP Application Framework og Content Management System</a> der er licenseret under <a href="../assets/docs/license.txt">GNU GPL</a>.';
+$_lang["about_title"] = 'Om '.CMS_NAME;
 $_lang["access_permission_denied"] = 'Du har ikke rettigheder til denne ressource.';
 $_lang["access_permission_parent_denied"] = 'Du har ikke rettigheder til at oprette eller flytte en ressource hertil! Vælg venligst en anden placering.';
 $_lang["access_permissions"] = 'Adgangsrettigheder';
@@ -36,7 +36,7 @@ $_lang["access_permissions_user_message"] = 'Vælg bruger gruppen som denne brug
 $_lang["access_permissions_users_in_group"] = 'Brugere i gruppen:';
 $_lang["access_permissions_users_tab"] = 'Se hvilke bruger grupper der er oprettet. Du kan også oprette nye bruger grupper, omdøbe grupper, slette grupper, samt se hvilke brugere der tilhører de forskellige grupper. For at tilføje en ny bruger til en brugergruppe, eller fjerne en bruger i en brugergruppe, skal du redigere den specifikke bruger. Administratoren (dvs. den der har ID nr. 1) har altid adgang til alle ressourcer, så derfor skal  administratoren ikke tilføjes til nogen af grupperne.';
 $_lang["account_email"] = 'E-mail konto';
-$_lang["actioncomplete"] = '<b>Handlingen blev gennemført korrekt!</b><br /> - Vent til '.CMS_NAME.' Evolution er færdig med at rydde op.';
+$_lang["actioncomplete"] = '<b>Handlingen blev gennemført korrekt!</b><br /> - Vent til '.CMS_NAME.' er færdig med at rydde op.';
 $_lang["activity_message"] = 'Denne oversigt viser de seneste ressourcer du har oprettet eller redigeret:';
 $_lang["activity_title"] = 'Seneste redigerede eller oprettede ressourcer';
 $_lang["add"] = 'Opret';
@@ -108,7 +108,7 @@ $_lang["collapse_tree"] = 'Luk website træet';
 $_lang["comment"] = 'Kommentar';
 $_lang["configcheck_admin"] = 'Kontakt en system administrator, og advar om denne besked!';
 $_lang["configcheck_cache"] = 'Cache mappen er ikke skrivbar';
-$_lang["configcheck_cache_msg"] = CMS_NAME.' Evolution kan ikke skrive til cache mappen. '.CMS_NAME.' Evolution vil dog stadig fungere men uden caching. For at rette dette, skal  /_cache/ mappen gøres skrivbar.';
+$_lang["configcheck_cache_msg"] = CMS_NAME.' kan ikke skrive til cache mappen. '.CMS_NAME.' vil dog stadig fungere men uden caching. For at rette dette, skal  /_cache/ mappen gøres skrivbar.';
 $_lang["configcheck_configinc"] = 'Konfigurationsfilen er stadigvæk skrivbar';
 $_lang["configcheck_configinc_msg"] = 'Det betyder at hackere kan ødelægge alt indholdet i websitet. Du <strong>skal</strong> ændre (/manager/includes/config.inc.php) så den kun er read-only!';
 $_lang["configcheck_default_msg"] = 'Der er opstået en uspecificeret fejl. Dette er så underligt at du bør informere en system administrator.';
@@ -120,7 +120,7 @@ $_lang["configcheck_hide_warning"] = '<a href="javascript:hideConfigCheckWarning
 $_lang["configcheck_images"] = 'Images mappen er ikke skrivbar';
 $_lang["configcheck_images_msg"] = 'Images mappen er ikke oprettet, eller er ikke skrivbar. Det betyder, at du ikke kan indsætte billeder!';
 $_lang["configcheck_installer"] = 'Install mappen eksisterer stadig';
-$_lang["configcheck_installer_msg"] = 'Det betyder, at /install mappen, som indeholder filerne til at installere '.CMS_NAME.' Evolution, stadigvæk eksisterer. Prøv at forestille dig hvad en hacker kan bruge den til! De vil sandsynligvis ikke komme så langt, men det er bedre at være på den sikre side, så slet hellere mappen.';
+$_lang["configcheck_installer_msg"] = 'Det betyder, at /install mappen, som indeholder filerne til at installere '.CMS_NAME.', stadigvæk eksisterer. Prøv at forestille dig hvad en hacker kan bruge den til! De vil sandsynligvis ikke komme så langt, men det er bedre at være på den sikre side, så slet hellere mappen.';
 $_lang["configcheck_lang_difference"] = 'Sprogfilen indeholder ikke det korrekte antal linier';
 $_lang["configcheck_lang_difference_msg"] = 'Det nuværende valgte sprog indeholder ikke det samme som indholdet i standard sproget. Dette er ikke nødvendigvis et problem, men betyder bare, at sprogfilen trænger til at blive opdateret.';
 $_lang["configcheck_notok"] = 'Der er en eller flere fejl i konfigurationen: ';
@@ -1064,7 +1064,7 @@ $_lang["websignupemail_message"] = 'Indtast beskeden, der bliver sent som e-mail
 $_lang["websignupemail_title"] = 'E-mail om oprettelse af web bruger konto:';
 $_lang["wednesday"] = 'Onsdag';
 $_lang["welcome_messages"] = 'Din indbakke indeholder <strong>%d</strong> besked(er), heraf er <strong>%s</strong> ulæste.';
-$_lang["welcome_title"] = 'Velkommen til '.CMS_NAME.' Evolution Content Manager';
+$_lang["welcome_title"] = 'Velkommen til '.CMS_NAME.' Content Manager';
 $_lang["which_editor_message"] = 'Vælg formateringseditoren der skal bruges (RTE). Du kan eventuelt hente og installere andre formateringseditorer fra '.CMS_NAME.' download side.';
 $_lang["which_editor_title"] = 'Editor der skal bruges:';
 $_lang["working"] = 'Arbejder...';
