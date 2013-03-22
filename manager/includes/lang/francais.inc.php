@@ -2,11 +2,11 @@
 /**
  * Filename:       includes/lang/francais-utf8.inc.php
  * Function:       French language file
- * Encoding:       iso-8859-1
- * Author:         Nicolas Martignoni (Nissai), David Mollière (davidm) pour la 0.9.6.2, Jean-Christophe Brebion (Fairytree) et Coroico pour Evolution 1.0.4 / 1.0.5, The ClipperCMS Project Team
+ * Encoding:       UTF-8
+ * Author:         Nicolas Martignoni (Nissai), David Mollière (davidm) pour la 0.9.6.2, Jean-Christophe Brebion (Fairytree) et Coroico pour Evolution 1.0.4 / 1.0.5, , The ClipperCMS Project Team
  */
 //$modx_textdir = 'rtl'; // uncomment this line for RTL langages
-$modx_lang_attribute = 'fr'; // Manager HTML and XML Language Attribute
+$modx_lang_attribute = 'fr'; // Manager HTML/XML Language Attribute see http://en.wikipedia.org/wiki/ISO_639-1
 
 $_lang["about_msg"] = CMS_NAME.' est un <a href="http://'.CMS_DOMAIN.'" target="_blank">Système de Gestion de Contenu et un Framework applicatif PHP</a> placé sous licence <a href="../assets/docs/license.txt">GNU GPL</a>.';
 $_lang["about_title"] = 'À propos de '.CMS_NAME;
@@ -259,7 +259,7 @@ $_lang["enable_sharedparams_msg"] = '<b>NOTE:</b> L\'identifiant unique global (
 $_lang["enabled"] = 'Activé';
 $_lang["error"] = 'Erreur';
 $_lang["error_sending_email"] = 'Erreur durant l\'envoi de l\'email';
-$_lang["errorpage_message"] = 'Entrez ici l\'ID d\'une Ressource  publiée et accessible publiquement  que vous souhaitez afficher aux utilisateurs s\'ils font appel à une Ressource inexistante.';
+$_lang["errorpage_message"] = 'Entrez ici l\'ID d\'une Ressource – publiée et accessible publiquement – que vous souhaitez afficher aux utilisateurs s\'ils font appel à une Ressource inexistante.';
 $_lang["errorpage_title"] = 'Page d\'erreur:';
 $_lang["event_id"] = 'ID événement';
 $_lang["eventlog"] = 'Historique des événements';
@@ -467,7 +467,7 @@ $_lang["mgrlog_msg"] = 'Message';
 $_lang["mgrlog_noquery"] = 'Aucune recherche effectuée.';
 $_lang["mgrlog_qresults"] = 'Résultats de la recherche';
 $_lang["mgrlog_query"] = 'Enregistrement des requêtes';
-$_lang["mgrlog_query_msg"] = 'Merci d\'effectuer une sélection pour visualiser les logs. Vous pouvez effectuer une sélection par date, mais faites bien attention: les dates saisies ne sont pas inclusives  pour sélectionner les logs du 1/1/2004 vous devez sélectionner les logs du 1/1/2004 au 2/1/2004.<br /><br />Message et action ont habituellement les mêmes valeurs. Si vous recherchez un message spécifique, il vaut mieux sélectionner l\'action sur «Certaines/Toutes».';
+$_lang["mgrlog_query_msg"] = 'Merci d\'effectuer une sélection pour visualiser les logs. Vous pouvez effectuer une sélection par date, mais faites bien attention: les dates saisies ne sont pas inclusives – pour sélectionner les logs du 1/1/2004 vous devez sélectionner les logs du 1/1/2004 au 2/1/2004.<br /><br />Message et action ont habituellement les mêmes valeurs. Si vous recherchez un message spécifique, il vaut mieux sélectionner l\'action sur «Certaines/Toutes».';
 $_lang["mgrlog_results"] = 'Nombre de résultats';
 $_lang["mgrlog_searchlogs"] = 'Rechercher les logs';
 $_lang["mgrlog_sortinst"] = 'Vous pouvez trier les tables en cliquant sur l\'en-tête de colonne. Si les logs deviennent trop volumineux, vous pouvez <a href="index.php?a=55">les vider</a>. Cela supprimera tous les logs et ne pourra pas être annulé!';
@@ -749,8 +749,8 @@ $_lang["role_new_user"] = 'Créer de nouveaux Utilisateurs';
 $_lang["role_new_web_user"] = 'Créer de nouveaux Utilisateurs Web';
 $_lang["role_plugin_management"] = 'Gestion des Plugins';
 $_lang["role_publish_doc"] = 'Publier des Ressources';
-$_lang["role_role_management"] = 'Gestion des rôles';
 $_lang['role_remove_locks'] = 'Supprimer des verrous';
+$_lang["role_role_management"] = 'Gestion des rôles';
 $_lang["role_run_module"] = 'Lancer des Modules';
 $_lang["role_save_chunk"] = 'Enregistrer des Chunks';
 $_lang["role_save_doc"] = 'Enregistrer des Ressources';
@@ -935,7 +935,7 @@ $_lang["udperms_message"] = 'Contrôlez l\'accès à vos Ressources par le biais
 $_lang["udperms_title"] = 'Utiliser les autorisations d\'accès:';
 $_lang["unable_set_link"] = 'Impossible de définir le lien!';
 $_lang["unable_set_parent"] = 'Impossible de définir le nouveau parent!';
-$_lang["unauthorizedpage_message"] = 'Entrez ici l\'ID d\'une Ressource  existante, publiée et accessible publiquement  que vous souhaitez afficher aux Utilisateurs s\'ils demandent une Ressource sécurisée/non autorisée.';
+$_lang["unauthorizedpage_message"] = 'Entrez ici l\'ID d\'une Ressource — existante, publiée et accessible publiquement – que vous souhaitez afficher aux Utilisateurs s\'ils demandent une Ressource sécurisée/non autorisée.';
 $_lang["unauthorizedpage_title"] = 'Page non autorisée:';
 $_lang["unblock_message"] = 'Une fois ces données enregistrées, cet Utilisateur sera débloqué.';
 $_lang["undelete_resource"] = 'Rétablir la Ressource';
