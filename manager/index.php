@@ -483,15 +483,9 @@ switch ($action) {
 /********************************************************************/
     case 26:
         // get the cache emptying processor
-        if (!isset($_GET['ma'])) {
-            require_once('header.inc.php');
-        } else {
-            header('Content-type: text-plain; charset='.$modx->config['modx_charset']);
-        }
+        require_once('header.inc.php');
         include_once "actions/refresh_site.dynamic.php";
-        if (!isset($_GET['ma'])) {
-            require_once('footer.inc.php');
-        }
+        require_once('footer.inc.php');
     break;
 /********************************************************************/
 /* Module management                                                */
