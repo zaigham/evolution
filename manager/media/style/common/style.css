@@ -80,7 +80,7 @@ h2.editor-heading {
 	font-weight: bold;
 	}
 
-.m-p {
+.manager-pop {
     position: absolute;
     top: 20%;
     left: 15%;
@@ -90,3 +90,4 @@ h2.editor-heading {
     background: white;
     box-shadow: -10px 10px 10px #555;
     }
+
