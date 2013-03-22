@@ -75,7 +75,9 @@ abstract class DBAPI_abstract {
             }
             $this->host = $host;
             $this->dbase = $dbase;
-            @$this->query("{$connection_method} {$charset}");
+            @$this->query("{$connection_method} {$charset}"); // We should be able to remove this and it's associated functionality
+            $this->set_charset($charset);
+            
             $tend = $this->parent->getMicroTime();
             $totaltime = $tend - $tstart;
             if ($this->parent->dumpSQL) {
@@ -153,6 +155,13 @@ abstract class DBAPI_abstract {
      * RDBMS specific.
      */
     abstract protected function make_persistent_connection($host, $uid, $pwd);
+
+    /**
+     * Set connection character set
+     *
+     * RDBMS specific
+     */
+    abstract protected function set_charset($charset);
 
     /**
      * Select a database.

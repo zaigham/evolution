@@ -68,6 +68,10 @@ class DBAPI extends DBAPI_abstract {
     protected function make_persistent_connection($host, $uid, $pwd) {
           return $this->conn = mysql_pconnect($host, $uid, $pwd, true);
     }
+    
+    protected function set_charset($charset) {
+        return mysql_set_charset($charset, $this->conn);
+    }
 
     protected function select_db($dbname) {
           return mysql_select_db($dbname, $this->conn);
