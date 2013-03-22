@@ -4,6 +4,7 @@ ClipperCMS 1.1.2 (Mar 2013)
 ===========================
 
 - Bug fix in mutate_settings.ajax.php
+- Corrections to Danish manager language file
 
 ClipperCMS 1.1.1 (Mar 2013)
 ===========================
