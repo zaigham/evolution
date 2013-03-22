@@ -41,8 +41,6 @@ function getAllPages($id=0, $sort='menuindex', $dir='ASC', $fields='pagetitle, i
     $fields = 'sc.'.implode(',sc.',preg_replace("/^\s/i","",explode(',',$fields)));
     $sort = 'sc.'.implode(',sc.',preg_replace("/^\s/i","",explode(',',$sort)));
 
-    @$modx->db->query("{$GLOBALS['database_connection_method']} {$GLOBALS['database_connection_charset']}");
-
     $sql = "SELECT DISTINCT $fields FROM $tblsc sc
       LEFT JOIN $tbldg dg on dg.document = sc.id
       WHERE sc.published=1 AND sc.deleted=0

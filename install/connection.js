@@ -13,7 +13,6 @@ jQuery(document).ready(function(){
             	uid:    document.getElementById('databaseloginname').value,
            	    pwd:    document.getElementById('databaseloginpassword').value,
             	database_collation: document.getElementById('database_collation').value,
-                database_connection_method: document.getElementById('database_connection_method').value,
                 language: language
             },
             function () {
@@ -49,7 +48,6 @@ jQuery(document).ready(function(){
         database_name = document.getElementById('database_name').value;
         tableprefix = document.getElementById('tableprefix').value;
         database_collation = document.getElementById('database_collation').value;
-        database_connection_method = document.getElementById('database_connection_method').value;
 
 		jQuery('#databasestatus').load(
 			url,
@@ -61,7 +59,6 @@ jQuery(document).ready(function(){
 		        database_name: database_name,
 		        tableprefix: tableprefix,
 		        database_collation: database_collation,
-		        database_connection_method: database_connection_method,
 		        language: language,
 		        installMode: installMode
 		    },

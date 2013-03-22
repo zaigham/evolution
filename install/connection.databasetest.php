@@ -24,14 +24,12 @@ else {
             $_POST['database_name'] = stripslashes($_POST['database_name']);
             $_POST['tableprefix'] = stripslashes($_POST['tableprefix']);
             $_POST['database_collation'] = stripslashes($_POST['database_collation']);
-            $_POST['database_connection_method'] = stripslashes($_POST['database_connection_method']);
         }
     }
     $database_name = $install->db->escape($_POST['database_name']);
     $database_name = str_replace("`", "", $database_name);
     $tableprefix = $install->db->escape($_POST['tableprefix']);
     $database_collation = $install->db->escape($_POST['database_collation']);
-    $database_connection_method = $install->db->escape($_POST['database_connection_method']);
 
     if (! $install->db->test_connect($host, $database_name, $uid, $pwd)) {
         // create database
@@ -52,13 +50,7 @@ else {
 
 		if ($installMode == 0 && $prefix_used) {
 				$output .= '<span id="database_fail" style="color:#FF0000;">'.$_lang['status_failed_table_prefix_already_in_use'].'</span>';
-		}
-
-		elseif (($database_connection_method != 'SET NAMES') && ($rs = $install->db->query("SHOW VARIABLES LIKE 'collation_database'")) && ($row = $install->db->getRow($rs, 'num')) && ($row[1] != $database_collation)) {
-		    $output .= '<span id="database_fail" style="color:#FF0000;">'.sprintf($_lang['status_failed_database_collation_does_not_match'], $row[1]).'</span>';
-		}
-
-		else {
+		} else {
 		    $output .= '<span id="database_pass" style="color:#80c000;">'.$_lang['status_passed'].'</span>';
 		}
 	}

@@ -129,7 +129,6 @@ if ($installMode == 1) {
     $database_collation = $_POST['database_collation'];
     $database_charset = substr($database_collation, 0, strpos($database_collation, '_') - 1);
     $database_connection_charset = $_POST['database_connection_charset'];
-    $database_connection_method = $_POST['database_connection_method'];
     $dbase = $_POST['database_name'];
     $table_prefix = $_POST['tableprefix'];
 }
@@ -165,11 +164,6 @@ if (!isset ($database_connection_charset) || empty ($database_connection_charset
 
     $database_charset = substr($database_collation, 0, strpos($database_collation, '_') - 1);
     $database_connection_charset = $database_charset;
-}
-
-// determine the database connection method if not specified in the configuration
-if (!isset($database_connection_method) || empty($database_connection_method)) {
-    $database_connection_method = 'SET CHARACTER SET';
 }
 
 // check table prefix
@@ -276,7 +270,6 @@ $agreeToggle= $errors > 0 ? '' : ' onclick="if(document.getElementById(\'chkagre
     <input type="hidden" value="<?php echo $_POST['tableengine']; ?>" name="tableengine" />
     <input type="hidden" value="<?php echo $_POST['database_collation'] ?>" name="database_collation" />
     <input type="hidden" value="<?php echo $_POST['database_connection_charset'] ?>" name="database_connection_charset" />
-    <input type="hidden" value="<?php echo $_POST['database_connection_method'] ?>" name="database_connection_method" />
     <input type="hidden" value="<?php echo $_POST['databasehost'] ?>" name="databasehost" />
     <input type="hidden" value="<?php echo $_POST['cmsadmin'] ?>" name="cmsadmin" />
     <input type="hidden" value="<?php echo $_POST['cmsadminemail'] ?>" name="cmsadminemail" />
