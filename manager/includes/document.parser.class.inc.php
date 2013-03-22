@@ -1584,8 +1584,13 @@ class DocumentParser extends Core {
      * - ensures that postProcess is called when PHP is finished
      */
     function prepareResponse() {
-        // we now know the method and identifier, let's check the cache
-        $this->documentContent= $this->checkCache($this->documentIdentifier);
+        if ($this->is_rss) {
+            $this->documentContent = ''; // RSS is not cached
+        } else {
+            // we now know the method and identifier, let's check the cache
+            $this->documentContent= $this->checkCache($this->documentIdentifier);
+        }
+        
         if ($this->documentContent != "") {
             // invoke OnLoadWebPageCache  event
             $this->invokeEvent("OnLoadWebPageCache");
