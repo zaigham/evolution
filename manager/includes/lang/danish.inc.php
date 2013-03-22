@@ -6,7 +6,6 @@
  */
 
 $modx_lang_attribute = 'da'; // Manager HTML/XML Language Attribute see http://en.wikipedia.org/wiki/ISO_639-1
-$modx_manager_charset = 'UTF-8';
 
 $_lang["about_msg"] = CMS_NAME.' Evolution er et <a href="http://'.CMS_DOMAIN.'" target="_blank">PHP Application Framework og Content Management System</a> der er licenseret under <a href="../assets/docs/license.txt">GNU GPL</a>.';
 $_lang["about_title"] = 'Om '.CMS_NAME.' Evolution';

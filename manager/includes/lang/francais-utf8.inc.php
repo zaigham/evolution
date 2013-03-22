@@ -7,7 +7,6 @@
  */
 //$modx_textdir = 'rtl'; // uncomment this line for RTL langages
 $modx_lang_attribute = 'fr'; // Manager HTML/XML Language Attribute see http://en.wikipedia.org/wiki/ISO_639-1
-$modx_manager_charset = 'UTF-8';
 
 $_lang["about_msg"] = CMS_NAME.' est un <a href="http://'.CMS_DOMAIN.'" target="_blank">Système de Gestion de Contenu et un Framework applicatif PHP</a> placé sous licence <a href="../assets/docs/license.txt">GNU GPL</a>.';
 $_lang["about_title"] = 'À propos de '.CMS_NAME;

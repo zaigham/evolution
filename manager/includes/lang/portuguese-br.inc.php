@@ -6,8 +6,6 @@
  * Author:         modx.br, The ClipperCMS Project Team
  */
 $modx_lang_attribute = 'pt';
-$modx_manager_charset = 'UTF-8';
-
 
 $_lang["about_msg"] = CMS_NAME.' é um <a href=\'http://'.CMS_DOMAIN.'\' target=\'_blank\'>Sistema em PHP para Gestão de Conteúdos</a> (em Inglês).';
 $_lang["about_title"] = 'Sobre o '.CMS_NAME;

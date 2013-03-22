@@ -7,7 +7,6 @@
  */
 
 $modx_lang_attribute = 'pl'; // Manager HTML/XML Language Attribute see http://en.wikipedia.org/wiki/ISO_639-1
-$modx_manager_charset = 'UTF-8';
 
 $_lang["about_msg"] = CMS_NAME.' jest to <a href="http://'.CMS_DOMAIN.'" target="_blank">PHP Application Framework i Content Management System</a> na licencji <a href="../assets/docs/license.txt">GNU GPL</a>.';
 $_lang["about_title"] = 'O '.CMS_NAME;

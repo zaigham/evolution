@@ -11,7 +11,6 @@
  * 		The ClipperCMS Project Team
  */
 $modx_lang_attribute = 'de'; // Manager HTML and XML Language Attribute
-$modx_manager_charset = 'UTF-8';
 
 $_lang["about_msg"] = CMS_NAME.' ist ein <a href="http://'.CMS_DOMAIN.'" target="_blank">PHP-Framework und Content Management System</a> und unter der <a href="../assets/docs/license.txt">GNU-GPL-Lizenz</a> veröffentlicht.';
 $_lang["about_title"] = 'Über '.CMS_NAME;

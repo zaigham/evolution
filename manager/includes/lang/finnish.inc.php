@@ -7,7 +7,6 @@
  */
 //$modx_textdir = 'rtl'; // uncomment this line for RTL languages
 $modx_lang_attribute = 'fi';
-$modx_manager_charset = 'UTF-8';
 
 $_lang["about_msg"] = CMS_NAME.' on <a href="http://'.CMS_DOMAIN.'" target="_blank">PHP-sovelluskehys ja sisällönhallintajärjestelmä</a>, jonka lisenssinä on avoimen lähdekoodin <a href="../assets/docs/license.txt">GNU GPL</a>.';
 $_lang["about_title"] = 'Tietoa '.CMS_NAME.':stä';

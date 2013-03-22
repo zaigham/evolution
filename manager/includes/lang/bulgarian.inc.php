@@ -5,7 +5,6 @@
  * Author:         The MODx Project Team, The ClipperCMS Project Team
  */
 $modx_lang_attribute = 'bg'; // Manager HTML and XML Language Attribute
-$modx_manager_charset = 'UTF-8';
 
 $_lang["about_msg"] = CMS_NAME.' is a <a href="http://clippercms.com" target="_blank">PHP Application Framework and Content Management System</a> licensed under the <a href="../assets/docs/license.txt">GNU GPL</a>.';
 $_lang["about_title"] = 'За Системата '.CMS_NAME;

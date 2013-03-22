@@ -6,7 +6,6 @@
  * Author:         modx.cn leepoooo@163.com, The ClipperCMS Project Team
  */
 $modx_lang_attribute = 'zh'; // Manager HTML and XML Language Attribute
-$modx_manager_charset = 'gb2312';
 
 $_lang["about"] = '¹ØÓÚMODX';
 $_lang["about_msg"] = CMS_NAME.' is a <a href= "http://'.CMS_DOMAIN.'" target= "_blank">PHP Application Framework and Content Management System</a> licensed under the <a href="../assets/docs/license.txt">GNU GPL</a>.';

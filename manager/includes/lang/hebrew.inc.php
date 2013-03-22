@@ -6,7 +6,6 @@
  */
 $modx_textdir = 'rtl';
 $modx_lang_attribute = 'he'; // Manager HTML and XML Language Attribute
-$modx_manager_charset = 'UTF-8';
 
 $_lang["about_msg"] = CMS_NAME.' הינה <a href="http://'.CMS_DOMAIN.'" target="_blank">מערכת ניהול תוכן מבוססת PHP</a> תחת רשיון <a href="../assets/docs/license.txt">GNU GPL</a>.';
 $_lang["about_title"] = 'אודות '.CMS_NAME;
