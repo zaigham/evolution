@@ -96,7 +96,6 @@ class DocumentParser extends Core {
      * Loads an extension from the extenders folder.
      * Currently of limited use - can only load the DBAPI and ManagerAPI.
      *
-     * @global string $database_type
      * @param string $extnamegetAllChildren
      * @return boolean
      */
@@ -128,8 +127,6 @@ class DocumentParser extends Core {
     /**
      * Redirect
      *
-     * @global string $base_url
-     * @global string $site_url
      * @param string $url
      * @param int $count_attempts
      * @param type $type
@@ -137,6 +134,9 @@ class DocumentParser extends Core {
      * @return boolean
      */
     function sendRedirect($url, $count_attempts= 0, $type= '', $responseCode= '') {
+    
+        global $base_url, $site_url;
+    
         if (empty ($url)) {
             return false;
         } else {
@@ -164,7 +164,6 @@ class DocumentParser extends Core {
             }
             elseif ($type == 'REDIRECT_HEADER' || empty ($type)) {
                 // check if url has /$base_url
-                global $base_url, $site_url;
                 if (substr($url, 0, strlen($base_url)) == $base_url) {
                     // append $site_url to make it work with Location:
                     $url= $site_url . substr($url, strlen($base_url));
@@ -2828,7 +2827,6 @@ class DocumentParser extends Core {
     /**
      * Returns the manager relative URL/path with respect to the site root.
      *
-     * @global string $base_url
      * @return string The complete URL to the manager folder
      */
     function getManagerPath() {
@@ -2840,7 +2838,6 @@ class DocumentParser extends Core {
     /**
      * Returns the cache relative URL/path with respect to the site root.
      *
-     * @global string $base_url
      * @return string The complete URL to the cache folder
      */
     function getCachePath() {
@@ -3812,7 +3809,6 @@ class SystemEvent {
     /**
      * Display a message to the user
      *
-     * @global array $SystemAlertMsgQueque
      * @param string $msg The message
      */
     function alert($msg) {
