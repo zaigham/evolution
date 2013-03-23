@@ -1,6 +1,7 @@
 <?php
 define('CMS_DOMAIN', 'clippercms.org');
 define('CMS_NAME', 'ClipperCMS');
+
 define('CMS_RELEASE_VERSION', '1.2');
 define('CMS_RELEASE_NAME', 'Leander');
 define('CMS_RELEASE_DATE', '1 May 2013');

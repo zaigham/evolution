@@ -1804,14 +1804,15 @@ class DocumentParser extends Core {
     function logEvent($evtid, $type, $msg, $source= 'Parser') {
         $msg= $this->db->escape($msg);
         $source= $this->db->escape($source);
-	if ($GLOBALS['database_connection_charset'] == 'utf8' && extension_loaded('mbstring')) {
-		$source = mb_substr($source, 0, 50 , "UTF-8");
-	} else {
-		$source = substr($source, 0, 50);
-	}
-	$LoginUserID = $this->getLoginUserID();
-	if ($LoginUserID == '') $LoginUserID = 0;
+        if ($GLOBALS['database_connection_charset'] == 'utf8' && extension_loaded('mbstring')) {
+            $source = mb_substr($source, 0, 50 , "UTF-8");
+        } else {
+            $source = substr($source, 0, 50);
+        }
+        $LoginUserID = $this->getLoginUserID();
+        if ($LoginUserID == '') $LoginUserID = 0;
         $evtid= intval($evtid);
+        $type = intval($type);
         if ($type < 1) {
             $type= 1;
         }
@@ -1819,7 +1820,7 @@ class DocumentParser extends Core {
             $type= 3; // Types: 1 = information, 2 = warning, 3 = error
         }
         $sql= "INSERT INTO " . $this->getFullTableName("event_log") . " (eventid,type,createdon,source,description,user) " .
-	"VALUES($evtid,$type," . time() . ",'$source','$msg','" . $LoginUserID . "')";
+                "VALUES($evtid,$type," . time() . ",'$source','$msg','" . $LoginUserID . "')";
         $ds= @$this->db->query($sql);
         if (!$ds) {
             echo "Error while inserting event log into database.";
