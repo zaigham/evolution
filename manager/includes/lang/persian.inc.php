@@ -3,12 +3,9 @@
  * Filename:       includes/lang/persian.inc.php
  * Function:       Persian Language file
  * Author:         Mohsen Zare (MotSmart ~ www.modxcms.ir), The ClipperCMS Project Team
- * Date:                   31st Aug 2012
- * ClipperCMS version:     1.1
-*/
+ */
 $modx_textdir = 'rtl';
 $modx_lang_attribute = 'fa'; // Manager HTML and XML Language Attribute
-$modx_manager_charset = 'UTF-8';
 
 $_lang["about_msg"] = 'مادایکس یک <a href="http://'.CMS_DOMAIN.'" target="_blank">سیستم مدیریت محتوای ساختار یافته و پیشرفته  توسط PHP میباشد</a> که  تحت لیسانس <a href="../assets/docs/license.txt">GNU-GPL</a> منتشر شده است';
 $_lang["about_title"] = 'درباره مادایکس';
@@ -84,7 +81,7 @@ $_lang["change_password_new"] = 'کلمه ی عبور جدید';
 $_lang["charset_message"] = 'لطفا مشخص بفرمایید تا تمایل دارید از کدام کاراکتر انکد برای بخش مدیریت استفاده شود. لطفا توجه داشته باشید که سیستم فعلی با  همه ی آنها آزمایش نشده و تنها برخی از این کاراکتر انکد آزمایش موفقیت آمیز داشته. برای اکثر زبانها, ترجیحا میتوان کاراکتر ست UTF-8 را انتخاب کرد.';
 $_lang["charset_title"] = 'کاراکترست متون';
 $_lang["chunk"] = 'چانک';
-$_lang["chunk_code"] = 'کد چانک (HTML)';
+$_lang["chunk_code"] = 'کد چانک';
 $_lang["cleaningup"] = 'در حال تمیز کردن';
 $_lang["clear_log"] = 'پاک کردن آمار';
 $_lang["click_to_context"] = 'برای دسترسی به منو یا فهرست مرتبط اینجا کلیک کنید';

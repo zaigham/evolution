@@ -4,12 +4,9 @@
  * Function:               English language file.
  * Encoding:               UTF8
  * Author:                 The MODx Project Team, The ClipperCMS Project Team
- * Date:                   7 July 2012
- * ClipperCMS version:     1.1
-*/
+ */
 //$modx_textdir = 'rtl'; // uncomment this line for RTL langauges
 $modx_lang_attribute = 'en'; // Manager HTML/XML Language Attribute see http://en.wikipedia.org/wiki/ISO_639-1
-$modx_manager_charset = 'UTF-8';
 
 $_lang["about_msg"] = CMS_NAME.' is a <a href="http://'.CMS_DOMAIN.'" target="_blank">PHP Application Framework and Content Management System</a> licensed under the <a href="../assets/docs/license.txt">GNU GPL</a>.';
 $_lang["about_title"] = 'About '.CMS_NAME;
@@ -93,7 +90,7 @@ $_lang["change_password_new"] = 'New password';
 $_lang["charset_message"] = 'Select the default character encoding for the [(modx_charset)] system variable. This does not affect the Manager.';
 $_lang["charset_title"] = 'Character encoding';
 $_lang["chunk"] = 'Chunk';
-$_lang["chunk_code"] = 'Chunk code (html)';
+$_lang["chunk_code"] = 'Chunk code';
 $_lang["chunk_multiple_id"] = 'Error: Multiple Chunks share the same unique ID.';
 $_lang["chunk_no_exist"] = 'Chunk does not exist.';
 $_lang["cleaningup"] = 'Cleaning up';
@@ -893,7 +890,7 @@ $_lang["table_prefix"] = 'Table prefix';
 $_lang["tag"] = 'Tag';
 $_lang["template"] = 'Template';
 $_lang["template_assignedtv_tab"] = 'Assigned Template Variables';
-$_lang["template_code"] = 'Template code (html)';
+$_lang["template_code"] = 'Template code';
 $_lang["template_desc"] = 'Description';
 $_lang["template_edit_tab"] = 'Edit Template';
 $_lang["template_management_msg"] = 'Choose which Template you wish to edit.';
@@ -1063,4 +1060,7 @@ $_lang['file_browser_title'] = 'File browser';
 $_lang['actions'] = 'Actions';
 $_lang['docid_visibility'] = 'Resource ids in the site tree visible to';
 $_lang['docid_visibility_message'] = 'Control the visibility of the resource/document identifiers shown in the site tree.';
-
+$_lang['default_child_template'] = 'Default child template';
+$_lang['restrict_children'] = 'Restrict child templates';
+$_lang['allowed_child_templates'] = 'Allowed child templates';
+$_lang['template_rules_tv_label'] = 'TV to use for document-specific template rules';

@@ -1,5 +1,21 @@
 Note that the #numbers under the Clipper entries related to issue numbers as at https://github.com/ClipperCMS/ClipperCMS/issues
 
+ClipperCMS 1.1.3 (Mar 2013)
+===========================
+
+- Bug fix in DocumentParser::logEvent()
+
+ClipperCMS 1.1.2 (Mar 2013)
+===========================
+
+- Bug fix in mutate_settings.ajax.php
+- Corrections to Danish manager language file
+
+ClipperCMS 1.1.1 (Mar 2013)
+===========================
+
+- PHP error level fix for PHP 5.3+
+
 ClipperCMS 1.1.0 (Dec 2012)
 ===========================
 

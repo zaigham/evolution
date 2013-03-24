@@ -4,12 +4,9 @@
  * Function:       Language file.
  * Encoding:       UTF8
  * Author:         eastbind, MEGU, yamamoto, The ClipperCMS Project Team
- * Date:                   31st Aug 2012
- * ClipperCMS version:     1.1
-*/
+ */
 //$modx_textdir = 'rtl'; // uncomment this line for RTL langauges
 $modx_lang_attribute = 'ja'; // Manager HTML and XML Language Attribute
-$modx_manager_charset = 'UTF-8';
 
 $_lang["about_msg"] = '<p>'.CMS_NAME.'(モドエックスまたはモッドエックス)は <a href="http://ja.wikipedia.org/wiki/'.CMS_NAME.'" target="_blank">PHP アプリケーション フレームワーク・コンテンツ管理システム</a>です。<a href="../assets/docs/license.txt">GNU GPL</a> に基づいて使用が許諾されます。</p>';
 $_lang["about_title"] = CMS_NAME.' について';
@@ -93,7 +90,7 @@ $_lang["change_password_new"] = 'パスワード';
 $_lang["charset_message"] = '管理画面で使用したいエンコードを選択できます。すでにUTF-8で運用している場合、EUCを選択すると既存のコンテンツや設定などは文字化けします。事前にphpMyAdminなどを利用して変換し、設定変更後にインポートし直す必要があります。';
 $_lang["charset_title"] = 'エンコード ';
 $_lang["chunk"] = 'チャンク';
-$_lang["chunk_code"] = 'チャンク コード (html)';
+$_lang["chunk_code"] = 'チャンク コード';
 $_lang["chunk_multiple_id"] = 'エラー: 複数のチャンクが一つのユニークIDを利用しています。';
 $_lang["chunk_no_exist"] = 'チャンクが存在しません。';
 $_lang["cleaningup"] = 'クリーンアップ処理中';
@@ -882,7 +879,7 @@ $_lang["table_prefix"] = 'テーブル接頭辞';
 $_lang["tag"] = 'タグ';
 $_lang["template"] = 'テンプレート';
 $_lang["template_assignedtv_tab"] = '定義されているテンプレート変数';
-$_lang["template_code"] = 'テンプレート コード (html)';
+$_lang["template_code"] = 'テンプレート コード';
 $_lang["template_desc"] = '説明';
 $_lang["template_edit_tab"] = 'テンプレートの編集';
 $_lang["template_management_msg"] = '<h3 style="font-weight:bold;">テンプレートデザインの管理</h3><p>テンプレートはいくつでも作成でき、各ページ(リソース)ごとに自由に割り当てることができます。カッコ内の数字はテンプレートIDです。</p>';

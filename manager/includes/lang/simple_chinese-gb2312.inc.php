@@ -4,11 +4,8 @@
  * Function:       Simple Chinese language file.
  * Encoding:       gb2312
  * Author:         modx.cn leepoooo@163.com, The ClipperCMS Project Team
- * Date:                   31st Aug 2012
- * ClipperCMS version:     1.1
-*/
+ */
 $modx_lang_attribute = 'zh'; // Manager HTML and XML Language Attribute
-$modx_manager_charset = 'gb2312';
 
 $_lang["about"] = '¹ØÓÚMODX';
 $_lang["about_msg"] = CMS_NAME.' is a <a href= "http://'.CMS_DOMAIN.'" target= "_blank">PHP Application Framework and Content Management System</a> licensed under the <a href="../assets/docs/license.txt">GNU GPL</a>.';
@@ -86,7 +83,7 @@ $_lang["change_password_new"] = 'ĞÂÃÜÂë';
 $_lang["charset_message"] = 'ÇëÑ¡ÔñÄãµÄºóÌ¨¹ÜÀí±àÂë¡£×¢ÒâMODXËäÈ»²âÊÔÁË´óÁ¿µÄ±àÂëÀàĞÍ£¬µ«ÊÇ²¢·ÇÈ«²¿²âÊÔ¹ıÁË£¬¶ÔÓÚ´ó²¿·ÖÓïÑÔÀ´Ëµ£¬±àÂëÉèÖÃÊÇido-8859-1¡£¶àÓïÑÔÉèÖÃÊÇutf-8¡£¼òÌåÖĞÎÄÊÇgb2312¡£';
 $_lang["charset_title"] = '±àÂë:';
 $_lang["chunk"]= '¿éÔªËØ';
-$_lang["chunk_code"] = '¿éÔªËØ´úÂë (html)';
+$_lang["chunk_code"] = '¿éÔªËØ´úÂë';
 $_lang["cleaningup"] = 'Çå³ı';
 $_lang["clear_log"] = 'Çå³ıÈÕÖ¾';
 $_lang["click_to_context"]= 'µã»÷µ½¹ØÁª²Ëµ¥';
@@ -781,7 +778,7 @@ $_lang["system_email_webreminder"] = "Hello [+uid+]\n\nµãÏÂÃæµÄÁ¬½ÓÀ´¼¤»îÄãµÄĞÂÃ
 $_lang["system_email_websignup"] = "Hello [+uid+] \n\nÕâÊÇÄãµÄµÇÂ½Ï¸½Ú [+sname+]:\n\nÓÃ»§Ãû: [+uid+]\nÃÜÂë: [+pwd+]\n\nÄã¿ÉÒÔµãÕâ¸öµÇÂ½ [+sname+] ([+surl+]), ÔÚÄÇÀïÒ²¿ÉÒÔ¸Ä±äÄãµÄÃÜÂë.\n\nĞ»Ğ»,\nÍøÕ¾¹ÜÀíÔ±";
 $_lang["tag"] = '±êÇ©';
 $_lang["template"] = 'Ä£°å';
-$_lang["template_code"] = 'Ä£°å´úÂë (html)';
+$_lang["template_code"] = 'Ä£°å´úÂë';
 $_lang["template_desc"] = 'ÃèÊö';
 $_lang["template_management_msg"] = 'Ñ¡ÔñÄãĞèÒª±à¼­µÄÄ£°å¡£';
 $_lang["template_msg"] = 'Äã¿ÉÒÔÔÚÕâÀïÌí¼Ó±à¼­/Ä£°å£¬µ±ÄãÕ¾µãµÄCACHEÃ»Çå¿ÕµÄÊ±ºò£¬ÄãÊÇ²»¿ÉÒÔ¿´¼ûCOOKIEÀïµÄÎÄ¼ş²ÉÈ¡ÁËÕâ¸öĞÂµÄÄ£°å£¬µ±È»Äã¿ÉÒÔÓÃÔ¤ÀÀ¹¦ÄÜÀ´¿´µ½Ëû¡£';

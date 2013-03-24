@@ -4,12 +4,9 @@
  * Function:       Language file.
  * Encoding:               UTF8
  * Author:                 Mikko Lammi, www.maagit.fi, The ClipperCMS Project Team
- * Date:                   31st August 2012
- * ClipperCMS version:     1.1
-*/
+ */
 //$modx_textdir = 'rtl'; // uncomment this line for RTL languages
 $modx_lang_attribute = 'fi';
-$modx_manager_charset = 'UTF-8';
 
 $_lang["about_msg"] = CMS_NAME.' on <a href="http://'.CMS_DOMAIN.'" target="_blank">PHP-sovelluskehys ja sisällönhallintajärjestelmä</a>, jonka lisenssinä on avoimen lähdekoodin <a href="../assets/docs/license.txt">GNU GPL</a>.';
 $_lang["about_title"] = 'Tietoa '.CMS_NAME.':stä';
@@ -93,7 +90,7 @@ $_lang["change_password_new"] = 'Uusi salasana';
 $_lang["charset_message"] = 'Valitse käytettävä merkistö [(modx_charset)] asetukselle. Tällä valinnalla ei ole merkitystä '.CMS_NAME.' ylläpidon merkistökoodaukseen. Monet kolmannen osapuolen resurssit käyttävät [(modx_charset)] asetusta oletusmerkistönä.';
 $_lang["charset_title"] = 'Merkistö:';
 $_lang["chunk"] = 'Palanen';
-$_lang["chunk_code"] = 'Lähdekoodi (html)';
+$_lang["chunk_code"] = 'Lähdekoodi';
 $_lang["chunk_multiple_id"] = 'Virhe: Usealla HTML-palasella on sama yksilötunnus (ID).';
 $_lang["chunk_no_exist"] = 'HTML-palasta ei ole.';
 $_lang["cleaningup"] = 'Odota hetki...';
@@ -867,7 +864,7 @@ $_lang["table_prefix"] = 'Taulun etuliite';
 $_lang["tag"] = 'Metatiedon tyyppi';
 $_lang["template"] = 'Sivupohja';
 $_lang["template_assignedtv_tab"] = 'Määritetyt sivupohjan muuttujat';
-$_lang["template_code"] = 'Lähdekoodi (html)';
+$_lang["template_code"] = 'Lähdekoodi';
 $_lang["template_desc"] = 'Kuvaus';
 $_lang["template_edit_tab"] = 'Muokkaa sivupohjaa';
 $_lang["template_management_msg"] = 'Muokkaa sivupohjia (template).';

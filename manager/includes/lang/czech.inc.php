@@ -3,12 +3,9 @@
  * Filename:       includes/lang/czech.inc.php
  * Function:       Czech language file.
  * Author:         modxcms.cz, The ClipperCMS Project Team
- * Date:                   31st Aug 2012
- * ClipperCMS version:     1.1
-*/
+ */
 
 $modx_lang_attribute = 'cs'; // Manager HTML/XML Language Attribute see http://en.wikipedia.org/wiki/ISO_639-1
-$modx_manager_charset = 'UTF-8';
 
 $_lang["about_msg"] = CMS_NAME.' je <a href="http://'.CMS_DOMAIN.'" target="_blank">PHP Application Framework and Content Management System</a> licencovaný pod <a href="http://www.gnu.cz/article/32/">GNU GPL</a>.';
 $_lang["about_title"] = 'O '.CMS_NAME;
@@ -92,7 +89,7 @@ $_lang["change_password_new"] = 'Nové heslo';
 $_lang["charset_message"] = 'Vyberte výchozí kódování znaků pro [(modx_charset)] systemové proměnné. Volba nemá vliv na Manager.';
 $_lang["charset_title"] = 'Kódování znaků:';
 $_lang["chunk"] = 'Chunk';
-$_lang["chunk_code"] = 'Kód chunku (html)';
+$_lang["chunk_code"] = 'Kód chunku';
 $_lang["chunk_multiple_id"] = 'Chyba: Více Chunků sdílí unikátní ID.';
 $_lang["chunk_no_exist"] = 'Chunk neexistuje.';
 $_lang["cleaningup"] = 'Čistím / Odstraňuji';
@@ -880,7 +877,7 @@ $_lang["table_prefix"] = 'Předpona tabulek';
 $_lang["tag"] = 'Značka';
 $_lang["template"] = 'Šablona';
 $_lang["template_assignedtv_tab"] = 'Přiřazené Template Variables';
-$_lang["template_code"] = 'Kód šablony (html)';
+$_lang["template_code"] = 'Kód šablony';
 $_lang["template_desc"] = 'Popis';
 $_lang["template_edit_tab"] = 'Upravit šablonu';
 $_lang["template_management_msg"] = 'Zde můžete zvolit šablonu, kterou chcete upravit.';

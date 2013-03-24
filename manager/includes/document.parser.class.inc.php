@@ -90,14 +90,12 @@ class DocumentParser extends Core {
         $this->pluginEvent= array ();
         // set track_errors ini variable
         // @ini_set("track_errors", "1"); // enable error tracking in $php_errormsg
-        register_shutdown_function(array(&$this, 'fatalErrorCheck'));
     }
 
     /**
      * Loads an extension from the extenders folder.
      * Currently of limited use - can only load the DBAPI and ManagerAPI.
      *
-     * @global string $database_type
      * @param string $extnamegetAllChildren
      * @return boolean
      */
@@ -129,8 +127,6 @@ class DocumentParser extends Core {
     /**
      * Redirect
      *
-     * @global string $base_url
-     * @global string $site_url
      * @param string $url
      * @param int $count_attempts
      * @param type $type
@@ -138,6 +134,9 @@ class DocumentParser extends Core {
      * @return boolean
      */
     function sendRedirect($url, $count_attempts= 0, $type= '', $responseCode= '') {
+    
+        global $base_url, $site_url;
+    
         if (empty ($url)) {
             return false;
         } else {
@@ -165,7 +164,6 @@ class DocumentParser extends Core {
             }
             elseif ($type == 'REDIRECT_HEADER' || empty ($type)) {
                 // check if url has /$base_url
-                global $base_url, $site_url;
                 if (substr($url, 0, strlen($base_url)) == $base_url) {
                     // append $site_url to make it work with Location:
                     $url= $site_url . substr($url, strlen($base_url));
@@ -1585,8 +1583,13 @@ class DocumentParser extends Core {
      * - ensures that postProcess is called when PHP is finished
      */
     function prepareResponse() {
-        // we now know the method and identifier, let's check the cache
-        $this->documentContent= $this->checkCache($this->documentIdentifier);
+        if ($this->is_rss) {
+            $this->documentContent = ''; // RSS is not cached
+        } else {
+            // we now know the method and identifier, let's check the cache
+            $this->documentContent= $this->checkCache($this->documentIdentifier);
+        }
+        
         if ($this->documentContent != "") {
             // invoke OnLoadWebPageCache  event
             $this->invokeEvent("OnLoadWebPageCache");
@@ -1609,7 +1612,7 @@ class DocumentParser extends Core {
                     $this->sendErrorPage();
                 } else {
                     // Inculde the necessary files to check document permissions
-                    include_once ($this->config['base_path'] . '/manager/processors/user_documents_permissions.class.php');
+                    require_once('user_documents_permissions.class.php');
                     $udperms= new udperms();
                     $udperms->user= $this->getLoginUserID();
                     $udperms->document= $this->documentIdentifier;
@@ -1800,14 +1803,15 @@ class DocumentParser extends Core {
     function logEvent($evtid, $type, $msg, $source= 'Parser') {
         $msg= $this->db->escape($msg);
         $source= $this->db->escape($source);
-	if ($GLOBALS['database_connection_charset'] == 'utf8' && extension_loaded('mbstring')) {
-		$source = mb_substr($source, 0, 50 , "UTF-8");
-	} else {
-		$source = substr($source, 0, 50);
-	}
-	$LoginUserID = $this->getLoginUserID();
-	if ($LoginUserID == '') $LoginUserID = 0;
+        if ($GLOBALS['database_connection_charset'] == 'utf8' && extension_loaded('mbstring')) {
+            $source = mb_substr($source, 0, 50 , "UTF-8");
+        } else {
+            $source = substr($source, 0, 50);
+        }
+        $LoginUserID = $this->getLoginUserID();
+        if ($LoginUserID == '') $LoginUserID = 0;
         $evtid= intval($evtid);
+        $type = intval($type);
         if ($type < 1) {
             $type= 1;
         }
@@ -1815,7 +1819,7 @@ class DocumentParser extends Core {
             $type= 3; // Types: 1 = information, 2 = warning, 3 = error
         }
         $sql= "INSERT INTO " . $this->getFullTableName("event_log") . " (eventid,type,createdon,source,description,user) " .
-	"VALUES($evtid,$type," . time() . ",'$source','$msg','" . $LoginUserID . "')";
+                "VALUES($evtid,$type," . time() . ",'$source','$msg','" . $LoginUserID . "')";
         $ds= @$this->db->query($sql);
         if (!$ds) {
             echo "Error while inserting event log into database.";
@@ -2704,8 +2708,7 @@ class DocumentParser extends Core {
                 $query= "tv.id<>0";
             else
                 $query= (is_numeric($idnames[0]) ? "tv.id" : "tv.name") . " IN ('" . implode("','", $idnames) . "')";
-            if ($docgrp= $this->getUserDocGroups())
-                $docgrp= implode(",", $docgrp);
+
             $sql= "SELECT $fields, IF(tvc.value!='',tvc.value,tv.default_text) as value ";
             $sql .= "FROM " . $this->getFullTableName('site_tmplvars')." tv ";
             $sql .= "INNER JOIN " . $this->getFullTableName('site_tmplvar_templates')." tvtpl ON tvtpl.tmplvarid = tv.id ";
@@ -2824,7 +2827,6 @@ class DocumentParser extends Core {
     /**
      * Returns the manager relative URL/path with respect to the site root.
      *
-     * @global string $base_url
      * @return string The complete URL to the manager folder
      */
     function getManagerPath() {
@@ -2836,7 +2838,6 @@ class DocumentParser extends Core {
     /**
      * Returns the cache relative URL/path with respect to the site root.
      *
-     * @global string $base_url
      * @return string The complete URL to the cache folder
      */
     function getCachePath() {
@@ -3522,7 +3523,7 @@ class DocumentParser extends Core {
     }
 
     /**
-     * Set PHP error handler
+     * Set PHP error handlers
      * 
      * @return void
      */
@@ -3537,6 +3538,8 @@ class DocumentParser extends Core {
             {
             set_error_handler(array (&$this, 'phpError'), error_reporting());
             }
+        
+        register_shutdown_function(array(&$this, 'fatalErrorCheck'));
         }
 
     /**
@@ -3756,6 +3759,10 @@ class DocumentParser extends Core {
      */
     function messageQuitFromElement($element_name, $msg= 'unspecified error', $query= '', $is_error= true, $nr= '', $file= '', $source= '', $text= '', $line= '') {
 
+        if (is_null($element_name)) {
+            $element_name = "{$this->eval_type} {$this->eval_name}";
+        }
+
 		$parsedMessageString = $this->messageQuitText($msg, $query, $is_error, $nr, $file, $source, $text, $line);
 
         // Set 500 response header
@@ -3802,7 +3809,6 @@ class SystemEvent {
     /**
      * Display a message to the user
      *
-     * @global array $SystemAlertMsgQueque
      * @param string $msg The message
      */
     function alert($msg) {

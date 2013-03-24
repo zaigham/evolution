@@ -1,6 +1,17 @@
 <?php
 if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
+require_once('user_documents_permissions.class.php');
+
+// Get parent docid if specified explicitly in request
+if (isset($_REQUEST['pid'])) {
+    $pid = intval($_REQUEST['pid']);
+} elseif (isset($_POST['parent'])) { // postback
+    $pid = intval($_POST['parent']);
+} else {
+	$pid = null;
+}
+
 // check permissions
 switch ($_REQUEST['a']) {
     case 27:
@@ -8,6 +19,7 @@ switch ($_REQUEST['a']) {
             $e->setError(3);
             $e->dumpError();
         }
+        $existing = true;
         break;
     case 85:
     case 72:
@@ -15,18 +27,18 @@ switch ($_REQUEST['a']) {
         if (!$modx->hasPermission('new_document')) {
             $e->setError(3);
             $e->dumpError();
-        } elseif(isset($_REQUEST['pid']) && $_REQUEST['pid'] != '0') {
-            // check user has permissions for parent
-            include_once(MODX_MANAGER_PATH.'processors/user_documents_permissions.class.php');
+        } elseif ($pid) {
+            // Check permissions on parent
             $udperms = new udperms();
             $udperms->user = $modx->getLoginUserID();
-            $udperms->document = empty($_REQUEST['pid']) ? 0 : $_REQUEST['pid'];
+            $udperms->document = $pid;
             $udperms->role = $_SESSION['mgrRole'];
             if (!$udperms->checkPermissions()) {
                 $e->setError(3);
                 $e->dumpError();
             }
         }
+        $existing = false;
         break;
     default:
         $e->setError(3);
@@ -34,31 +46,20 @@ switch ($_REQUEST['a']) {
 }
 
 
-if (isset($_REQUEST['id']))
-        $id = (int)$_REQUEST['id'];
-else    $id = 0;
+// Get document id
+if ($existing) {
+    $docid = (int)$_REQUEST['id'];
+} else {
+    $docid = 0;
+}
 
-// Get table names (alphabetical)
-$tbl_active_users               = $modx->getFullTableName('active_users');
-$tbl_categories                 = $modx->getFullTableName('categories');
-$tbl_document_group_names       = $modx->getFullTableName('documentgroup_names');
-$tbl_member_groups              = $modx->getFullTableName('member_groups');
-$tbl_membergroup_access         = $modx->getFullTableName('membergroup_access');
-$tbl_document_groups            = $modx->getFullTableName('document_groups');
-$tbl_site_content               = $modx->getFullTableName('site_content');
-$tbl_site_templates             = $modx->getFullTableName('site_templates');
-$tbl_site_tmplvar_access        = $modx->getFullTableName('site_tmplvar_access');
-$tbl_site_tmplvar_contentvalues = $modx->getFullTableName('site_tmplvar_contentvalues');
-$tbl_site_tmplvar_templates     = $modx->getFullTableName('site_tmplvar_templates');
-$tbl_site_tmplvars              = $modx->getFullTableName('site_tmplvars');
-
-if ($action == 27) {
+// Check permissions on existing document
+if ($existing) {
     //editing an existing document
     // check permissions on the document
-    include_once(MODX_MANAGER_PATH.'processors/user_documents_permissions.class.php');
     $udperms = new udperms();
     $udperms->user = $modx->getLoginUserID();
-    $udperms->document = $id;
+    $udperms->document = $docid;
     $udperms->role = $_SESSION['mgrRole'];
 
     if (!$udperms->checkPermissions()) {
@@ -74,8 +75,22 @@ if ($action == 27) {
     }
 }
 
+// Get table names (alphabetical)
+$tbl_active_users               = $modx->getFullTableName('active_users');
+$tbl_categories                 = $modx->getFullTableName('categories');
+$tbl_document_group_names       = $modx->getFullTableName('documentgroup_names');
+$tbl_member_groups              = $modx->getFullTableName('member_groups');
+$tbl_membergroup_access         = $modx->getFullTableName('membergroup_access');
+$tbl_document_groups            = $modx->getFullTableName('document_groups');
+$tbl_site_content               = $modx->getFullTableName('site_content');
+$tbl_site_templates             = $modx->getFullTableName('site_templates');
+$tbl_site_tmplvar_access        = $modx->getFullTableName('site_tmplvar_access');
+$tbl_site_tmplvar_contentvalues = $modx->getFullTableName('site_tmplvar_contentvalues');
+$tbl_site_tmplvar_templates     = $modx->getFullTableName('site_tmplvar_templates');
+$tbl_site_tmplvars              = $modx->getFullTableName('site_tmplvars');
+
 // Check to see the document isn't locked
-$sql = 'SELECT internalKey, username FROM '.$tbl_active_users.' WHERE action=27 AND id=\''.$id.'\'';
+$sql = 'SELECT internalKey, username FROM '.$tbl_active_users.' WHERE action=27 AND id=\''.$docid.'\'';
 $rs = $modx->db->query($sql);
 $limit = $modx->db->getRecordCount($rs);
 if ($limit > 1) {
@@ -94,13 +109,14 @@ if ($_SESSION['mgrDocgroups']) {
     $docgrp = implode(',', $_SESSION['mgrDocgroups']);
 }
 
-if (!empty ($id)) {
+// Get document content
+if (!empty ($docid)) {
     $access = "1='" . $_SESSION['mgrRole'] . "' OR sc.privatemgr=0" .
         (!$docgrp ? '' : " OR dg.document_group IN ($docgrp)");
     $sql = 'SELECT DISTINCT sc.* '.
            'FROM '.$tbl_site_content.' AS sc '.
            'LEFT JOIN '.$tbl_document_groups.' AS dg ON dg.document=sc.id '.
-           'WHERE sc.id=\''.$id.'\' AND ('.$access.')';
+           'WHERE sc.id=\''.$docid.'\' AND ('.$access.')';
     $rs = $modx->db->query($sql);
     $limit = $modx->db->getRecordCount($rs);
     if ($limit > 1) {
@@ -114,6 +130,15 @@ if (!empty ($id)) {
     $content = $modx->db->getRow($rs);
 } else {
     $content = array();
+}
+
+// Get parent docid if not specified explicitly in request
+if (is_null($pid)) {
+    if (isset($content['parent'])) {
+        $pid = $content['parent'];
+    } else {
+        $pid = 0;
+    }
 }
 
 // restore saved form
@@ -142,9 +167,8 @@ if ($formRestored == true || isset ($_REQUEST['newtemplate'])) {
 }
 
 // increase menu index if this is a new document
-if (!isset ($_REQUEST['id'])) {
+if (!$existing) {
     if (!isset ($auto_menuindex) || $auto_menuindex) {
-        $pid = intval($_REQUEST['pid']);
         $sql = 'SELECT count(*) FROM '.$tbl_site_content.' WHERE parent=\''.$pid.'\'';
         $content['menuindex'] = $modx->db->getValue($sql);
     } else {
@@ -154,6 +178,16 @@ if (!isset ($_REQUEST['id'])) {
 
 if (isset ($_POST['which_editor'])) {
     $which_editor = $_POST['which_editor'];
+}
+
+// Functionality from template rules plugin by Cipa, now in the core
+$template_rules = null;
+if ($modx->config['template_rules_tv']) {
+    $rs_tr = $modx->db->select('id', $tbl_site_tmplvars, "name = '{$modx->config['template_rules_tv']}'");
+    if ($modx->db->getRecordCount($rs_tr)) {
+        require_once('template_rules.class.inc.php');
+        $template_rules = TemplateRules::getTvValueAndLevel($pid, reset($modx->db->getRow($rs_tr)));
+    }
 }
 ?>
 
@@ -180,7 +214,7 @@ function deletedocument() {
 
 function duplicatedocument(){
     if(confirm("<?php echo $_lang['confirm_resource_duplicate']?>")==true) {
-        document.location.href="index.php?id=<?php echo $_REQUEST['id']?>&a=94";
+        document.location.href="index.php?id=<?php echo $docid; ?>&a=94";
     }
 }
 
@@ -464,7 +498,7 @@ function decode(s) {
 	<?php
 	// invoke OnDocFormPrerender event
 	$evtOut = $modx->invokeEvent('OnDocFormPrerender', array(
-	    'id' => $id
+	    'id' => $docid
 	));
 	if (is_array($evtOut))
 	    echo implode('', $evtOut);
@@ -477,7 +511,7 @@ function decode(s) {
 	<input type="hidden" name="newtemplate" value="" />
 	
 	<fieldset id="create_edit">
-	    <h1><?php if ($_REQUEST['id']){ echo $_lang['edit_resource_title']; } else { echo $_lang['create_resource_title'];}?></h1>
+	    <h1><?php if ($existing){ echo $_lang['edit_resource_title']; } else { echo $_lang['create_resource_title'];}?></h1>
 	
 		<div id="actions">
 		      <ul class="actionButtons">
@@ -500,8 +534,8 @@ function decode(s) {
 		          <li id="Button6"><a href="#" onclick="duplicatedocument();"><img src="<?php echo $_style["icons_resource_duplicate"] ?>" alt="icons_resource_duplicate" /> <?php echo $_lang['duplicate']?></a></li>
 		          <li id="Button3"><a href="#" onclick="deletedocument();"><img src="<?php echo $_style["icons_delete_document"] ?>" alt="icons_delete_document" /> <?php echo $_lang['delete']?></a></li>
 		          <?php } ?>
-		          <li id="Button4"><a href="#" onclick="documentDirty=false;<?php echo $id==0 ? "document.location.href='index.php?a=2';" : "document.location.href='index.php?a=3&amp;id=$id';"?>"><img alt="icons_cancel" src="<?php echo $_style["icons_cancel"] ?>" /> <?php echo $_lang['cancel']?></a></li>
-		          <li id="Button5"><a href="#" onclick="window.open('<?php echo $modx->makeUrl($id); ?>','previeWin');"><img alt="icons_preview_resource" src="<?php echo $_style["icons_preview_resource"] ?>" /> <?php echo $_lang['preview']?></a></li>
+		          <li id="Button4"><a href="#" onclick="documentDirty=false;<?php echo $docid==0 ? "document.location.href='index.php?a=2';" : "document.location.href='index.php?a=3&amp;id=$docid';"?>"><img alt="icons_cancel" src="<?php echo $_style["icons_cancel"] ?>" /> <?php echo $_lang['cancel']?></a></li>
+		          <li id="Button5"><a href="#" onclick="window.open('<?php echo $modx->makeUrl($docid); ?>','previeWin');"><img alt="icons_preview_resource" src="<?php echo $_style["icons_preview_resource"] ?>" /> <?php echo $_lang['preview']?></a></li>
 		      </ul>
 		</div>
 		
@@ -548,10 +582,65 @@ function decode(s) {
                 <td valign="top"><textarea name="introtext" class="inputBox" rows="3" cols="" onchange="documentDirty=true;"><?php echo htmlspecialchars(stripslashes($content['introtext']))?></textarea>
                 &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_summary_help']?>" class="tooltip" spellcheck="true"/></td></tr>
             <tr style="height: 24px;"><td><span class="warning"><?php echo $_lang['page_data_template']?></span></td>
-                <td><select id="template" name="template" class="inputBox" onchange="templateWarning();" style="width:308px">
-                    <option value="0">(blank)</option>
-<?php
-                $sql = 'SELECT t.templatename, t.id, c.category FROM '.$tbl_site_templates.' t LEFT JOIN '.$tbl_categories.' c ON t.category = c.id ORDER BY c.category, t.templatename ASC';
+                <td>
+                   <select id="template" name="template" class="inputBox" onchange="templateWarning();" style="width:308px">
+                    <?php
+                    if ($template_rules) {
+                        $allowed_templates_list = TemplateRules::getTemplateList($template_rules);
+                        if (!$allowed_templates_list) {
+                            $allowed_templates_list = true; // All templates allowed
+                        }
+                    } elseif ($pid) {
+                        $template_id = $modx->db->getValue($modx->db->select('template', $tbl_site_content, "id = $pid"));
+                        $rs_template = $modx->db->select('default_child_template, restrict_children, allowed_child_templates', $tbl_site_templates, "id=$template_id");
+                        if ($rs_template && ($row_template = $modx->db->getRow($rs_template)) && $row_template['restrict_children']) {
+                            $allowed_templates_list = str_replace(' ', '', $row_template['allowed_child_templates']);
+                            if (!preg_match('/^\d+(,\d+)*$/', $allowed_templates_list)) {
+                            	$allowed_templates_list = '0';
+                            }
+                        } else {
+                            $allowed_templates_list = true; // All templates allowed
+                        }
+                    } else {
+                        $allowed_templates_list = true; // All templates allowed
+                    }
+                    
+                    if ($template_rules && !is_null($template_rules_default = TemplateRules::getDefaultTemplate($template_rules))) {
+                        $default_template = $template_rules_default;
+                    } elseif ($pid && isset($row_template) && $row_template['default_child_template']) { // No need to differentiate between blank template being specified and no value - behaviour is the same
+                        $default_template = $row_template['default_child_template'];
+                    } else switch($modx->config['auto_template_logic']) {
+                        case 'sibling':
+
+                            if ($sibl = $modx->getDocumentChildren($pid, 1, 0, 'template', '', 'menuindex', 'ASC', 1)) {
+                                $default_template = $sibl[0]['template'];
+                                break;
+                            } else if ($sibl = $modx->getDocumentChildren($pid, 0, 0, 'template', '', 'menuindex', 'ASC', 1)) {
+                                $default_template = $sibl[0]['template'];
+                                break;
+                            }
+
+                        case 'parent':
+
+                            if ($pid && $parent = $modx->getPageInfo($pid, 0, 'template')) {
+                                $default_template = $parent['template'];
+                                break;
+                            }
+
+                        case 'system':
+                        default:
+                            // default_template is already set
+                    }
+
+                    if ($allowed_templates_list === true || preg_match('/\b0\b/', $allowed_templates_list)) {
+                        echo '<option value="0">(blank)</option>';
+                    }
+
+                $sql = 'SELECT t.templatename, t.id, c.category
+                            FROM '.$tbl_site_templates.' t
+                            LEFT JOIN '.$tbl_categories.' c ON t.category = c.id
+                            '.($allowed_templates_list !== true ? 'WHERE t.id IN ('.$allowed_templates_list.')' : '').'
+                            ORDER BY c.category, t.templatename ASC';
                 $rs = $modx->db->query($sql);
 
                 $currentCategory = '';
@@ -575,28 +664,6 @@ function decode(s) {
                         if (isset ($content['template'])) {
                             $selectedtext = $row['id'] == $content['template'] ? ' selected="selected"' : '';
                         } else {
-                            switch($auto_template_logic) {
-                                case 'sibling':
-
-                                    if ($sibl = $modx->getDocumentChildren($_REQUEST['pid'], 1, 0, 'template', '', 'menuindex', 'ASC', 1)) {
-                                        $default_template = $sibl[0]['template'];
-                                        break;
-                                    } else if ($sibl = $modx->getDocumentChildren($_REQUEST['pid'], 0, 0, 'template', '', 'menuindex', 'ASC', 1)) {
-                                        $default_template = $sibl[0]['template'];
-                                        break;
-                                    }
-
-                                case 'parent':
-
-                                    if ($parent = $modx->getPageInfo($_REQUEST['pid'], 0, 'template')) {
-                                        $default_template = $parent['template'];
-                                        break;
-                                    }
-
-                                case 'system':
-                                default:
-                                    // default_template is already set
-                            }
                             $selectedtext = $row['id'] == $default_template ? ' selected="selected"' : '';
                         }
                     }
@@ -624,43 +691,14 @@ function decode(s) {
             <tr style="height: 24px;"><td valign="top"><span class="warning"><?php echo $_lang['resource_parent']?></span></td>
                 <td valign="top">
                 <?php
-                $parentlookup = false;
-                if (isset ($_REQUEST['id'])) {
-                    if ($content['parent'] == 0) {
-                        $parentname = $site_name;
-                    } else {
-                        $parentlookup = $content['parent'];
-                    }
-                } elseif (isset ($_REQUEST['pid'])) {
-                    if ($_REQUEST['pid'] == 0) {
-                        $parentname = $site_name;
-                    } else {
-                        $parentlookup = $_REQUEST['pid'];
-                    }
-                } elseif (isset($_POST['parent'])) {
-                    if ($_POST['parent'] == 0) {
-                        $parentname = $site_name;
-                    } else {
-                        $parentlookup = $_POST['parent'];
-                    }
+                if ($pid) {
+                    $parentname = $modx->db->getValue("SELECT pagetitle FROM $tbl_site_content WHERE id='$pid'");
                 } else {
-                    $parentname = $site_name;
-                    $content['parent'] = 0;
+                	$parentname = $site_name;
                 }
-                if($parentlookup !== false && is_numeric($parentlookup)) {
-                    $sql = 'SELECT pagetitle FROM '.$tbl_site_content.' WHERE id=\''.$parentlookup.'\'';
-                    $rs = $modx->db->query($sql);
-                    $limit = $modx->db->getRecordCount($rs);
-                    if ($limit != 1) {
-                        $e->setError(8);
-                        $e->dumpError();
-                    }
-                    $parentrs = $modx->db->getRow($rs);
-                    $parentname = $parentrs['pagetitle'];
-                }
-                ?>&nbsp;<img alt="tree_folder" name="plock" src="<?php echo $_style["tree_folder"] ?>" onclick="enableParentSelection(!allowParentSelection);" style="cursor:pointer;" /> <b><span id="parentName"><?php echo isset($_REQUEST['pid']) ? $_REQUEST['pid'] : $content['parent']?> (<?php echo $parentname?>)</span></b>
+                ?>&nbsp;<img alt="tree_folder" name="plock" src="<?php echo $_style["tree_folder"] ?>" onclick="enableParentSelection(!allowParentSelection);" style="cursor:pointer;" /> <b><span id="parentName"><?php echo $pid; ?> (<?php echo $parentname?>)</span></b>
     &nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_parent_help']?>" class="tooltip"/>
-                <input type="hidden" name="parent" value="<?php echo isset($_REQUEST['pid']) ? $_REQUEST['pid'] : $content['parent']?>" onchange="documentDirty=true;" />
+                <input type="hidden" name="parent" value="<?php echo $pid; ?>" onchange="documentDirty=true;" />
                 </td></tr>
         </table>
 
@@ -717,7 +755,7 @@ function decode(s) {
                 $sql = 'SELECT DISTINCT tv.*, IF(tvc.value!=\'\',tvc.value,tv.default_text) as value '.
                        'FROM '.$tbl_site_tmplvars.' AS tv '.
                        'INNER JOIN '.$tbl_site_tmplvar_templates.' AS tvtpl ON tvtpl.tmplvarid = tv.id '.
-                       'LEFT JOIN '.$tbl_site_tmplvar_contentvalues.' AS tvc ON tvc.tmplvarid=tv.id AND tvc.contentid=\''.$id.'\' '.
+                       'LEFT JOIN '.$tbl_site_tmplvar_contentvalues.' AS tvc ON tvc.tmplvarid=tv.id AND tvc.contentid=\''.$docid.'\' '.
                        'LEFT JOIN '.$tbl_site_tmplvar_access.' AS tva ON tva.tmplvarid=tv.id '.
                        'WHERE tvtpl.templateid=\''.$template.'\' AND (1=\''.$_SESSION['mgrRole'].'\' OR ISNULL(tva.documentgroup)'.
                        (!$docgrp ? '' : ' OR tva.documentgroup IN ('.$docgrp.')').
@@ -818,7 +856,7 @@ function decode(s) {
 
 <?php
 
-if ($_SESSION['mgrRole'] == 1 || $_REQUEST['a'] != '27' || $_SESSION['mgrInternalKey'] == $content['createdby']) {
+if ($_SESSION['mgrRole'] == 1 || !$existing || $_SESSION['mgrInternalKey'] == $content['createdby']) {
 ?>
             <tr style="height: 24px;"><td><span class="warning"><?php echo $_lang['resource_type']?></span></td>
                 <td><select name="type" class="inputBox" onchange="documentDirty=true;" style="width:200px">
@@ -878,8 +916,8 @@ if ($_SESSION['mgrRole'] == 1 || $_REQUEST['a'] != '27' || $_SESSION['mgrInterna
             </tr>
             <tr style="height: 24px;">
                 <td><span class="warning"><?php echo $_lang['resource_opt_richtext']?></span></td>
-                <td><input name="richtextcheck" type="checkbox" class="checkbox" <?php echo $content['richtext']==0 && $_REQUEST['a']=='27' ? '' : "checked"?> onclick="changestate(document.mutate.richtext);" />
-                <input type="hidden" name="richtext" value="<?php echo $content['richtext']==0 && $_REQUEST['a']=='27' ? 0 : 1?>" onchange="documentDirty=true;" />
+                <td><input name="richtextcheck" type="checkbox" class="checkbox" <?php echo $content['richtext']==0 && $existing ? '' : "checked"?> onclick="changestate(document.mutate.richtext);" />
+                <input type="hidden" name="richtext" value="<?php echo $content['richtext']==0 && $existing ? 0 : 1?>" onchange="documentDirty=true;" />
                 &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_opt_richtext_help']?>" class="tooltip"/></td>
             </tr>
             <tr style="height: 24px;">
@@ -918,7 +956,7 @@ if ($_SESSION['mgrRole'] == 1 || $_REQUEST['a'] != '27' || $_SESSION['mgrInterna
 			    $groupsarray = array();
 			    $sql = '';
 			
-			    $documentId = ($_REQUEST['a'] == '27' ? $id : (!empty($_REQUEST['pid']) ? $_REQUEST['pid'] : $content['parent']));
+			    $documentId = $existing ? $docid : $pid;
 			    if ($documentId > 0) {
 			        // Load up, the permissions from the parent (if new document) or existing document
 			        $sql = 'SELECT id, document_group FROM '.$tbl_document_groups.' WHERE document=\''.$documentId.'\'';
@@ -1061,7 +1099,7 @@ if ($_SESSION['mgrRole'] == 1 || $_REQUEST['a'] != '27' || $_SESSION['mgrInterna
 				
 				// invoke OnDocFormRender event
 				$evtOut = $modx->invokeEvent('OnDocFormRender', array(
-				    'id' => $id,
+				    'id' => $docid,
 				));
 				if (is_array($evtOut)) echo implode('', $evtOut);
 				?>

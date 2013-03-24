@@ -3,12 +3,9 @@
  * Filename:       includes/lang/hebrew.inc.php
  * Function:       Language file.
  * Author:         Yossi Bengigi (www.MODx.co.il), The ClipperCMS Project Team
- * Date:                   31st Aug 2012
- * ClipperCMS version:     1.1
  */
 $modx_textdir = 'rtl';
 $modx_lang_attribute = 'he'; // Manager HTML and XML Language Attribute
-$modx_manager_charset = 'UTF-8';
 
 $_lang["about_msg"] = CMS_NAME.' הינה <a href="http://'.CMS_DOMAIN.'" target="_blank">מערכת ניהול תוכן מבוססת PHP</a> תחת רשיון <a href="../assets/docs/license.txt">GNU GPL</a>.';
 $_lang["about_title"] = 'אודות '.CMS_NAME;
@@ -90,7 +87,7 @@ $_lang["change_password_new"] = 'סיסמה חדשה';
 $_lang["charset_message"] = 'נא לבחור את קידוד התווים שברצונך להשתמש ב המנהל. לידיעתך, '.CMS_NAME.'  נבדק עם מספר קידודים אלה, אך לא עם כולם. ברוב השפות, הגדרת ברירת המחדל של UTF-8 היא המועדפת.';
 $_lang["charset_title"] = 'קידוד:';
 $_lang["chunk"] = 'מיני תבנית';
-$_lang["chunk_code"] = 'קוד מיני תבנית (html)';
+$_lang["chunk_code"] = 'קוד מיני תבנית';
 $_lang["cleaningup"] = 'מרענן נתונים';
 $_lang["clear_log"] = 'נקה לוגים';
 $_lang["click_to_context"] = 'לחץ כאן לגישה לתוכן התפריט';
@@ -828,7 +825,7 @@ $_lang["table_prefix"] = 'Table prefix';
 $_lang["tag"] = 'תגית';
 $_lang["template"] = 'תבנית עיצוב';
 $_lang["template_assignedtv_tab"] = 'משתני תבניות משוייכים';
-$_lang["template_code"] = 'קוד תבנית (html)';
+$_lang["template_code"] = 'קוד תבנית';
 $_lang["template_desc"] = 'תיאור';
 $_lang["template_edit_tab"] = 'ערוך תבנית עיצוב';
 $_lang["template_management_msg"] = 'Choose which template you wish to edit.';

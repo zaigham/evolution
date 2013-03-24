@@ -125,17 +125,8 @@ startCMSSession();
 // get the settings from the database
 require('settings.inc.php');
 
-// include_once the language file
-if(!isset($manager_language) || !ctype_alnum(str_replace('_', '', str_replace('-', '', $manager_language))) || !file_exists(MODX_MANAGER_PATH."includes/lang/".$manager_language.".inc.php")) {
-    $manager_language = 'english'; // if not set or invalid, get the english language file.
-}
-$_lang = array();
-include_once "lang/english.inc.php";
-$length_eng_lang = count($_lang);
-
-if($manager_language!="english" && file_exists(MODX_MANAGER_PATH."includes/lang/".$manager_language.".inc.php")) {
-    include_once "lang/".$manager_language.".inc.php";
-}
+// get the manager $_lang array
+require_once('get_manager_language.inc.php');
 
 // send the charset header
 header('Content-Type: text/html; charset='.$modx_manager_charset);

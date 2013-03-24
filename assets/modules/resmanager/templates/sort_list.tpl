@@ -3,6 +3,7 @@
 <head>
     <title>[+lang.RM_module_title+]</title>
     
+    <link rel="stylesheet" href="media/style/common/clipper-jquery-ui.css" />
     <link rel="stylesheet" href="media/style/common/style.css" />
 	[+style.css+]
 	[+manager.css+]

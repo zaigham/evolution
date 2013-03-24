@@ -76,6 +76,16 @@ if($limit<1) {
 			"</script>";
 	exit;
 }
+
+if (empty($content['modulecode'])) {
+    echo "<script type='text/javascript'>" .
+			"function jsalert(){ alert('Module with id $id contains no code.');" .
+			"window.location.href='index.php?a=106';}" .
+			"setTimeout('jsalert()',100)".
+			"</script>";
+	exit;
+}
+
 $content = $modx->db->getRow($rs);
 
 if($content['disabled']) {
@@ -119,7 +129,8 @@ $mod = eval($content['modulecode']);
 $msg = ob_get_contents();
 ob_end_clean();
 if ($mod === false) {
-	$modx->messageQuit("PHP Parse error in module {$content['name']}");
+    $error = error_get_last();
+    $modx->messageQuitFromElement(null, "PHP Parse error: {$error['message']}", '', true, $error['type'], $file, '', $error['message'], $error['line']);
 }
 
 unset($modx->event->params); 

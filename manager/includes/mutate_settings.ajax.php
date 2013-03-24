@@ -22,8 +22,10 @@ $emptyCache = false;
 
 if($action == 'get') {
     $langfile = dirname(__FILE__) . '/lang/'.$lang.'.inc.php';
-    if(file_exists($langfile)) {
-        $str = getLangStringFromFile($langfile, $key);
+    if (ctype_alnum(str_replace('_', '', str_replace('-', '', $lang))) && file_exists($langfile)) {
+            $_lang = array();
+            include($langfile);
+            $str = @$_lang[$key];
     }
 } elseif($action == 'setsetting') {
     if(!empty($key) && !empty($value)) {
@@ -66,7 +68,3 @@ if($emptyCache) {
 
 echo $str;
 
-function getLangStringFromFile($file, $key) {
-    include($file);
-    return $_lang[$key];
-}

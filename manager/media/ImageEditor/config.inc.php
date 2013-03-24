@@ -15,13 +15,6 @@ startCMSSession();
 if(!isset($_SESSION['mgrValidated'])) {
 	exit();
 }
-// connect to the database
-/*if(@!$modxDBConn = Xysql_connect($database_server, $database_user, $database_password)) {
-	die("Failed to create the database connection!");
-} else {
-	Xysql_select_db($dbase);
-    @Xysql_query("{$database_connection_method} {$database_connection_charset}");
-}*/
 
 // get the settings from the database
 define('IN_MANAGER_MODE', 'true');

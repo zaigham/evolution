@@ -69,6 +69,10 @@ class DBAPI extends DBAPI_abstract {
           return $this->conn = mysqli_connect('p:'.$host, $uid, $pwd);
     }
 
+    protected function set_charset($charset) {
+        return mysqli_set_charset($this->conn, $charset);
+    }
+
     protected function select_db($dbname) {
           return mysqli_select_db($this->conn, $dbname);
     }

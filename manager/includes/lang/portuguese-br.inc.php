@@ -3,13 +3,9 @@
  * Filename:       includes/lang/portuguese-br.inc.php
  * Function:       Language file.
  * Encoding:       UTF8
- * Author:        '.CMS_DOMAIN.'.br, The ClipperCMS Project Team
- * Date:                   31st Aug 2012
- * ClipperCMS version:     1.1
-*/
+ * Author:         modx.br, The ClipperCMS Project Team
+ */
 $modx_lang_attribute = 'pt';
-$modx_manager_charset = 'UTF-8';
-
 
 $_lang["about_msg"] = CMS_NAME.' é um <a href=\'http://'.CMS_DOMAIN.'\' target=\'_blank\'>Sistema em PHP para Gestão de Conteúdos</a> (em Inglês).';
 $_lang["about_title"] = 'Sobre o '.CMS_NAME;
@@ -85,7 +81,7 @@ $_lang["change_password_new"] = 'Nova senha';
 $_lang["charset_message"] = 'Escolha o tipo de codificação de caracteres padronizados em que é lido o sistema. Por favor note que o '.CMS_NAME.' foi testado com diversas codificações, mas não todas. Para a maioria dos idiomas, a escolha padrão ISO-8859-1 é suficiente.';
 $_lang["charset_title"] = 'Codificação de caracteres:';
 $_lang["chunk"] = 'Chunk';
-$_lang["chunk_code"] = 'Código do Chunk (html)';
+$_lang["chunk_code"] = 'Código do Chunk';
 $_lang["cleaningup"] = 'Limpar';
 $_lang["clear_log"] = 'Limpar registo';
 $_lang["click_to_context"] = 'Clique aqui para entrar ao menu de contexto';

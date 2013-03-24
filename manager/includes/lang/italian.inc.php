@@ -4,12 +4,9 @@
  * Function:       Language file.
  * Encoding:       UTF8
  * Author:         Nicola Lambathakis (Banzai), Kudolink, Diego Meozzi, Luigif, The '.CMS_NAME.' Project Team, The ClipperCMS Project Team
- * Date:                   1st Jan 2013
- * ClipperCMS version:     1.1
-*/
+ */
 //$modx_textdir = 'rtl'; // uncomment this line for RTL languages
 $modx_lang_attribute = 'it'; // Manager HTML/XML Language Attribute see http://en.wikipedia.org/wiki/ISO_639-1
-$modx_manager_charset = 'UTF-8';
 
 $_lang["about_msg"] = CMS_NAME.' è un <a href="http://'.CMS_DOMAIN.'" target="_blank">framework PHP e un sistema di gestione dei contenuti (CMS)</a> su licenza <a href="../assets/docs/license.txt">GNU GPL</a>.';
 $_lang["about_title"] = 'Cos\'è '.CMS_NAME;
@@ -93,7 +90,7 @@ $_lang["change_password_new"] = 'Nuova password';
 $_lang["charset_message"] = 'Selezionate la codifica caratteri che intendete usare nel Manager. Da notare che '.CMS_NAME.' è stato testato con numerose codifiche, ma non con tutte. Per la maggior parte delle lingue, la codifica ISO-8859-1 impostata di default è sufficiente.';
 $_lang["charset_title"] = 'Codifica caratteri:';
 $_lang["chunk"] = 'Chunk';
-$_lang["chunk_code"] = 'Codice Chunk (html)';
+$_lang["chunk_code"] = 'Codice Chunk';
 $_lang["chunk_multiple_id"] = 'Errore: Alcuni Chunks utilizzano lo stesso ID.';
 $_lang["chunk_no_exist"] = 'Il Chunk non esiste.';
 $_lang["clean_uploaded_filename"] = 'Correggi i nomi dei files caricati';
@@ -889,7 +886,7 @@ $_lang["table_prefix"] = 'Prefisso Tabella';
 $_lang["tag"] = 'Tag';
 $_lang["template"] = 'Template';
 $_lang["template_assignedtv_tab"] = 'Variabili di Template Assegnate';
-$_lang["template_code"] = 'Codice del Template (html)';
+$_lang["template_code"] = 'Codice del Template';
 $_lang["template_desc"] = 'Descrizione';
 $_lang["template_edit_tab"] = 'Modifica Template';
 $_lang["template_management_msg"] = 'Qui potete scegliere il template da modificare.';

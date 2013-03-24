@@ -29,7 +29,6 @@ $database_password = $_SESSION['databaseloginpassword'];
 $database_collation = $_POST['database_collation'];
 $database_charset = substr($database_collation, 0, strpos($database_collation, '_'));
 $database_connection_charset = $_POST['database_connection_charset'];
-$database_connection_method = $_POST['database_connection_method'];
 $dbase = "`" . $_POST['database_name'] . "`";
 $table_prefix = $_POST['tableprefix'];
 $adminname = $_POST['cmsadmin'];
@@ -77,7 +76,6 @@ if (! $install->db->test_connect($database_server, $dbase, $database_user, $data
 //	return;
 } else {
 	$install->db->config['charset'] = $database_connection_charset;
-	$install->db->config['connection_method'] = $database_connection_method;
 	$install->db->connect($database_server, $dbase, $database_user, $database_password);
     echo "<span class=\"ok\">".$_lang['ok']."</span></p>";
 }
@@ -280,14 +278,16 @@ $configString = '<?php
 /**
  * CMS Configuration file
  */
+
+'.(($locale_string || $tz_string) ? "if (!defined('MODX_API_MODE') || !MODX_API_MODE) {\n" : '').'
 '.$locale_string.'
 '.$tz_string.'
+'.(($locale_string || $tz_string) ? "}\n" : '').'
 $database_type = \'mysql\';
 $database_server = \'' . $database_server . '\';
 $database_user = \'' . $install->db->escape($database_user) . '\';
 $database_password = \'' . $install->db->escape($database_password) . '\';
 $database_connection_charset = \'' . $database_connection_charset . '\';
-$database_connection_method = \'' . $database_connection_method . '\';
 $dbase = \'`' . str_replace("`", "", $dbase) . '`\';
 $table_prefix = \'' . $table_prefix . '\';
 
