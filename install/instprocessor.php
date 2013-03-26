@@ -583,9 +583,18 @@ if (isset ($_POST['module']) || $installData) {
             $guid = $install->db->escape($moduleModule[4]);
             $shared = $install->db->escape($moduleModule[5]);
             $category = $install->db->escape($moduleModule[6]);
+            $leg_names = '';
+            if(array_key_exists(8, $moduleModule)) {
+                // parse comma-separated legacy names and prepare them for sql IN clause
+                $leg_names = "'" . implode("','", preg_split('/\s*,\s*/', $install->db->escape($moduleModule[8]))) . "'";
+            }
             if (!file_exists($filecontent))
                 echo "<p>&nbsp;&nbsp;$name: <span class=\"notok\">" . $_lang['unable_install_module'] . " '$filecontent' " . $_lang['not_found'] . ".</span></p>";
             else {
+                // disable legacy versions based on legacy_names provided
+                if(!empty($leg_names)) {
+                    $install->db->update("disabled=1", "`{$table_prefix}site_modules`", "name IN ($leg_names)");
+                }
 
                 // Create the category if it does not already exist
                 $category_id = $install->getCreateDbCategory($category);

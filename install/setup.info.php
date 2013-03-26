@@ -164,7 +164,8 @@ if(is_dir($modulePath) && is_readable($modulePath)) {
                 $params['guid'],
                 intval($params['shareparams']),
                 $params['modx_category'],
-                array_key_exists('installset', $params) ? preg_split("/\s*,\s*/", $params['installset']) : array()
+                array_key_exists('installset', $params) ? preg_split("/\s*,\s*/", $params['installset']) : array(),
+                (isset($params['legacy_names']) ? $params['legacy_names'] : null)
             );
         }
     }
