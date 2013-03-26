@@ -211,10 +211,10 @@ function confirmLangChange(el, lkey, elupd){
                       <th><?php echo $_lang["sitename_title"] ?></th>
                       <td ><input onchange="documentDirty=true;" type='text' maxlength='255' style="width: 200px;" name="site_name" value="<?php echo isset($site_name) ? $site_name : 'My '.CMS_NAME.' Site'; ?>" /></td>
                     </tr>
-                    <tr>
+<!--                    <tr>
                       <td width="200">&nbsp;</td>
                       <td class='comment'><?php echo $_lang["sitename_message"] ?></td>
-                    </tr>
+                    </tr>-->
                     <tr>
                       <td colspan="2"><div class='split'></div></td>
                     </tr>
@@ -224,10 +224,10 @@ function confirmLangChange(el, lkey, elupd){
                         <?php include "charsets.php"; ?>
                       </select> </td>
                   </tr>
-                  <tr>
+<!--                  <tr>
                     <td width="200">&nbsp;</td>
                     <td class='comment'><?php echo $_lang["charset_message"]?></td>
-                  </tr>
+                  </tr>-->
                   <tr>
                     <td colspan="2"><div class='split'></div></td>
                   </tr>
