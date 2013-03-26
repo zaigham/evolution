@@ -19,9 +19,9 @@ if($manager_language!='english' && file_exists(MODX_MANAGER_PATH.'includes/lang/
 }
 
 // Convert $_lang to modx_charset
-if (isset($modx->config['charset']) &&  $modx->config['charset'] != 'UTF-8') {
+if (isset($modx->config['modx_charset']) &&  $modx->config['modx_charset'] != 'UTF-8') {
     foreach($_lang as $__k => $__v) {
-        $_lang[$__k] = iconv('UTF-8', $modx->config['charset'], $_lang[$__k]);
+        $_lang[$__k] = iconv('UTF-8', $modx->config['modx_charset'], $_lang[$__k]);
     }
 }
 
