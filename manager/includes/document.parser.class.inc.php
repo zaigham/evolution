@@ -1122,25 +1122,25 @@ class DocumentParser extends Core {
      * @param string $pluginCode Code to run
      * @param array $params
      */
-    function evalPlugin($pluginCode, $params) {
+    function evalPlugin($___plugin_code, $___params) {
     	global $modx; // For eval'd code
-        if ($pluginCode) {
-            $this->event->params= &$params; // store params inside event object
-            if (is_array($params)) {
-                extract($params, EXTR_SKIP);
+        if ($___plugin_code) {
+            $this->event->params= &$___params; // store params inside event object
+            if (is_array($___params)) {
+                extract($___params, EXTR_SKIP);
             }
             $this->registerEvalInfo('plugin', $this->event->activePlugin);
             ob_start();
-            $plug = eval ($pluginCode);
-            $msg = ob_get_contents();
+            $___plug = eval ($___plugin_code);
+            $___msg = ob_get_contents();
             ob_end_clean();
             $this->unregisterEvalInfo();
-            if ($plug === false) {
+            if ($___plug === false) {
                 $this->messageQuitFromElement("Plugin {$this->event->activePlugin}", "PHP Parse error in plugin {$this->event->activePlugin}");
             }
             unset ($this->event->params);
         } else {
-            $this->logEvent(0, 3, "Plugin {$name} missing or empty");
+            $this->logEvent(0, 3, "Plugin {$___name} missing or empty");
         }
     }
 
@@ -1152,26 +1152,26 @@ class DocumentParser extends Core {
      * @param string $name Snippet name. Optional but advised.
      * @return string
      */
-    function evalSnippet($snippet, $params, $name = null) {
+    function evalSnippet($___snippet_code, $___params, $___name = null) {
     	global $modx; // For eval'd code
-        if ($snippet) {
-            $this->event->params= & $params; // store params inside event object
-            if (is_array($params)) {
-                extract($params, EXTR_SKIP);
+        if ($___snippet_code) {
+            $this->event->params= & $___params; // store params inside event object
+            if (is_array($___params)) {
+                extract($___params, EXTR_SKIP);
             }
-            $this->registerEvalInfo('snippet', $name);
+            $this->registerEvalInfo('snippet', $___name);
             ob_start();
-            $snip = eval ($snippet);
-            $msg = ob_get_contents();
+            $___snip = eval ($___snippet_code);
+            $___msg = ob_get_contents();
             ob_end_clean();
             $this->unregisterEvalInfo();
-            if ($snip === false) {
-                $this->messageQuitFromElement("Snippet {$name}", "PHP Parse error in snippet {$name}");
+            if ($___snip === false) {
+                $this->messageQuitFromElement("Snippet {$___name}", "PHP Parse error in snippet {$___name}");
             }
             unset ($this->event->params);
-            return $msg . $snip;
+            return $___msg . $___snip;
         } else {
-            $this->logEvent(0, 3, "Snippet {$name} missing or empty");
+            $this->logEvent(0, 3, "Snippet {$___name} missing or empty");
         }
     }
 
