@@ -434,7 +434,7 @@ abstract class DBAPI_abstract {
      */
     final public function getColumn($name, $rsq) {
     
-        if (!is_resource($rsq)) {
+        if (is_string($rsq)) {
             $rsq = $this->query($rsq);
         }
         
@@ -455,7 +455,7 @@ abstract class DBAPI_abstract {
      */
     final public function getColumnNames($rsq) {
     
-        if (!is_resource($rsq)) {
+        if (is_string($rsq)) {
             $rsq = $this->query($rsq);
         }
 
@@ -470,7 +470,7 @@ abstract class DBAPI_abstract {
      */
     final public function getValue($rsq) {
 
-        if (!is_resource($rsq)) {
+        if (is_string($rsq)) {
             $rsq = $this->query($rsq);
         }
 
@@ -488,7 +488,7 @@ abstract class DBAPI_abstract {
      */
     final public function getXML($rsq) {
 
-        if (!is_resource($rsq)) {
+        if (is_string($rsq)) {
             $rsq = $this->query($rsq);
         }
         
@@ -578,7 +578,7 @@ abstract class DBAPI_abstract {
      */
     final public function getHTMLGrid($rsq, $params) {
 
-        if (!is_resource($rsq)) {
+        if (is_string($rsq)) {
             $rsq = $this->query($rsq);
         }
         
