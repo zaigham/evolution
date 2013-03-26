@@ -12,6 +12,7 @@
  * @internal	@shareparams 1
  * @internal	@dependencies requires files located at /assets/modules/resmanager/
  * @internal	@modx_category Manager and Admin
+ * @internal    @legacy_names Doc Manager
  * @internal    @installset base, sample
  */
 
