@@ -123,6 +123,10 @@ class DBAPI extends DBAPI_abstract {
     public function is_handle($var) {
     	return is_resource($var);
     }
+    
+    public function freeResult() {
+        mysql_free_result($this->conn);
+    }
 
     public function tables_present($prefix) {
     	return (bool)$this->getValue("SELECT COUNT(*) FROM information_schema.tables

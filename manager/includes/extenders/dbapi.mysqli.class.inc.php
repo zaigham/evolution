@@ -124,6 +124,10 @@ class DBAPI extends DBAPI_abstract {
     	return is_object($var);
     }
     
+    public function freeResult() {
+        mysqli_free_result($this->conn);
+    }
+    
     public function tables_present($prefix) {
     	return (bool)$this->getValue("SELECT COUNT(*) FROM information_schema.tables
                                  WHERE `table_schema` = '{$this->dbase}' AND `table_name` = '{$prefix}site_content'");

@@ -521,6 +521,13 @@ abstract class DBAPI_abstract {
     abstract public function getVersion();
     
     /**
+     * Free memory associated with a resultset
+     *
+     * @return void
+     */
+    abstract public function freeResult();
+    
+    /**
      * Prepares a date in the proper format for specific database types given a UNIX timestamp
      *
      * @param int $timestamp: a UNIX timestamp
