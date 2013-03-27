@@ -149,18 +149,21 @@ $(document).ready(function($) {
 
     hideInteraction();
 
-	//show interaction on tab click
-	$("#resmanager-main-tabs").on("tabsbeforeactivate", function(event, ui){
-		
-		if (ui.newTab.index() == '3') {
-			//hide it if sort menu items
-			$('#interaction').hide();
-		}else{
-			$('#interaction').show();
+	$("#resmanager-main-tabs").tabs({
+		activate: function( event, ui ) {
+			
+			hideInteraction();
+			
+			if (ui.newTab.index() == '3') {
+				//hide it if sort menu items
+				$('#interaction').hide();
+			}else{
+				$('#interaction').show();
+			}
+			
 		}
-		
 	});
-	
+
 });
 
 
