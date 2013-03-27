@@ -116,7 +116,8 @@ function postForm() {
 function hideInteraction() {
 
     //get active tab
-	var tabActiveID = $("#resmanager-main-tabs").tabs('option', 'selected');
+    var tabActive = $('#resmanager-main-tabs .ui-tabs-active'),
+    	tabActiveID = tabActive.index();
     
     if (tabActiveID == '1') {
         $("#tvloading").hide();
@@ -145,8 +146,8 @@ function hideInteraction() {
 }
 
 $(document).ready(function($) {
-	
-	hideInteraction();
+
+    hideInteraction();
 
 	//show interaction on tab click
 	$("#resmanager-main-tabs").on("tabsbeforeactivate", function(event, ui){
