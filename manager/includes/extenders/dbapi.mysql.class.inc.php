@@ -124,8 +124,8 @@ class DBAPI extends DBAPI_abstract {
     	return is_resource($var);
     }
     
-    public function freeResult() {
-        mysql_free_result($this->conn);
+    public function freeResult($rs) {
+        mysql_free_result($rs);
     }
 
     public function tables_present($prefix) {

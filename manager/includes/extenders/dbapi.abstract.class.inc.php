@@ -525,7 +525,7 @@ abstract class DBAPI_abstract {
      *
      * @return void
      */
-    abstract public function freeResult();
+    abstract public function freeResult($rs);
     
     /**
      * Prepares a date in the proper format for specific database types given a UNIX timestamp
