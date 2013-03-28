@@ -13,11 +13,10 @@ class Qm {
   var $modx;
   
     //_______________________________________________________
-    function Qm(&$modx, $loadmanagerjq='', $noconflictjq='', $loadtb='', $tbwidth='', $tbheight='', $hidefields='', $hidetabs='', $hidesections='', $addbutton='', $tpltype='', $tplid='', $custombutton='', $managerbutton='', $logout='', $autohide='', $editbuttons='', $editbclass='', $newbuttons='', $newbclass='', $tvbuttons='', $tvbclass='') {
+    function Qm(&$modx, $noconflictjq='', $loadtb='', $tbwidth='', $tbheight='', $hidefields='', $hidetabs='', $hidesections='', $addbutton='', $tpltype='', $tplid='', $custombutton='', $managerbutton='', $logout='', $autohide='', $editbuttons='', $editbclass='', $newbuttons='', $newbclass='', $tvbuttons='', $tvbclass='') {
         $this->modx = $modx;
         
         // Get plugin parameters
-        $this->loadmanagerjq = $loadmanagerjq;
         $this->noconflictjq = $noconflictjq;  
         $this->loadtb = $loadtb;
         $this->tbwidth = $tbwidth;
@@ -634,7 +633,7 @@ class Qm {
                     
                     // Modify head
                     $mc->head = '<script type="text/javascript">document.body.style.display="none";</script>';
-                    if ($this->loadmanagerjq == 'true') $mc->head .= $this->modx->getJqueryTag();
+                    $mc->head .= $this->modx->getJqueryTag();
     
                     // Add control button
                     $mc->addLine('$("body").prepend(controls);');
