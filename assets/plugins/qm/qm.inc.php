@@ -611,52 +611,10 @@ class Qm {
                 
                     global $content;
                     
-                    // Set template for new document, action = 4
-                    if(intval($_GET['a']) == 4) {    
-                        
-                        // Custom add button
-                        if (isset($_GET['customaddtplid'])) {
-                            // Set template
-                            $content['template'] = intval($_GET['customaddtplid']);   
-                        }
-                        
-                        // Normal add button
-                        else {                                     
-                            switch ($this->tpltype) {
-                                // Template type is parent
-                                case 'parent':
-                                    // Get parent document id
-                                    $pid = $content['parent'] ? $content['parent'] : intval($_REQUEST['pid']);
-            
-                                    // Get parent document
-                                    $parent = $this->modx->getDocument($pid);
-                        
-                                    // Set parent template
-                                    $content['template'] = $parent['template'];
-                                
-                                    break;
-                                
-                                // Template is specific id
-                                case 'id':
-                                    $content['template'] = $this->tplid;
-                                
-                                    break;
-                                
-                                // Template is inherited by Inherit Selected Template plugin
-                                case 'selected':
-                                    // Get parent document id
-                                    $pid = $content['parent'] ? $content['parent'] : intval($_REQUEST['pid']);
-                                    
-                                    // Get inheritTpl TV
-                                    $tv = $this->modx->getTemplateVar("inheritTpl", "", $pid);
-                                    
-                                    // Set template to inherit
-                                    if ($tv['value'] != '') $content['template'] = $tv['value'];
-                                    else $content['template'] = $this->modx->config['default_template'];
-                                
-                                    break;
-                            }
-                        }
+                    // Set template for new document, action = 4, with custom add button
+                    if (intval($_GET['a']) == 4 && isset($_GET['customaddtplid'])) {
+                        // Set template
+                        $content['template'] = intval($_GET['customaddtplid']);   
                     }
 
                     // Manager control class
