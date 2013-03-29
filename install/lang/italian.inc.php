@@ -3,11 +3,6 @@
  * ClipperCMS installation language file
  *
  * @author Luigif
- * @version 1.0
- * 
- * Filename:       /install/lang/italian/italian.inc.php
- * Language:       Italian
- * Encoding:       iso-8859-1
  */
 $_lang["agree_to_terms"] = 'Vi preghiamo di accettare le condizioni di Licenza e procedere con l\'Installazione';
 $_lang["alert_database_test_connection"] = 'Occorre creare il database o verificare la connessione ad un database esistente!';
@@ -77,7 +72,7 @@ $_lang["database_use_failed_note"] = 'Vi preghiamo di controllare i permessi del
 $_lang["default_language"] = 'Lingua di default per il Manager';
 $_lang["default_language_description"] = 'Questa &egrave; la lingua che verr&agrave; usata nel Manager ClipperCMS Manager.';
 $_lang["during_execution_of_sql"] = ' durante l\'esecuzione del comando SQL ';
-$_lang["encoding"] = 'iso-8859-1';	//charset encoding for html header
+$_lang["encoding"] = 'utf-8';	//charset encoding for html header
 $_lang["error"] = 'errore';
 $_lang["errors"] = 'errori';
 $_lang["failed"] = 'FALLITA!';

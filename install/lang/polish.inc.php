@@ -1,19 +1,12 @@
 <?php
 /**
- * Filename:       /install/lang/polish-utf8.inc.php
  * Function:       ClipperCMS installation language file
- * Encoding:       UTF8
- * Author:         The ClipperCMS Project Team
- * 
+ *
  * Translated by:
  *					Radosław Włodkowski - radoslaw@wlodkowski.net
  * 
  * Revised by:
  *					Natalia Łubniewska
- *
- * Date:           23 May 2010
- * Version:        1.0
- * ClipperCMS version:   Evolution 1.0.4
  */
 $_lang["agree_to_terms"] = 'Akceptuję warunki umowy licencyjnej';
 $_lang["alert_database_test_connection"] = 'Musisz utworzyć nową bazę danych lub sprawdzić czy wybrana przez Ciebie nazwa bazy jest poprawna!';

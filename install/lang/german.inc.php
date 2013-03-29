@@ -3,11 +3,6 @@
  * ClipperCMS installation language file
  *
  * @author davaeron, German translation by Marc Hinse, Bogdan Günther and Michael Dreja
- * @version 2.1
- * @translation
- * Filename:       /install/lang/german.inc.php
- * Language:       German
- * Encoding:       UTF-8
  */
 $_lang["agree_to_terms"] = 'Lizenzbedingungen akzeptieren und installieren';
 $_lang["alert_database_test_connection"] = 'Sie müssen eine Datenbank erstellen oder die Datenbank-Verbindung testen!';

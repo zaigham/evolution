@@ -3,11 +3,6 @@
  * ClipperCMS installation language file (modifié le 03/08/09)
  *
  * @author Grégory Pakosz (guardian) - Modifié par Coroico et Jean-Christophe Brebion (Fairytree) pour EVO 1.0.3
- * @version 1.0.3
- * 
- * Filename:       /install/lang/francais-utf8/francais-utf8.inc.php
- * Language:       French
- * Encoding:       UTF-8
  */
 $_lang["agree_to_terms"] = 'Acceptation des termes d\'utilisation et installation';
 $_lang["alert_database_test_connection"] = 'Vous devez créer votre base de données ou tester la sélection de votre base de données!';

@@ -3,11 +3,6 @@
  * ClipperCMS installation language file
  *
  * @author davaeron
- * @version 1.0
- * 
- * Filename:       /install/lang/hebrew/hebrew.inc.php
- * Language:       Hebrew
- * Encoding:       UTF-8
  */
 $modx_textdir = 'rtl';
 

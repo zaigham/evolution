@@ -3,17 +3,7 @@
  * ClipperCMS installation language file
  *
  * @author davaeron
- * @version 1.0
- *
- * Filename:       /install/lang/svenska/svenska.inc.php
- * Language:       Svenska
- * Encoding:       utf-8
- * Revision:       6624
- *
- * Translation: Pontus Ågren (Pont) & Thomas Djärv (Beryl)
- * Date: 2010-03-29
  */
-
 $_lang["agree_to_terms"] = 'Godkänn licensvillkoren och installera';
 $_lang["alert_database_test_connection"] = 'Du behöver skapa din databas eller testa det databasval du gjort!';
 $_lang["alert_database_test_connection_failed"] = 'Testet av ditt databasval har misslyckats!';

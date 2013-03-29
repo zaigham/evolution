@@ -3,12 +3,6 @@
  * ClipperCMS installation language file
  *
  * @author        Anssi Rajakallio
- * @package       ClipperCMS
- * @version       1.0
- * 
- * Filename:      /install/lang/finnish/finnish.inc.php
- * Language:      Finnish
- * Encoding:      UTF-8
  */
 $_lang["agree_to_terms"] = 'Hyväksy lisenssi ehdot ja asenna';
 $_lang["alert_database_test_connection"] = 'Sinun täytyy luoda tietokanta tai testata tietokantasi valintaa!';

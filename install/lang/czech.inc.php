@@ -3,14 +3,7 @@
  * ClipperCMS installation language file
  *
  * @author ClipperCMScms.cz
- * @version 1.5
- * @updated 2010-12-11
- * 
- * Filename:       /install/lang/czech.inc.php
- * Language:       Czech
- * Encoding:       utf-8
  */
-
 $_lang["agree_to_terms"] = 'Souhlasím s licenčními podmínkami a chci pokračovat v instalaci';
 $_lang["alert_database_test_connection"] = 'Musíte vytvořit nebo zadat již existující databázi!';
 $_lang["alert_database_test_connection_failed"] = 'Otestování vybrané databáze se nezdařilo!';

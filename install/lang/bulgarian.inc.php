@@ -3,12 +3,6 @@
  * ClipperCMS installation language file
  *
  * @author davaeron
- * @package ClipperCMS installer
- * @version 1.0
- * @translation     INFORMATOR TEAM www.informator.org  23.05.2009
- * Filename:       /install/lang/bulgarian/bulgarian.inc.php
- * Language:       English
- * Encoding:       utf-8
  */
 $_lang["alert_database_test_connection"] = 'Трябва да създадете ваша БД или да проверите избирането на БД!';
 $_lang["alert_database_test_connection_failed"] = 'Проверката за избиране на вашата БД е неуспешна!';

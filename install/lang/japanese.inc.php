@@ -3,11 +3,6 @@
  * ClipperCMS installation language file
  *
  * @author MEGU, yamamoto, TxO
- * @version 1.0.4J-r1
- * 
- * Filename:       /install/lang/japanese-utf8/japanese-utf8.inc.php
- * Language:       Japanese
- * Encoding:       utf-8
  */
 $_lang["agree_to_terms"] = 'ライセンスが規定する諸条件を確認しインストールを実行してください';
 $_lang["alert_database_test_connection"] = 'データベースを作成、またはデータベースの接続テストを行う必要があります';

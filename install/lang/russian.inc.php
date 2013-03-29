@@ -3,13 +3,7 @@
  * ClipperCMS installation language file
  *
  * @author davaeron
- * @version 1.0.1
- * 
- * Filename:       /install/lang/russian-utf8.inc.php
- * Language:       Russian
- * Encoding:       UTF-8
  * Translated by:  Pertsev Dmitriy, Safronovich Victor, Russian ClipperCMS Community
- * Date:           15 october 2009
  */
 
 $_lang["agree_to_terms"] = 'Согласиться с условиями лицензии и приступить к установке';

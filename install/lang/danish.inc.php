@@ -3,13 +3,6 @@
  * ClipperCMS installation language file
  *
  * @author Henrik Nielsen - Proofreading: Mads Vestmar
- * @package ClipperCMS Evolution 1.0.5
- * @date 27/12/10 18.02
- * @version 1.0.4
- * 
- * Filename:       /install/lang/danish.inc.php
- * Language:       Danish
- * Encoding:       UTF-8
  */
 $_lang["agree_to_terms"] = 'Accept af licens regler, og installer';
 $_lang["alert_database_test_connection"] = 'Du er nødt til at oprette din database eller kontrollere den valgte database!';

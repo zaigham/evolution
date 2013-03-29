@@ -3,15 +3,6 @@
  * ClipperCMS installation language file
  *
  * @author davaeron
- * @package ClipperCMS installer for 0.9.6.2
- * @revision 3729
- *
- * Filename:       /install/lang/norwegian/norwegian.inc.php
- * Language:       Norsk
- * Encoding:       utf-8
- *
- * Translation: Bj&oslash;rn Erik Sandbakk (Sylvaticus)
- * Date: 2009-05-22
  */
 $_lang["alert_database_test_connection"] = 'Du m&aring; opprette din database eller teste valget av database!';
 $_lang["alert_database_test_connection_failed"] = 'Testen p&aring; valg av database mislyktes!';

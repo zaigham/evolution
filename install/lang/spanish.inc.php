@@ -1,13 +1,6 @@
 ﻿<?php
 /**
  * ClipperCMS installation language file
- *
- * @author ClipperCMS Team
- * @version 1.0.3
- *
- * Filename:       /install/lang/spanish/spanish.inc.php
- * Language:       Spanish
- * Encoding:       UTF-8
  */
 $_lang["agree_to_terms"] = 'Acordar con los Términos de la Licencia e Instalar';
 $_lang["alert_database_test_connection"] = '!Necesitas crear tu base de datos o probar la selección de tu base de datos!';

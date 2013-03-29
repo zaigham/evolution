@@ -4,7 +4,7 @@ $_SESSION = array(); // reset if restarting install
 $langs = array();
 if( $handle = opendir('lang/') ) {
 	while( false !== ( $file = readdir( $handle ) ) ) {
-		if( strpos( $file, '.inc.php' ) ) $langs[] = str_replace('.inc.php', '', $file);
+		if (substr($file, -8) == '.inc.php') $langs[] = substr($file, 0, -8);
 	}
 	closedir( $handle );
 }
@@ -15,8 +15,7 @@ sort( $langs );
     <select name="language">
 <?php
 foreach ($langs as $language) {
-    $abrv_language = explode('-',$language);
-	echo '<option value="' . $language . '"'. ( ($abrv_language[0] == 'english') ? ' selected="selected"' : null ) .'>' . ucwords( $abrv_language[0] ). '</option>'."\n";
+	echo '<option value="' . $language . '"'. ( ($language == 'english') ? ' selected="selected"' : null ) .'>' . ucwords( $language ). '</option>'."\n";
 }
 ?>
     </select></h2>
