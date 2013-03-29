@@ -1,4 +1,6 @@
 <?php
+if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
+
 // Get the manager $_lang array
 // ----------------------------
 
@@ -27,7 +29,7 @@ if (isset($modx->config['modx_charset']) &&  $modx->config['modx_charset'] != 'U
             $_lang[$__k] = $tmp;
         } else {
             // Errors - language file cannot be converted to selected encoding.
-            // Fallback to English as it can be shown in most character encodings, and thus minimised the risk of an unusable manager.
+            // Fallback to English as it can be shown in most character encodings, and thus minimises the risk of an unusable manager.
             $_lang = array();
             require('lang/english.inc.php');
             break;
