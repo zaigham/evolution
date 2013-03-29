@@ -80,7 +80,7 @@ if (file_exists("../assets/cache/sitePublishing.idx.php") && !is_writable("../as
     echo "<span class=\"ok\">".$_lang['ok']."</span></p>";
 }
 
-$dirs = '<span class="mono">/assets/images</span>, <span class="mono">/assets/thumbs</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> and <span class="mono">/assets/media</span>';
+$dirs = '<span class="mono">/assets/images</span>, <span class="mono">/assets/thumbs</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> &amp; <span class="mono">/assets/media</span>';
 
 // File Browser directories exists?
 echo "<p>".str_replace('[+dirs+]', $dirs, $_lang['checking_if_dirs_exist']);
