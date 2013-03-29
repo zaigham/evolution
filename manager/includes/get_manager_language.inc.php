@@ -21,7 +21,17 @@ if($manager_language!='english' && file_exists(MODX_MANAGER_PATH.'includes/lang/
 // Convert $_lang to modx_charset
 if (isset($modx->config['modx_charset']) &&  $modx->config['modx_charset'] != 'UTF-8') {
     foreach($_lang as $__k => $__v) {
-        $_lang[$__k] = iconv('UTF-8', $modx->config['modx_charset'], $_lang[$__k]);
+        $tmp = iconv('UTF-8', $modx->config['modx_charset'].'//TRANSLIT', $_lang[$__k]);
+        if ($_lang[$__k] == iconv($modx->config['modx_charset'], 'UTF-8//TRANSLIT', $tmp)) {
+            // No errors - conversion possible from UTF-8 to selected encoding
+            $_lang[$__k] = $tmp;
+        } else {
+            // Errors - language file cannot be converted to selected encoding.
+            // Fallback to English as it can be shown in most character encodings, and thus minimised the risk of an unusable manager.
+            $_lang = array();
+            require('lang/english.inc.php');
+            break;
+        }
     }
 }
 
