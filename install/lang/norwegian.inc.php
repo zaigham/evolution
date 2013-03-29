@@ -39,8 +39,8 @@ $_lang["checking_if_cache_file2_writable"] = 'Kontrollerer at filen <span class=
 $_lang["checking_if_cache_file_writable"] = 'Kontrollerer at filen <span class="mono">assets/cache/siteCache.idx.php</span> er skrivbar: ';
 $_lang["checking_if_cache_writable"] = 'Kontrollerer at katalogen <span class="mono">assets/cache</span> er skrivbar: ';
 $_lang["checking_if_config_exist_and_writable"] = 'Kontrollerer at filen <span class="mono">manager/includes/config.inc.php</span> eksisterer og er skrivbar: ';
-$_lang["checking_if_images_exist"] = 'Kontrollerer at katalogen <span class="mono">assets/images</span><span class="mono">/assets/images</span>, <span class="mono">/assets/thumbs</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> and <span class="mono">/assets/media</span> eksisterer: ';
-$_lang["checking_if_images_writable"] = 'Kontrollerer at katalogen <span class="mono">/assets/images</span>, <span class="mono">/assets/thumbs</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> and <span class="mono">/assets/media</span> er skrivbar: ';
+$_lang["checking_if_dirs_exist"] = 'Kontrollerer at katalogen [+dirs+] eksisterer: ';
+$_lang["checking_if_dirs_writable"] = 'Kontrollerer at katalogen [+dirs+] er skrivbar: ';
 $_lang["checking_mysql_strict_mode"] = 'Sjekker MySQL for strict mode: ';
 $_lang["checking_mysql_version"] = 'Sjekker MySQL versjon: ';
 $_lang["checking_php_version"] = 'Kontrollerer PHP-versjon: ';

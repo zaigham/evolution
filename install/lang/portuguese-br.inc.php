@@ -36,8 +36,8 @@ $_lang["checking_if_cache_file2_writable"] = 'Checando se o arquivo <span class=
 $_lang["checking_if_cache_file_writable"] = 'Checando se o arquivo <span class=\"mono\">assets/cache/siteCache.idx.php</span> está liberado pra escrita: ';
 $_lang["checking_if_cache_writable"] = 'Checando se o diretório <span class=\"mono\">assets/cache</span> está liberado pra escrita: ';
 $_lang["checking_if_config_exist_and_writable"] = 'Checando se o arquivo <span class=\"mono\">manager/includes/config.inc.php</span> existe e está liberado pra escrita: ';
-$_lang["checking_if_images_exist"] = 'Checando se o diretório <span class="mono">/assets/images</span>, <span class="mono">/assets/thumbs</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> and <span class="mono">/assets/media</span> existe: ';
-$_lang["checking_if_images_writable"] = 'Checando se o diretório <span class="mono">/assets/images</span>, <span class="mono">/assets/thumbs</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> and <span class="mono">/assets/media</span> está liberado pra escrita: ';
+$_lang["checking_if_dirs_exist"] = 'Checando se o diretório [+dirs+] existe: ';
+$_lang["checking_if_dirs_writable"] = 'Checando se o diretório [+dirs+] está liberado pra escrita: ';
 $_lang["checking_php_version"] = 'Checando versão do PHP: ';
 $_lang["checking_registerglobals"] = 'Checando se Register_Globals está desligado: ';
 $_lang["checking_registerglobals_note"] = 'Este script faz com que seu site seja muito mais propenso à ataques de Cross Site Scripting (XSS). Você deveria entrar em contato com seu Host para mudar esta configuração, geralmente há três modos de desabilitar: modificando o arquivo global php.ini, adicionando regras para um arquivo .htaccess na raiz da pasta da instalação do ClipperCMS, ou adicionando um php.ini sobre cada arquivo em cada pasta de sua instação (e tem um muitos deles). Ou você poderá instalar o ClipperCMS, mas considere-se avisado.'; //Look at changing this to provide a solution.

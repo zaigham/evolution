@@ -38,8 +38,8 @@ $_lang["checking_if_cache_file_writable"] = 'Kontrola zda lze zapisovat do soubo
 $_lang["checking_if_cache_file2_writable"] = 'Kontrola zda lze zapisovat do souboru <span class="mono">/assets/cache/sitePublishing.idx.php</span>: ';
 $_lang["checking_if_cache_writable"] = 'Kontrola zda lze zapisovat do adresářů <span class="mono">/assets/cache</span> a <span class="mono">/assets/cache/rss</span>: ';
 $_lang["checking_if_config_exist_and_writable"] = 'Kontrola zda existuje soubor <span class="mono">/manager/includes/config.inc.php</span> a lze do něj zapisovat: ';
-$_lang["checking_if_images_exist"] = 'Kontrola zda existují adresáře <span class="mono">/assets/images</span>, <span class="mono">/assets/thumbs</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> a <span class="mono">/assets/media</span>: ';
-$_lang["checking_if_images_writable"] = 'Kontrola zda lze zapisovat do adresářů <span class="mono">/assets/images</span>, <span class="mono">/assets/thumbs</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> a <span class="mono">/assets/media</span>: ';
+$_lang["checking_if_dirs_exist"] = 'Kontrola zda existují adresáře [+dirs+]: ';
+$_lang["checking_if_dirs_writable"] = 'Kontrola zda lze zapisovat do adresářů [+dirs+]: ';
 $_lang["checking_mysql_strict_mode"] = 'Kontrola MySQL strict sql_mode: ';
 $_lang["checking_mysql_version"] = 'Kontrola verze MySQL: ';
 $_lang["checking_php_version"] = 'Kontrola verze PHP: ';

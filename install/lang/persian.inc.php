@@ -37,8 +37,8 @@ $_lang["checking_if_cache_file2_writable"] = 'ررو اینکه آیا فایل 
 $_lang["checking_if_cache_file_writable"] = 'مرور اینکه آیا فایل <span class=\"mono\">assets/cache/siteCache.idx.php</span> قابل نوشتن است: ';
 $_lang["checking_if_cache_writable"] = 'مرور اینکه آیا <span class=\"mono\">assets/cache</span> قابل نوشتن است: ';
 $_lang["checking_if_config_exist_and_writable"] = 'مرور اینکه آیا فایل <span class=\"mono\">manager/includes/config.inc.php</span> موجود است و قابل نوشتن است: ';
-$_lang["checking_if_images_exist"] = 'مرور اینکه آیا <span class="mono">/assets/images</span>, <span class="mono">/assets/thumbs</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> and <span class="mono">/assets/media</span> موجود است: ';
-$_lang["checking_if_images_writable"] = 'مرور اینکه آیا <span class="mono">/assets/images</span>, <span class="mono">/assets/thumbs</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> and <span class="mono">/assets/media</span> قابل نوشتن است: ';
+$_lang["checking_if_dirs_exist"] = 'مرور اینکه آیا [+dirs+] موجود است: ';
+$_lang["checking_if_dirs_writable"] = 'مرور اینکه آیا [+dirs+] قابل نوشتن است: ';
 $_lang["checking_mysql_strict_mode"] = 'مرور MySQL برای strict mode: ';
 $_lang["checking_mysql_version"] = 'مرور نسخه ی MySQL شما: ';
 $_lang["checking_php_version"] = 'بازبینی نسخه PHP : ';

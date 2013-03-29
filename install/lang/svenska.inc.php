@@ -41,8 +41,8 @@ $_lang["checking_if_cache_file_writable"] = 'Kontrollerar att filen <span class=
 $_lang["checking_if_cache_file2_writable"] = 'Kontrollerar att filen <span class="mono">/assets/cache/sitePublishing.idx.php</span> är skrivbar: ';
 $_lang["checking_if_cache_writable"] = 'Kontrollerar att katalogerna <span class="mono">/assets/cache</span> och <span class="mono">/assets/cache/rss</span> är skrivbara: ';
 $_lang["checking_if_config_exist_and_writable"] = 'Kontrollerar att filen <span class="mono">/manager/includes/config.inc.php</span> existerar och är skrivbar: ';
-$_lang["checking_if_images_exist"] = 'Kontrollerar att katalogerna <span class="mono">/assets/images</span>,<span class="mono">/assets/thumbs</span>, <span class="mono">/assets/thumbs</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> och <span class="mono">/assets/media</span> existerar: ';
-$_lang["checking_if_images_writable"] = 'Kontrollerar att katalogerna <span class="mono">/assets/images</span>,<span class="mono">/assets/thumbs</span>, <span class="mono">/assets/thumbs</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> och <span class="mono">/assets/media</span> är skrivbara: ';
+$_lang["checking_if_dirs_exist"] = 'Kontrollerar att katalogerna [+dirs+] existerar: ';
+$_lang["checking_if_dirs_writable"] = 'Kontrollerar att katalogerna [+dirs+] är skrivbara: ';
 $_lang["checking_mysql_strict_mode"] = 'Kontrollerar MySQL för strikt sql_mode: ';
 $_lang["checking_mysql_version"] = 'Kontrollerar MySQL-versionen: ';
 $_lang["checking_php_version"] = 'Kontrollerar PHP-version: ';

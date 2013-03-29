@@ -37,8 +37,8 @@ $_lang["checking_if_cache_file_writable"] = 'Tarkistetaan voiko tiedostoon <span
 $_lang["checking_if_cache_file2_writable"] = 'Tarkistetaan voiko tiedostoon <span class="mono">/assets/cache/sitePublishing.idx.php</span> kirjoittaa: ';
 $_lang["checking_if_cache_writable"] = 'Tarkistetaan voiko kansioihin <span class="mono">/assets/cache</span> ja <span class="mono">/assets/cache/rss</span> luoda uusia tiedostoja: ';
 $_lang["checking_if_config_exist_and_writable"] = 'Tarkistetaan onko asetustiedosto <span class="mono">manager/includes/config.inc.php</span> olemassa ja voiko siihen kirjoittaa: ';
-$_lang["checking_if_images_exist"] = 'Tarkistetaan onko kansiot <span class="mono">/assets/images</span>, <span class="mono">/assets/thumbs</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> ja <span class="mono">/assets/media</span> olemassa: ';
-$_lang["checking_if_images_writable"] = 'Tarkistetaan voidaanko kansioihin <span class="mono">/assets/images</span>, <span class="mono">/assets/thumbs</span>, <span class="mono">/assets/files</span>, <span class="mono">/assets/flash</span> ja <span class="mono">/assets/media</span> luoda uusia tiedostoja: ';
+$_lang["checking_if_dirs_exist"] = 'Tarkistetaan onko kansiot [+dirs+] olemassa: ';
+$_lang["checking_if_dirs_writable"] = 'Tarkistetaan voidaanko kansioihin [+dirs+] luoda uusia tiedostoja: ';
 $_lang["checking_mysql_strict_mode"] = 'Tarkistetaan MySQL palvelimen "strict sql_mode" asetus: ';
 $_lang["checking_mysql_version"] = 'Tarkistetaan MySQL pavelimen versio: ';
 $_lang["checking_php_version"] = 'Tarkistetaan PHP:n versio: ';
