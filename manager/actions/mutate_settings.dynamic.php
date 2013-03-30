@@ -37,7 +37,7 @@ $displayStyle = ( ($_SESSION['browser']=='mz') || ($_SESSION['browser']=='op') |
 $lang_keys = array();
 $dir = dir("includes/lang");
 while ($file = $dir->read()) {
-    if(strpos($file, ".inc.php")>0) {
+    if (substr($file, -8) == '.inc.php') {
         $endpos = strpos ($file, ".");
         $languagename = substr($file, 0, $endpos);
         $lang_keys[$languagename] = get_lang_keys($file);
