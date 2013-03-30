@@ -102,13 +102,8 @@ function ConvertDate($date) {
 	else {}          {return $modx->toTimeStamp($date);}
 }
 
-// include the country list language file
-$_country_lang = array();
-if($manager_language!="english" && file_exists($modx->config['base_path']."manager/includes/lang/country/".$manager_language."_country.inc.php")){
-    include_once "lang/country/".$manager_language."_country.inc.php";
-} else {
-    include_once "lang/country/english_country.inc.php";
-}
+// get country list
+$country_lang = get_manager_countries($manager_language);
 
 ?>
 

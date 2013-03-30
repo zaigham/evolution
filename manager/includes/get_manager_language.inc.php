@@ -39,3 +39,18 @@ if (isset($modx->config['modx_charset']) &&  $modx->config['modx_charset'] != 'U
 // Make manager charset match site charset to avoid editing issues
 $modx_manager_charset = $modx->config['modx_charset'];
 
+
+// include the country list language file
+function get_manager_countries($manager_language) {
+	// Check that $manager_language is valid (should be superfluous)
+	if (empty($manager_language) || !is_string($manager_language) || !ctype_alnum(str_replace('_', '', str_replace('-', '', $manager_language))) || !file_exists(MODX_MANAGER_PATH.'includes/lang/country/'.$manager_language.'.inc.php')) {
+		$manager_language = 'english';
+	}
+	$_country_lang = array();
+	require('lang/country/english_country.inc.php');
+	if ($manager_language != 'english') {
+		require('lang/country/'.$manager_language.'_country.inc.php');
+	}
+	return $country_lang;
+}
+

@@ -107,12 +107,8 @@ function ConvertDate($date) {
 	else             { return $modx->toTimeStamp($date); }
 }
 
-// include the country list language file
-$_country_lang = array();
-include_once "lang/country/english_country.inc.php";
-if($manager_language!="english" && file_exists($modx->config['base_path']."manager/includes/lang/country/".$manager_language."_country.inc.php")){
-    include_once "lang/country/".$manager_language."_country.inc.php";
-}
+// get country list
+$country_lang = get_manager_countries($manager_language);
 
 $displayStyle = (($_SESSION['browser'] == 'mz') || ($_SESSION['browser'] == 'op') || ($_SESSION['browser'] == 'sf')) ? "table-row" : "block";
 ?>
