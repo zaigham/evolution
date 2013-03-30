@@ -1,8 +1,8 @@
 <?php
 /**
 * Country List Language File
-* Version: 1.0
-* Date: 31/10/2006
+* Version: 1.0.1 (utf8)
+* Date: 30/03/2013
 *
 * Array keys refer to the ID number that is saved in the database
 *
@@ -176,7 +176,7 @@ $_country_lang["163"] = 'Palau'; // Palau
 $_country_lang["164"] = 'Panama'; // Panama
 $_country_lang["165"] = 'Papua Nuova Guinea'; // Papua New Guinea
 $_country_lang["166"] = 'Paraguay'; // Paraguay
-$_country_lang["167"] = 'Per'; // Peru
+$_country_lang["167"] = 'PerÂ'; // Peru
 $_country_lang["168"] = 'Filippine'; // Philippines
 $_country_lang["169"] = 'Pitcairn'; // Pitcairn
 $_country_lang["170"] = 'Polonia'; // Poland
@@ -238,7 +238,7 @@ $_country_lang["224"] = 'United States Minor Outlying Islands'; // United States
 $_country_lang["225"] = 'Uruguay'; // Uruguay
 $_country_lang["226"] = 'Uzbekistan'; // Uzbekistan
 $_country_lang["227"] = 'Vanuatu'; // Vanuatu
-$_country_lang["228"] = 'Cittˆ del Vaticano (Santa Sede)'; // Vatican City State (Holy See)
+$_country_lang["228"] = 'CittÂˆ del Vaticano (Santa Sede)'; // Vatican City State (Holy See)
 $_country_lang["229"] = 'Venezuela'; // Venezuela
 $_country_lang["230"] = 'Viet Nam'; // Viet Nam
 $_country_lang["231"] = 'Isole Vergini (Britanniche)'; // Virgin Islands (British)
