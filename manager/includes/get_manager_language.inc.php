@@ -5,19 +5,18 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 // ----------------------------
 
 // Check that $manager_language is valid
-if(!isset($manager_language) || !ctype_alnum(str_replace('_', '', str_replace('-', '', $manager_language))) || !file_exists(MODX_MANAGER_PATH."includes/lang/".$manager_language.".inc.php")) {
+if(!isset($manager_language) || !ctype_alnum(str_replace('_', '', str_replace('-', '', $manager_language))) || !file_exists(MODX_MANAGER_PATH.'includes/lang/'.$manager_language.'.inc.php')) {
     $manager_language = 'english';
 }
 
 // Get the English fallbacks
 $_lang = array();
-require_once('lang/english.inc.php');
-
+require('lang/english.inc.php');
 $length_eng_lang = count($_lang);
 
 // Get non-English text
-if($manager_language!='english' && file_exists(MODX_MANAGER_PATH.'includes/lang/'.$manager_language.'.inc.php')) {
-    include_once 'lang/'.$manager_language.'.inc.php';
+if ($manager_language != 'english') {
+    require('lang/'.$manager_language.'.inc.php');
 }
 
 // Convert $_lang to modx_charset
