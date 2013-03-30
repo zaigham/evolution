@@ -51,6 +51,6 @@ function get_manager_countries($manager_language) {
 	if ($manager_language != 'english') {
 		require('lang/country/'.$manager_language.'_country.inc.php');
 	}
-	return $country_lang;
+	return $_country_lang;
 }
 

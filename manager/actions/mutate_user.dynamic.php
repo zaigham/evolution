@@ -108,7 +108,7 @@ function ConvertDate($date) {
 }
 
 // get country list
-$country_lang = get_manager_countries($manager_language);
+$_country_lang = get_manager_countries($manager_language);
 
 $displayStyle = (($_SESSION['browser'] == 'mz') || ($_SESSION['browser'] == 'op') || ($_SESSION['browser'] == 'sf')) ? "table-row" : "block";
 ?>

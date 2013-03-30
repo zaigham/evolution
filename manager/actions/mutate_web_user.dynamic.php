@@ -103,7 +103,7 @@ function ConvertDate($date) {
 }
 
 // get country list
-$country_lang = get_manager_countries($manager_language);
+$_country_lang = get_manager_countries($manager_language);
 
 ?>
 
