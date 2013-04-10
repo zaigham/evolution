@@ -18,7 +18,6 @@ if (!defined('IN_MANAGER_MODE')) define('IN_MANAGER_MODE', 'true');
 require_once('../../../includes/document.parser.class.inc.php');
 $modx = new DocumentParser;
 $modx->getSettings();
-$modx->getUserSettings();
 $settings = &$modx->config;
 extract($settings, EXTR_OVERWRITE);
 
