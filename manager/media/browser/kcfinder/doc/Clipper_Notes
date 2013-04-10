@@ -1,17 +1,21 @@
 KCFinder's documentation is available in Engilsh at http://kcfinder.sunhater.com/.
 
-Temus' integration affects following files:
-- browser.php and browser.html were added for MODx integration;
-- config.php changed;
-- core/autoload.php - added some code to provide better security in MODx integration; [now in clipper_integration.inc.php]
-- lib/helper_httpCache.php - bug fixed.
+Temus' integration for MODx affects following files:
+	- browser.php and browser.html were added for MODx integration;
+	- config.php changed;
+	- core/autoload.php - added some code to provide better security in MODx integration;
+		[now in clipper_integration.inc.php]
+	- lib/helper_httpCache.php - bug fixed.
 
-Further integration for the Clipper manager language affects:
+Integration for Clipper affects:
 - core/autoload.php
-- clipper_integration.inc.php - code to fake the language parameter in the query string as passed by browser.html and browser.php
+- config.php - now uses system settings
+- clipper_integration.inc.php
+	- Clipper system settings
+	- code to fake the language parameter in the query string as passed by browser.html and browser.php
 			(a bit hacky, but seems the best option to minimise upgrade issues).
 
-Further integration for the Clipper:
+Further integration for the Clipper affecting kcfinder's core:
 - core/browser.php - line 706 to prevent index.html and mcpuk's thumbnails being shown.
 
 Fixes for IE 10 to kcfinder javascript:
