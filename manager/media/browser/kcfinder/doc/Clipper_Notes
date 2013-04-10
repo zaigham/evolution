@@ -13,9 +13,9 @@ Further integration for the Clipper manager language affects:
 
 Further integration for the Clipper:
 - core/browser.php - line 706 to prevent index.html and mcpuk's thumbnails being shown.
-- browser.uploadURL setting in "tpl/tpl_javascript.php" to ensure correct URLs are returned. This may need future attention as 'assets' is hardcoded.
 
 Fixes for IE 10 to kcfinder javascript:
 	See https://github.com/ClipperCMS/ClipperCMS/commit/b02a4dfa0d77a47cf0d3a6f1728f0d45d64598f4 
 	This is also fixed in the kcfinder git repo.
 	Future stable versions of kcfinder should not need this fix applying again.
+
