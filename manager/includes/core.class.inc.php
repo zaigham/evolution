@@ -61,17 +61,28 @@ class Core {
             while ($row = $this->db->getRow($rs)) {
                 $this->config[$row['setting_name']] = $row['setting_value'];
             }
-            
-            // User settings
-            $user_id = @$_SESSION['mgrInternalKey']; // Bypasses the normal API method. Not ideal, but unlikely to be an issue.
-            if ($user_id) {
-                $rs = $this->db->select('setting_name, setting_value', $this->getFullTableName('user_settings'), 'user='.$user_id);
-                while ($row = $this->db->getRow($rs)) {
-                    $this->config[$row['setting_name']] = $row['setting_value'];
-                }
-            }
+
+        $this->getUserSettings();            
             
         }
     }
+    
+    /**
+     * Get user settings
+     *
+     * @return void
+     */
+    function getUserSettings() {
+    
+        // User settings
+        $user_id = @$_SESSION['mgrInternalKey']; // Bypasses the normal API method. Not ideal, but unlikely to be an issue.
+        if ($user_id) {
+            $rs = $this->db->select('setting_name, setting_value', $this->getFullTableName('user_settings'), 'user='.$user_id);
+            while ($row = $this->db->getRow($rs)) {
+                $this->config[$row['setting_name']] = $row['setting_value'];
+            }
+        }
+    }
+
 }
 
