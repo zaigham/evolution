@@ -25,8 +25,8 @@ $_CONFIG = array(
 
     'theme' => "oxygen",
 
-    'uploadURL' => MODX_BASE_URL  . 'assets',
-    'uploadDir' => MODX_BASE_PATH . 'assets',
+    'uploadURL' => MODX_BASE_URL  . $GLOBALS['modx']->config['rb_base_url'],
+    'uploadDir' => $GLOBALS['modx']->config['rb_base_dir'],
 
     'dirPerms' => 0755,
     'filePerms' => 0644,
