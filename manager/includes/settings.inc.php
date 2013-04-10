@@ -10,6 +10,7 @@ if (!$modx) {
 }
 
 $modx->getSettings();
+$modx->getUserSettings();
 $settings = &$modx->config;
 extract($settings, EXTR_OVERWRITE);
 
