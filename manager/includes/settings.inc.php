@@ -1,4 +1,10 @@
 <?php
+/**
+ * Loads Clipper system settings and user settings, if not already loaded.
+ *
+ * Will update user settings (only) if settings already loaded.
+ */
+
 if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
 if (!$modx) {
