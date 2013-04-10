@@ -53,14 +53,14 @@ $_CONFIG = array(
     'types' => array(
 
         // CKEditor & FCKEditor types
-        'files'   =>  "",
-        'flash'   =>  "swf",
-        'images'  =>  "*img",
+        'files'   =>  '',
+        'flash'   =>  str_replace(',', ' ', $GLOBALS['modx']->config['upload_flash']),
+        'images'  =>  str_replace(',', ' ', $GLOBALS['modx']->config['upload_images']) /* was "*img" */ ,
 
         // TinyMCE types
-        'file'    =>  "",
-        'media'   =>  "swf flv avi mpg mpeg qt mov wmv asf rm",
-        'image'   =>  "*img",
+        'file'    =>  '',
+        'media'   =>  str_replace(',', ' ', $GLOBALS['modx']->config['upload_media']),
+        'image'   =>  str_replace(',', ' ', $GLOBALS['modx']->config['upload_images']) /* was "*img" */ ,
     ),
 
     'filenameChangeChars' => array("а"=>"a","б"=>"b","в"=>"v","г"=>"g","д"=>"d","е"=>"e","ё"=>"yo","ж"=>"zh","з"=>"z","и"=>"i","й"=>"j","к"=>"k","л"=>"l","м"=>"m","н"=>"n","о"=>"o","п"=>"p","р"=>"r","с"=>"s","т"=>"t","у"=>"u","ф"=>"f","х"=>"h","ц"=>"c","ч"=>"ch","ш"=>"sh","щ"=>"shh","ы"=>"i","э"=>"e","ю"=>"yu","я"=>"ya",
