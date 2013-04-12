@@ -100,28 +100,40 @@ if ($mode=='backup') {
 		<thead><tr>
 			<td width="160"><input type="checkbox" name="chkselall" onclick="selectAll()" title="Select All Tables" /><b><?php echo $_lang['database_table_tablename']?></b></td>
 			<td width="40" align="right"><b><?php echo $_lang['database_table_records']?></b></td>
-			<td width="120" align="right"><b><?php echo $_lang['database_table_datasize']?></b></td>
-			<td width="120" align="right"><b><?php echo $_lang['database_table_overhead']?></b></td>
-			<td width="120" align="right"><b><?php echo $_lang['database_table_effectivesize']?></b></td>
-			<td width="120" align="right"><b><?php echo $_lang['database_table_indexsize']?></b></td>
-			<td width="120" align="right"><b><?php echo $_lang['database_table_totalsize']?></b></td>
+			<td width="80" align="right"><b><?php echo $_lang['database_table_engine']?></b></td>
+			<td width="80" align="right"><b><?php echo $_lang['database_table_datasize']?></b></td>
+			<td width="80" align="right"><b><?php echo $_lang['database_table_overhead']?></b></td>
+			<td width="80" align="right"><b><?php echo $_lang['database_table_effectivesize']?></b></td>
+			<td width="80" align="right"><b><?php echo $_lang['database_table_indexsize']?></b></td>
+			<td width="80" align="right"><b><?php echo $_lang['database_table_totalsize']?></b></td>
 		</tr></thead>
 		<tbody>
 			<?php
+
+if ($rs_ifpt = $modx->db->query('SHOW GLOBAL VARIABLES LIKE \'innodb_file_per_table\'')) {
+    $innodb_file_per_table = ($modx->db->getValue($rs_ifpt) == 'ON');
+}
+
 $sql = 'SHOW TABLE STATUS FROM '.$dbase. ' LIKE \''.$table_prefix.'%\'';
 $rs = $modx->db->query($sql);
 $limit = $modx->db->getRecordCount($rs);
 for ($i = 0; $i < $limit; $i++) {
 	$db_status = $modx->db->getRow($rs);
+	
+	if (!$innodb_file_per_table && $db_status['Engine'] == 'InnoDB') {
+	    $db_status['Data_free'] = 0;
+	}
+	
 	$bgcolor = ($i % 2) ? '#EEEEEE' : '#FFFFFF';
 
 	if (isset($tables))
 		$table_string = implode(',', $table);
 	else    $table_string = '';
 
-	echo '<tr bgcolor="'.$bgcolor.'" title="'.$db_status['Comment'].'" style="cursor:default">'."\n".
-	     "\t\t\t\t".'<td><input type="checkbox" name="chk[]" value="'.$db_status['Name'].'"'.(strstr($table_string,$db_status['Name']) === false ? '' : ' checked="checked"').' /><b style="color:#009933">'.$db_status['Name'].'</b></td>'."\n".
-	     "\t\t\t\t".'<td align="right">'.$db_status['Rows'].'</td>'."\n";
+	echo '<tr bgcolor="'.$bgcolor.'" title="'.$db_status['Comment'].'" style="cursor:default">
+	     <td><input type="checkbox" name="chk[]" value="'.$db_status['Name'].'"'.(strstr($table_string,$db_status['Name']) === false ? '' : ' checked="checked"').' /><b style="color:#009933">'.$db_status['Name'].'</b></td>
+	     <td align="right">'.$db_status['Rows'].'</td>
+	     <td align="right">'.$db_status['Engine'].'</td>';
 
 	// Enable record deletion for certain tables (TRUNCATE TABLE) if they're not already empty
 	$truncateable = array(
