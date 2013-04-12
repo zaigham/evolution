@@ -4,25 +4,23 @@
  * Ajax and non-Ajax search that supports results highlighting
  *
  * @category    snippet
- * @version     1.9.3+
+ * @version     1.10.0
  * @license     http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  * @internal    @properties
  * @internal    @modx_category Search
  * @internal    @installset base, sample
  *
  * @author      Coroico <coroico@wangba.fr>
- * @date        26/09/2012
+ * @date        27/03/2013
  * -----------------------------------------------------------------------------
  */
 /**
 --------------------------------------------------------------------------------
 :: Preamble
 --------------------------------------------------------------------------------
-The release 1.9 looks like the previous release, but it is a completely
-refactored development.
 
-It is partially based on the previous releases of AjaxSearch written by the
-following authors:
+ AjaxSearch 1.10.0 upgraded by TimGS from AjaxSearch 1.9.3.
+ Now uses the DBAPI throughout
 
  Coroico <coroico@wangba.fr>
  Jason Coward <jason@opengeek.com>
@@ -71,7 +69,7 @@ MORE : See the ajaxSearch.readme.txt file for more informations.
 ----------------------------------------------------------------------------- */
 
 // ajaxSearch version being executed
-define('AS_VERSION', '1.9.3');
+define('AS_VERSION', '1.10.0');
 // Path where ajaxSearch is installed
 define('AS_SPATH', 'assets/snippets/ajaxSearch/');
 //include snippet file

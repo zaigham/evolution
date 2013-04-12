@@ -1,33 +1,17 @@
 
-                              AjaxSearch - version 1.9.3
+                              AjaxSearch - version 1.10.0
 
                            Coroico - http://www.evo.wangba.fr
 
-                                26th of september 2012
-
-The release 1.9.3 provide the correction of the following issues:
-
-==== AJAXSEARCH-82 : can't define configuration file name with "@FILE:" prefix
-See http://bugs.modx.com/issues/3533
-
-
-==== AJAXSEARCH-84 : Unquoted field name in orderby clause
-See http://bugs.modx.com/issues/3697
-
-
-==== AJAXSEARCH-85 : Wrong URL construction when using an array of values (checkboxes)
-See http://bugs.modx.com/issues/3698
-
-
-==== AJAXSEARCH-86 : number of characters not checked when a form with filters is submitted
-
-
-&minChars=2 (less than the default) is now allowed for the search.
-
+                                 27th of march 2013
+                                 
+                                 
+    This version of AjaxSearch updates the mysql_* functions to use the DBAPI.
 
 =====================================================================================
 
 Previous versions :
+ - 1.9.3 delivered the 26th of September 2012 (provided with Clipper 1.1)
  - 1.9.2 delivered the 5th of December 2010 (provided with MODx 1.0.4)
  - 1.9.1 delivered the 30th of August 2010
  - 1.9.0 delivered the 18th of May 2010 (provided with MODx 1.0.4)
