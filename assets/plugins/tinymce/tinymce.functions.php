@@ -121,6 +121,8 @@ class TinyMCE
 		    break;
 		}
 		
+		$plugins .= ($plugins ? ',' : '').'inlinepopups'; // inlinepopups for all configurations
+		
 		$str  = $this->build_mce_init($params,$plugins,$buttons1,$buttons2,$buttons3,$buttons4);
 		$str .= PHP_EOL;
 		$str .= $this->build_tiny_callback($params);
