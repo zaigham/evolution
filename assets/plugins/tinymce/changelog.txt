@@ -1,3 +1,12 @@
+Version clipper-3.5 (2013-04-12)
+	Force inline popups via tinymce.functions.php
+	Option to use any file browser as per the new Clipper config option (initially for kcfinder)
+	Changed skin
+Version 3.4.9.1 (2012-12-08)
+	TinyMCE upgraded
+	TinyMCE language files upgraded
+	Changed skin
+	Removed default border="0" from tables
 Version 3.4.9 (2012-02-23)
 	Added settings to wordcount plugin to configure update rate and checking wordcount on backspace and delete using wordcount_update_rate and wordcount_update_on_delete.
 	Fixed bug in Webkit and IE where deleting empty paragraphs would remove entire editor contents.
