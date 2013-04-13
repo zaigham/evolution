@@ -94,18 +94,18 @@ if ($mode=='backup') {
 	<input type="hidden" name="mode" value="" />
 	<p><?php echo $_lang['table_hoverinfo']?></p>
 
-	<p style="width:100%;"><a href="#" onclick="submitForm();return false;"><img src="media/style/<?php echo $manager_theme?>/images/misc/ed_save.gif" border="0" /><?php echo $_lang['database_table_clickhere']?></a> <?php echo $_lang['database_table_clickbackup']?></p>
+	<p><a href="#" onclick="submitForm();return false;"><img src="media/style/<?php echo $manager_theme?>/images/misc/ed_save.gif" alt="" /><?php echo $_lang['database_table_clickhere']?></a> <?php echo $_lang['database_table_clickbackup']?></p>
 	<p><input type="checkbox" name="droptables"><?php echo $_lang['database_table_droptablestatements']?></p>
-	<table border="0" cellpadding="1" cellspacing="1" width="100%" bgcolor="#ccc">
+	<table class="db-list">
 		<thead><tr>
-			<td width="160"><input type="checkbox" name="chkselall" onclick="selectAll()" title="Select All Tables" /><b><?php echo $_lang['database_table_tablename']?></b></td>
-			<td width="40" align="right"><b><?php echo $_lang['database_table_records']?></b></td>
-			<td width="80" align="right"><b><?php echo $_lang['database_table_engine']?></b></td>
-			<td width="80" align="right"><b><?php echo $_lang['database_table_datasize']?></b></td>
-			<td width="80" align="right"><b><?php echo $_lang['database_table_overhead']?></b></td>
-			<td width="80" align="right"><b><?php echo $_lang['database_table_effectivesize']?></b></td>
-			<td width="80" align="right"><b><?php echo $_lang['database_table_indexsize']?></b></td>
-			<td width="80" align="right"><b><?php echo $_lang['database_table_totalsize']?></b></td>
+			<td class="table-name"><input type="checkbox" name="chkselall" onclick="selectAll()" title="Select All Tables" /><b><?php echo $_lang['database_table_tablename']?></b></td>
+			<td class="table-data"><b><?php echo $_lang['database_table_records']?></b></td>
+			<td class="table-data"><b><?php echo $_lang['database_table_engine']?></b></td>
+			<td class="table-data"><b><?php echo $_lang['database_table_datasize']?></b></td>
+			<td class="table-data"><b><?php echo $_lang['database_table_overhead']?></b></td>
+			<td class="table-data"><b><?php echo $_lang['database_table_effectivesize']?></b></td>
+			<td class="table-data"><b><?php echo $_lang['database_table_indexsize']?></b></td>
+			<td class="table-data"><b><?php echo $_lang['database_table_totalsize']?></b></td>
 		</tr></thead>
 		<tbody>
 			<?php
@@ -124,16 +124,16 @@ for ($i = 0; $i < $limit; $i++) {
         $db_status['Rows'] = $modx->db->getValue('SELECT COUNT(*) FROM '.$db_status['Name']);
     }
 
-	$bgcolor = ($i % 2) ? '#EEEEEE' : '#FFFFFF';
+    $alt_class = ($i % 2) ? 'row-odd' : 'row-even';
 
 	if (isset($tables))
 		$table_string = implode(',', $table);
 	else    $table_string = '';
 
-	echo '<tr bgcolor="'.$bgcolor.'" title="'.$db_status['Comment'].'" style="cursor:default">
+	echo '<tr class="'.$alt_class.'" title="'.$db_status['Comment'].'">
 	     <td><input type="checkbox" name="chk[]" value="'.$db_status['Name'].'"'.(strstr($table_string,$db_status['Name']) === false ? '' : ' checked="checked"').' /><b style="color:#009933">'.$db_status['Name'].'</b></td>
-	     <td align="right">'.$db_status['Rows'].'</td>
-	     <td align="right">'.$db_status['Engine'].'</td>';
+	     <td class="table-data">'.$db_status['Rows'].'</td>
+	     <td class="table-data">'.$db_status['Engine'].'</td>';
 
 	// Enable record deletion for certain tables (TRUNCATE TABLE) if they're not already empty
 	$truncateable = array(
@@ -144,25 +144,25 @@ for ($i = 0; $i < $limit; $i++) {
 		$table_prefix.'manager_log',
 	);
 	if($modx->hasPermission('settings') && in_array($db_status['Name'], $truncateable) && $db_status['Rows'] > 0) {
-		echo "\t\t\t\t".'<td dir="ltr" align="right">'.
-		     '<a href="index.php?a=54&mode='.$action.'&u='.$db_status['Name'].'" title="'.$_lang['truncate_table'].'">'.nicesize($db_status['Data_length']+$db_status['Data_free']).'</a>'.
+		echo "\t\t\t\t".'<td dir="ltr" class="table-data">'.
+		     '<a href="index.php?a=54&amp;mode='.$action.'&u='.$db_status['Name'].'" title="'.$_lang['truncate_table'].'">'.nicesize($db_status['Data_length']+$db_status['Data_free']).'</a>'.
 		     '</td>'."\n";
 	} else {
-		echo "\t\t\t\t".'<td dir="ltr" align="right">'.nicesize($db_status['Data_length']+$db_status['Data_free']).'</td>'."\n";
+		echo "\t\t\t\t".'<td dir="ltr" class="table-data">'.nicesize($db_status['Data_length']+$db_status['Data_free']).'</td>'."\n";
 	}
 
 	if($modx->hasPermission('settings')) {
-		echo "\t\t\t\t".'<td align="right">'.($db_status['Data_free'] > 0 ?
-		     '<a href="index.php?a=54&mode='.$action.'&t='.$db_status['Name'].'" title="'.$_lang['optimize_table'].'">'.nicesize($db_status['Data_free']).'</a>' :
+		echo "\t\t\t\t".'<td class="table-data">'.($db_status['Data_free'] > 0 ?
+		     '<a href="index.php?a=54&amp;mode='.$action.'&t='.$db_status['Name'].'" title="'.$_lang['optimize_table'].'">'.nicesize($db_status['Data_free']).'</a>' :
 		     '-').
 		     '</td>'."\n";
 	} else {
-		echo '<td align="right">'.($db_status['Data_free'] > 0 ? nicesize($db_status['Data_free']) : '-').'</td>'."\n";
+		echo '<td class="table-data">'.($db_status['Data_free'] > 0 ? nicesize($db_status['Data_free']) : '-').'</td>'."\n";
 	}
 
-	echo "\t\t\t\t".'<td dir="ltr" align="right">'.nicesize($db_status['Data_length']-$db_status['Data_free']).'</td>'."\n".
-	     "\t\t\t\t".'<td dir="ltr" align="right">'.nicesize($db_status['Index_length']).'</td>'."\n".
-	     "\t\t\t\t".'<td dir="ltr" align="right">'.nicesize($db_status['Index_length']+$db_status['Data_length']+$db_status['Data_free']).'</td>'."\n".
+	echo "\t\t\t\t".'<td dir="ltr" class="table-data">'.nicesize($db_status['Data_length']-$db_status['Data_free']).'</td>'."\n".
+	     "\t\t\t\t".'<td dir="ltr" class="table-data">'.nicesize($db_status['Index_length']).'</td>'."\n".
+	     "\t\t\t\t".'<td dir="ltr" class="table-data">'.nicesize($db_status['Index_length']+$db_status['Data_length']+$db_status['Data_free']).'</td>'."\n".
 	     "\t\t\t</tr>";
 
 	$total = $total+$db_status['Index_length']+$db_status['Data_length'];
@@ -170,12 +170,12 @@ for ($i = 0; $i < $limit; $i++) {
 }
 ?>
 
-			<tr bgcolor="#CCCCCC">
-				<td valign="top"><b><?php echo $_lang['database_table_totals']?></b></td>
+			<tr class="db-totals">
+				<td><b><?php echo $_lang['database_table_totals']?></b></td>
 				<td colspan="2">&nbsp;</td>
-				<td dir="ltr" align="right" valign="top"><?php echo $totaloverhead>0 ? '<b style="color:#990033">'.nicesize($totaloverhead).'</b><br />('.number_format($totaloverhead).' B)' : '-'?></td>
+				<td dir="ltr" class="table-data"><?php echo $totaloverhead>0 ? '<b style="color:#990033">'.nicesize($totaloverhead).'</b><br />('.number_format($totaloverhead).' B)' : '-'?></td>
 				<td colspan="2">&nbsp;</td>
-				<td dir="ltr" align="right" valign="top"><?php echo "<b>".nicesize($total)."</b><br />(".number_format($total)." B)"?></td>
+				<td dir="ltr" class="table-data"><?php echo "<b>".nicesize($total)."</b><br />(".number_format($total)." B)"?></td>
 			</tr>
 		</tbody>
 	</table>

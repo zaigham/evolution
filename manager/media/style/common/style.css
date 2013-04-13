@@ -30,6 +30,45 @@
 	cursor: move
 	}
 
+/**
+ * Backup manager
+ */
+
+table.db-list {
+	width: 100%;
+	background: #ccc;
+	border-collapse: collapse;
+	}
+
+table.db-list th, table.db-list td {
+	border: solid 1px #ccc;
+	}
+
+.table-name {
+	width: 22%;
+	}
+
+.table-data {
+	text-align: right;
+	width: 11%;
+	}
+
+tr.db-totals {
+	background: #ccc;
+	}
+
+tr.db-totals td {
+	vertical-align: top;
+	}
+
+tr.row-odd {
+	background: #eee;
+	}
+	
+tr.row-even {
+	background: #fff;
+	}
+
 /*
  * Help pages
  * ----------
