@@ -116,11 +116,14 @@ $rs = $modx->db->query($sql);
 $limit = $modx->db->getRecordCount($rs);
 for ($i = 0; $i < $limit; $i++) {
 	$db_status = $modx->db->getRow($rs);
-	
-	if (!$innodb_file_per_table && $db_status['Engine'] == 'InnoDB') {
-	    $db_status['Data_free'] = 0;
-	}
-	
+
+    if ($db_status['Engine'] == 'InnoDB') {
+        if (!$innodb_file_per_table) {
+            $db_status['Data_free'] = 0;
+        }
+        $db_status['Rows'] = $modx->db->getValue('SELECT COUNT(*) FROM '.$db_status['Name']);
+    }
+
 	$bgcolor = ($i % 2) ? '#EEEEEE' : '#FFFFFF';
 
 	if (isset($tables))
