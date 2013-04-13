@@ -110,10 +110,7 @@ if ($mode=='backup') {
 		<tbody>
 			<?php
 
-if ($rs_ifpt = $modx->db->query('SHOW GLOBAL VARIABLES LIKE \'innodb_file_per_table\'')) {
-    $innodb_file_per_table = ($modx->db->getValue($rs_ifpt) == 'ON');
-}
-
+$innodb_file_per_table = ($modx->db->getValue('SHOW GLOBAL VARIABLES LIKE \'innodb_file_per_table\'') == 'ON');
 $sql = 'SHOW TABLE STATUS FROM '.$dbase. ' LIKE \''.$table_prefix.'%\'';
 $rs = $modx->db->query($sql);
 $limit = $modx->db->getRecordCount($rs);
