@@ -172,7 +172,7 @@ for ($i = 0; $i < $limit; $i++) {
 
 			<tr class="db-totals">
 				<td><b><?php echo $_lang['database_table_totals']?></b></td>
-				<td colspan="2">&nbsp;</td>
+				<td colspan="3">&nbsp;</td>
 				<td dir="ltr" class="table-data"><?php echo $totaloverhead>0 ? '<b style="color:#990033">'.nicesize($totaloverhead).'</b><br />('.number_format($totaloverhead).' B)' : '-'?></td>
 				<td colspan="2">&nbsp;</td>
 				<td dir="ltr" class="table-data"><?php echo "<b>".nicesize($total)."</b><br />(".number_format($total)." B)"?></td>
