@@ -145,7 +145,7 @@ for ($i = 0; $i < $limit; $i++) {
 	);
 	if($modx->hasPermission('settings') && in_array($db_status['Name'], $truncateable) && $db_status['Rows'] > 0) {
 		echo "\t\t\t\t".'<td dir="ltr" class="table-data">'.
-		     '<a href="index.php?a=54&amp;mode='.$action.'&u='.$db_status['Name'].'" title="'.$_lang['truncate_table'].'">'.nicesize($db_status['Data_length']+$db_status['Data_free']).'</a>'.
+		     '<a href="index.php?a=54&amp;mode='.$action.'&amp;u='.$db_status['Name'].'" title="'.$_lang['truncate_table'].'">'.nicesize($db_status['Data_length']+$db_status['Data_free']).'</a>'.
 		     '</td>'."\n";
 	} else {
 		echo "\t\t\t\t".'<td dir="ltr" class="table-data">'.nicesize($db_status['Data_length']+$db_status['Data_free']).'</td>'."\n";
@@ -153,7 +153,7 @@ for ($i = 0; $i < $limit; $i++) {
 
 	if($modx->hasPermission('settings')) {
 		echo "\t\t\t\t".'<td class="table-data">'.($db_status['Data_free'] > 0 ?
-		     '<a href="index.php?a=54&amp;mode='.$action.'&t='.$db_status['Name'].'" title="'.$_lang['optimize_table'].'">'.nicesize($db_status['Data_free']).'</a>' :
+		     '<a href="index.php?a=54&amp;mode='.$action.'&amp;t='.$db_status['Name'].'" title="'.$_lang['optimize_table'].'">'.nicesize($db_status['Data_free']).'</a>' :
 		     '-').
 		     '</td>'."\n";
 	} else {
