@@ -124,7 +124,7 @@ for ($i = 0; $i < $limit; $i++) {
         $db_status['Rows'] = $modx->db->getValue('SELECT COUNT(*) FROM '.$db_status['Name']);
     }
 
-    $alt_class = ($i % 2) ? 'row-odd' : 'row-even';
+    $alt_class = ($i % 2) ? 'odd' : 'even';
 
 	if (isset($tables))
 		$table_string = implode(',', $table);

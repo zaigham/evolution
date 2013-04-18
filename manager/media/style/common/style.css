@@ -31,6 +31,18 @@
 	}
 
 /**
+ * Generic tables
+ */
+ 
+tr.odd {
+	background: #fff;
+	}
+	
+tr.even {
+	background: #eee;
+	}
+
+/**
  * Site Search
  */
 
@@ -67,14 +79,6 @@ tr.db-totals {
 
 tr.db-totals td {
 	vertical-align: top;
-	}
-
-tr.row-odd {
-	background: #eee;
-	}
-	
-tr.row-even {
-	background: #fff;
 	}
 
 /*
