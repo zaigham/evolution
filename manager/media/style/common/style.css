@@ -65,6 +65,16 @@
  * Generic tables
  */
 
+table.table {
+	width: 100%;
+	background: #ccc;
+	border-collapse: collapse;
+	}
+
+table.table th, table.table td {
+	border: solid 1px #ccc;
+	}
+
 thead tr {
     background: #e4e4e4;
     }
@@ -81,15 +91,9 @@ tr.even {
 	background: #eee;
 	}
 
-table.table {
-	width: 100%;
-	background: #ccc;
-	border-collapse: collapse;
-	}
-
-table.table th, table.table td {
-	border: solid 1px #ccc;
-	}
+th {
+    font-weight: bold;
+    }
 
 /**
  * Welcome page
@@ -116,6 +120,7 @@ table.table th, table.table td {
  */
 
 .table-name {
+    text-align: left;
 	width: 22%;
 	}
 

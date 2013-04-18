@@ -149,11 +149,11 @@ $modx->setPlaceholder('onlineusers_title',$_lang['onlineusers_title']);
                 <table id="onlineusers" class="table">
                   <thead>
                     <tr>
-                      <td><b>'.$_lang["onlineusers_user"].'</b></td>
-                      <td><b>'.$_lang["onlineusers_userid"].'</b></td>
-                      <td><b>'.$_lang["onlineusers_ipaddress"].'</b></td>
-                      <td><b>'.$_lang["onlineusers_lasthit"].'</b></td>
-                      <td><b>'.$_lang["onlineusers_action"].'</b></td>
+                      <th>'.$_lang["onlineusers_user"].'</th>
+                      <th>'.$_lang["onlineusers_userid"].'</th>
+                      <th>'.$_lang["onlineusers_ipaddress"].'</th>
+                      <th>'.$_lang["onlineusers_lasthit"].'</th>
+                      <th>'.$_lang["onlineusers_action"].'</th>
                     </tr>
                   </thead>
                   <tbody>

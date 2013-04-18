@@ -98,14 +98,14 @@ if ($mode=='backup') {
 	<p><input type="checkbox" name="droptables"><?php echo $_lang['database_table_droptablestatements']?></p>
 	<table class="db-list table">
 		<thead><tr>
-			<td class="table-name"><input type="checkbox" name="chkselall" onclick="selectAll()" title="Select All Tables" /><b><?php echo $_lang['database_table_tablename']?></b></td>
-			<td class="table-data"><b><?php echo $_lang['database_table_records']?></b></td>
-			<td class="table-data"><b><?php echo $_lang['database_table_engine']?></b></td>
-			<td class="table-data"><b><?php echo $_lang['database_table_datasize']?></b></td>
-			<td class="table-data"><b><?php echo $_lang['database_table_overhead']?></b></td>
-			<td class="table-data"><b><?php echo $_lang['database_table_effectivesize']?></b></td>
-			<td class="table-data"><b><?php echo $_lang['database_table_indexsize']?></b></td>
-			<td class="table-data"><b><?php echo $_lang['database_table_totalsize']?></b></td>
+			<th class="table-name"><input type="checkbox" name="chkselall" onclick="selectAll()" title="Select All Tables" /><?php echo $_lang['database_table_tablename']?></th>
+			<th class="table-data"><?php echo $_lang['database_table_records']?></th>
+			<th class="table-data"><?php echo $_lang['database_table_engine']?></th>
+			<th class="table-data"><?php echo $_lang['database_table_datasize']?></th>
+			<th class="table-data"><?php echo $_lang['database_table_overhead']?></th>
+			<th class="table-data"><?php echo $_lang['database_table_effectivesize']?></th>
+			<th class="table-data"><?php echo $_lang['database_table_indexsize']?></th>
+			<th class="table-data"><?php echo $_lang['database_table_totalsize']?></th>
 		</tr></thead>
 		<tbody>
 			<?php
