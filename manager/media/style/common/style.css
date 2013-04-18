@@ -31,6 +31,14 @@
 	}
 
 /**
+ * Site Search
+ */
+
+.doc-view, .doc-id, .doc-icon  {
+    width: 5%;
+    }
+
+/**
  * Backup manager
  */
 

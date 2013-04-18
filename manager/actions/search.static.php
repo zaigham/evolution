@@ -13,11 +13,11 @@ $searchform_content = !empty($_REQUEST['content']) ? htmlentities($_REQUEST['con
 <div class="sectionBody">
 
 <form action="index.php?a=71" method="post" name="searchform">
-<table width="100%" border="0">
+<table>
   <tr>
-    <td width="120"><?php echo $_lang['search_criteria_id']; ?></td>
-    <td width="20">&nbsp;</td>
-    <td width="120"><input name="searchid" type="text" value="" /></td>
+    <td><?php echo $_lang['search_criteria_id']; ?></td>
+    <td>&nbsp;</td>
+    <td><input name="searchid" type="text" value="" /></td>
 	<td><?php echo $_lang['search_criteria_id_msg']; ?></td>
   </tr>
   <tr>
@@ -80,11 +80,11 @@ if($limit<1) {
   <table id="search-documents"> 
     <thead> 
       <tr> 
-		<th width="5%"></th>
-        <th width="5%"><?php echo $_lang['search_results_returned_id']; ?></th> 
-        <th><?php echo $_lang['search_results_returned_title']; ?></th> 
-        <th><?php echo $_lang['search_results_returned_desc']; ?></th>
-		<th width="5%"></th>
+		<th class="doc-view"></th>
+        <th class="doc-id"><?php echo $_lang['search_results_returned_id']; ?></th> 
+        <th class="doc-title"><?php echo $_lang['search_results_returned_title']; ?></th> 
+        <th class="doc-desc"><?php echo $_lang['search_results_returned_desc']; ?></th>
+		<th class="doc-icon"></th>
       </tr> 
     </thead> 
     <tbody>
@@ -109,13 +109,17 @@ if($limit<1) {
 		$logentry = $modx->db->getRow($rs);
 
 		// figure out the icon for the document...
-		$icon = "";
+		$icon = '';
+		$alt = '';
 		if ($logentry['type']=='reference') {
 			$icon .= $_style["tree_linkgo"];
+			$alt = 'reference';
 		} elseif ($logentry['isfolder'] == 0) {
 			$icon .= isset($icons[$logentry['contenttype']]) ? $icons[$logentry['contenttype']] : $_style["tree_page_html"];
+			$alt = $logentry['contenttype'];
 		} else {
 			$icon .= $_style['tree_folder'];
+			$alt = 'folder';
 		}
 
 		$tdClass = "";
@@ -127,7 +131,7 @@ if($limit<1) {
 		}
 ?>
     <tr>
-      <td align="center"><a href="index.php?a=3&id=<?php echo $logentry['id']; ?>" title="<?php echo $_lang['search_view_docdata']; ?>"><img src="<?php echo $_style['icons_resource_overview']; ?>" width="16" height="16" /></a></td> 
+      <td><a href="index.php?a=3&amp;id=<?php echo $logentry['id']; ?>" title="<?php echo $_lang['search_view_docdata']; ?>"><img src="<?php echo $_style['icons_resource_overview']; ?>" alt="<?php echo $_lang['search_view_docdata']; ?>" /></a></td> 
       <td><?php echo $logentry['id']; ?></td> 
 	  <?php if (function_exists('mb_strlen') && function_exists('mb_substr')) {?>
 		<td<?php echo $tdClass; ?>><?php echo mb_strlen($logentry['pagetitle'], $modx_manager_charset)>20 ? mb_substr($logentry['pagetitle'], 0, 20, $modx_manager_charset)."..." : $logentry['pagetitle'] ; ?></td> 
@@ -136,7 +140,7 @@ if($limit<1) {
 		<td<?php echo $tdClass; ?>><?php echo strlen($logentry['pagetitle'])>20 ? substr($logentry['pagetitle'], 0, 20)."..." : $logentry['pagetitle'] ; ?></td> 
 		<td<?php echo $tdClass; ?>><?php echo strlen($logentry['description'])>35 ? substr($logentry['description'], 0, 35)."..." : $logentry['description'] ; ?></td>
 	  <?php } ?>
-      <td align="center"><img src="<?php echo $icon; ?>" /></td>
+      <td><img src="<?php echo $icon; ?>" alt="<?php echo $alt; ?>" /></td>
     </tr>
 <?php
 	}
