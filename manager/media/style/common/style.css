@@ -64,7 +64,7 @@
 /**
  * Generic tables
  */
- 
+
 tr.odd {
 	background: #fff;
 	}
@@ -84,11 +84,23 @@ table.table th, table.table td {
 	}
 
 /**
+ * Welcome page
+ */
+
+#onlineusers td {
+    width: 8em;
+    }
+
+#onlineusers td:last-child {
+    width: auto;
+    }
+
+/**
  * Site Search
  */
 
 .doc-view, .doc-id, .doc-icon  {
-    width: 5%;
+    width: 8em;
     }
 
 /**
