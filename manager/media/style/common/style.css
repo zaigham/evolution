@@ -65,6 +65,14 @@
  * Generic tables
  */
 
+thead tr {
+    background: #e4e4e4;
+    }
+
+tbody tr {
+    background: #fff;
+    }
+
 tr.odd {
 	background: #fff;
 	}
