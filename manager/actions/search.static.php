@@ -2,6 +2,10 @@
 if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
 unset($_SESSION['itemname']); // clear this, because it's only set for logging purposes
+
+$searchform_title = !empty($_REQUEST['pagetitle']) ? htmlentities($_REQUEST['pagetitle'], ENT_QUOTES, $modx_manager_charset) : '';
+$searchform_longtitle = !empty($_REQUEST['longtitle']) ? htmlentities($_REQUEST['longtitle'], ENT_QUOTES, $modx_manager_charset) : '';
+$searchform_content = !empty($_REQUEST['content']) ? htmlentities($_REQUEST['content'], ENT_QUOTES, $modx_manager_charset) : '';
 ?>
 
 <h1><?php echo $_lang['search_criteria']; ?></h1>
@@ -13,25 +17,25 @@ unset($_SESSION['itemname']); // clear this, because it's only set for logging p
   <tr>
     <td width="120"><?php echo $_lang['search_criteria_id']; ?></td>
     <td width="20">&nbsp;</td>
-    <td width="120"><input name="searchid" type="text" /></td>
+    <td width="120"><input name="searchid" type="text" value="" /></td>
 	<td><?php echo $_lang['search_criteria_id_msg']; ?></td>
   </tr>
   <tr>
     <td><?php echo $_lang['search_criteria_title']; ?></td>
     <td>&nbsp;</td>
-    <td><input name="pagetitle" type="text" /></td>
+    <td><input name="pagetitle" type="text" value="<?php echo $searchform_title; ?>" //></td>
 	<td><?php echo $_lang['search_criteria_title_msg']; ?></td>
   </tr>
   <tr>
     <td><?php echo $_lang['search_criteria_longtitle']; ?></td>
     <td>&nbsp;</td>
-    <td><input name="longtitle" type="text" /></td>
+    <td><input name="longtitle" type="text" value="<?php echo $searchform_longtitle; ?>" //></td>
 	<td><?php echo $_lang['search_criteria_longtitle_msg']; ?></td>
   </tr>
   <tr>
     <td><?php echo $_lang['search_criteria_content']; ?></td>
     <td>&nbsp;</td>
-    <td><input name="content" type="text" /></td>
+    <td><input name="content" type="text" value="<?php echo $searchform_content; ?>" //></td>
 	<td><?php echo $_lang['search_criteria_content_msg']; ?></td>
   </tr>
   <tr>
