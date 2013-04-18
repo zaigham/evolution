@@ -96,7 +96,7 @@ if ($mode=='backup') {
 
 	<p><a href="#" onclick="submitForm();return false;"><img src="media/style/<?php echo $manager_theme?>/images/misc/ed_save.gif" alt="" /><?php echo $_lang['database_table_clickhere']?></a> <?php echo $_lang['database_table_clickbackup']?></p>
 	<p><input type="checkbox" name="droptables"><?php echo $_lang['database_table_droptablestatements']?></p>
-	<table class="db-list">
+	<table class="db-list table">
 		<thead><tr>
 			<td class="table-name"><input type="checkbox" name="chkselall" onclick="selectAll()" title="Select All Tables" /><b><?php echo $_lang['database_table_tablename']?></b></td>
 			<td class="table-data"><b><?php echo $_lang['database_table_records']?></b></td>

@@ -73,13 +73,13 @@ tr.even {
 	background: #eee;
 	}
 
-table.db-list, table#onlineusers {
+table.table {
 	width: 100%;
 	background: #ccc;
 	border-collapse: collapse;
 	}
 
-table.db-list th, table.db-list td, table#onlineusers td, table#onlineusers th {
+table.table th, table.table td {
 	border: solid 1px #ccc;
 	}
 
