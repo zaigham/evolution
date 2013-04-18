@@ -553,35 +553,35 @@ function decode(s) {
 				
 				<div id="tabGeneral">
 		
-        <table width="99%" border="0" cellspacing="5" cellpadding="0">
-            <tr style="height: 24px;"><td width="100" align="left"><span class="warning"><?php echo $_lang['resource_title']?></span></td>
+        <table>
+            <tr><td width="100"><span class="warning"><?php echo $_lang['resource_title']?></span></td>
                 <td><input name="pagetitle" type="text" maxlength="255" value="<?php echo htmlspecialchars(stripslashes($content['pagetitle']))?>" class="inputBox" onchange="documentDirty=true;" spellcheck="true" />
                 &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_title_help']?>" class="tooltip"/></td></tr>
-            <tr style="height: 24px;"><td align="left"><span class="warning"><?php echo $_lang['long_title']?></span></td>
+            <tr><td><span class="warning"><?php echo $_lang['long_title']?></span></td>
                 <td><input name="longtitle" type="text" maxlength="255" value="<?php echo htmlspecialchars(stripslashes($content['longtitle']))?>" class="inputBox" onchange="documentDirty=true;" spellcheck="true" />
                 &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_long_title_help']?>" class="tooltip"/></td></tr>
-            <tr style="height: 24px;"><td><span class="warning"><?php echo $_lang['resource_description']?></span></td>
+            <tr><td><span class="warning"><?php echo $_lang['resource_description']?></span></td>
                 <td><input name="description" type="text" maxlength="255" value="<?php echo htmlspecialchars(stripslashes($content['description']))?>" class="inputBox" onchange="documentDirty=true;" spellcheck="true" />
                 &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_description_help']?>" class="tooltip"/></td></tr>
-            <tr style="height: 24px;"><td><span class="warning"><?php echo $_lang['resource_alias']?></span></td>
+            <tr><td><span class="warning"><?php echo $_lang['resource_alias']?></span></td>
                 <td><input name="alias" type="text" maxlength="100" value="<?php echo stripslashes($content['alias'])?>" class="inputBox" onchange="documentDirty=true;" />
                 &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_alias_help']?>" class="tooltip"/></td></tr>
-            <tr style="height: 24px;"><td><span class="warning"><?php echo $_lang['link_attributes']?></span></td>
+            <tr><td><span class="warning"><?php echo $_lang['link_attributes']?></span></td>
                 <td><input name="link_attributes" type="text" maxlength="255" value="<?php echo htmlspecialchars(stripslashes($content['link_attributes']))?>" class="inputBox" onchange="documentDirty=true;" />
                 &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['link_attributes_help']?>" class="tooltip"/></td></tr>
 
 <?php if ($content['type'] == 'reference' || $_REQUEST['a'] == '72') { // Web Link specific ?>
 
-            <tr style="height: 24px;"><td><span class="warning"><?php echo $_lang['weblink']?></span> <img name="llock" src="<?php echo $_style["tree_folder"] ?>" alt="tree_folder" onclick="enableLinkSelection(!allowLinkSelection);" style="cursor:pointer;" /></td>
+            <tr><td><span class="warning"><?php echo $_lang['weblink']?></span> <img name="llock" src="<?php echo $_style["tree_folder"] ?>" alt="tree_folder" onclick="enableLinkSelection(!allowLinkSelection);" style="cursor:pointer;" /></td>
                 <td><input name="ta" type="text" maxlength="255" value="<?php echo !empty($content['content']) ? stripslashes($content['content']) : "http://"?>" class="inputBox" onchange="documentDirty=true;" />
                 &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_weblink_help']?>" class="tooltip"/></td></tr>
 
 <?php } ?>
 
-            <tr style="height: 24px;"><td valign="top" width="100" align="left"><span class="warning"><?php echo $_lang['resource_summary']?></span></td>
-                <td valign="top"><textarea name="introtext" class="inputBox" rows="3" cols="" onchange="documentDirty=true;"><?php echo htmlspecialchars(stripslashes($content['introtext']))?></textarea>
+            <tr><td width="100"><span class="warning"><?php echo $_lang['resource_summary']?></span></td>
+                <td><textarea name="introtext" class="inputBox" rows="3" cols="" onchange="documentDirty=true;"><?php echo htmlspecialchars(stripslashes($content['introtext']))?></textarea>
                 &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_summary_help']?>" class="tooltip" spellcheck="true"/></td></tr>
-            <tr style="height: 24px;"><td><span class="warning"><?php echo $_lang['page_data_template']?></span></td>
+            <tr><td><span class="warning"><?php echo $_lang['page_data_template']?></span></td>
                 <td>
                    <select id="template" name="template" class="inputBox" onchange="templateWarning();" style="width:308px">
                     <?php
@@ -675,11 +675,11 @@ function decode(s) {
                 }
 ?>
                 </select> &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['page_data_template_help']?>" class="tooltip"/></td></tr>
-            <tr style="height: 24px;"><td align="left" style="width:100px;"><span class="warning"><?php echo $_lang['resource_opt_menu_title']?></span></td>
+            <tr><td style="width:100px;"><span class="warning"><?php echo $_lang['resource_opt_menu_title']?></span></td>
                 <td><input name="menutitle" type="text" maxlength="255" value="<?php echo htmlspecialchars(stripslashes($content['menutitle']))?>" class="inputBox" onchange="documentDirty=true;" />
                 &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_opt_menu_title_help']?>" class="tooltip"/></td></tr>
-            <tr style="height: 24px;"><td align="left" style="width:100px;"><span class="warning"><?php echo $_lang['resource_opt_menu_index']?></span></td>
-                <td><table border="0" cellspacing="0" cellpadding="0" style="width:333px;"><tr>
+            <tr><td style="width:100px;"><span class="warning"><?php echo $_lang['resource_opt_menu_index']?></span></td>
+                <td><table style="width:333px;"><tr>
                     <td><input name="menuindex" type="text" maxlength="3" value="<?php echo $content['menuindex']?>" class="inputBox" style="width:30px;" onchange="documentDirty=true;" /><input type="button" value="&lt;" onclick="var elm = document.mutate.menuindex;var v=parseInt(elm.value+'')-1;elm.value=v>0? v:0;elm.focus();documentDirty=true;" /><input type="button" value="&gt;" onclick="var elm = document.mutate.menuindex;var v=parseInt(elm.value+'')+1;elm.value=v>0? v:0;elm.focus();documentDirty=true;" />
                     &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_opt_menu_index_help']?>" class="tooltip"/></td>
                     <td align="right" style="text-align:right;"><span class="warning"><?php echo $_lang['resource_opt_show_menu']?></span>&nbsp;<input name="hidemenucheck" type="checkbox" class="checkbox" <?php echo $content['hidemenu']!=1 ? 'checked="checked"':''?> onclick="changestate(document.mutate.hidemenu);" /><input type="hidden" name="hidemenu" class="hidden" value="<?php echo ($content['hidemenu']==1) ? 1 : 0?>" />
@@ -688,8 +688,8 @@ function decode(s) {
 
             <tr><td colspan="2"><div class="split"></div></td></tr>
 
-            <tr style="height: 24px;"><td valign="top"><span class="warning"><?php echo $_lang['resource_parent']?></span></td>
-                <td valign="top">
+            <tr><td><span class="warning"><?php echo $_lang['resource_parent']?></span></td>
+                <td>
                 <?php
                 if ($pid) {
                     $parentname = $modx->db->getValue("SELECT pagetitle FROM $tbl_site_content WHERE id='$pid'");
@@ -763,7 +763,7 @@ function decode(s) {
                 $rs = $modx->db->query($sql);
                 $limit = $modx->db->getRecordCount($rs);
                 if ($limit > 0) {
-                    echo "\t".'<table style="position:relative;" border="0" cellspacing="0" cellpadding="3" width="96%">'."\n";
+                    echo "\t".'<table>'."\n";
                     require_once(MODX_MANAGER_PATH.'includes/tmplvars.inc.php');
                     require_once(MODX_MANAGER_PATH.'includes/tmplvars.commands.inc.php');
                     for ($i = 0; $i < $limit; $i++) {
@@ -797,9 +797,9 @@ function decode(s) {
                         }
 
                         $zindex = $row['type'] == 'date' ? '100' : '500';
-                        echo "\t\t",'<tr style="height: 24px;"><td align="left" valign="top" width="150"><span class="warning">',$row['caption'],"</span>\n",
+                        echo "\t\t",'<tr><td width="150"><span class="warning">',$row['caption'],"</span>\n",
                              "\t\t\t",'<br /><span class="comment">',$row['description'],"</span></td>\n",
-                             "\t\t\t",'<td valign="top" style="position:relative;',($row['type'] == 'date' ? 'z-index:{$zindex};' : ''),'">',"\n",
+                             "\t\t\t",'<td style="position:relative;',($row['type'] == 'date' ? 'z-index:{$zindex};' : ''),'">',"\n",
                              "\t\t\t",renderFormElement($row['type'], $row['id'], $row['default_text'], $row['elements'], $tvPBV, '', $row),"\n",
                              "\t\t</td></tr>\n";
                     }
@@ -817,16 +817,16 @@ function decode(s) {
 				
 				<div id="tabSettings">
 		
-		<table width="99%" border="0" cellspacing="5" cellpadding="0">
+		<table>
 
         <?php $mx_can_pub = $modx->hasPermission('publish_document') ? '' : 'disabled="disabled" '; ?>
-            <tr style="height: 24px;">
+            <tr>
                 <td><span class="warning"><?php echo $_lang['resource_opt_published']?></span></td>
                 <td><input <?php echo $mx_can_pub ?>name="publishedcheck" type="checkbox" class="checkbox" <?php echo (isset($content['published']) && $content['published']==1) || (!isset($content['published']) && $publish_default==1) ? "checked" : ''?> onclick="changestate(document.mutate.published);" />
                 <input type="hidden" name="published" value="<?php echo (isset($content['published']) && $content['published']==1) || (!isset($content['published']) && $publish_default==1) ? 1 : 0?>" />
                 &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_opt_published_help']?>" class="tooltip"/></td>
             </tr>
-            <tr style="height: 24px;">
+            <tr>
                 <td><span class="warning"><?php echo $_lang['page_data_publishdate']?></span></td>
                 <td><input id="pub_date" <?php echo $mx_can_pub ?>name="pub_date" class="DatePicker" value="<?php echo $content['pub_date']=="0" || !isset($content['pub_date']) ? '' : $modx->toDateFormat($content['pub_date'])?>" onblur="documentDirty=true;" />
                 <a href="javascript:void(0);" onclick="javascript:document.mutate.pub_date.value=''; return true;" onmouseover="window.status='<?php echo $_lang['remove_date']?>'; return true;" onmouseout="window.status=''; return true;" style="cursor:pointer; cursor:hand;">
@@ -838,7 +838,7 @@ function decode(s) {
                 <td></td>
                 <td style="color: #555;font-size:10px"><em> <?php echo $modx->config['date_format']; ?> <?php echo $modx->config['time_format']; ?></em></td>
             </tr>
-            <tr style="height: 24px;">
+            <tr>
                 <td><span class="warning"><?php echo $_lang['page_data_unpublishdate']?></span></td>
                 <td><input id="unpub_date" <?php echo $mx_can_pub ?>name="unpub_date" class="DatePicker" value="<?php echo $content['unpub_date']=="0" || !isset($content['unpub_date']) ? '' : $modx->toDateFormat($content['unpub_date'])?>" onblur="documentDirty=true;" />
                 <a onclick="document.mutate.unpub_date.value=''; return true;" onmouseover="window.status='<?php echo $_lang['remove_date']?>'; return true;" onmouseout="window.status=''; return true;" style="cursor:pointer; cursor:hand">
@@ -858,7 +858,7 @@ function decode(s) {
 
 if ($_SESSION['mgrRole'] == 1 || !$existing || $_SESSION['mgrInternalKey'] == $content['createdby']) {
 ?>
-            <tr style="height: 24px;"><td><span class="warning"><?php echo $_lang['resource_type']?></span></td>
+            <tr><td><span class="warning"><?php echo $_lang['resource_type']?></span></td>
                 <td><select name="type" class="inputBox" onchange="documentDirty=true;" style="width:200px">
 
                     <option value="document"<?php echo (($content['type'] == "document" || $_REQUEST['a'] == '85' || $_REQUEST['a'] == '4') ? ' selected="selected"' : "");?> ><?php echo $_lang["resource_type_webpage"];?></option>
@@ -866,7 +866,7 @@ if ($_SESSION['mgrRole'] == 1 || !$existing || $_SESSION['mgrInternalKey'] == $c
                     </select>
                     &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_type_message']?>" class="tooltip"/></td></tr>
 
-            <tr style="height: 24px;"><td><span class="warning"><?php echo $_lang['page_data_contentType']?></span></td>
+            <tr><td><span class="warning"><?php echo $_lang['page_data_contentType']?></span></td>
                 <td><select name="contentType" class="inputBox" onchange="documentDirty=true;" style="width:200px">
             <?php
                 if (!$content['contentType'])
@@ -879,7 +879,7 @@ if ($_SESSION['mgrRole'] == 1 || !$existing || $_SESSION['mgrInternalKey'] == $c
             ?>
                 </select>
                 &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['page_data_contentType_help']?>" class="tooltip"/></td></tr>
-            <tr style="height: 24px;"><td><span class="warning"><?php echo $_lang['resource_opt_contentdispo']?></span></td>
+            <tr><td><span class="warning"><?php echo $_lang['resource_opt_contentdispo']?></span></td>
                 <td><select name="content_dispo" size="1" onchange="documentDirty=true;" style="width:200px">
                     <option value="0"<?php echo !$content['content_dispo'] ? ' selected="selected"':''?>><?php echo $_lang['inline']?></option>
                     <option value="1"<?php echo $content['content_dispo']==1 ? ' selected="selected"':''?>><?php echo $_lang['attachment']?></option>
@@ -908,35 +908,35 @@ if ($_SESSION['mgrRole'] == 1 || !$existing || $_SESSION['mgrInternalKey'] == $c
 }//if mgrRole
 ?>
 
-            <tr style="height: 24px;">
+            <tr>
                 <td width="150"><span class="warning"><?php echo $_lang['resource_opt_folder']?></span></td>
                 <td><input name="isfoldercheck" type="checkbox" class="checkbox" <?php echo ($content['isfolder']==1||$_REQUEST['a']=='85') ? "checked" : ''?> onclick="changestate(document.mutate.isfolder);" />
                 <input type="hidden" name="isfolder" value="<?php echo ($content['isfolder']==1||$_REQUEST['a']=='85') ? 1 : 0?>" onchange="documentDirty=true;" />
                 &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_opt_folder_help']?>" class="tooltip"/></td>
             </tr>
-            <tr style="height: 24px;">
+            <tr>
                 <td><span class="warning"><?php echo $_lang['resource_opt_richtext']?></span></td>
                 <td><input name="richtextcheck" type="checkbox" class="checkbox" <?php echo $content['richtext']==0 && $existing ? '' : "checked"?> onclick="changestate(document.mutate.richtext);" />
                 <input type="hidden" name="richtext" value="<?php echo $content['richtext']==0 && $existing ? 0 : 1?>" onchange="documentDirty=true;" />
                 &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_opt_richtext_help']?>" class="tooltip"/></td>
             </tr>
-            <tr style="height: 24px;">
+            <tr>
                 <td width="150"><span class="warning"><?php echo $_lang['track_visitors_title']?></span></td>
                 <td><input name="donthitcheck" type="checkbox" class="checkbox" <?php echo ($content['donthit']!=1) ? 'checked="checked"' : ''?> onclick="changestate(document.mutate.donthit);" /><input type="hidden" name="donthit" value="<?php echo ($content['donthit']==1) ? 1 : 0?>" onchange="documentDirty=true;" />
                 &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['resource_opt_trackvisit_help']?>" class="tooltip"/></td>
             </tr>
-            <tr style="height: 24px;">
+            <tr>
                 <td><span class="warning"><?php echo $_lang['page_data_searchable']?></span></td>
                 <td><input name="searchablecheck" type="checkbox" class="checkbox" <?php echo (isset($content['searchable']) && $content['searchable']==1) || (!isset($content['searchable']) && $search_default==1) ? "checked" : ''?> onclick="changestate(document.mutate.searchable);" /><input type="hidden" name="searchable" value="<?php echo (isset($content['searchable']) && $content['searchable']==1) || (!isset($content['searchable']) && $search_default==1) ? 1 : 0?>" onchange="documentDirty=true;" />
                 &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['page_data_searchable_help']?>" class="tooltip"/></td>
             </tr>
-            <tr style="height: 24px;">
+            <tr>
                 <td><span class="warning"><?php echo $_lang['page_data_cacheable']?></span></td>
                 <td><input name="cacheablecheck" type="checkbox" class="checkbox" <?php echo (isset($content['cacheable']) && $content['cacheable']==1) || (!isset($content['cacheable']) && $cache_default==1) ? "checked" : ''?> onclick="changestate(document.mutate.cacheable);" />
                 <input type="hidden" name="cacheable" value="<?php echo (isset($content['cacheable']) && $content['cacheable']==1) || (!isset($content['cacheable']) && $cache_default==1) ? 1 : 0?>" onchange="documentDirty=true;" />
                 &nbsp;&nbsp;<img src="<?php echo $_style["icons_tooltip"]?>" title="<?php echo $_lang['page_data_cacheable_help']?>" class="tooltip"/></td>
             </tr>
-            <tr style="height: 24px;">
+            <tr>
                 <td><span class="warning"><?php echo $_lang['resource_opt_emptycache']?></span></td>
                 <td><input name="syncsitecheck" type="checkbox" class="checkbox" checked="checked" onclick="changestate(document.mutate.syncsite);" />
                 <input type="hidden" name="syncsite" value="1" />
