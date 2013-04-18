@@ -75,6 +75,10 @@ table.table th, table.table td {
 	border: solid 1px #ccc;
 	}
 
+table.table td, table.table th {
+    text-align: left;
+    }
+
 thead tr {
     background: #e4e4e4;
     }
