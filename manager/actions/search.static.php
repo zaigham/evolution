@@ -41,8 +41,8 @@ $searchform_content = !empty($_REQUEST['content']) ? htmlentities($_REQUEST['con
   <tr>
   	<td colspan="4">
 		<ul class="actionButtons">
-		    <li><a href="#" onclick="document.searchform.submitok.click();"><img src="<?php echo $_style["icons_save"] ?>" /> <?php echo $_lang['search'] ?></a></li>
-		    <li><a href="index.php?a=2"><img src="<?php echo $_style["icons_cancel"] ?>" /> <?php echo $_lang['cancel'] ?></a></li>
+		    <li><a href="#" onclick="document.searchform.submitok.click();"><img src="<?php echo $_style["icons_save"] ?>" alt="Save" /> <?php echo $_lang['search'] ?></a></li>
+		    <li><a href="index.php?a=2"><img src="<?php echo $_style["icons_cancel"] ?>" alt="Cancel" /> <?php echo $_lang['cancel'] ?></a></li>
 		</ul>
 	</td>
   </tr>
