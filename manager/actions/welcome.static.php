@@ -107,10 +107,10 @@ $modx->setPlaceholder('info',$_lang['info']);
 $modx->setPlaceholder('yourinfo_title',$_lang['yourinfo_title']);
 $html = '
     <p>'.$_lang["yourinfo_message"].'</p>
-    <table border="0" cellspacing="0" cellpadding="0">
+    <table>
       <tr>
-        <td width="150">'.$_lang["yourinfo_username"].'</td>
-        <td width="20">&nbsp;</td>
+        <td>'.$_lang["yourinfo_username"].'</td>
+        <td>&nbsp;</td>
         <td><b>'.$modx->getLoginUserName().'</b></td>
       </tr>
       <tr>
@@ -146,7 +146,7 @@ $modx->setPlaceholder('onlineusers_title',$_lang['onlineusers_title']);
         $html = "<p>".$_lang['no_active_users_found']."</p>";
     } else {
         $html = $_lang["onlineusers_message"].'<b>'.strftime('%H:%M:%S', time()+$server_offset_time).'</b>):<br /><br />
-                <table border="0" cellpadding="1" cellspacing="1" width="100%" bgcolor="#ccc">
+                <table id="onlineusers">
                   <thead>
                     <tr>
                       <td><b>'.$_lang["onlineusers_user"].'</b></td>

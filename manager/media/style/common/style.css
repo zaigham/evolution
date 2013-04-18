@@ -73,6 +73,16 @@ tr.even {
 	background: #eee;
 	}
 
+table.db-list, table#onlineusers {
+	width: 100%;
+	background: #ccc;
+	border-collapse: collapse;
+	}
+
+table.db-list th, table.db-list td, table#onlineusers td, table#onlineusers th {
+	border: solid 1px #ccc;
+	}
+
 /**
  * Site Search
  */
@@ -84,16 +94,6 @@ tr.even {
 /**
  * Backup manager
  */
-
-table.db-list {
-	width: 100%;
-	background: #ccc;
-	border-collapse: collapse;
-	}
-
-table.db-list th, table.db-list td {
-	border: solid 1px #ccc;
-	}
 
 .table-name {
 	width: 22%;
