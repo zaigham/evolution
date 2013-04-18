@@ -748,7 +748,6 @@ $_lang["search_item_deleted"] = 'פריט זה נמחק';
 $_lang["search_results"] = 'תוצאות חיפוש';
 $_lang["search_results_returned_desc"] = 'תיאור';
 $_lang["search_results_returned_id"] = 'זיהוי';
-$_lang["search_results_returned_msg"] = 'Your search criteria returned <b>%s</b> documents. If a lot of results are being returned, try to enter a more specific search. The two left-most columns will allow you to find the document in the tree or view the document. The two right most columns show, respectively, if a document has been deleted and what it\'s published status is.<p />';
 $_lang["search_results_returned_title"] = 'כותרת';
 $_lang["search_view_docdata"] = 'הצג פריט זה';
 $_lang["security"] = 'אבטחה';
