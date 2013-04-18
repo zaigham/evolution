@@ -23,19 +23,19 @@ $searchform_content = !empty($_REQUEST['content']) ? htmlentities($_REQUEST['con
   <tr>
     <td><?php echo $_lang['search_criteria_title']; ?></td>
     <td>&nbsp;</td>
-    <td><input name="pagetitle" type="text" value="<?php echo $searchform_title; ?>" //></td>
+    <td><input name="pagetitle" type="text" value="<?php echo $searchform_title; ?>" /></td>
 	<td><?php echo $_lang['search_criteria_title_msg']; ?></td>
   </tr>
   <tr>
     <td><?php echo $_lang['search_criteria_longtitle']; ?></td>
     <td>&nbsp;</td>
-    <td><input name="longtitle" type="text" value="<?php echo $searchform_longtitle; ?>" //></td>
+    <td><input name="longtitle" type="text" value="<?php echo $searchform_longtitle; ?>" /></td>
 	<td><?php echo $_lang['search_criteria_longtitle_msg']; ?></td>
   </tr>
   <tr>
     <td><?php echo $_lang['search_criteria_content']; ?></td>
     <td>&nbsp;</td>
-    <td><input name="content" type="text" value="<?php echo $searchform_content; ?>" //></td>
+    <td><input name="content" type="text" value="<?php echo $searchform_content; ?>" /></td>
 	<td><?php echo $_lang['search_criteria_content_msg']; ?></td>
   </tr>
   <tr>
