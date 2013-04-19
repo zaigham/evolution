@@ -222,7 +222,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												
 												<div class="method-definition">
 											<span class="method-result"><a href="../phpDocumentor/DocumentParser.html">DocumentParser</a></span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
@@ -301,12 +301,12 @@
 																<div class="method-definition">
 											<span class="method-result">void</span>
 										<a href="#evalPlugin" title="details" class="method-name">evalPlugin</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$pluginCode</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$params</span>)
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$___plugin_code</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$___params</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$pluginCode</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$params</span>)
 									</div>
 																<div class="method-definition">
 											<span class="method-result">string</span>
 										<a href="#evalSnippet" title="details" class="method-name">evalSnippet</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$snippet</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$params</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span> = <span class="var-default">null</span>])
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$___snippet_code</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$___params</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$___name</span> = <span class="var-default">null</span>], <span class="var-type">string</span>&nbsp;<span class="var-name">$snippet</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$params</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
 									</div>
 																<div class="method-definition">
 											<span class="method-result">string</span>
@@ -522,6 +522,11 @@
 											<span class="method-result">boolean|string</span>
 										<a href="#getUserInfo" title="details" class="method-name">getUserInfo</a>
 											(<span class="var-type">int</span>&nbsp;<span class="var-name">$uid</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#getUserSettings" title="details" class="method-name">getUserSettings</a>
+										()
 									</div>
 																<div class="method-definition">
 											<span class="method-result">array</span>
@@ -841,7 +846,7 @@
 					</div>
 		<div class="info-box-body">
 			<a name="var$aliases" id="$aliases"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -859,7 +864,7 @@
 
 </div>
 <a name="var$chunkCache" id="$chunkCache"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -877,7 +882,7 @@
 
 </div>
 <a name="var$config" id="$config"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -900,7 +905,7 @@
 
 </div>
 <a name="var$contentTypes" id="$contentTypes"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -918,7 +923,7 @@
 
 </div>
 <a name="var$currentSnippet" id="$currentSnippet"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -936,7 +941,7 @@
 
 </div>
 <a name="var$debug" id="$debug"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -954,7 +959,7 @@
 
 </div>
 <a name="var$documentContent" id="$documentContent"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -972,7 +977,7 @@
 
 </div>
 <a name="var$documentGenerated" id="$documentGenerated"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -990,7 +995,7 @@
 
 </div>
 <a name="var$documentIdentifier" id="$documentIdentifier"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1008,7 +1013,7 @@
 
 </div>
 <a name="var$documentListing" id="$documentListing"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1026,7 +1031,7 @@
 
 </div>
 <a name="var$documentMap" id="$documentMap"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1044,7 +1049,7 @@
 
 </div>
 <a name="var$documentMethod" id="$documentMethod"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1062,7 +1067,7 @@
 
 </div>
 <a name="var$documentName" id="$documentName"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1080,7 +1085,7 @@
 
 </div>
 <a name="var$documentObject" id="$documentObject"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1098,7 +1103,7 @@
 
 </div>
 <a name="var$dumpSnippets" id="$dumpSnippets"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1116,7 +1121,7 @@
 
 </div>
 <a name="var$entrypage" id="$entrypage"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1134,7 +1139,7 @@
 
 </div>
 <a name="var$Event" id="$Event"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1152,7 +1157,7 @@
 
 </div>
 <a name="var$event" id="$event"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1170,7 +1175,7 @@
 
 </div>
 <a name="var$forwards" id="$forwards"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1188,7 +1193,7 @@
 
 </div>
 <a name="var$is_rss" id="$is_rss"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1209,7 +1214,7 @@
 
 </div>
 <a name="var$jscripts" id="$jscripts"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1227,7 +1232,7 @@
 
 </div>
 <a name="var$loadedjscripts" id="$loadedjscripts"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1245,7 +1250,7 @@
 
 </div>
 <a name="var$maxParserPasses" id="$maxParserPasses"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1263,7 +1268,7 @@
 
 </div>
 <a name="var$minParserPasses" id="$minParserPasses"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1281,7 +1286,7 @@
 
 </div>
 <a name="var$placeholders" id="$placeholders"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1299,7 +1304,7 @@
 
 </div>
 <a name="var$pluginEvent" id="$pluginEvent"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1317,7 +1322,7 @@
 
 </div>
 <a name="var$result" id="$result"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1335,7 +1340,7 @@
 
 </div>
 <a name="var$rs" id="$rs"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1353,7 +1358,7 @@
 
 </div>
 <a name="var$sjscripts" id="$sjscripts"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1371,7 +1376,7 @@
 
 </div>
 <a name="var$snippetCache" id="$snippetCache"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1389,7 +1394,7 @@
 
 </div>
 <a name="var$snippetMap" id="$snippetMap"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1411,7 +1416,7 @@
 
 </div>
 <a name="var$snippetObjects" id="$snippetObjects"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1429,7 +1434,7 @@
 
 </div>
 <a name="var$sql" id="$sql"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1447,7 +1452,7 @@
 
 </div>
 <a name="var$stopOnNotice" id="$stopOnNotice"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1465,7 +1470,7 @@
 
 </div>
 <a name="var$table_prefix" id="$table_prefix"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1483,7 +1488,7 @@
 
 </div>
 <a name="var$templateObject" id="$templateObject"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1501,7 +1506,7 @@
 
 </div>
 <a name="var$tstart" id="$tstart"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1519,7 +1524,7 @@
 
 </div>
 <a name="var$virtualDir" id="$virtualDir"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1537,7 +1542,7 @@
 
 </div>
 <a name="var$visitor" id="$visitor"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -1591,7 +1596,7 @@
 			<A NAME='method_detail'></A>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a81">81</a></span>)
@@ -1612,10 +1617,10 @@
 			
 	</div>
 <a name="methodaddEventListener" id="addEventListener"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">addEventListener</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3413">3413</a></span>)
+		<span class="method-title">addEventListener</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3420">3420</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1641,7 +1646,7 @@
 			
 	</div>
 <a name="methodaffectedRows" id="affectedRows"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<span class="method-title">affectedRows</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a289">289</a></span>)
@@ -1670,10 +1675,10 @@
 			
 	</div>
 <a name="methodchangePassword" id="changePassword"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">changePassword</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3103">3103</a></span>)
+		<span class="method-title">changePassword</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3110">3110</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1702,10 +1707,10 @@
 			
 	</div>
 <a name="methodchangeWebUserPassword" id="changeWebUserPassword"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">changeWebUserPassword</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3064">3064</a></span>)
+		<span class="method-title">changeWebUserPassword</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3071">3071</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1735,10 +1740,10 @@
 			
 	</div>
 <a name="methodcheckCache" id="checkCache"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">checkCache</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a553">553</a></span>)
+		<span class="method-title">checkCache</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a559">559</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1761,10 +1766,10 @@
 			
 	</div>
 <a name="methodcheckPreview" id="checkPreview"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">checkPreview</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a467">467</a></span>)
+		<span class="method-title">checkPreview</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a473">473</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1782,10 +1787,10 @@
 			
 	</div>
 <a name="methodcheckPublishStatus" id="checkPublishStatus"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">checkPublishStatus</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a731">731</a></span>)
+		<span class="method-title">checkPublishStatus</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a737">737</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1803,10 +1808,10 @@
 			
 	</div>
 <a name="methodcheckSession" id="checkSession"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">checkSession</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a454">454</a></span>)
+		<span class="method-title">checkSession</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a460">460</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1824,10 +1829,10 @@
 			
 	</div>
 <a name="methodcheckSiteStatus" id="checkSiteStatus"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">checkSiteStatus</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a484">484</a></span>)
+		<span class="method-title">checkSiteStatus</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a490">490</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1845,10 +1850,10 @@
 			
 	</div>
 <a name="methodcleanDocumentIdentifier" id="cleanDocumentIdentifier"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">cleanDocumentIdentifier</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a505">505</a></span>)
+		<span class="method-title">cleanDocumentIdentifier</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a511">511</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1871,10 +1876,10 @@
 			
 	</div>
 <a name="methodclearCache" id="clearCache"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">clearCache</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2152">2152</a></span>)
+		<span class="method-title">clearCache</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2159">2159</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1892,7 +1897,7 @@
 			
 	</div>
 <a name="methoddbClose" id="dbClose"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<span class="method-title">dbClose</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a309">309</a></span>)
@@ -1916,7 +1921,7 @@
 			
 	</div>
 <a name="methoddbConnect" id="dbConnect"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<span class="method-title">dbConnect</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a243">243</a></span>)
@@ -1940,7 +1945,7 @@
 			
 	</div>
 <a name="methoddbQuery" id="dbQuery"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<span class="method-title">dbQuery</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a255">255</a></span>)
@@ -1969,10 +1974,10 @@
 			
 	</div>
 <a name="methodevalPlugin" id="evalPlugin"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">evalPlugin</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1125">1125</a></span>)
+		<span class="method-title">evalPlugin</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1131">1131</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1983,7 +1988,7 @@
 		<span class="method-name">
 			evalPlugin
 		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$pluginCode</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$params</span>)
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$___plugin_code</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$___params</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$pluginCode</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$params</span>)
 			</div>
 	
 			<ul class="parameters">
@@ -1993,15 +1998,21 @@
 					<li>
 				<span class="var-type">array</span>
 				<span class="var-name">$params</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$___plugin_code</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$___params</span>			</li>
 				</ul>
 		
 			
 	</div>
 <a name="methodevalSnippet" id="evalSnippet"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">evalSnippet</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1155">1155</a></span>)
+		<span class="method-title">evalSnippet</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1161">1161</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2012,7 +2023,7 @@
 		<span class="method-name">
 			evalSnippet
 		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$snippet</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$params</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span> = <span class="var-default">null</span>])
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$___snippet_code</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$___params</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$___name</span> = <span class="var-default">null</span>], <span class="var-type">string</span>&nbsp;<span class="var-name">$snippet</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$params</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
 			</div>
 	
 			<ul class="parameters">
@@ -2025,15 +2036,24 @@
 					<li>
 				<span class="var-type">string</span>
 				<span class="var-name">$name</span><span class="var-description">: Snippet name. Optional but advised.</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$___snippet_code</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$___params</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$___name</span>			</li>
 				</ul>
 		
 			
 	</div>
 <a name="methodevalSnippets" id="evalSnippets"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">evalSnippets</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1184">1184</a></span>)
+		<span class="method-title">evalSnippets</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1190">1190</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2056,10 +2076,10 @@
 			
 	</div>
 <a name="methodexecuteParser" id="executeParser"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">executeParser</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1483">1483</a></span>)
+		<span class="method-title">executeParser</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1489">1489</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2078,10 +2098,10 @@
 			
 	</div>
 <a name="methodfatalErrorCheck" id="fatalErrorCheck"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">fatalErrorCheck</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a809">809</a></span>)
+		<span class="method-title">fatalErrorCheck</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a815">815</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2099,7 +2119,7 @@
 			
 	</div>
 <a name="methodfetchRow" id="fetchRow"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<span class="method-title">fetchRow</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a278">278</a></span>)
@@ -2131,10 +2151,10 @@
 			
 	</div>
 <a name="methodgetActiveChildren" id="getActiveChildren"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getActiveChildren</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1895">1895</a></span>)
+		<span class="method-title">getActiveChildren</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1902">1902</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2166,10 +2186,10 @@
 			
 	</div>
 <a name="methodgetAllChildren" id="getAllChildren"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getAllChildren</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1858">1858</a></span>)
+		<span class="method-title">getAllChildren</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1865">1865</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2201,10 +2221,10 @@
 			
 	</div>
 <a name="methodgetCachePath" id="getCachePath"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getCachePath</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2842">2842</a></span>)
+		<span class="method-title">getCachePath</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2849">2849</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2225,10 +2245,10 @@
 			
 	</div>
 <a name="methodgetChildIds" id="getChildIds"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getChildIds</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1729">1729</a></span>)
+		<span class="method-title">getChildIds</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1735">1735</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2260,10 +2280,10 @@
 			
 	</div>
 <a name="methodgetChunk" id="getChunk"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getChunk</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2414">2414</a></span>)
+		<span class="method-title">getChunk</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2421">2421</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2286,10 +2306,10 @@
 			
 	</div>
 <a name="methodgetConfig" id="getConfig"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getConfig</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2258">2258</a></span>)
+		<span class="method-title">getConfig</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2265">2265</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2313,10 +2333,10 @@
 			
 	</div>
 <a name="methodgetDocGroups" id="getDocGroups"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getDocGroups</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3051">3051</a></span>)
+		<span class="method-title">getDocGroups</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3058">3058</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2338,10 +2358,10 @@
 			
 	</div>
 <a name="methodgetDocument" id="getDocument"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getDocument</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2041">2041</a></span>)
+		<span class="method-title">getDocument</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2048">2048</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2373,10 +2393,10 @@
 			
 	</div>
 <a name="methodgetDocumentChildren" id="getDocumentChildren"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getDocumentChildren</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1943">1943</a></span>)
+		<span class="method-title">getDocumentChildren</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1950">1950</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2420,10 +2440,10 @@
 			
 	</div>
 <a name="methodgetDocumentChildrenTVarOutput" id="getDocumentChildrenTVarOutput"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getDocumentChildrenTVarOutput</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2627">2627</a></span>)
+		<span class="method-title">getDocumentChildrenTVarOutput</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2634">2634</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2462,10 +2482,10 @@
 			
 	</div>
 <a name="methodgetDocumentChildrenTVars" id="getDocumentChildrenTVars"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getDocumentChildrenTVars</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2555">2555</a></span>)
+		<span class="method-title">getDocumentChildrenTVars</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2562">2562</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2513,10 +2533,10 @@
 			
 	</div>
 <a name="methodgetDocumentIdentifier" id="getDocumentIdentifier"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getDocumentIdentifier</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a417">417</a></span>)
+		<span class="method-title">getDocumentIdentifier</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a423">423</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2539,10 +2559,10 @@
 			
 	</div>
 <a name="methodgetDocumentMethod" id="getDocumentMethod"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getDocumentMethod</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a399">399</a></span>)
+		<span class="method-title">getDocumentMethod</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a405">405</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2563,10 +2583,10 @@
 			
 	</div>
 <a name="methodgetDocumentObject" id="getDocumentObject"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getDocumentObject</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1345">1345</a></span>)
+		<span class="method-title">getDocumentObject</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1351">1351</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2592,10 +2612,10 @@
 			
 	</div>
 <a name="methodgetDocuments" id="getDocuments"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getDocuments</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1995">1995</a></span>)
+		<span class="method-title">getDocuments</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2002">2002</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2642,10 +2662,10 @@
 			
 	</div>
 <a name="methodgetJqueryPluginTag" id="getJqueryPluginTag"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getJqueryPluginTag</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3308">3308</a></span>)
+		<span class="method-title">getJqueryPluginTag</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3315">3315</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2678,10 +2698,10 @@
 			
 	</div>
 <a name="methodgetJqueryTag" id="getJqueryTag"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getJqueryTag</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3276">3276</a></span>)
+		<span class="method-title">getJqueryTag</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3283">3283</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2705,10 +2725,10 @@
 			
 	</div>
 <a name="methodgetKeywords" id="getKeywords"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getKeywords</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2353">2353</a></span>)
+		<span class="method-title">getKeywords</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2360">2360</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2734,10 +2754,10 @@
 			
 	</div>
 <a name="methodgetLoginUserID" id="getLoginUserID"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getLoginUserID</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2909">2909</a></span>)
+		<span class="method-title">getLoginUserID</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2916">2916</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2763,10 +2783,10 @@
 			
 	</div>
 <a name="methodgetLoginUserName" id="getLoginUserName"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getLoginUserName</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2927">2927</a></span>)
+		<span class="method-title">getLoginUserName</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2934">2934</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2792,10 +2812,10 @@
 			
 	</div>
 <a name="methodgetLoginUserType" id="getLoginUserType"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getLoginUserType</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2944">2944</a></span>)
+		<span class="method-title">getLoginUserType</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2951">2951</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2813,10 +2833,10 @@
 			
 	</div>
 <a name="methodgetManagerPath" id="getManagerPath"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getManagerPath</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2831">2831</a></span>)
+		<span class="method-title">getManagerPath</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2838">2838</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2837,10 +2857,10 @@
 			
 	</div>
 <a name="methodgetMETATags" id="getMETATags"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getMETATags</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2367">2367</a></span>)
+		<span class="method-title">getMETATags</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2374">2374</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2866,10 +2886,10 @@
 			
 	</div>
 <a name="methodgetPageInfo" id="getPageInfo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getPageInfo</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2068">2068</a></span>)
+		<span class="method-title">getPageInfo</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2075">2075</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2898,10 +2918,10 @@
 			
 	</div>
 <a name="methodgetParent" id="getParent"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getParent</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2106">2106</a></span>)
+		<span class="method-title">getParent</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2113">2113</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2930,10 +2950,10 @@
 			
 	</div>
 <a name="methodgetParentIds" id="getParentIds"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getParentIds</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1694">1694</a></span>)
+		<span class="method-title">getParentIds</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1700">1700</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2959,10 +2979,10 @@
 			
 	</div>
 <a name="methodgetPlaceholder" id="getPlaceholder"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getPlaceholder</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2780">2780</a></span>)
+		<span class="method-title">getPlaceholder</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2787">2787</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -2988,10 +3008,10 @@
 			
 	</div>
 <a name="methodgetRegisteredClientScripts" id="getRegisteredClientScripts"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getRegisteredClientScripts</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3349">3349</a></span>)
+		<span class="method-title">getRegisteredClientScripts</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3356">3356</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3009,10 +3029,10 @@
 			
 	</div>
 <a name="methodgetRegisteredClientStartupScripts" id="getRegisteredClientStartupScripts"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getRegisteredClientStartupScripts</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3358">3358</a></span>)
+		<span class="method-title">getRegisteredClientStartupScripts</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3365">3365</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3030,7 +3050,7 @@
 			
 	</div>
 <a name="methodgetSettings" id="getSettings"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<span class="method-title">getSettings</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a316">316</a></span>)
@@ -3057,10 +3077,10 @@
 			
 	</div>
 <a name="methodgetSnippetId" id="getSnippetId"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getSnippetId</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2127">2127</a></span>)
+		<span class="method-title">getSnippetId</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2134">2134</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3078,10 +3098,10 @@
 			
 	</div>
 <a name="methodgetSnippetName" id="getSnippetName"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getSnippetName</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2143">2143</a></span>)
+		<span class="method-title">getSnippetName</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2150">2150</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3099,10 +3119,10 @@
 			
 	</div>
 <a name="methodgetTemplateVar" id="getTemplateVar"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getTemplateVar</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2657">2657</a></span>)
+		<span class="method-title">getTemplateVar</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2664">2664</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3135,10 +3155,10 @@
 			
 	</div>
 <a name="methodgetTemplateVarOutput" id="getTemplateVarOutput"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getTemplateVarOutput</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2749">2749</a></span>)
+		<span class="method-title">getTemplateVarOutput</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2756">2756</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3170,10 +3190,10 @@
 			
 	</div>
 <a name="methodgetTemplateVars" id="getTemplateVars"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getTemplateVars</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2687">2687</a></span>)
+		<span class="method-title">getTemplateVars</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2694">2694</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3212,10 +3232,10 @@
 			
 	</div>
 <a name="methodgetUltimateParentId" id="getUltimateParentId"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getUltimateParentId</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1713">1713</a></span>)
+		<span class="method-title">getUltimateParentId</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1719">1719</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3238,10 +3258,10 @@
 			
 	</div>
 <a name="methodgetUserData" id="getUserData"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getUserData</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2456">2456</a></span>)
+		<span class="method-title">getUserData</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2463">2463</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3259,10 +3279,10 @@
 			
 	</div>
 <a name="methodgetUserDocGroups" id="getUserDocGroups"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getUserDocGroups</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3010">3010</a></span>)
+		<span class="method-title">getUserDocGroups</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3017">3017</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3286,10 +3306,10 @@
 			
 	</div>
 <a name="methodgetUserInfo" id="getUserInfo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getUserInfo</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2961">2961</a></span>)
+		<span class="method-title">getUserInfo</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2968">2968</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3311,11 +3331,38 @@
 		
 			
 	</div>
+<a name="methodgetUserSettings" id="getUserSettings"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getUserSettings</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a354">354</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Load user settings if user is logged in</p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getUserSettings
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../phpDocumentor/Core.html#methodgetUserSettings">Core::getUserSettings()</a></dt>
+						<dd>Get user settings</dd>
+					</dl>
+			
+	</div>
 <a name="methodgetVersionData" id="getVersionData"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getVersionData</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2271">2271</a></span>)
+		<span class="method-title">getVersionData</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2278">2278</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3336,7 +3383,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getWebUserInfo</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2984">2984</a></span>)
+		<span class="method-title">getWebUserInfo</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2991">2991</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3362,7 +3409,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">hasPermission</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1786">1786</a></span>)
+		<span class="method-title">hasPermission</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1792">1792</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3417,7 +3464,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">insideManager</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2890">2890</a></span>)
+		<span class="method-title">insideManager</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2897">2897</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3441,7 +3488,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">invokeEvent</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3448">3448</a></span>)
+		<span class="method-title">invokeEvent</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3455">3455</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3470,7 +3517,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">isBackend</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1834">1834</a></span>)
+		<span class="method-title">isBackend</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1841">1841</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3491,7 +3538,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">isFrontend</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1843">1843</a></span>)
+		<span class="method-title">isFrontend</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1850">1850</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3512,7 +3559,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">isMemberOfWebGroup</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3113">3113</a></span>)
+		<span class="method-title">isMemberOfWebGroup</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3120">3120</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3568,7 +3615,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">logEvent</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1803">1803</a></span>)
+		<span class="method-title">logEvent</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1809">1809</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3603,7 +3650,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">makeFriendlyURL</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1300">1300</a></span>)
+		<span class="method-title">makeFriendlyURL</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1306">1306</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3635,7 +3682,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">makeList</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2292">2292</a></span>)
+		<span class="method-title">makeList</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2299">2299</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3676,7 +3723,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">makeUrl</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2187">2187</a></span>)
+		<span class="method-title">makeUrl</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2194">2194</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3711,7 +3758,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">mergeChunkContent</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1042">1042</a></span>)
+		<span class="method-title">mergeChunkContent</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1048">1048</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3737,7 +3784,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">mergeDocumentContent</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a877">877</a></span>)
+		<span class="method-title">mergeDocumentContent</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a883">883</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3763,7 +3810,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">mergeDocumentMETATags</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a866">866</a></span>)
+		<span class="method-title">mergeDocumentMETATags</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a872">872</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3792,7 +3839,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">mergePlaceholderContent</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1075">1075</a></span>)
+		<span class="method-title">mergePlaceholderContent</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1081">1081</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3818,7 +3865,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">mergeSettingsContent</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1021">1021</a></span>)
+		<span class="method-title">mergeSettingsContent</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1027">1027</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3844,7 +3891,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">messageQuit</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3720">3720</a></span>)
+		<span class="method-title">messageQuit</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3727">3727</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3898,7 +3945,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">messageQuitFromElement</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3759">3759</a></span>)
+		<span class="method-title">messageQuitFromElement</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3766">3766</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3949,7 +3996,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">messageQuitText</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3606">3606</a></span>)
+		<span class="method-title">messageQuitText</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3613">3613</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -3996,7 +4043,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">modifyOutput</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a975">975</a></span>)
+		<span class="method-title">modifyOutput</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a981">981</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4025,7 +4072,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">outputContent</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a623">623</a></span>)
+		<span class="method-title">outputContent</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a629">629</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4052,7 +4099,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">parseChunk</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2439">2439</a></span>)
+		<span class="method-title">parseChunk</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2446">2446</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4090,7 +4137,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">parseDocumentSource</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1434">1434</a></span>)
+		<span class="method-title">parseDocumentSource</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1440">1440</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4117,7 +4164,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">parseProperties</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3505">3505</a></span>)
+		<span class="method-title">parseProperties</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3512">3512</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4146,7 +4193,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">phpError</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3558">3558</a></span>)
+		<span class="method-title">phpError</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3565">3565</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4182,7 +4229,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">postProcess</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a832">832</a></span>)
+		<span class="method-title">postProcess</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a838">838</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4204,7 +4251,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">prepareResponse</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1585">1585</a></span>)
+		<span class="method-title">prepareResponse</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1591">1591</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4226,7 +4273,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">putChunk</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2426">2426</a></span>)
+		<span class="method-title">putChunk</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2433">2433</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4284,7 +4331,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">regClientCSS</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3141">3141</a></span>)
+		<span class="method-title">regClientCSS</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3148">3148</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4313,7 +4360,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">regClientHTMLBlock</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3340">3340</a></span>)
+		<span class="method-title">regClientHTMLBlock</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3347">3347</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4339,7 +4386,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">regClientJquery</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3239">3239</a></span>)
+		<span class="method-title">regClientJquery</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3246">3246</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4360,7 +4407,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">regClientJqueryPlugin</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3260">3260</a></span>)
+		<span class="method-title">regClientJqueryPlugin</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3267">3267</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4395,7 +4442,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">regClientScript</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3173">3173</a></span>)
+		<span class="method-title">regClientScript</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3180">3180</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4427,7 +4474,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">regClientStartupHTMLBlock</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3331">3331</a></span>)
+		<span class="method-title">regClientStartupHTMLBlock</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3338">3338</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4453,7 +4500,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">regClientStartupScript</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3161">3161</a></span>)
+		<span class="method-title">regClientStartupScript</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3168">3168</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4482,7 +4529,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">registerEvalInfo</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1104">1104</a></span>)
+		<span class="method-title">registerEvalInfo</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1110">1110</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4512,7 +4559,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">removeAllEventListener</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3436">3436</a></span>)
+		<span class="method-title">removeAllEventListener</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3443">3443</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4533,7 +4580,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">removeEventListener</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3427">3427</a></span>)
+		<span class="method-title">removeEventListener</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3434">3434</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4559,7 +4606,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">rewriteUrls</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1314">1314</a></span>)
+		<span class="method-title">rewriteUrls</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1320">1320</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4585,7 +4632,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">runSnippet</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2380">2380</a></span>)
+		<span class="method-title">runSnippet</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2387">2387</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4614,7 +4661,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">sendAlert</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2859">2859</a></span>)
+		<span class="method-title">sendAlert</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2866">2866</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4761,7 +4808,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">setPlaceholder</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2790">2790</a></span>)
+		<span class="method-title">setPlaceholder</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2797">2797</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4790,7 +4837,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">set_error_handler</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3529">3529</a></span>)
+		<span class="method-title">set_error_handler</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3536">3536</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4811,7 +4858,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">stripAlias</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3389">3389</a></span>)
+		<span class="method-title">stripAlias</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3396">3396</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4840,7 +4887,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">stripTags</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3369">3369</a></span>)
+		<span class="method-title">stripTags</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a3376">3376</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4869,7 +4916,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">toDateFormat</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2468">2468</a></span>)
+		<span class="method-title">toDateFormat</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2475">2475</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4898,7 +4945,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">toPlaceholder</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2818">2818</a></span>)
+		<span class="method-title">toPlaceholder</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2825">2825</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4930,7 +4977,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">toPlaceholders</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2800">2800</a></span>)
+		<span class="method-title">toPlaceholders</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2807">2807</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4959,7 +5006,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">toTimeStamp</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2506">2506</a></span>)
+		<span class="method-title">toTimeStamp</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2513">2513</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -4985,7 +5032,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">unregisterEvalInfo</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1115">1115</a></span>)
+		<span class="method-title">unregisterEvalInfo</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1121">1121</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -5006,7 +5053,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">userLoggedIn</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2323">2323</a></span>)
+		<span class="method-title">userLoggedIn</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a2330">2330</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -5027,7 +5074,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">webAlert</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1764">1764</a></span>)
+		<span class="method-title">webAlert</span> (line <span class="line-number"><a href="../__filesource/fsource_phpDocumentor__managerincludesdocument.parser.class.inc.php.html#a1770">1770</a></span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -5060,6 +5107,7 @@
 													<span class="method-name"><a href="../phpDocumentor/Core.html#methodgetFullTableName">Core::getFullTableName()</a></span><br>
 													<span class="method-name"><a href="../phpDocumentor/Core.html#methodgetMicroTime">Core::getMicroTime()</a></span><br>
 													<span class="method-name"><a href="../phpDocumentor/Core.html#methodgetSettings">Core::getSettings()</a></span><br>
+													<span class="method-name"><a href="../phpDocumentor/Core.html#methodgetUserSettings">Core::getUserSettings()</a></span><br>
 													<span class="method-name"><a href="../phpDocumentor/Core.html#methodmessageQuit">Core::messageQuit()</a></span><br>
 											</blockquote>
 										
@@ -5068,7 +5116,7 @@
 
 
 	<p class="notes" id="credit">
-		Documentation generated on Sat, 23 Mar 2013 10:41:27 +0000 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+		Documentation generated on Fri, 19 Apr 2013 16:13:37 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
 	</p>
 	</div></body>
 </html>
