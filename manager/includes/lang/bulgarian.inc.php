@@ -297,7 +297,7 @@ $_lang["go"] = 'Отиди';
 $_lang["group_access_permissions"] = 'Права за достъп на Група Потребители';
 $_lang["guid"] = 'GUID';
 $_lang["help"] = 'Помощ';
-$_lang["help_msg"] = '<p>Можете да получите безплатна помощ на <a href="http://clippercms.com/forums" target="_blank">адреса на Форума на '.CMS_NAME.'</a>. Също така можете да посетите и <a href="http://clippercms.com/documentation" target="_blank">'.CMS_NAME.' Документация и Ръководства</a> , където са засегнати почти всички аспекти на '.CMS_NAME.'.</p><p>Екипът планира да предложи и платена помощ като услуга също. Моля да се информирате за платената помощ на адрес <a href="mailto:modx@vertexworks.com?subject='.CMS_NAME.' Commercial Support Inquiry"></a>.';
+$_lang["help_msg"] = '<p>Можете да получите безплатна помощ на <a href="http://clippercms.com/forums" target="_blank">адреса на Форума на '.CMS_NAME.'</a>. Също така можете да посетите и <a href="http://clippercms.com/documentation" target="_blank">'.CMS_NAME.' Документация и Ръководства</a> , където са засегнати почти всички аспекти на '.CMS_NAME.'.</p><p>Екипът планира да предложи и платена помощ като услуга също. Моля да се информирате за платената помощ на адрес <a href="mailto:hello@'.CMS_DOMAIN.'?subject='.CMS_NAME.' Commercial Support Inquiry"></a>.';
 $_lang["help_title"] = 'Помощ';
 $_lang["hide_tree"] = 'Скриване на дървото';
 $_lang["home"] = 'Начало';
