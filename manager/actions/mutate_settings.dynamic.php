@@ -145,23 +145,8 @@ function updateContentType(){
  * @param string default_str default value of string for loaded manager language - allows some level of confirmation of change from default
  */
 function confirmLangChange(el, lkey, elupd){
-    lang_current = document.getElementById(elupd).value;
-    lang_default = document.getElementById(lkey+'_hidden').value;
-    changed = lang_current != lang_default;
-    proceed = true;
-    if(changed) {
-        proceed = confirm('<?php echo $_lang['confirm_setting_language_change']; ?>');
-    }
-    if(proceed) {
-        //document.getElementById(elupd).value = '';
-        lang = el.options[el.selectedIndex].value;
-        var myAjax = new Ajax('index.php?a=118', {
-            method: 'post',
-            data: 'action=get&lang='+lang+'&key='+lkey
-        }).request();
-        myAjax.addEvent('onComplete', function(resp){
-            document.getElementById(elupd).value = resp;
-        });
+    if (document.getElementById(elupd).value == document.getElementById(lkey+'_hidden').value || confirm('<?php echo $_lang['confirm_setting_language_change']; ?>')) {
+        $.ajax('index.php?a=118', {type: 'POST', data: {action: 'get', lang: el.options[el.selectedIndex].value, key: lkey}, complete: function (r) { document.getElementById(elupd).value = r.responseText; } });
     }
 }
 
