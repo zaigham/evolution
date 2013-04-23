@@ -14,12 +14,12 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 	<script>
     	
     	var lang = {
-    		show_tree: '<?php echo $_lang['show_tree'] ?>',
-    		icons_loading_doc_tree : '<?php echo $_style['icons_loading_doc_tree']?>',
-    		loading_doc_tree : '<?php echo $_lang['loading_doc_tree']?>',
-    		loading_menu : '<?php echo $_lang['loading_menu']?>',
-    		working : '<?php echo $_lang['working']?>',
-    		confirm_remove_locks : '<?php echo $_lang['confirm_remove_locks']?>'
+    		show_tree: '<?php echo str_replace("'", "\'", $_lang['show_tree']); ?>',
+    		icons_loading_doc_tree : '<?php echo $_style['icons_loading_doc_tree']; ?>',
+    		loading_doc_tree : '<?php echo str_replace("'", "\'", $_lang['loading_doc_tree']); ?>',
+    		loading_menu : '<?php echo str_replace("'", "\'", $_lang['loading_menu']); ?>',
+    		working : '<?php echo str_replace("'", "\'", $_lang['working']); ?>',
+    		confirm_remove_locks : '<?php echo str_replace("'", "\'", $_lang['confirm_remove_locks']); ?>'
     	}
     	
     	var style = {
