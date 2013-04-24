@@ -153,7 +153,10 @@
 					</script>";
 					$ResourceManagerLoaded  = true;					
 				} 
-				$field_html .='<input type="text" id="tv'.$field_id.'" name="tv'.$field_id.'"  value="'.$field_value .'" '.$field_style.' onchange="documentDirty=true;" />&nbsp;<input type="button" value="'.$_lang['insert'].'" onclick="BrowseServer(\'tv'.$field_id.'\')" />';
+				$field_html .=
+				'<input type="text" id="tv'.$field_id.'" name="tv'.$field_id.'"  value="'.$field_value .'" '.$field_style.' onchange="documentDirty=true;" />&nbsp;<input type="button" value="'.$_lang['insert'].'" onclick="BrowseServer(\'tv'.$field_id.'\')" />'.
+				($row['value'] && file_exists($modx->config['base_path'].$row['value']) ? '<div class="image-preview"><img src="media/image/resize.php?src='.$row['value'].'&amp;w=300&amp;h=100" alt="" /></div>' : '');
+
 				break;
 			case "file": // handles the input of file uploads
 			/* Modified by Timon for use with resource browser */
