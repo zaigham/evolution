@@ -63,13 +63,7 @@ $(document).ready(function($) {
 		}
 		
 	}(jQuery));
-	
 
-	//hide configuration tab if empty
-	if(typeof(config_display) != "undefined" && !config_display){
-		$('#tabs').tabs('remove', 1);
-	}
-	
 	$('#search-documents').dataTable({
 		"bJQueryUI": true,
 		"aoColumns": [

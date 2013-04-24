@@ -205,6 +205,11 @@ $tpl = fread($handle, filesize($tplFile));
 fclose($handle);
 $modx->setPlaceholder('manager_theme_url', "media/style/{$modx->config['manager_theme']}/");
 
+if (!$config_check_warningspresent) {
+    // Remove configuration warnings section(s)
+    $tpl = preg_replace('/\[\+config_check_fail\+\].*?\[\+end_config_check_fail\+\]/s', '', $tpl);
+}
+
 // merge placeholders
 $tpl = $modx->mergePlaceholderContent($tpl);
 $tpl = preg_replace('~\[\+(.*?)\+\]~', '', $tpl); //cleanup

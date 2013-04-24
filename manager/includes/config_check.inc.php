@@ -1,23 +1,23 @@
 <?php
 if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
-$warningspresent = 0;
+$config_check_warningspresent = 0;
 
 if (is_writable("includes/config.inc.php")){
     // Warn if world writable
     if(@fileperms('includes/config.inc.php') & 0x0002) {
-      $warningspresent = 1;
+      $config_check_warningspresent = 1;
       $warnings[] = array($_lang['configcheck_configinc']);
     }
 }
 
 if (file_exists("../install/")) {
-    $warningspresent = 1;
+    $config_check_warningspresent = 1;
     $warnings[] = array($_lang['configcheck_installer']);
 }
 
 if (ini_get('register_globals')==TRUE) {
-    $warningspresent = 1;
+    $config_check_warningspresent = 1;
     $warnings[] = array($_lang['configcheck_register_globals']);
 }
 
@@ -45,14 +45,14 @@ if (isset($clipper_config['locale_lc_numeric']) && setlocale(LC_NUMERIC, 0) != $
 }
 
 if (!extension_loaded('gd') || !extension_loaded('zip')) {
-    $warningspresent = 1;
+    $config_check_warningspresent = 1;
     $warnings[] = array($_lang['configcheck_php_gdzip']);
 }
 
 if(!isset($modx->config['_hide_configcheck_validate_referer']) || $modx->config['_hide_configcheck_validate_referer'] !== '1') {
     if(isset($_SESSION['mgrPermissions']['settings']) && $_SESSION['mgrPermissions']['settings'] == '1') {
         if ($modx->db->getValue('SELECT COUNT(setting_value) FROM '.$modx->getFullTableName('system_settings').' WHERE setting_name=\'validate_referer\' AND setting_value=\'0\'')) {
-            $warningspresent = 1;
+            $config_check_warningspresent = 1;
             $warnings[] = array($_lang['configcheck_validate_referer']);
         }
     }
@@ -65,7 +65,7 @@ if(!isset($modx->config['_hide_configcheck_templateswitcher_present']) || $modx-
         $rs = $modx->db->query($sql);
         $row = $modx->db->getRow($rs, 'assoc');
         if($row && $row['disabled'] == 0) {
-            $warningspresent = 1;
+            $config_check_warningspresent = 1;
             $warnings[] = array($_lang['configcheck_templateswitcher_present']);
             $tplName = $row['name'];
             $script = <<<JS
@@ -105,22 +105,22 @@ JS;
 }
 
 if ($modx->db->getValue('SELECT published FROM '.$modx->getFullTableName('site_content').' WHERE id='.$unauthorized_page) == 0) {
-    $warningspresent = 1;
+    $config_check_warningspresent = 1;
     $warnings[] = array($_lang['configcheck_unauthorizedpage_unpublished']);
 }
 
 if ($modx->db->getValue('SELECT published FROM '.$modx->getFullTableName('site_content').' WHERE id='.$error_page) == 0) {
-    $warningspresent = 1;
+    $config_check_warningspresent = 1;
     $warnings[] = array($_lang['configcheck_errorpage_unpublished']);
 }
 
 if ($modx->db->getValue('SELECT privateweb FROM '.$modx->getFullTableName('site_content').' WHERE id='.$unauthorized_page) == 1) {
-    $warningspresent = 1;
+    $config_check_warningspresent = 1;
     $warnings[] = array($_lang['configcheck_unauthorizedpage_unavailable']);
 }
 
 if ($modx->db->getValue('SELECT privateweb FROM '.$modx->getFullTableName('site_content').' WHERE id='.$error_page) == 1) {
-    $warningspresent = 1;
+    $config_check_warningspresent = 1;
     $warnings[] = array($_lang['configcheck_errorpage_unavailable']);
 }
 
@@ -136,34 +136,34 @@ if (!function_exists('checkSiteCache')) {
 }
 
 if (!is_writable("../assets/cache/")) {
-    $warningspresent = 1;
+    $config_check_warningspresent = 1;
     $warnings[] = array($_lang['configcheck_cache']);
 }
 
 if (!checkSiteCache()) {
-    $warningspresent = 1;
+    $config_check_warningspresent = 1;
     $warnings[]= array($lang['configcheck_sitecache_integrity']);
 }
 
 if (!is_writable("../assets/images/")) {
-    $warningspresent = 1;
+    $config_check_warningspresent = 1;
     $warnings[] = array($_lang['configcheck_images']);
 }
 
 if (count($_lang)!=$length_eng_lang) {
-    $warningspresent = 1;
+    $config_check_warningspresent = 1;
     $warnings[] = array($_lang['configcheck_lang_difference']);
 }
 
 if (!$modx->config['error_handling_silent']) {
-    $warningspresent = 1;
+    $config_check_warningspresent = 1;
     $warnings[] = array($_lang['configcheck_error_handling_silent']);
 }
 
 // clear file info cache
 clearstatcache();
 
-if ($warningspresent==1) {
+if ($config_check_warningspresent==1) {
 
 $config_check_results = "<h3>".$_lang['configcheck_notok']."</h3>";
 
