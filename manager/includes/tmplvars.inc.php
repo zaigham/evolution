@@ -144,7 +144,7 @@
 									lastFileCtrl = '';
 								} else if(lastImageCtrl) {
 									var c = document.mutate[lastImageCtrl];
-									if(c) c.value = url;
+									if(c) { c.value = url; $('#'+c.id+'-preview img').attr('src', 'media/image/resize.php?src='+url+'&w=300&h=100'); }
 									lastImageCtrl = '';
 								} else {
 									return;
@@ -155,7 +155,7 @@
 				} 
 				$field_html .=
 				'<input type="text" id="tv'.$field_id.'" name="tv'.$field_id.'"  value="'.$field_value .'" '.$field_style.' onchange="documentDirty=true;" />&nbsp;<input type="button" value="'.$_lang['insert'].'" onclick="BrowseServer(\'tv'.$field_id.'\')" />'.
-				($row['value'] && file_exists($modx->config['base_path'].$row['value']) ? '<div class="image-preview"><img src="media/image/resize.php?src='.$row['value'].'&amp;w=300&amp;h=100" alt="" /></div>' : '');
+				($row['value'] && file_exists($modx->config['base_path'].$row['value']) ? '<div id="tv'.$field_id.'-preview" class="image-preview"><img src="media/image/resize.php?src='.$row['value'].'&amp;w=300&amp;h=100" alt="" /></div>' : '');
 
 				break;
 			case "file": // handles the input of file uploads
@@ -203,7 +203,7 @@
 									lastFileCtrl = '';
 								} else if(lastImageCtrl) {
 									var c = document.mutate[lastImageCtrl];
-									if(c) c.value = url;
+									if(c) { c.value = url; $('#'+c.id+'-preview img').attr('src', 'media/image/resize.php?src='+url+'&w=300&h=100'); }
 									lastImageCtrl = '';
 								} else {
 									return;
