@@ -7,53 +7,53 @@ if (is_writable("includes/config.inc.php")){
     // Warn if world writable
     if(@fileperms('includes/config.inc.php') & 0x0002) {
       $config_check_warningspresent = 1;
-      $warnings[] = array($_lang['configcheck_configinc']);
+      $config_check_warnings[] = array($_lang['configcheck_configinc']);
     }
 }
 
 if (file_exists("../install/")) {
     $config_check_warningspresent = 1;
-    $warnings[] = array($_lang['configcheck_installer']);
+    $config_check_warnings[] = array($_lang['configcheck_installer']);
 }
 
 if (ini_get('register_globals')==TRUE) {
     $config_check_warningspresent = 1;
-    $warnings[] = array($_lang['configcheck_register_globals']);
+    $config_check_warnings[] = array($_lang['configcheck_register_globals']);
 }
 
 if (isset($clipper_config['locale_lc_all'])) {
-    $locales = setlocale(LC_ALL, 0);
-    if (strpos($locales, ';') !== false) {
+    $config_check_locales = setlocale(LC_ALL, 0);
+    if (strpos($config_check_locales, ';') !== false) {
         // Locales differ across categories
-        $locales = explode(';', $locales);
-        foreach($locales as $locale) {
+        $config_check_locales = explode(';', $config_check_locales);
+        foreach($config_check_locales as $locale) {
             $l = explode('=', $locale);
             if ($clipper_config['locale_lc_all'] != $l[1]
             		&& !(($clipper_config['locale_lc_all'] == 'POSIX' && $l[1] == 'C') || ($clipper_config['locale_lc_all'] == 'C' && $l[1] == 'POSIX'))
             		&& (!isset($clipper_config['locale_lc_numeric']) || $l[0] != 'LC_NUMERIC')) {
-                $warnings[] = array($_lang['configcheck_locale_LC_ALL_warning']);
+                $config_check_warnings[] = array($_lang['configcheck_locale_LC_ALL_warning']);
                 break;
             }
         }
-    } elseif ($locales != $clipper_config['locale_lc_all']) {
-        $warnings[] = array($_lang['configcheck_locale_LC_ALL_warning']);
+    } elseif ($config_check_locales != $clipper_config['locale_lc_all']) {
+        $config_check_warnings[] = array($_lang['configcheck_locale_LC_ALL_warning']);
     }
 }
 
 if (isset($clipper_config['locale_lc_numeric']) && setlocale(LC_NUMERIC, 0) != $clipper_config['locale_lc_numeric']) {
-    $warnings[] = array($_lang['configcheck_locale_LC_NUMERIC_warning']);
+    $config_check_warnings[] = array($_lang['configcheck_locale_LC_NUMERIC_warning']);
 }
 
 if (!extension_loaded('gd') || !extension_loaded('zip')) {
     $config_check_warningspresent = 1;
-    $warnings[] = array($_lang['configcheck_php_gdzip']);
+    $config_check_warnings[] = array($_lang['configcheck_php_gdzip']);
 }
 
 if(!isset($modx->config['_hide_configcheck_validate_referer']) || $modx->config['_hide_configcheck_validate_referer'] !== '1') {
     if(isset($_SESSION['mgrPermissions']['settings']) && $_SESSION['mgrPermissions']['settings'] == '1') {
         if ($modx->db->getValue('SELECT COUNT(setting_value) FROM '.$modx->getFullTableName('system_settings').' WHERE setting_name=\'validate_referer\' AND setting_value=\'0\'')) {
             $config_check_warningspresent = 1;
-            $warnings[] = array($_lang['configcheck_validate_referer']);
+            $config_check_warnings[] = array($_lang['configcheck_validate_referer']);
         }
     }
 }
@@ -66,7 +66,7 @@ if(!isset($modx->config['_hide_configcheck_templateswitcher_present']) || $modx-
         $row = $modx->db->getRow($rs, 'assoc');
         if($row && $row['disabled'] == 0) {
             $config_check_warningspresent = 1;
-            $warnings[] = array($_lang['configcheck_templateswitcher_present']);
+            $config_check_warnings[] = array($_lang['configcheck_templateswitcher_present']);
             $tplName = $row['name'];
             $script = <<<JS
 <script>
@@ -106,22 +106,22 @@ JS;
 
 if ($modx->db->getValue('SELECT published FROM '.$modx->getFullTableName('site_content').' WHERE id='.$unauthorized_page) == 0) {
     $config_check_warningspresent = 1;
-    $warnings[] = array($_lang['configcheck_unauthorizedpage_unpublished']);
+    $config_check_warnings[] = array($_lang['configcheck_unauthorizedpage_unpublished']);
 }
 
 if ($modx->db->getValue('SELECT published FROM '.$modx->getFullTableName('site_content').' WHERE id='.$error_page) == 0) {
     $config_check_warningspresent = 1;
-    $warnings[] = array($_lang['configcheck_errorpage_unpublished']);
+    $config_check_warnings[] = array($_lang['configcheck_errorpage_unpublished']);
 }
 
 if ($modx->db->getValue('SELECT privateweb FROM '.$modx->getFullTableName('site_content').' WHERE id='.$unauthorized_page) == 1) {
     $config_check_warningspresent = 1;
-    $warnings[] = array($_lang['configcheck_unauthorizedpage_unavailable']);
+    $config_check_warnings[] = array($_lang['configcheck_unauthorizedpage_unavailable']);
 }
 
 if ($modx->db->getValue('SELECT privateweb FROM '.$modx->getFullTableName('site_content').' WHERE id='.$error_page) == 1) {
     $config_check_warningspresent = 1;
-    $warnings[] = array($_lang['configcheck_errorpage_unavailable']);
+    $config_check_warnings[] = array($_lang['configcheck_errorpage_unavailable']);
 }
 
 if (!function_exists('checkSiteCache')) {
@@ -137,27 +137,27 @@ if (!function_exists('checkSiteCache')) {
 
 if (!is_writable("../assets/cache/")) {
     $config_check_warningspresent = 1;
-    $warnings[] = array($_lang['configcheck_cache']);
+    $config_check_warnings[] = array($_lang['configcheck_cache']);
 }
 
 if (!checkSiteCache()) {
     $config_check_warningspresent = 1;
-    $warnings[]= array($lang['configcheck_sitecache_integrity']);
+    $config_check_warnings[]= array($lang['configcheck_sitecache_integrity']);
 }
 
 if (!is_writable("../assets/images/")) {
     $config_check_warningspresent = 1;
-    $warnings[] = array($_lang['configcheck_images']);
+    $config_check_warnings[] = array($_lang['configcheck_images']);
 }
 
 if (count($_lang)!=$length_eng_lang) {
     $config_check_warningspresent = 1;
-    $warnings[] = array($_lang['configcheck_lang_difference']);
+    $config_check_warnings[] = array($_lang['configcheck_lang_difference']);
 }
 
 if (!$modx->config['error_handling_silent']) {
     $config_check_warningspresent = 1;
-    $warnings[] = array($_lang['configcheck_error_handling_silent']);
+    $config_check_warnings[] = array($_lang['configcheck_error_handling_silent']);
 }
 
 // clear file info cache
@@ -167,49 +167,49 @@ if ($config_check_warningspresent==1) {
 
 $config_check_results = "<h3>".$_lang['configcheck_notok']."</h3>";
 
-for ($i=0;$i<count($warnings);$i++) {
-    switch ($warnings[$i][0]) {
+for ($i=0;$i<count($config_check_warnings);$i++) {
+    switch ($config_check_warnings[$i][0]) {
         case $_lang['configcheck_configinc'];
-            $warnings[$i][1] = $_lang['configcheck_configinc_msg'];
-            if(!$_SESSION["mgrConfigCheck"]) $modx->logEvent(0,2,$warnings[$i][1],$_lang['configcheck_configinc']);
+            $config_check_warnings[$i][1] = $_lang['configcheck_configinc_msg'];
+            if(!$_SESSION["mgrConfigCheck"]) $modx->logEvent(0,2,$config_check_warnings[$i][1],$_lang['configcheck_configinc']);
             break;
         case $_lang['configcheck_installer'] :
-            $warnings[$i][1] = $_lang['configcheck_installer_msg'];
-            if(!$_SESSION["mgrConfigCheck"]) $modx->logEvent(0,2,$warnings[$i][1],$_lang['configcheck_installer']);
+            $config_check_warnings[$i][1] = $_lang['configcheck_installer_msg'];
+            if(!$_SESSION["mgrConfigCheck"]) $modx->logEvent(0,2,$config_check_warnings[$i][1],$_lang['configcheck_installer']);
             break;
         case $_lang['configcheck_cache'] :
-            $warnings[$i][1] = $_lang['configcheck_cache_msg'];
-            if(!$_SESSION["mgrConfigCheck"]) $modx->logEvent(0,2,$warnings[$i][1],$_lang['configcheck_cache']);
+            $config_check_warnings[$i][1] = $_lang['configcheck_cache_msg'];
+            if(!$_SESSION["mgrConfigCheck"]) $modx->logEvent(0,2,$config_check_warnings[$i][1],$_lang['configcheck_cache']);
             break;
         case $_lang['configcheck_images'] :
-            $warnings[$i][1] = $_lang['configcheck_images_msg'];
-            if(!$_SESSION["mgrConfigCheck"]) $modx->logEvent(0,2,$warnings[$i][1],$_lang['configcheck_images']);
+            $config_check_warnings[$i][1] = $_lang['configcheck_images_msg'];
+            if(!$_SESSION["mgrConfigCheck"]) $modx->logEvent(0,2,$config_check_warnings[$i][1],$_lang['configcheck_images']);
             break;
         case $_lang['configcheck_lang_difference'] :
-            $warnings[$i][1] = $_lang['configcheck_lang_difference_msg'];
+            $config_check_warnings[$i][1] = $_lang['configcheck_lang_difference_msg'];
             break;
         case $_lang['configcheck_register_globals'] :
-            $warnings[$i][1] = $_lang['configcheck_register_globals_msg'];
+            $config_check_warnings[$i][1] = $_lang['configcheck_register_globals_msg'];
             break;
         case $_lang['configcheck_php_gdzip'] :
-            $warnings[$i][1] = $_lang['configcheck_php_gdzip_msg'];
+            $config_check_warnings[$i][1] = $_lang['configcheck_php_gdzip_msg'];
             break;
         case $_lang['configcheck_unauthorizedpage_unpublished'] :
-            $warnings[$i][1] = $_lang['configcheck_unauthorizedpage_unpublished_msg'];
+            $config_check_warnings[$i][1] = $_lang['configcheck_unauthorizedpage_unpublished_msg'];
             break;
         case $_lang['configcheck_errorpage_unpublished'] :
-            $warnings[$i][1] = $_lang['configcheck_errorpage_unpublished_msg'];
+            $config_check_warnings[$i][1] = $_lang['configcheck_errorpage_unpublished_msg'];
             break;
         case $_lang['configcheck_unauthorizedpage_unavailable'] :
-            $warnings[$i][1] = $_lang['configcheck_unauthorizedpage_unavailable_msg'];
+            $config_check_warnings[$i][1] = $_lang['configcheck_unauthorizedpage_unavailable_msg'];
             break;
         case $_lang['configcheck_errorpage_unavailable'] :
-            $warnings[$i][1] = $_lang['configcheck_errorpage_unavailable_msg'];
+            $config_check_warnings[$i][1] = $_lang['configcheck_errorpage_unavailable_msg'];
             break;
         case $_lang['configcheck_validate_referer'] :
             $msg = $_lang['configcheck_validate_referer_msg'];
             $msg .= '<br />' . sprintf($_lang["configcheck_hide_warning"], 'validate_referer');
-            $warnings[$i][1] = "<span id=\"validate_referer_warning_wrapper\">{$msg}</span>\n";
+            $config_check_warnings[$i][1] = "<span id=\"validate_referer_warning_wrapper\">{$msg}</span>\n";
             break;
         case $_lang['configcheck_templateswitcher_present'] :
             $msg = $_lang["configcheck_templateswitcher_present_msg"];
@@ -220,30 +220,29 @@ for ($i=0;$i<count($warnings);$i++) {
                 $msg .= '<br />' . $_lang["configcheck_templateswitcher_present_delete"];
             }
             $msg .= '<br />' . sprintf($_lang["configcheck_hide_warning"], 'templateswitcher_present');
-            $warnings[$i][1] = "<span id=\"templateswitcher_present_warning_wrapper\">{$msg}</span>\n";
+            $config_check_warnings[$i][1] = "<span id=\"templateswitcher_present_warning_wrapper\">{$msg}</span>\n";
             break;
         case $_lang['configcheck_error_handling_silent'] :
-            $warnings[$i][1] = $_lang['configcheck_error_handling_silent_msg'];
+            $config_check_warnings[$i][1] = $_lang['configcheck_error_handling_silent_msg'];
             break;
         case $_lang['configcheck_locale_LC_ALL_warning'] :
-            $warnings[$i][1] = $_lang['configcheck_locale_LC_ALL_warning_msg'];
+            $config_check_warnings[$i][1] = $_lang['configcheck_locale_LC_ALL_warning_msg'];
             break;
         case $_lang['configcheck_locale_LC_NUMERIC_warning'] :
-            $warnings[$i][1] = $_lang['configcheck_locale_LC_NUMERIC_warning_msg'];
+            $config_check_warnings[$i][1] = $_lang['configcheck_locale_LC_NUMERIC_warning_msg'];
             break;
         default :
-            $warnings[$i][1] = $_lang['configcheck_default_msg'];
+            $config_check_warnings[$i][1] = $_lang['configcheck_default_msg'];
     }
 
-    $admin_warning = $_SESSION['mgrRole']!=1 ? $_lang['configcheck_admin'] : "" ;
     $config_check_results .= "
             <div>
-            <p><strong>".$_lang['configcheck_warning']."</strong> '".$warnings[$i][0]."'</p>
-            <p style=\"padding-left:1em\"><em>".$_lang['configcheck_what']."</em><br />
-            ".$warnings[$i][1]." ".$admin_warning."</p>
-            </div>
-";
-        if ($i!=count($warnings)-1) {
+            <p><strong>{$_lang['configcheck_warning']}</strong> '{$config_check_warnings[$i][0]}'</p>
+            <p style=\"padding-left:1em\"><em>{$_lang['configcheck_what']}</em><br />
+            {$config_check_warnings[$i][1]} ".($_SESSION['mgrRole']!=1 ? $_lang['configcheck_admin'] : '')."</p>
+            </div>";
+
+        if ($i!=count($config_check_warnings)-1) {
             $config_check_results .= "<br />";
         }
     }
@@ -251,3 +250,4 @@ for ($i=0;$i<count($warnings);$i++) {
 } else {
     $config_check_results = $_lang['configcheck_ok'];
 }
+
