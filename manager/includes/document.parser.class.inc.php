@@ -815,7 +815,7 @@ class DocumentParser extends Core {
      function fatalErrorCheck() {
          // Log fatal errors
         $error = error_get_last();
-        if ($error['type'] == E_ERROR || $error['type'] == 'E_USER_ERROR') {
+        if ($error['type'] == E_ERROR || $error['type'] == E_USER_ERROR || $error['type'] == E_PARSE) {
         
             $file = $error['file'];
             if (strpos($file, '/document.parser.class.inc.php') !== false) {
