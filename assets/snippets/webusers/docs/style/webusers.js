@@ -1,9 +1,3 @@
-$(document).ready(function() {
-	$('.parameter').corner();
-	$('.example').corner();
-	$('.servicesHead').corner('top');
-});
-
 function viewTemplate(template)
 {
 	var url = '../Default%20Forms/' + template + '.html';
