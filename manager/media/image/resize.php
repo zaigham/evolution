@@ -1,4 +1,8 @@
 <?php
+require(realpath('../../').'/includes/config.inc.php');
+startCMSSession();
+if (!isset($_SESSION['mgrValidated'])) exit(); // Only allow viewing of images if manager logged in.
+
 $image_path = realpath('../../../').'/'.$_GET['src'];
 
 $image_info = getimagesize($image_path);
