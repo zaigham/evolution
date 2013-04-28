@@ -1,5 +1,5 @@
 <?php
-$image_path = preg_replace('/manager\/.*$/', '/', dirname(__FILE__)).$_GET['src'];
+$image_path = realpath('../../../').'/'.$_GET['src'];
 
 $image_info = getimagesize($image_path);
 
