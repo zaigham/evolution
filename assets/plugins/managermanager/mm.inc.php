@@ -1,9 +1,9 @@
 <?php
 /**
  * @name ManagerManager
- * @version clipper-0.3.13 (2012-09-07)
+ * @version clipper-0.3.13 (2013-04-24)
  * 
- * @for Clipper 1.1
+ * @for Clipper 1.2
  * 
  * @author Nick Crossland - www.rckt.co.uk, studio DivanDesign - www.DivanDesign.biz, the ClipperCMS team
  * 
