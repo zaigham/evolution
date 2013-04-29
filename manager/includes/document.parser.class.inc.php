@@ -1199,11 +1199,11 @@ class DocumentParser extends Core {
             for ($i= 0; $i < $matchCount; $i++) {
                 $spos= strpos($matches[1][$i], '?', 0);
                 if ($spos !== false) {
-                    $params= substr($matches[1][$i], $spos, strlen($matches[1][$i]));
+                    $params= substr($matches[1][$i], $spos);
+                    $matches[1][$i]= substr($matches[1][$i], 0, $spos);
                 } else {
                     $params= '';
                 }
-                $matches[1][$i]= str_replace($params, '', $matches[1][$i]);
 
                 if (isset($this->snippetMap[strtolower($matches[1][$i])])) {
                      $snippets[$i]['oldname'] = $matches[1][$i]; // Store old name as it appears in the source
@@ -1250,44 +1250,28 @@ class DocumentParser extends Core {
                 } else {
                     $snippetProperties= '';
                 }
+                
                 // load default params/properties - Raymond
-                // FIXME Undefined variable: snippetProperties
                 $parameter= $this->parseProperties($snippetProperties);
+                
                 // current params
-                $currentSnippetParams= $snippetParams[$i];
-                if (!empty ($currentSnippetParams)) {
-                    $tempSnippetParams= str_replace("?", "", $currentSnippetParams);
-                    $splitter= "&";
-                    if (strpos($tempSnippetParams, "&amp;") > 0)
-                        $tempSnippetParams= str_replace("&amp;", "&", $tempSnippetParams);
-                    //$tempSnippetParams = html_entity_decode($tempSnippetParams, ENT_NOQUOTES, $this->config['etomite_charset']); //FS#334 and FS#456
-                    $tempSnippetParams= explode($splitter, $tempSnippetParams);
-                    $snippetParamCount= count($tempSnippetParams);
-                    for ($x= 0; $x < $snippetParamCount; $x++) {
-                        if (strpos($tempSnippetParams[$x], '=', 0)) {
-                            if ($parameterTemp= explode("=", $tempSnippetParams[$x])) {
-                                $parameterTemp[0] = trim($parameterTemp[0]);
-                                $parameterTemp[1] = trim($parameterTemp[1]);
-                                $fp= strpos($parameterTemp[1], '`');
-                                $lp= strrpos($parameterTemp[1], '`');
-                                if (!($fp === false && $lp === false))
-                                    $parameterTemp[1]= substr($parameterTemp[1], $fp +1, $lp -1);
-                                $parameter[$parameterTemp[0]]= $parameterTemp[1];
-                            }
-                        }
-                    }
+                // NOTE: &amp; and & situation non-ideal, but needed to avoid breaking sites that use snippet calls in richtext fields!
+                preg_match_all('/(^|\s|`)&([^=]+)\=`([^`]*)`/', str_replace('&amp;', '&', $snippetParams[$i]), $tempSnippetParams, PREG_SET_ORDER);
+                foreach ($tempSnippetParams as $tempSnippetParam) {
+                    $parameter[$tempSnippetParam[2]] = $tempSnippetParam[3];
                 }
+
                 $executedSnippets[$i]= $this->evalSnippet($snippets[$i]['snippet'], $parameter, $snippets[$i]['name']);
                 if ($this->dumpSnippets == 1) {
                     echo "<fieldset><legend><b>$snippetName</b></legend><textarea style='width:60%; height:200px'>" . htmlentities($executedSnippets[$i]) . "</textarea></fieldset><br />";
                 }
-                
+
                 // Replace snippet call with snippet return value
-                $documentSource= str_replace("[[" . $snippetName . $currentSnippetParams . "]]", $executedSnippets[$i], $documentSource);
+                $documentSource= str_replace('[[' . $snippetName . $snippetParams[$i] . ']]', $executedSnippets[$i], $documentSource);
                 
                 if (isset($snippets[$i]['oldname'])) {
                     // And again for old mapped snippets
-                    $documentSource= str_replace("[[" . $snippets[$i]['oldname'] . $currentSnippetParams . "]]", $executedSnippets[$i], $documentSource);
+                    $documentSource= str_replace('[[' . $snippets[$i]['oldname'] . $snippetParams[$i] . ']]', $executedSnippets[$i], $documentSource);
                     }
 
             }
