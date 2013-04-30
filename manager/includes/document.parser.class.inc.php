@@ -1254,9 +1254,12 @@ class DocumentParser extends Core {
                 // load default params/properties - Raymond
                 $parameter= $this->parseProperties($snippetProperties);
                 
-                // current params
-                // NOTE: &amp; and & situation non-ideal, but needed to avoid breaking sites that use snippet calls in richtext fields!
-                preg_match_all('/(^|\s|`)&([^=]+)\=`([^`]*)`/', str_replace('&amp;', '&', $snippetParams[$i]), $tempSnippetParams, PREG_SET_ORDER);
+                // This snippet's parameters.
+                // NOTE 1: &amp; and & situation non-ideal, but needed to avoid breaking sites that use snippet calls in richtext fields!
+                // NOTE 2: For backwards compatability the first parameter name need not be prefixed with '&', but this behaviour is deprecated.
+                $params_to_process = str_replace('&amp;', '&', trim(substr($snippetParams[$i], 1)));
+                if ($params_to_process[0] != '&') $params_to_process = '&'.$params_to_process;
+                preg_match_all('/(^|[`\s])&([^=]+)\=`([^`]*)`/', $params_to_process, $tempSnippetParams, PREG_SET_ORDER);
                 foreach ($tempSnippetParams as $tempSnippetParam) {
                     $parameter[$tempSnippetParam[2]] = $tempSnippetParam[3];
                 }
