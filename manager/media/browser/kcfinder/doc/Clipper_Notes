@@ -23,3 +23,5 @@ Fixes for IE 10 to kcfinder javascript:
 	This is also fixed in the kcfinder git repo.
 	Future stable versions of kcfinder should not need this fix applying again.
 
+Fixes for kcfinder transparency
+	https://github.com/ClipperCMS/ClipperCMS/commit/d674f8a8a2d40bf56bea7dd5202de71ae7c9e160
