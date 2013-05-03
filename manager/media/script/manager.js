@@ -50,8 +50,11 @@ $(document).ready(function($) {
 			var savedPanelId = 0;
 			
 			if(config.remember_last_tab != 0){
-				 savedPanelId = sessionStorage.getItem(tabsId);
+				savedPanelId = sessionStorage.getItem(tabsId);
+			} else {
+			    savedPanelId = null;
 			}
+
 			if(savedPanelId){
 				//activate if only exists, other plugins like MM will like to try activate tabs created by them
 				if($('#'+tabsId+' a[href="#'+savedPanelId+'"]').length){

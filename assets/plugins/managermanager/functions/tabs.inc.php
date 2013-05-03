@@ -128,6 +128,8 @@ function mm_createTab($name, $id, $roles='', $templates='', $intro='', $width='1
 			
 			if(config.remember_last_tab != 0){
 				savedPanelId = sessionStorage.getItem(mmTabsId);
+			} else {
+			    savedPanelId = null;
 			}
 			
 			if(savedPanelId !== undefined && savedPanelId == "tab'.$id.'"){
