@@ -5,8 +5,8 @@
 * @package  AjaxSearchRequest
 *
 * @author       Coroico - www.evo.wangba.fr
-* @version      1.10.0
-* @date         27/03/2013
+* @version      1.10.1
+* @date         03/05/2013
 *
 * Purpose:
 *    The AjaxSearchRequest class contains all functions and data used to manage the search SQL Request
@@ -67,7 +67,7 @@ class AjaxSearchRequest {
             $results = $this->_appendTvs($records);
         }
         if (method_exists($modx->db, 'freeResult')) {
-            $modx->db->freeResult();
+            $modx->db->freeResult($records);
         }
         return $results;
     }
