@@ -1,12 +1,10 @@
 <?php
 if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
-if(!$modx->hasPermission('delete_snippet')) {
+if(!$modx->hasPermission('delete_chunk')) {
 	$e->setError(3);
 	$e->dumpError();
 }
-?>
-<?php
 
 $id=intval($_GET['id']);
 
