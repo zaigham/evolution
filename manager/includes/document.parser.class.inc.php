@@ -636,12 +636,8 @@ class DocumentParser extends Core {
         }
 
         // check for non-cached snippet output
-        if (strpos($this->documentOutput, '[!') > -1) {
-            $this->documentOutput= str_replace('[!', '[[', $this->documentOutput);
-            $this->documentOutput= str_replace('!]', ']]', $this->documentOutput);
-
-            // Parse document source
-            $this->documentOutput= $this->parseDocumentSource($this->documentOutput);
+        if (strpos($this->documentOutput, '[!') !== false) {
+            $this->documentOutput= $this->parseDocumentSource($this->documentOutput, true);
     	}
 
     	// Moved from prepareResponse() by sirlancelot
@@ -1418,13 +1414,13 @@ class DocumentParser extends Core {
      * Parse a source string.
      *
      * Handles most MODx tags. Exceptions include:
-     *   - uncached snippet tags [!...!]
      *   - URL tags [~...~]
      *
      * @param string $source
+     * @param bool $uncached_snippets
      * @return string
      */
-    function parseDocumentSource($source) {
+    function parseDocumentSource($source, $uncached_snippets = false) {
         // set the number of times we are to parse the document source
         $this->minParserPasses= empty ($this->minParserPasses) ? 2 : $this->minParserPasses;
         $this->maxParserPasses= empty ($this->maxParserPasses) ? 10 : $this->maxParserPasses;
@@ -1448,6 +1444,11 @@ class DocumentParser extends Core {
             $source= $this->mergeSettingsContent($source);
             // replace HTMLSnippets in document
             $source= $this->mergeChunkContent($source);
+            
+            if ($uncached_snippets) {
+                $source = str_replace(array('[!', '!]'), array('[[', ']]'), $source);
+            }
+            
             // find and merge snippets
             $source= $this->evalSnippets($source);
             // find and replace Placeholders (must be parsed last) - Added by Raymond
