@@ -224,6 +224,7 @@ $_lang["defaulttemplate_logic_general_message"] = 'New Resources will have the f
 $_lang["defaulttemplate_logic_system_message"] = '<strong>System</strong>: the System Default Template.';
 $_lang["defaulttemplate_logic_parent_message"] = '<strong>Parent</strong>: the same Template as the parent container.';
 $_lang["defaulttemplate_logic_sibling_message"] = '<strong>Sibling</strong>: the same Template as other Resources in the same container.';
+$_lang['default_child_template_use_system_setting'] = 'Use System setting';
 $_lang["delete"] = 'Delete';
 $_lang["delete_resource"] = 'Delete Resource';
 $_lang["delete_tags"] = 'Delete tags';
