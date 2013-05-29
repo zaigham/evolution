@@ -4,6 +4,8 @@
 tinyMCE.init({
 	theme                            : 'advanced',
 	mode                             : 'exact',
+	skin                             : 'o2k7',
+    skin_variant                     : 'silver',
 	elements                         : '[+elmList+]',
 	width                            : '[+width+]',
 	height                           : '[+height+]',
