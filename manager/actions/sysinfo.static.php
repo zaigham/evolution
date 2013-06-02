@@ -163,94 +163,10 @@ if(!$modx->hasPermission('logs')) {
          </table>
    </div>
 
-
-<!-- database -->
-<div class="sectionHeader"><?php echo $_lang['database_tables']; ?></div><div class="sectionBody" id="lyr4">
-		<p><?php echo $_lang['table_hoverinfo']; ?></p>
-		<table border="0" cellpadding="1" cellspacing="1" width="100%" bgcolor="#ccc">
-		 <thead>
-		 <tr>
-			<td width="160"><b><?php echo $_lang["database_table_tablename"]; ?></b></td>
-			<td width="40" align="right"><b><?php echo $_lang["database_table_records"]; ?></b></td>
-			<td width="120" align="right"><b><?php echo $_lang["database_table_datasize"]; ?></b></td>
-			<td width="120" align="right"><b><?php echo $_lang["database_table_overhead"]; ?></b></td>
-			<td width="120" align="right"><b><?php echo $_lang["database_table_effectivesize"]; ?></b></td>
-			<td width="120" align="right"><b><?php echo $_lang["database_table_indexsize"]; ?></b></td>
-			<td width="120" align="right"><b><?php echo $_lang["database_table_totalsize"]; ?></b></td>
-		  </tr>
-		  </thead>
-		  <tbody>
 <?php
-
-	function nicesize($size) {
-		$a = array("B", "KB", "MB", "GB", "TB", "PB");
-
-		$pos = 0;
-		while ($size >= 1024) {
-			   $size /= 1024;
-			   $pos++;
-		}
-		if($size==0) {
-			return "-";
-		} else {
-			return round($size,2)." ".$a[$pos];
-		}
-	}
-
-	$sql = "SHOW TABLE STATUS FROM $dbase LIKE '$table_prefix%';";
-	$rs = $modx->db->query($sql);
-	$limit = $modx->db->getRecordCount($rs);
-	for ($i = 0; $i < $limit; $i++) {
-		$log_status = $modx->db->getRow($rs);
-		$bgcolor = ($i % 2) ? '#EEEEEE' : '#FFFFFF';
+require_once('db_info.inc.php');
+output_db_info($dbase, 53, false);
 ?>
-		  <tr bgcolor="<?php echo $bgcolor; ?>" title="<?php echo $log_status['Comment']; ?>" style="cursor:default">
-			<td><b style="color:#009933"><?php echo $log_status['Name']; ?></b></td>
-			<td align="right"><?php echo $log_status['Rows']; ?></td>
-
-<?php
-	// enable record deletion for certain tables
-	// sottwell@sottwell.com
-	// 08-2005
-	if($modx->hasPermission('settings') && ($log_status['Name'] == "`".$table_prefix."event_log`" || $log_status['Name'] == "`".$table_prefix."log_access`" || $log_status['Name'] == "`".$table_prefix."log_hosts`" || $log_status['Name'] == "`".$table_prefix."log_visitors`" || $log_status['Name'] == "`".$table_prefix."manager_log`")) {
-		echo "<td dir='ltr' align='right'>";
-		echo "<a href='index.php?a=54&mode=$action&u=".$log_status['Name']."' title='".$_lang['truncate_table']."'>".nicesize($log_status['Data_length']+$log_status['Data_free'])."</a>";
-		echo "</td>";
-	}
-	else {
-		echo "<td dir='ltr' align='right'>".nicesize($log_status['Data_length']+$log_status['Data_free'])."</td>";
-	}
-
-	if($modx->hasPermission('settings')) {
-		echo  "<td align='right'>".($log_status['Data_free']>0 ? "<a href='index.php?a=54&mode=$action&t=".$log_status['Name']."' title='".$_lang['optimize_table']."' ><span dir='ltr'>".nicesize($log_status['Data_free'])."</span></a>" : "-")."</td>";
-	}
-	else {
-		echo  "<td dir='ltr' align='right'>".($log_status['Data_free']>0 ? nicesize($log_status['Data_free']) : "-")."</td>";
-	}
-?>
-			<td dir='ltr' align="right"><?php echo nicesize($log_status['Data_length']-$log_status['Data_free']); ?></td>
-			<td dir='ltr' align="right"><?php echo nicesize($log_status['Index_length']); ?></td>
-			<td dir='ltr' align="right"><?php echo nicesize($log_status['Index_length']+$log_status['Data_length']+$log_status['Data_free']); ?></td>
-		  </tr>
-<?php
-		$total = $total+$log_status['Index_length']+$log_status['Data_length'];
-		$totaloverhead = $totaloverhead+$log_status['Data_free'];
-	}
-?>
-		  <tr bgcolor="#CCCCCC">
-			<td valign="top"><b><?php echo $_lang['database_table_totals']; ?></b></td>
-			<td colspan="2">&nbsp;</td>
-			<td dir='ltr' align="right" valign="top"><?php echo $totaloverhead>0 ? "<b style='color:#990033'>".nicesize($totaloverhead)."</b><br />(".number_format($totaloverhead)." B)" : "-"; ?></td>
-			<td colspan="2">&nbsp;</td>
-			<td dir='ltr' align="right" valign="top"><?php echo "<b>".nicesize($total)."</b><br />(".number_format($total)." B)"; ?></td>
-		  </tr>
-		  </tbody>
-		</table>
-<?php
-	if($totaloverhead>0) { ?>
-		<p><?php echo $_lang['database_overhead']; ?></p>
-		<?php } ?>
-</div>
 
 <!-- online users -->
 <div class="sectionHeader"><?php echo $_lang['onlineusers_title']; ?></div><div class="sectionBody" id="lyr5">
