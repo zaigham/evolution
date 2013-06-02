@@ -257,7 +257,6 @@ function mm_moveFieldsToTab($fields, $newtab, $roles='', $templates='') {
 						var movedTV = toMove.appendTo("#tab'.$newtab.'>table:first"); // Move the table row
 						movedTV.after(ruleHtml); // Insert a rule after 
 						movedTV.find("td[width]").attr("width","");  // Remove widths from label column
-						$("[name^='.$fieldname.']:first").parents("td").removeAttr( "style" );  // This prevents an IE6/7 bug where the moved field would not be visible until you switched tabs
 						';
 					}	
 								
