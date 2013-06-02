@@ -79,7 +79,8 @@ if ($mode=='backup') {
 
 <?php
 require_once('db_info.inc.php');
-output_db_info($dbase, 93, true);
+$db_info = new DbInfo($dbase);
+$db_info->output(93, true);
 ?>
 
 <!-- This iframe is used when downloading file backup file -->

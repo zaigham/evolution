@@ -165,7 +165,8 @@ if(!$modx->hasPermission('logs')) {
 
 <?php
 require_once('db_info.inc.php');
-output_db_info($dbase, 53, false);
+$db_info = new DbInfo($dbase);
+$db_info->output(53, false);
 ?>
 
 <!-- online users -->
