@@ -28,6 +28,7 @@ class DbInfo {
         {
         global $modx, $_lang;
         ?>
+        <div class="sectionHeader"><?php echo $_lang['database_tables']?></div>
         <div class="sectionBody" id="lyr4">
         <?php
         if ($backup_form) {

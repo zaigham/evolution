@@ -75,8 +75,6 @@ if ($mode=='backup') {
 </script>
 <h1><?php echo $_lang['bk_manager']?></h1>
 
-<div class="sectionHeader"><?php echo $_lang['database_tables']?></div>
-
 <?php
 require_once('db_info.class.inc.php');
 $db_info = new DbInfo($dbase);

@@ -163,8 +163,6 @@ if(!$modx->hasPermission('logs')) {
          </table>
    </div>
 
-<div class="sectionHeader"><?php echo $_lang['database_tables']?></div>
-
 <?php
 require_once('db_info.class.inc.php');
 $db_info = new DbInfo($dbase);
