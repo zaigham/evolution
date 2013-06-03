@@ -78,7 +78,7 @@ if ($mode=='backup') {
 <div class="sectionHeader"><?php echo $_lang['database_tables']?></div>
 
 <?php
-require_once('db_info.inc.php');
+require_once('db_info.class.inc.php');
 $db_info = new DbInfo($dbase);
 $db_info->output(93, true);
 ?>

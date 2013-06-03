@@ -164,7 +164,7 @@ if(!$modx->hasPermission('logs')) {
    </div>
 
 <?php
-require_once('db_info.inc.php');
+require_once('db_info.class.inc.php');
 $db_info = new DbInfo($dbase);
 $db_info->output(53, false);
 ?>
