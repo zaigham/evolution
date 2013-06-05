@@ -522,6 +522,37 @@ class Qm {
                                     '.$jvar.'("body").css({"overflow":"hidden"});
                                     '.$jvar.'("html").css({"overflow":"hidden"});
                                     '.$jvar.'("#qmEditor").css({"display":"none"});
+                                });
+                                
+                                // (Uxello) Binding for cancel
+                                '.$jvar.'(document).bind("cbox_cleanup", function(){ 
+                                    //window is closing and cannot be stopped so clear dirty settings for all fields and tinyMCE            
+                                    
+                                    var foundit;
+                                    
+                                    //loop through the iframes, checking their scr
+                                    iframearray = document.getElementsByTagName(\'iframe\');
+                                    
+                                    for(var i=0; i < iframearray.length; i++) {
+                                        //if the matching colorbox src, we have found the correct iframe
+                                        
+                                        haystack=iframearray[i].src;
+                                        needle="'.$this->modx->config['site_url']."manager/index.php?a=27".'";
+
+                                        if(haystack.substr(0, needle.length) == needle){ 
+                                            foundit=iframearray[i]; //assign it to the foundit variable created earlier
+                                            break; //no need to keep looking
+                                            }
+                                        }
+
+                                    if (foundit) {
+                                        foundit.contentWindow.window.documentDirty=false; //clear document dirty for fields
+                                        //loop through tinyMCE editors and clear any dirty flags
+                                        if (typeof(foundit.contentWindow.window.tinyMCE)!==\'undefined\') {   
+                                            var i, t = foundit.contentWindow.window.tinyMCE.editors;for (i in t){    
+                                            if (t.hasOwnProperty(i)){    t[i].isNotDirty=true }}  
+                                        }
+                                    }
                                 });  
                                 
                             	'.$jvar.'(document).bind("cbox_closed", function(){      
@@ -628,13 +659,34 @@ class Qm {
 					// Get doc id
 					$doc_id = intval($_REQUEST['id']);
 					
-					// Add action buttons
-                    $mc->addLine('var controls = "<div style=\"padding:4px 0;position:fixed;top:10px;right:-10px;z-index:1000\" id=\"qmcontrols\" class=\"actionButtons\"><ul><li><a href=\"#\" onclick=\"documentDirty=false;document.mutate.save.click();return false;\"><img src=\"media/style/'.$qm_theme.'/images/icons/save.png\" />'.$_lang['save'].'</a></li><li><a href=\"#\" onclick=\"documentDirty=false; parent.$.fn.colorbox.close(); return false;\"><img src=\"media/style/'.$qm_theme.'/images/icons/stop.png\"/>'.$_lang['cancel'].'</a></li></ul></div>";');
+                    // Add action buttons --- (Uxello) fix for doc dirty nav away messages
+                    $mc->addLine('var controls = "<div style=\"padding:4px 0;position:fixed;top:10px;right:-10px;z-index:1000\" id=\"qmcontrols\" class=\"actionButtons\"><ul><li><a href=\"#\" onclick=\"documentDirty=false;document.mutate.save.click();return false;\"><img src=\"media/style/'.$qm_theme.'/images/icons/save.png\" />'.$_lang['save'].'</a></li><li><a href=\"#\"  onclick=\" if (confirmifdirty()) {parent.$.fn.colorbox.close();}  return false;\"><img src=\"media/style/'.$qm_theme.'/images/icons/stop.png\"/>'.$_lang['cancel'].'</a></li></ul></div>";');
                     
                     // Modify head
                     $mc->head = '<script type="text/javascript">document.body.style.display="none";</script>';
                     $mc->head .= $this->modx->getJqueryTag();
-    
+                    
+                    // (Uxello) function to add a confirmation if the doc is dirty
+                    $mc->head .= '<script type="text/javascript">
+                    function confirmifdirty()
+                    {
+                        //flag if fields or tinyMCE are dirty
+                        alertcancel=documentDirty; 
+                        if (typeof(tinyMCE)!==\'undefined\') {
+                            var i, t = tinyMCE.editors;for (i in t){ 
+                               if (t.hasOwnProperty(i)){       
+                                if (t[i].isDirty() ) alertcancel =true; 
+                                }
+                            }
+                        }
+                        continuecancel=true;
+                        if (alertcancel) {
+                            continuecancel = confirm(\'Document has been modified. Continue cancel (changes will be lost)?\');
+                            }
+                        return continuecancel;
+                    }
+                    </script>';
+
                     // Add control button
                     $mc->addLine('$("body").prepend(controls);');
 
