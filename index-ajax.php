@@ -2,7 +2,7 @@
 // Add items to this array corresponding to which directories within assets/snippets/ can be used by this file.
 // Do not add entries unneccesarily.
 // Any PHP files in these directories can be executed by any user.
-$allowed_dirs = array('assets/snippets/ajaxSearch/');
+$allowed_dirs = array('assets||snippets||ajaxSearch||');
 
 // harden it
 require_once('./manager/includes/protect.inc.php');
@@ -37,7 +37,7 @@ if($axhandler = (strtoupper($_SERVER['REQUEST_METHOD'])=='GET') ? $_GET['q'] : $
 
 		// permission check
 		$allowed = false;
-		foreach($allowed_dirs as $allowed_dir) {
+		foreach(str_replace('||', DIRECTORY_SEPARATOR, $allowed_dirs) as $allowed_dir) {
 			if (substr($axhandler_rel, 0, strlen($allowed_dir)) == $allowed_dir) {
 				$allowed = true;
 				break;
