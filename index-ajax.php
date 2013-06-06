@@ -1,7 +1,15 @@
 <?php
-// Add items to this array corresponding to which directories within assets/snippets/ can be used by this file.
-// Do not add entries unneccesarily.
-// Any PHP files in these directories can be executed by any user.
+
+/**
+ * @var array $allowed_dirs
+ * Add items to this array corresponding to which directories within assets/snippets/ can be used by this file.
+ *
+ * SECURITY WARNINGS:
+ * Do not add entries unneccesarily.
+ * Any PHP files in these directories can be executed by any user. Do not add directories to this array unless you appreciate the security pitfalls.
+ *
+ * WARNING: this line will be overwritten on upgrading.
+ */
 $allowed_dirs = array('assets||snippets||ajaxSearch||');
 
 // harden it
