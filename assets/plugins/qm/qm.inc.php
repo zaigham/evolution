@@ -13,7 +13,7 @@ class Qm {
   var $modx;
   
     //_______________________________________________________
-    function Qm(&$modx, $noconflictjq='', $loadtb='', $tbwidth='', $tbheight='', $hidefields='', $hidetabs='', $hidesections='', $addbutton='', $tpltype='', $tplid='', $custombutton='', $managerbutton='', $logout='', $autohide='', $editbuttons='', $editbclass='', $newbuttons='', $newbclass='', $tvbuttons='', $tvbclass='') {
+    function Qm(&$modx, $noconflictjq='', $loadtb='', $tbwidth='', $tbheight='', $hidefields='', $hidetabs='', $hidesections='', $addbutton='', $custombutton='', $managerbutton='', $logout='', $autohide='', $editbuttons='', $editbclass='', $newbuttons='', $newbclass='', $tvbuttons='', $tvbclass='') {
         $this->modx = $modx;
         
         // Get plugin parameters
@@ -26,8 +26,6 @@ class Qm {
         $this->hidetabs = $hidetabs;  
         $this->hidesections = $hidesections;     
         $this->addbutton = $addbutton;       
-        $this->tpltype = $tpltype;       
-        $this->tplid = $tplid;
         $this->custombutton = $custombutton;
         $this->managerbutton = $managerbutton;
         $this->logout = $logout;
