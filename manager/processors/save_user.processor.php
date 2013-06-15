@@ -51,7 +51,7 @@ $country = $_POST['country'];
 $state = $modx->db->escape($_POST['state']);
 $zip = $modx->db->escape($_POST['zip']);
 $gender = !empty ($_POST['gender']) ? $_POST['gender'] : 0;
-$photo = $modx->db->escape($_POST['photo']);
+$photo = $modx->db->escape($modx->config['file_browser'] == 'kcfinder' ? preg_replace('/^'.preg_quote($modx->config['base_url'], '/').'/', '', $_POST['photo']) : $_POST['photo']);
 $comment = $modx->db->escape($_POST['comment']);
 $roleid = !empty ($_POST['role']) ? $_POST['role'] : 0;
 $failedlogincount = $_POST['failedlogincount'];
