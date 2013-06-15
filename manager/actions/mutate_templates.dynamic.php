@@ -188,12 +188,12 @@ function deletedocument() {
 		      <tr>
 		        <td align="left"><?php echo $_lang['restrict_children']; ?>:</td>
 		        <td align="left">
-		            <select name="restrict_children" onChange="documentDirty=true; document.getElementById('allowed_child_templates_section').style.visibility = this.value == '1' ? 'visible' : 'collapse';">
+		            <select name="restrict_children" onChange="documentDirty=true; if (this.value == '1') { $('#allowed_child_templates_section').show(); } else { $('#allowed_child_templates_section').hide(); }">
 		                <option value="0"<?php if (!@$content['restrict_children']) echo ' selected="selected"'; ?>><?php echo $_lang['no']; ?></option>
 		                <option value="1"<?php if (@$content['restrict_children']) echo ' selected="selected"'; ?>><?php echo $_lang['yes']; ?></option>
 		            </select>
 		      </tr>
-		      <tr id="allowed_child_templates_section" style="visibility: <?php echo @$content['restrict_children'] ? 'visible' : 'collapse'; ?>">
+		      <tr id="allowed_child_templates_section"<?php echo @$content['restrict_children'] ? '' : ' style="display: none"'; ?>>
 		        <td align="left"><?php echo $_lang['allowed_child_templates']; ?>:</td>
 		        <td align="left">
 		        	<fieldset class="template-list">
