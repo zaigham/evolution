@@ -22,13 +22,6 @@ jQuery(document).ready(function(){
 	});	
 	/* [/End Slideshow] */	
 	
-	/* [Hide Alert (see Foundation docs)] */
-	jQuery('.alert-box .close').click( function() {
-		jQuery(this).parent().fadeOut(400);
-		return false;
-	});		
-	/* [/End Hide Alert (see Foundation docs)] */
-	
 	/* [jQuery Form Validation] */
     jQuery('#contactform').isHappy({
 		fields: {
