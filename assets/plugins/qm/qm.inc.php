@@ -78,7 +78,7 @@ class Qm {
         
         // Run plugin based on event
         switch ($e->name) {
-            
+        
             // Save document
             case 'OnDocFormSave':
                 
@@ -729,8 +729,12 @@ class Qm {
                 
             break;
             
-            // Where to logout
             case 'OnManagerLogout':
+    
+                // Clear cache on manager login/out so that script/css cache is updated
+                $this->clearCache();
+
+                // Where to logout
                 // Only if cancel editing the document and QuickManager is in use
                 if ($_REQUEST['quickmanager'] == 'logout') {
                     // Redirect to document id
@@ -738,6 +742,12 @@ class Qm {
                         $this->modx->sendRedirect($this->modx->makeUrl($_REQUEST['logoutid']), 0, 'REDIRECT_HEADER', 'HTTP/1.1 301 Moved Permanently');
                     }
                 }
+            
+            break;
+
+            case 'OnManagerLogin':
+                // Clear cache on manager login/out so that script/css cache is updated
+                $this->clearCache();
             
             break;
         }
