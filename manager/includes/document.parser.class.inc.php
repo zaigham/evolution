@@ -3184,7 +3184,8 @@ class DocumentParser extends Core {
         $version= isset($options['version']) ? $options['version'] : '0';
         $plaintext= isset($options['plaintext']) ? $options['plaintext'] : false;
         $key= !empty($name) ? $name : $src;
-        $jquery = isset($options['jquery']) && $options['jquery'] ? true : false;
+        $jquery_core = preg_match('/jquery(-\d+\.\d+(\.\d+)?)?(\.min)?\.js$/i', $src) ? true : false;
+        $jquery = (isset($options['jquery']) && $options['jquery']) || $jquery_core ? true : false;
         unset($overwritepos); // probably unnecessary--just making sure
 
         $useThisVer= true;
@@ -3223,8 +3224,10 @@ class DocumentParser extends Core {
             $src= "\t" . '<script type="text/javascript" src="' . $src . '"></script>';
             
         if ($jquery) {
-            $pos= isset($overwritepos) ? $overwritepos : max(array_merge(array(0),array_keys($this->jquery_scripts)))+1;
-            $this->jquery_scripts[$pos]= $src;
+            if (!$jquery_core || empty($this->jquery_scripts)) {
+                $pos= isset($overwritepos) ? $overwritepos : max(array_merge(array(0),array_keys($this->jquery_scripts)))+1;
+                $this->jquery_scripts[$pos]= $src;
+            }
         } elseif ($startup) {
             $pos= isset($overwritepos) ? $overwritepos : max(array_merge(array(0),array_keys($this->sjscripts)))+1;
             $this->sjscripts[$pos]= $src;
