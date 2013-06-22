@@ -3248,9 +3248,7 @@ class DocumentParser extends Core {
         static $jquery_included = false;
         
         if (!$jquery_included) {
-            $this->config['jquery_url'] {
-                $this->regClientStartupScript($this->config['jquery_url'], array('jquery'=>true));
-            }
+            $this->regClientStartupScript($this->config['jquery_url'], array('jquery'=>true));
             $jquery_included = true;
         }
     }
