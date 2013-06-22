@@ -3285,6 +3285,9 @@ class DocumentParser extends Core {
    		
    		if (!$run_once || !$only_once) {
    			$jq_url = $this->config['jquery_url'];
+   			if (substr($jq_url, 0, 4) == 'http' || !is_file($this->config['base_path'].$jq_url)) {
+   			    $jq_url = $this->config['site_url'].'assets/js/jquery.min.js';
+   			}
    			if ($jq_url[0] == '/') {
    				$jq_url = $this->config['site_url'].substr($this->config['jquery_url'], 1);
    			} elseif (substr($jq_url, 0, 4) != 'http') {
