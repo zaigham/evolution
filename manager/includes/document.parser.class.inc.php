@@ -3245,15 +3245,17 @@ class DocumentParser extends Core {
      */
     function regClientJquery() {
     
-    	static $jquery_included = false;
-    	
-    	if (!$jquery_included) {	
- 			$this->regClientStartupScript($this->config['jquery_url'], array('jquery'=>true));
- 			if ($this->config['jquery_noconflict']) {
- 				$this->regClientStartupScript('<script type="text/javascript">jQuery.noConflict()</script>');
- 			}
- 			$jquery_included = true;
- 		}
+        static $jquery_included = false;
+        
+        if (!$jquery_included) {
+            $this->config['jquery_url'] {
+                $this->regClientStartupScript($this->config['jquery_url'], array('jquery'=>true));
+            }
+            if ($this->config['jquery_noconflict']) {
+                $this->regClientStartupScript('<script type="text/javascript">jQuery.noConflict()</script>');
+            }
+            $jquery_included = true;
+        }
     }
     
     /**
