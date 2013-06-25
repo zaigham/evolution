@@ -3368,19 +3368,24 @@ class DocumentParser extends Core {
     function getRegisteredClientStartupScripts() {
         $output = '';
         if (!empty($this->jquery_scripts)) {
-            // First entry must be the core - look for any version of jquery before adding another
-            if (!preg_match('/jquery(-\d+\.\d+(\.\d+)?)?(\.min)?\.js/i', $this->documentOutput)) {
-                $output .= $this->jquery_scripts[1]."\n";
-                if ($this->config['jquery_noconflict']) {
-                    $output .= "<script type=\"text/javascript\">jQuery.noConflict()</script>\n";
+            $pos1 = strpos($this->documentOutput, '<head>') + 6;
+            $pos2 = strpos($this->documentOutput, '</head>');
+            if ($pos1 !== false && $pos2 !== false) {
+                $head = substr($this->documentOutput, $pos1, $pos2 - $pos1);
+                // First entry must be the core - look for any version of jquery before adding another
+                if (!preg_match('/jquery(-\d+\.\d+(\.\d+)?)?(\.min)?\.js/i', $head)) {
+                    $output .= $this->jquery_scripts[1]."\n";
+                    if ($this->config['jquery_noconflict']) {
+                        $output .= "<script type=\"text/javascript\">jQuery.noConflict()</script>\n";
+                    }
                 }
-            }
-            for($i = 2; $i <= sizeof($this->jquery_scripts); ++$i) {
-                // Further entries must be plugins - look for filename, minified or otherwise.
-                $filename = substr($this->jquery_scripts[$i], strpos($this->jquery_scripts[$i], 'src="')+5);
-                $filename = preg_replace('/(\.min)?\.js.*$/', '', $filename);
-                if (strpos($this->documentOutput, $filename.'.js') === false && strpos($this->documentOutput, $filename.'.min.js') === false) {
-                    $output .= $this->jquery_scripts[$i]."\n";
+                for($i = 2; $i <= sizeof($this->jquery_scripts); ++$i) {
+                    // Further entries must be plugins - look for filename, minified or otherwise.
+                    $filename = substr($this->jquery_scripts[$i], strpos($this->jquery_scripts[$i], 'src="')+5);
+                    $filename = preg_replace('/(\.min)?\.js.*$/', '', $filename);
+                    if (strpos($head, $filename.'.js') === false && strpos($head, $filename.'.min.js') === false) {
+                        $output .= $this->jquery_scripts[$i]."\n";
+                    }
                 }
             }
         }
