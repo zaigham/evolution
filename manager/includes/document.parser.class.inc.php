@@ -41,6 +41,7 @@ class DocumentParser extends Core {
     var $placeholders;
     var $sjscripts;
     var $jscripts;
+    var $jquery_scripts;
     var $loadedjscripts;
     var $documentMap;
     var $forwards= 3;
@@ -83,6 +84,7 @@ class DocumentParser extends Core {
         $this->dbConfig= & $this->db->config; // alias for backward compatibility
         $this->jscripts= array ();
         $this->sjscripts= array ();
+        $this->jquery_scripts = array();
         $this->loadedjscripts= array ();
         // events
         $this->event= new SystemEvent();
@@ -603,9 +605,10 @@ class DocumentParser extends Core {
 				// Grab the Scripts
 				if (isset($docObj['__MODxSJScripts__'])) $this->sjscripts = $docObj['__MODxSJScripts__'];
 				if (isset($docObj['__MODxJScripts__']))  $this->jscripts = $docObj['__MODxJScripts__'];
+				if (isset($docObj['__MODxJQUERYScripts__']))  $this->jquery_scripts = $docObj['__MODxJQUERYScripts__'];
 
 				// Remove intermediate variables
-                unset($docObj['__MODxDocGroups__'], $docObj['__MODxSJScripts__'], $docObj['__MODxJScripts__']);
+                unset($docObj['__MODxDocGroups__'], $docObj['__MODxSJScripts__'], $docObj['__MODxJScripts__'], $docObj['__MODxJQUERYScripts__']);
 
                 $this->documentObject= $docObj;
                 return $a[1]; // return document content
@@ -633,6 +636,7 @@ class DocumentParser extends Core {
         if ($this->documentGenerated == 1 && $this->documentObject['cacheable'] == 1 && $this->documentObject['type'] == 'document' && $this->documentObject['published'] == 1) {
     		if (!empty($this->sjscripts)) $this->documentObject['__MODxSJScripts__'] = $this->sjscripts;
     		if (!empty($this->jscripts)) $this->documentObject['__MODxJScripts__'] = $this->jscripts;
+    		if (!empty($this->jquery_scripts)) $this->documentObject['__MODxJQUERYScripts__'] = $this->jquery_scripts;
         }
 
         // check for non-cached snippet output
@@ -3180,6 +3184,8 @@ class DocumentParser extends Core {
         $version= isset($options['version']) ? $options['version'] : '0';
         $plaintext= isset($options['plaintext']) ? $options['plaintext'] : false;
         $key= !empty($name) ? $name : $src;
+        $jquery_core = preg_match('/jquery(-\d+\.\d+(\.\d+)?)?(\.min)?\.js$/i', $src) ? true : false;
+        $jquery = (isset($options['jquery']) && $options['jquery']) || $jquery_core ? true : false;
         unset($overwritepos); // probably unnecessary--just making sure
 
         $useThisVer= true;
@@ -3216,7 +3222,13 @@ class DocumentParser extends Core {
 
         if ($useThisVer && $plaintext!=true && (strpos(strtolower($src), "<script") === false))
             $src= "\t" . '<script type="text/javascript" src="' . $src . '"></script>';
-        if ($startup) {
+            
+        if ($jquery) {
+            if (!$jquery_core || empty($this->jquery_scripts)) {
+                $pos= isset($overwritepos) ? $overwritepos : max(array_merge(array(0),array_keys($this->jquery_scripts)))+1;
+                $this->jquery_scripts[$pos]= $src;
+            }
+        } elseif ($startup) {
             $pos= isset($overwritepos) ? $overwritepos : max(array_merge(array(0),array_keys($this->sjscripts)))+1;
             $this->sjscripts[$pos]= $src;
         } else {
@@ -3233,15 +3245,12 @@ class DocumentParser extends Core {
      */
     function regClientJquery() {
     
-    	static $jquery_included = false;
-    	
-    	if (!$jquery_included) {	
- 			$this->regClientStartupScript($this->config['jquery_url']);
- 			if ($this->config['jquery_noconflict']) {
- 				$this->regClientStartupScript('<script type="text/javascript">jQuery.noConflict()</script>');
- 			}
- 			$jquery_included = true;
- 		}
+        static $jquery_included = false;
+        
+        if (!$jquery_included) {
+            $this->regClientStartupScript($this->config['jquery_url'], array('jquery'=>true));
+            $jquery_included = true;
+        }
     }
     
     /**
@@ -3256,7 +3265,7 @@ class DocumentParser extends Core {
    		if ($use_plugin_dir) {
    			$plugin_file = $this->config['jquery_plugin_dir'].$plugin_file;
    		}
-       	$this->regClientStartupScript($plugin_file, array('name'=>$plugin_name, $plugin_version, 'plaintext'=>false));
+       	$this->regClientStartupScript($plugin_file, array('name'=>$plugin_name, $plugin_version, 'plaintext'=>false, 'jquery'=>true));
    }
    
    /**
@@ -3274,6 +3283,12 @@ class DocumentParser extends Core {
    		
    		if (!$run_once || !$only_once) {
    			$jq_url = $this->config['jquery_url'];
+   			
+   			// Check the file exists. If a remote file, be lazy and do not check - simply use the default packaged file anyway.
+   			if ($this->isBackend() && (substr($jq_url, 0, 4) == 'http' || !is_file($this->config['base_path'].$jq_url))) {
+   			    $jq_url = $this->config['site_url'].'assets/js/jquery.min.js';
+   			}
+
    			if ($jq_url[0] == '/') {
    				$jq_url = $this->config['site_url'].substr($this->config['jquery_url'], 1);
    			} elseif (substr($jq_url, 0, 4) != 'http') {
@@ -3351,7 +3366,25 @@ class DocumentParser extends Core {
      * @return string
      */
     function getRegisteredClientStartupScripts() {
-        return implode("\n", $this->sjscripts);
+        $output = '';
+        if (!empty($this->jquery_scripts)) {
+            // First entry must be the core - look for any version of jquery before adding another
+            if (!preg_match('/jquery(-\d+\.\d+(\.\d+)?)?(\.min)?\.js/i', $this->documentOutput)) {
+                $output .= $this->jquery_scripts[1]."\n";
+                if ($this->config['jquery_noconflict']) {
+                    $output .= "<script type=\"text/javascript\">jQuery.noConflict()</script>\n";
+                }
+            }
+            for($i = 2; $i <= sizeof($this->jquery_scripts); ++$i) {
+                // Further entries must be plugins - look for filename, minified or otherwise.
+                $filename = substr($this->jquery_scripts[$i], strpos($this->jquery_scripts[$i], 'src="')+5);
+                $filename = preg_replace('/(\.min)?\.js.*$/', '', $filename);
+                if (strpos($this->documentOutput, $filename.'.js') === false && strpos($this->documentOutput, $filename.'.min.js') === false) {
+                    $output .= $this->jquery_scripts[$i]."\n";
+                }
+            }
+        }
+        return $output.implode("\n", $this->sjscripts);
     }
     
     /**
