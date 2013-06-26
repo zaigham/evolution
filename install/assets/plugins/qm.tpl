@@ -40,7 +40,7 @@ if (isset($_SESSION['mgrValidated'])) {
         // In manager
         if (isset($_SESSION['mgrValidated'])) {
             require_once($modx->config['base_path'].'assets/plugins/qm/qm.inc.php');
-            $qm = new Qm($modx, $modx->config['jquery_noconflict'], $loadtb, $tbwidth, $tbheight, $hidefields, $hidetabs, $hidesections, $addbutton, $custombutton, $managerbutton, $logout, $autohide, $editbuttons, $editbclass, $newbuttons, $newbclass, $tvbuttons, $tvbclass);
+            $qm = new Qm($modx, true, $loadtb, $tbwidth, $tbheight, $hidefields, $hidetabs, $hidesections, $addbutton, $custombutton, $managerbutton, $logout, $autohide, $editbuttons, $editbclass, $newbuttons, $newbclass, $tvbuttons, $tvbclass);
         }
     }
 }
