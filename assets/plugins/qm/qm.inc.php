@@ -118,8 +118,7 @@ class Qm {
                  if (!$this->noconflictjq) {
                      // Insert jQuery and ColorBox in head if needed
                      $this->modx->regClientJquery();
-                     if ($this->loadtb) {
-                         
+                     if ($this->loadtb == 'true') {
                          $this->modx->regClientJqueryPlugin('colorbox', 'jquery.colorbox-min.js');
                      }
                  }
