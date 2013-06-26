@@ -492,19 +492,21 @@ class Qm {
                             ';
                         }
                         
-                        // Bypass jquery API - we want our own instance.
-                        $head_jq =
-                        '<script src="'.$this->modx->config['jquery_url'].'" type="text/javascript"></script>
-                        <script type="text/javascript" src="assets/js/jquery.colorbox-min.js"></script>
-                        <script type="text/javascript">var $j = jQuery.noConflict();</script>'."\n";
-                        // It must come first to avoid messing with other jquery objects
-                        $head_end = strpos($output, '</head>');
-                        $first_script = strpos($output, '<script');
-                        if ($head_end !== false) {
-                            if ($first_script !== false && $first_script < $head_end) {
-                                $output = substr($output, 0, $first_script).$head_jq.substr($output, $first_script);
-                            } else {
-                                $output = substr($output, 0, $head_end).$head_jq.substr($output, $head_end);
+                        if ($this->noconflictjq) {
+                            // Bypass jquery API - we want our own instance.
+                            $head_jq =
+                            '<script src="'.$this->modx->config['jquery_url'].'" type="text/javascript"></script>
+                            <script type="text/javascript" src="assets/js/jquery.colorbox-min.js"></script>
+                            <script type="text/javascript">var $j = jQuery.noConflict();</script>'."\n";
+                            // It must come first to avoid messing with other jquery objects
+                            $head_end = strpos($output, '</head>');
+                            $first_script = strpos($output, '<script');
+                            if ($head_end !== false) {
+                                if ($first_script !== false && $first_script < $head_end) {
+                                    $output = substr($output, 0, $first_script).$head_jq.substr($output, $first_script);
+                                } else {
+                                    $output = substr($output, 0, $head_end).$head_jq.substr($output, $head_end);
+                                }
                             }
                         }
 
