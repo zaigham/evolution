@@ -941,8 +941,8 @@ class DocumentParser extends Core {
                         $value= $this->documentObject[substr($key, $sep_pos+1)];
                     }
                 } else {
-                    // Invalid $other_docid
-                    $value = '';
+                    // Invalid $other_docid - don't change the content of the placeholder as it may be used by an Extra
+                    $value = $matches[1][$i];
                 }
             } else {
                 // Using the current document.
