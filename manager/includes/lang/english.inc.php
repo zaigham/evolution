@@ -242,6 +242,7 @@ $_lang["edit"] = 'Edit';
 $_lang["edit_resource"] = 'Edit Resource';
 $_lang["edit_resource_title"] = 'Edit Resource';
 $_lang["edit_settings"] = 'Configuration';
+$_lang['package_manager'] = 'Package Manager';
 $_lang["editedon"] = 'Edit date';
 $_lang["editing_file"] = 'Editing file: ';
 $_lang["editor_css_path_message"] = 'Enter the path to your CSS file that you wish to use within the editor. The best way to enter the path is to enter the path from the root of your server, for example: /assets/site/style.css. If you do not wish to load a style sheet into the editor, leave this field blank.';
