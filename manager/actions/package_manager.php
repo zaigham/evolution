@@ -1,9 +1,6 @@
 <?php
 if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
     
-// Current MODx manager theme
-$manager_theme_subpath = $modx->config['manager_theme'] ? $modx->config['manager_theme'].'/': '';
-
 // Self-reference this module
 $self_href = $_SERVER['PHP_SELF']."?a={$_REQUEST['a']}";
 
