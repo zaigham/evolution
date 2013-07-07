@@ -44,17 +44,17 @@ if ((@$_GET['repo'] || $_GET['repo'] === '0') && ctype_digit($_GET['repo']) && $
                     $PM = new PackageManager($modx, $_FILES['pkg_file']['tmp_name'], $_FILES['pkg_file']['name']);
                     $mode = 'summarise';
                 } else {
-                    $errmsg = 'Internal error uploading. Please try again.';
+                    $errmsg = $_lang['package_manager_error_internal'];
                 }
                 
                 break;
 
             case UPLOAD_ERR_INI_SIZE:
-                $errmsg = 'Your server is not configured to accept files of this size. Contact your server administrator and ask for the maximum post and upload file sizes to be increased.';
+                $errmsg = $_lang['package_manager_error_filesize'];
                 break;
 
             default:
-                $errmsg = 'Internal error uploading. Please try again.';
+                $errmsg = $_lang['package_manager_error_internal'];
                 break;
     
         }
@@ -99,10 +99,10 @@ switch ($mode) {
             $link = $item->getElementsByTagName('link')->item(0)->nodeValue;
             $desc = $item->getElementsByTagName('desc')->item(0)->nodeValue;
             $output .= "<h3>$name</h3><p>Link: $link</p><p>$desc</p>";
-            $output .= '<form action="'.$self_href.'" method="post"><fieldset><input type="hidden" name="pkg_url" value="'.$link.'" /><input type="submit" value="Get Package" /></fieldset></form>';
+            $output .= '<form action="'.$self_href.'" method="post"><fieldset><input type="hidden" name="pkg_url" value="'.$link.'" /><input type="submit" value="'.$_lang['package_manager_fetchpackage'].'" /></fieldset></form>';
         }
         
-        $output .= '<p><a href="'.$self_href.'">Return to Package Manager start</a></p>';
+        $output .= '<p><a href="'.$self_href.'">'.$_lang['package_manager_restart'].'</a></p>';
         
         break;
 
@@ -128,7 +128,7 @@ switch ($mode) {
             if (sizeof($tags)) {
             
                 $output .= '<h3>'.htmlentities($repo['name'], ENT_QUOTES, $modx->config['charset']).'</h3>';
-                $output .= '<h4>Tags used in this repo:</h4><ul id="pm-tag-list">';
+                $output .= '<h4>'.$_lang['package_manager_tagsinrepo'].':</h4><ul id="pm-tag-list">';
                 
                 foreach($tags as $tag) {
                     $tagname = $tag->getElementsByTagName('name')->item(0)->nodeValue;
@@ -151,7 +151,7 @@ switch ($mode) {
                 $output .= '<pre>'.htmlentities($PM->README, ENT_QUOTES, $modx->config['charset']).'</pre>';
                 $output .= $PM->summary;
                 if ($PM->auto_install_code) {
-                    $output .= '<div><p><strong>Use the following plugin code for auto-installation during development.</strong> Attach to OnWebPageInit.</p><pre>'.$PM->auto_install_code.'</pre></div>';
+                    $output .= $_lang['package_manager_autoinstall_html0'].$PM->auto_install_code.$_lang['package_manager_autoinstall_html1'];
                 }
                 $output .= $pkg_manager_html['confirm_form'];
             } else {
