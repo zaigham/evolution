@@ -102,9 +102,10 @@ switch ($mode) {
         $doc->loadXML($_SESSION['PM_CACHE'][$_GET['repo']]['xml'][$tag]);
         foreach($doc->getElementsByTagName('item') as $item) {
             $name = $item->getElementsByTagName('name')->item(0)->nodeValue;
+            $version = $item->getElementsByTagName('version')->item(0)->nodeValue;
             $link = $item->getElementsByTagName('link')->item(0)->nodeValue;
             $desc = $item->getElementsByTagName('desc')->item(0)->nodeValue;
-            $output .= "<h3>$name</h3><p>Link: $link</p><p>$desc</p>";
+            $output .= "<h3>$name $version</h3><p>Link: $link</p><p>$desc</p>";
             $output .= str_replace('[+link+]', $link, $pkg_manager_html['package_form']);
         }
         
