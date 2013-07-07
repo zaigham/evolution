@@ -113,7 +113,7 @@ switch ($mode) {
                 $output .= "<h3>$name $version</h3><p>Link: $link</p><p>$desc</p>";
                 $output .= str_replace('[+link+]', $link, $pkg_manager_html['package_form']);
             } else {
-                $output_lis .= '<li><label><input type="checkbox" name="package_name[]" value="'.htmlentities($link, ENT_QUOTES, $modx->config['charset'])."\">$name $version</label></li>";
+                $output_lis .= '<li><label><input type="checkbox" name="package_url[]" value="'.htmlentities($link, ENT_QUOTES, $modx->config['charset'])."\">$name $version</label></li>";
             }
         }
         
@@ -201,15 +201,32 @@ switch ($mode) {
     case 'install':
         require_once($modx->config['base_path'].'manager/includes/log.class.inc.php');
         $lh = new logHandler();
-        $PM->install();
-        if ($_SESSION['PM_settings']['verbose']) {
-            $output .= $PM->install_summary;
-        }
-        if (!$PM->is_error()) {
-            $output .= '<p>Success installing '.$PM->name.'!</p>';
-            $lh->initAndWriteLog('Installed Package', $modx->getLoginUserID(), $modx->getLoginUserName(), 76, null, $PM->name);
+
+        if (is_array($_POST['package_url'])) {
+            foreach($_POST['package_url'] as $link) {
+                $PM = new PackageManager($modx, $link);
+                $PM->summarise();
+                if ($PM->haspackage && !$PM->is_error()) {
+                    $PM->install();
+                    if (!$PM->is_error()) {
+                        $output .= '<p>Success installing '.$PM->name.'!</p>';
+                        $lh->initAndWriteLog('Installed Package', $modx->getLoginUserID(), $modx->getLoginUserName(), 76, null, $PM->name);
+                    } else {
+                        $output .= '<p class="error">'.implode(', ', $PM->errors()).'</p>';
+                    }
+                }
+            }
         } else {
-            $output .= '<p class="error">'.implode(', ', $PM->errors()).'</p>';
+            $PM->install();
+            if ($_SESSION['PM_settings']['verbose']) {
+                $output .= $PM->install_summary;
+            }
+            if (!$PM->is_error()) {
+                $output .= '<p>Success installing '.$PM->name.'!</p>';
+                $lh->initAndWriteLog('Installed Package', $modx->getLoginUserID(), $modx->getLoginUserName(), 76, null, $PM->name);
+            } else {
+                $output .= '<p class="error">'.implode(', ', $PM->errors()).'</p>';
+            }
         }
         break;
 }
