@@ -17,9 +17,29 @@ $pkg_manager_html['form'] =
 		<label for="pkg_folder">'.$_lang['package_manager_upload_byfolder_label'].'</label>
 		<input type="text" name="pkg_folder" id="pkg_folder">
 	</fieldset>
+	<fieldset class="settings">
+	    <div>
+	        <label><input type="radio" name="verbose" value="0"'.((!isset($_SESSION['PM_settings']['verbose']) || !$_SESSION['PM_settings']['verbose']) ? ' checked="checked"' : '').'>Quiet</label>
+	        <label><input type="radio" name="verbose" value="1"'.((isset($_SESSION['PM_settings']['verbose']) && $_SESSION['PM_settings']['verbose']) ?' checked="checked"' : '').'>Verbose</label>
+	    </div>
+	</fieldset>
 	<fieldset class="submit">
 		<input type="submit" name="go" value="'.$_lang['package_manager_upload'].'" />
 	</fieldset>
+</form>';
+
+$pkg_manager_html['package_form'] =
+'<form action="'.$self_href.'" method="post">
+    <fieldset>
+        <div>
+            <label><input type="radio" name="verbose" value="0"'.(!$_SESSION['PM_settings']['verbose'] ? ' checked="checked"' : '').'>Quiet</label>
+            <label><input type="radio" name="verbose" value="1"'.($_SESSION['PM_settings']['verbose'] ?' checked="checked"' : '').'>Verbose</label>
+        </div>
+    </fieldset>
+    <fieldset>
+        <input type="hidden" name="pkg_url" value="[+link+]" />
+        <input type="submit" value="'.$_lang['package_manager_fetchpackage'].'" />
+    </fieldset>
 </form>';
 
 $pkg_manager_html['retry_file_form'] =

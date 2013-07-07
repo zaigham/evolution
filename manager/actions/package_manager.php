@@ -10,6 +10,12 @@ $repos = array(array(
                 'tags_feed'=>'http://www.clippercms.com/extras/tags-xml-feed',
                 'repo_feed'=>'http://www.clippercms.com/extras/repo-xml-feed'));
 
+if (isset($_POST['verbose']) && $_POST['verbose'] == '1') {
+    $_SESSION['PM_settings']['verbose'] = 1;
+} else {
+    $_SESSION['PM_settings']['verbose'] = 0;
+}
+
 require_once('pm/package_manager.class.php');
 require_once('pm/package_manager.html.php');
 
@@ -99,7 +105,7 @@ switch ($mode) {
             $link = $item->getElementsByTagName('link')->item(0)->nodeValue;
             $desc = $item->getElementsByTagName('desc')->item(0)->nodeValue;
             $output .= "<h3>$name</h3><p>Link: $link</p><p>$desc</p>";
-            $output .= '<form action="'.$self_href.'" method="post"><fieldset><input type="hidden" name="pkg_url" value="'.$link.'" /><input type="submit" value="'.$_lang['package_manager_fetchpackage'].'" /></fieldset></form>';
+            $output .= str_replace('[+link+]', $link, $pkg_manager_html['package_form']);
         }
         
         $output .= '<p><a href="'.$self_href.'">'.$_lang['package_manager_restart'].'</a></p>';
@@ -149,7 +155,11 @@ switch ($mode) {
             $PM->summarise();
             if (!$PM->is_error()) {
                 $output .= '<pre>'.htmlentities($PM->README, ENT_QUOTES, $modx->config['charset']).'</pre>';
-                $output .= $PM->summary;
+                if ($_SESSION['PM_settings']['verbose']) {
+                    $output .= $PM->summary;
+                } else {
+                    if (!$PM->README) $output .= 'Packaged retrieved.';
+                }
                 if ($PM->auto_install_code) {
                     $output .= $_lang['package_manager_autoinstall_html0'].$PM->auto_install_code.$_lang['package_manager_autoinstall_html1'];
                 }
@@ -177,7 +187,9 @@ switch ($mode) {
         require_once($modx->config['base_path'].'manager/includes/log.class.inc.php');
         $lh = new logHandler();
         $PM->install();
-        $output .= $PM->install_summary;
+        if ($_SESSION['PM_settings']['verbose']) {
+            $output .= $PM->install_summary;
+        }
         if (!$PM->is_error()) {
             $output .= '<p>Success installing '.$PM->name.'!</p>';
             $lh->initAndWriteLog('Installed Package', $modx->getLoginUserID(), $modx->getLoginUserName(), 76, null, $PM->name);
