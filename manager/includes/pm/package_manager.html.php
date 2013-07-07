@@ -1,16 +1,7 @@
 <?php
 $pkg_manager_html['header'] =
-'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<head>
-	<meta http-equiv="content-type" content="text/html;charset='.$modx->config['modx_charset'].'" />
-	<meta name="language" content="en" />
-	<title>Package Manager</title>
-	<link rel="stylesheet" type="text/css" href="media/style/'.$manager_theme_subpath.'style.css" />
-</head>
-<body>
-	<div class="sectionHeader">Package Manager</div>
-	<div class="sectionBody">';
+'<div class="sectionHeader">Package Manager</div>
+<div class="sectionBody">';
 	
 $pkg_manager_html['form'] =
 '<form action="'.$self_href.'" method="post" style="margin: 20px 0" enctype="multipart/form-data">
@@ -48,6 +39,5 @@ $pkg_manager_html['confirm_form'] =
 
 
 $pkg_manager_html['footer'] =
-    '</div>
-</body>
-</html>';
+'</div>';
+
