@@ -25,7 +25,7 @@ $mode = 'start'; // start, repo-list, summarise, error, install
 
 $output = $pkg_manager_html['header'];
 
-if ((@$_GET['repo'] || $_GET['repo'] === '0') && ctype_digit($_GET['repo']) && $_GET['repo'] < sizeof($repos) && @$_GET['tag'] && ctype_alpha($_GET['tag'])) {
+if ((@$_GET['repo'] || $_GET['repo'] === '0') && ctype_digit($_GET['repo']) && $_GET['repo'] < sizeof($repos) && ((@$_GET['tag'] && ctype_alpha($_GET['tag'])) || !isset($_GET['tag']))) {
 
     $mode = 'repo-list';
     
@@ -87,7 +87,7 @@ switch ($mode) {
 
     case 'repo-list':
         if ($refresh_pm_cache || !isset($_SESSION['PM_CACHE'][$_GET['repo']]['xml'][$_GET['tag']])) {
-            $cr = curl_init($repos[$_GET['repo']]['repo_feed'].(strpos($repos[$_GET['repo']]['repo_feed'], '?') === false ? '?' : '&').'tags='.$_GET['tag'].'&cms='.CMS_NAME.'&cms_ver='.CMS_RELEASE_VERSION);
+            $cr = curl_init($repos[$_GET['repo']]['repo_feed'].(strpos($repos[$_GET['repo']]['repo_feed'], '?') === false ? '?' : '&').'cms='.CMS_NAME.'&cms_ver='.CMS_RELEASE_VERSION.(isset($_GET['tag']) ? '&tags='.$_GET['tag'] : ''));
             curl_setopt($cr, CURLOPT_TIMEOUT, 4);
             curl_setopt($cr, CURLOPT_RETURNTRANSFER, true);
             $repo_xml = curl_exec($cr);
@@ -141,6 +141,8 @@ switch ($mode) {
                     $tagname = $tag->getElementsByTagName('name')->item(0)->nodeValue;
                     $output .= "<li><a href=\"{$self_href}&amp;repo={$idx}&amp;tag={$tagname}\">{$tagname}</a> (".$tag->getElementsByTagName('count')->item(0)->nodeValue.')</li>';
                 }
+                
+                $output .= "<li><a href=\"{$self_href}&amp;repo={$idx}\">List all</a></li>";
                 
                 $output .= '</ul>';
             }
