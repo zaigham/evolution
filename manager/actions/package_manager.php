@@ -25,9 +25,11 @@ $mode = 'start'; // start, repo-list, summarise, error, install
 
 $output = $pkg_manager_html['header'];
 
-if ((@$_GET['repo'] || $_GET['repo'] === '0') && ctype_digit($_GET['repo']) && $_GET['repo'] < sizeof($repos) && ((@$_GET['tag'] && ctype_alpha($_GET['tag'])) || !isset($_GET['tag']))) {
+if ((@$_GET['repo'] || $_GET['repo'] === '0') && ctype_digit($_GET['repo']) && $_GET['repo'] < sizeof($repos)) {
 
     $mode = 'repo-list';
+    $repo_tag = (isset($_GET['tag']) && ctype_alpha($_GET['tag'])) ? $_GET['tag'] : null;
+    $PM_cache_idx = $repo_tag ? $repo_tag : 0;
     
 } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -86,27 +88,37 @@ if (@$errmsg) {
 switch ($mode) {
 
     case 'repo-list':
-        if ($refresh_pm_cache || !isset($_SESSION['PM_CACHE'][$_GET['repo']]['xml'][$_GET['tag']])) {
-            $cr = curl_init($repos[$_GET['repo']]['repo_feed'].(strpos($repos[$_GET['repo']]['repo_feed'], '?') === false ? '?' : '&').'cms='.CMS_NAME.'&cms_ver='.CMS_RELEASE_VERSION.(isset($_GET['tag']) ? '&tags='.$_GET['tag'] : ''));
+        if ($refresh_pm_cache || !isset($_SESSION['PM_CACHE'][$_GET['repo']]['xml'][$PM_cache_idx])) {
+            $cr = curl_init($repos[$_GET['repo']]['repo_feed'].(strpos($repos[$_GET['repo']]['repo_feed'], '?') === false ? '?' : '&').'cms='.CMS_NAME.'&cms_ver='.CMS_RELEASE_VERSION.($repo_tag ? '&tags='.$repo_tag : ''));
             curl_setopt($cr, CURLOPT_TIMEOUT, 4);
             curl_setopt($cr, CURLOPT_RETURNTRANSFER, true);
             $repo_xml = curl_exec($cr);
             if ($repo_xml) {
-                $_SESSION['PM_CACHE'][$_GET['repo']]['xml'][$tag] = $repo_xml;
+                $_SESSION['PM_CACHE'][$_GET['repo']]['xml'][$PM_cache_idx] = $repo_xml;
             } else {
                 $output .= '<p class="error">'.htmlentities(curl_error($cr), ENT_QUOTES, $modx->config['charset']).'</p>';
             }
         }
         
         $doc = new DOMDocument();
-        $doc->loadXML($_SESSION['PM_CACHE'][$_GET['repo']]['xml'][$tag]);
+        $doc->loadXML($_SESSION['PM_CACHE'][$_GET['repo']]['xml'][$PM_cache_idx]);
+        $output_lis = '';
         foreach($doc->getElementsByTagName('item') as $item) {
             $name = $item->getElementsByTagName('name')->item(0)->nodeValue;
             $version = $item->getElementsByTagName('version')->item(0)->nodeValue;
             $link = $item->getElementsByTagName('link')->item(0)->nodeValue;
             $desc = $item->getElementsByTagName('desc')->item(0)->nodeValue;
-            $output .= "<h3>$name $version</h3><p>Link: $link</p><p>$desc</p>";
-            $output .= str_replace('[+link+]', $link, $pkg_manager_html['package_form']);
+            
+            if ($repo_tag) {
+                $output .= "<h3>$name $version</h3><p>Link: $link</p><p>$desc</p>";
+                $output .= str_replace('[+link+]', $link, $pkg_manager_html['package_form']);
+            } else {
+                $output_lis .= '<li><label><input type="checkbox" name="package_name[]" value="'.htmlentities($link, ENT_QUOTES, $modx->config['charset'])."\">$name $version</label></li>";
+            }
+        }
+        
+        if (!$repo_tag) {
+            $output .= str_replace('[+lis+]', $output_lis, $pkg_manager_html['all_packages_form']);
         }
         
         $output .= '<p><a href="'.$self_href.'">'.$_lang['package_manager_restart'].'</a></p>';
