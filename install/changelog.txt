@@ -1,5 +1,34 @@
 Note that the #numbers under the Clipper entries related to issue numbers as at https://github.com/ClipperCMS/ClipperCMS/issues
 
+ClipperCMS 1.2.0 (July 2013)
+===========================
+
+- mysqli DBAPI.
+- Installer option to select InnoDB or MyISAM database engines.
+- Locales can be optionally set in the installer.
+- The server timezone can be optionally be set in the installer.
+- Elimination of mootools from the manager and the adoption of jQuery in the manager.
+- New API methods for jQuery.
+- Integration of kcfinder.
+- Better help pages in the manager.
+- Improved error handling and reporting.
+- More information is now available in the system error log.
+- Built in RSS feeds for your site.
+- Question mark, ampersand and equals signs can now be used in values of snippet parameters.
+- Cross-references in placeholders.
+- Output modifiers.
+- Plugin TemplateRules is now in the core.
+- Per-template template rules have been introduced
+- AjaxSearch 1.10 now bundled with the core install.
+- Improved organisation for manager themes and CSS.
+- PHPMailer now used throughout the manager via a new ClipperMailer class.
+- New Core and Install classes simplify installation and operation of the parser.
+- New ClipperCMS sample site.
+- Removed static export functionality.
+- Removed message system.
+- Removed ListIndexed.
+- Bugfixes and other minor improvements as detailed on github.
+
 ClipperCMS 1.1.3 (Mar 2013)
 ===========================
 
