@@ -26,8 +26,8 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 	echo $modx->getJqueryTag();
 	echo $modx->getJqueryPluginTag('jquery-ui-custom-clippermanager', 'jquery-ui-custom-clippermanager.min.js');
 	echo $modx->getJqueryPluginTag('jquery-ui-timepicker', 'jquery-ui-timepicker-addon.js');
+	echo $modx->getJqueryPluginTag('jquery-datatables', 'jquery.dataTables.min.js');
 	?>
-	<script src="media/script/jquery.dataTables.min.js"></script>
 	<script src="media/script/manager.js"></script>
 
 	<?php
