@@ -3309,7 +3309,7 @@ class DocumentParser extends Core {
      * Get jquery plugin <script> tag as HTML.
      *
      * Currently used plugin names:
-     *	- jquery-ui-custom-clippermanager The custom jquery-ui file for the Clipper manager
+     *  - jquery-ui-custom-clippermanager The custom jquery-ui file for the Clipper manager
      *  - jquery-ui-timepicker
      *
      * @param string $plugin_name Plugin name, use the name most likely to be used by other scripts (case insensitive)
