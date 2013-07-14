@@ -685,23 +685,23 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                                     return false;
                                 }
                                 $this->install_summary .= "<p>Installing new $el_category_singular $name</p>";
-                            }
-                            
-                            switch($el_category) {
-                                
-                                case 'plugins':
-                                    // New events
-                                    if (isset($internals['events']) && sizeof($events = preg_split('/\s*,\s*/', $internals['events'], -1, PREG_SPLIT_NO_EMPTY))) {
-                                        $tbl_se = $this->core->getFullTableName('site_plugin_events');
-                                        $tbl_sen = $this->core->getFullTableName('system_eventnames');
-                                        if (!$this->core->db->insert('(pluginid, evtid)' , $tbl_se, "$new_id AS pluginid, $tbl_sen.id as evtid", $tbl_sen, 'name IN (\''.implode('\',\'', $events).'\')')) {
-                                            $this->install_summary .= "<p class=\"error\">Error setting events for plugin $name</p>";
-                                            return false;
-                                        }
-                                        $this->install_summary .= "<p>Setting events for plugin $name</p>";
-                                    }
+
+                                switch($el_category) {
                                     
-                                    break;
+                                    case 'plugins':
+                                        // New events
+                                        if (isset($internals['events']) && sizeof($events = preg_split('/\s*,\s*/', $internals['events'], -1, PREG_SPLIT_NO_EMPTY))) {
+                                            $tbl_se = $this->core->getFullTableName('site_plugin_events');
+                                            $tbl_sen = $this->core->getFullTableName('system_eventnames');
+                                            if (!$this->core->db->insert('(pluginid, evtid)' , $tbl_se, "$new_id AS pluginid, $tbl_sen.id as evtid", $tbl_sen, 'name IN (\''.implode('\',\'', $events).'\')')) {
+                                                $this->install_summary .= "<p class=\"error\">Error setting events for plugin $name</p>";
+                                                return false;
+                                            }
+                                            $this->install_summary .= "<p>Setting events for plugin $name</p>";
+                                        }
+                                        
+                                        break;
+                                }
                             }
                         }
                     }
