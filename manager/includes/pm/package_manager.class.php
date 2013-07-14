@@ -416,6 +416,9 @@ class PackageManager {
             $this->error_msgs[] = 'Some files or folders are not writable.';
         }
 
+        // Ensure templates are installed before TVs so links can be made correctly
+        ksort($this->elements);
+
         foreach($this->elements as $el_category => $els) {
             $this->summary .= '<h3>'.ucfirst($el_category).'</h3><ul>';
             foreach($els as $el) {
