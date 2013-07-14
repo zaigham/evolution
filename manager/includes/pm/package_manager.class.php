@@ -235,9 +235,14 @@ class PackageManager {
             $this->mode = 1;
             $this->file = $modx->config['base_path'].$file;
 
+        } elseif (is_dir($file)) {
+            
+            $this->mode = 1;
+            $this->file = $file;
+
         }
 
-        if (!sizeof($this->error_msgs)) {
+        if (!sizeof($this->error_msgs) && !is_null($this->mode)) {
     
             $this->package = $this->mode ? new ReadFolder($this->file) : new ReadZip($this->file);
     
@@ -254,6 +259,8 @@ class PackageManager {
             } else {
                 $this->error_msgs[] = 'Error opening package';
             }
+        } else {
+            $this->error_msgs[] = 'Error opening package';
         }
     
         if (isset($fr2) && $fr2) {

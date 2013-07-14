@@ -45,7 +45,7 @@ if ((@$_GET['repo'] || $_GET['repo'] === '0') && ctype_digit($_GET['repo']) && $
 
     } elseif (@$_POST['pkg_folder']) {
     
-        $PM = new PackageManager($modx, $modx->config['base_path'].$_POST['pkg_folder']);
+        $PM = new PackageManager($modx, $_POST['pkg_folder']);
         $mode = 'summarise';
     
     } elseif (isset($_FILES['pkg_file']) && $_FILES['pkg_file']['error'] != UPLOAD_ERR_NO_FILE) {
