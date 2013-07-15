@@ -699,11 +699,12 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                                 switch($el_category) {
                                     
                                     case 'plugins':
-                                        // <<<< TODO: Garbage collect old events on any old entry
+                                        $tbl_se = $this->core->getFullTableName('site_plugin_events');
+                                        $tbl_sen = $this->core->getFullTableName('system_eventnames');
+                                        // Garbage collect old events on any old entry
+                                        $this->core->db->delete($tbl_se, "pluginid = $new_id");
                                         // New events
                                         if (isset($internals['events']) && sizeof($events = preg_split('/\s*,\s*/', $internals['events'], -1, PREG_SPLIT_NO_EMPTY))) {
-                                            $tbl_se = $this->core->getFullTableName('site_plugin_events');
-                                            $tbl_sen = $this->core->getFullTableName('system_eventnames');
                                             if (!$this->core->db->insert('(pluginid, evtid)' , $tbl_se, "$new_id AS pluginid, $tbl_sen.id as evtid", $tbl_sen, 'name IN (\''.implode('\',\'', $events).'\')')) {
                                                 $this->install_summary .= "<p class=\"error\">Error setting events for plugin $name</p>";
                                                 return false;
@@ -714,8 +715,8 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                                         break;
                                     
                                     case 'tvs':
-                                        // <<<< TODO: Garbage collect old template links on any old tv
                                         // Template links
+                                        // Note we only add links; we do not remove existing ones.
                                         if (isset($internals['templates']) && sizeof($templates = preg_split('/\s*,\s*/', $internals['templates'], -1, PREG_SPLIT_NO_EMPTY))) {
                                             foreach($templates as $template) {
                                                 if ($template_id = $this->core->db->getValue('SELECT id FROM '.$this->core->getFullTableName('site_templates').' WHERE templatename = \''.$this->core->db->escape($template).'\'')) {
