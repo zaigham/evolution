@@ -93,6 +93,9 @@ if (@$errmsg) {
 switch ($mode) {
 
     case 'repo-list':
+
+        $output .= $pkg_manager_html['tabs_search_upload'].'<div id="tabSearch">';
+        
         if ($refresh_pm_cache || !isset($_SESSION['PM_CACHE'][$_GET['repo']]['xml'][$PM_cache_idx])) {
             $cr = curl_init($repos[$_GET['repo']]['repo_feed'].(strpos($repos[$_GET['repo']]['repo_feed'], '?') === false ? '?' : '&').'cms='.CMS_NAME.'&cms_ver='.CMS_RELEASE_VERSION.($repo_tag ? '&tags='.$repo_tag : ''));
             curl_setopt($cr, CURLOPT_TIMEOUT, 4);
@@ -128,9 +131,17 @@ switch ($mode) {
         
         $output .= '<p><a href="'.$self_href.'">'.$_lang['package_manager_restart'].'</a></p>';
         
+        $output .= '</div>';
+        $output .= '<div id="tabUpload">';
+        $output .= $pkg_manager_html['form'];
+        $output .= '</div>';
+        
         break;
 
     case 'start':
+    
+        $output .= $pkg_manager_html['tabs_search_upload'].'<div id="tabSearch">';
+        
         foreach($repos as $idx => $repo) {
         
             if ($refresh_pm_cache || !isset($_SESSION['PM_CACHE'][$idx]['tags'])) {
@@ -166,11 +177,19 @@ switch ($mode) {
                 
         }
         
+        $output .= '</div>';
+        
+        // fall through to...
+        
     case 'error':
+        $output .= '<div id="tabUpload">';
         $output .= $pkg_manager_html['form'];
+        $output .= '</div>';
         break;
 
     case 'summarise':
+        $output .= $pkg_manager_html['tabs_install'];
+        
         if (isset($PM) && $PM->haspackage && !$PM->is_error()) {
             $PM->summarise();
             if (!$PM->is_error()) {
@@ -204,6 +223,8 @@ switch ($mode) {
         break;
 
     case 'install':
+        $output .= $pkg_manager_html['tabs_install'];
+
         require_once($modx->config['base_path'].'manager/includes/log.class.inc.php');
         $lh = new logHandler();
 

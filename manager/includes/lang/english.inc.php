@@ -249,6 +249,7 @@ $_lang['package_manager_upload_byfolder_label'] = 'Manually specify a package fo
 $_lang['package_manager_tagsinrepo'] = 'Tags used in this repo';
 $_lang['package_manager_restart'] = 'Return to Package Manager start';
 $_lang['package_manager_fetchpackage'] = 'Get package';
+$_lang['package_manager_search'] = 'Search';
 $_lang['package_manager_upload'] = 'Upload';
 $_lang['package_manager_retry'] = 'Retry';
 $_lang['package_manager_install'] = 'Install';
