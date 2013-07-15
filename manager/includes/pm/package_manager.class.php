@@ -460,6 +460,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
             foreach($this->new_folders as $folder) {
                 if (!mkdir($this->core->config['base_path'].$folder)) {
                     $this->install_summary .= "<p class=\"error\">Error creating directory $folder</p>";
+                    $this->error_msgs[] = "Error creating directory $folder";
                     return false;
                 }
                 $this->install_summary .= "<p>Creating directory $folder</p>";
@@ -468,6 +469,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
             foreach($this->new_files as $file) {
                 if (file_put_contents($this->core->config['base_path'].$file, $this->package->read_file('files/'.$file)) === false) {
                     $this->install_summary .= "<p class=\"error\">Error writing new file $file</p>";
+                    $this->error_msgs[] = "Error writing new file $file";
                     return false;
                 }
                 $this->install_summary .= "<p>Writing new file $file</p>";
@@ -476,6 +478,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
             foreach($this->modified_files as $file) {
                 if (file_put_contents($this->core->config['base_path'].$file, $this->package->read_file('files/'.$file)) === false) {
                     $this->install_summary .= "<p class=\"error\">Error updating existing file $file</p>";
+                    $this->error_msgs[] = "Error updating existing file $file";
                     return false;
                 }
                 $this->install_summary .= "<p>Updating existing file $file</p>";

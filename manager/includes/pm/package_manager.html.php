@@ -96,6 +96,17 @@ $pkg_manager_html['all_packages_form'] =
     </fieldset>
 </form>';
 
+$pkg_manager_html['retry_all_packages_form'] =
+'<form action="'.$self_href.'" method="post">
+    <fieldset>
+        <ul id="repo-full-list">[+lis+]</ul>
+    </fieldset>
+    <fieldset class="submit">
+        <input type="hidden" name="repo" value="[+repo+]" />
+        <input type="submit" name="go" value="'.$_lang['package_manager_retry'].'" />
+    </fieldset>
+</form>';
+
 $pkg_manager_html['retry_file_form'] =
 '<form action="'.$self_href.'" method="post" style="margin: 20px 0" enctype="multipart/form-data">
     <fieldset class="submit">

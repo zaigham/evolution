@@ -80,7 +80,7 @@ if ((@$_GET['repo'] || $_GET['repo'] === '0') && ctype_digit($_GET['repo']) && $
         $PM = new $PM($modx, $PM->file, $PM->name); // 'reset' $PM and start again
         $mode = 'summarise';
         
-    } elseif ($_POST['go'] == 'Install') {
+    } elseif ($_POST['go'] == 'Install' || $_POST['go'] == 'Retry') {
 
         $PM = unserialize($_SESSION['PM']);
         $mode = 'install';
@@ -128,7 +128,7 @@ switch ($mode) {
         }
         
         if (!$repo_tag) {
-            $output .= str_replace('[+lis+]', $output_lis, $pkg_manager_html['all_packages_form']);
+            $output .= str_replace('[+repo+]', $_GET['repo'], str_replace('[+lis+]', $output_lis, $pkg_manager_html['all_packages_form']));
         }
         
         $output .= '<p><a href="'.$self_href.'">'.$_lang['package_manager_restart'].'</a></p>';
@@ -206,7 +206,9 @@ switch ($mode) {
                 }
                 $output .= $pkg_manager_html['confirm_form'];
             } else {
-                $output .= $PM->summary;
+                if ($_SESSION['PM_settings']['verbose']) {
+                    $output .= $PM->install_summary;
+                }
                 $errmsg = $PM->is_error() ? implode(', ', $PM->errors()) : 'Error during fetch process';
             }
         } else {
@@ -214,7 +216,7 @@ switch ($mode) {
         }
 
         if ($errmsg) {
-            $output .= '<p class="error">'.$errmsg.'</p>';
+            $output .= '<p class="error">'.$PM->name.': '.$errmsg.'</p>';
             if ($PM->haspackage && $PM->perms_error()) {
                 $output .= $pkg_manager_html['retry_file_form'];
             }
@@ -231,7 +233,10 @@ switch ($mode) {
         $lh = new logHandler();
 
         if (is_array($_POST['package_url'])) {
-            foreach($_POST['package_url'] as $link) {
+            // Quick-install of multiple packages.
+            $to_install = $_POST['package_url'];
+            $errs = false;
+            foreach($_POST['package_url'] as $key=>$link) {
                 $PM = new PackageManager($modx, $link);
                 $PM->summarise();
                 if ($PM->haspackage && !$PM->is_error()) {
@@ -239,12 +244,37 @@ switch ($mode) {
                     if (!$PM->is_error()) {
                         $output .= '<p>Success installing '.$PM->name.'!</p>';
                         $lh->initAndWriteLog('Installed Package', $modx->getLoginUserID(), $modx->getLoginUserName(), 76, null, $PM->name);
+                        $to_install[$key] = null;
                     } else {
-                        $output .= '<p class="error">'.implode(', ', $PM->errors()).'</p>';
+                        if ($_SESSION['PM_settings']['verbose']) {
+                            $output .= $PM->install_summary;
+                        }
+                        $output .= '<p class="error">'.$link.': '.implode(', ', $PM->errors()).'</p>';
+                        $errs = true;
                     }
+                } else {
+                    if ($_SESSION['PM_settings']['verbose']) {
+                        $output .= $PM->install_summary;
+                    }
+                    $output .= '<p class="error">'.$link.': '.implode(', ', $PM->errors()).'</p>';
+                    $errs = true;
                 }
             }
+
+            $doc = new DOMDocument();
+            $doc->loadXML($_SESSION['PM_CACHE'][$_POST['repo']]['xml'][0]);
+            $output_lis = '';
+            foreach($doc->getElementsByTagName('item') as $item) {
+                $name = $item->getElementsByTagName('name')->item(0)->nodeValue;
+                $version = $item->getElementsByTagName('version')->item(0)->nodeValue;
+                $link = $item->getElementsByTagName('link')->item(0)->nodeValue;
+                $desc = $item->getElementsByTagName('desc')->item(0)->nodeValue;
+                $output_lis .= '<li><label><input type="checkbox" name="package_url[]" value="'.htmlentities($link, ENT_QUOTES, $modx->config['charset']).'"'.(in_array($link, $to_install) ? ' checked="checked"' : '')." />$name $version</label></li>";
+            }
+            $output .= str_replace('[+repo+]', $_POST['repo'], str_replace('[+lis+]', $output_lis, $pkg_manager_html[$errs ? 'retry_all_packages_form' : 'all_packages_form']));
+        
         } else {
+            // One package, already summarised.
             $PM->install();
             if ($_SESSION['PM_settings']['verbose']) {
                 $output .= $PM->install_summary;
