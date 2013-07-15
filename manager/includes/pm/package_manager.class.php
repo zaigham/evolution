@@ -380,9 +380,15 @@ class PackageManager {
                     // File
                     if (!is_file($this->core->config['base_path'].$filename)) {
                         $this->new_files[] = $filename;
-                        $dir = preg_replace('~/[^/]+$~', '', $filename);
-                        if (is_dir($this->core->config['base_path'].$dir) && !is_writable($this->core->config['base_path'].$dir)) {
-                            $this->not_writable[] = $dir;
+                        if (!strpos($filename, '/')) {
+                            if (!is_writable(substr($this->core->config['base_path'], 0, -1))) {
+                                $this->not_writable[] = 'The site root directory '.$this->core->config['base_path'];
+                            }
+                        } else {
+                            $dir = preg_replace('~/[^/]+$~', '', $filename);
+                            if (is_dir($this->core->config['base_path'].$dir) && !is_writable($this->core->config['base_path'].$dir)) {
+                                $this->not_writable[] = $dir;
+                            }
                         }
                     } else {
                         $this->modified_files[] = $filename;
