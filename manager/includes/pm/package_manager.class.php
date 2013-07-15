@@ -620,8 +620,14 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                                     if (isset($internals['restrict_children'])) {
                                         $flds['restrict_children'] = $this->core->db->escape($internals['restrict_children']);
                                     }
-                                    if (isset($internals['allowed_child_templates'])) {
-                                        $flds['allowed_child_templates'] = $this->core->db->escape($internals['allowed_child_templates']);
+                                    if (isset($internals['allowed_child_templates']) && sizeof($templates = preg_split('/\s*,\s*/', $internals['allowed_child_templates'], -1, PREG_SPLIT_NO_EMPTY))) {
+                                        $template_ids = array();
+                                        foreach($templates as $template) {
+                                            if ($template_id = $this->core->db->getValue('SELECT id FROM '.$this->core->getFullTableName('site_templates').' WHERE templatename = \''.$this->core->db->escape($template).'\'')) {
+                                                $template_ids[] = $template_id;
+                                            }
+                                        }
+                                        $flds['allowed_child_templates'] = implode(',', $template_ids);
                                     }
                                
                                     $tbl = $this->core->getFullTableName('site_templates');
