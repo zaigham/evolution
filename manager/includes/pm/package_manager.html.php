@@ -91,6 +91,7 @@ $pkg_manager_html['all_packages_form'] =
         <ul id="repo-full-list">[+lis+]</ul>
     </fieldset>
     <fieldset class="submit">
+        <input type="hidden" name="repo" value="[+repo+]" />
         <input type="submit" name="go" value="'.$_lang['package_manager_install'].'" />
     </fieldset>
 </form>';
