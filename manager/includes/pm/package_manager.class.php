@@ -677,9 +677,10 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                             $flds['description'] = $this->core->db->escape('<strong>'.$full_version.'</strong> '.$desc);
 
                             // Put into db
-                            $rs = $this->core->db->select('*', $tbl, "$name_field LIKE '$name'");
+                            $rs = $this->core->db->select('id', $tbl, "$name_field LIKE '$name'");
                             if (!$this->core->db->getRecordCount($rs) || $overwrite) {
                                 if ($this->core->db->getRecordCount($rs)) {
+                                    $flds['id'] = $this->core->db->getValue($rs); // Preserve id so references are not broken
                                     if (!$this->core->db->delete($tbl, "$name_field LIKE '$name'")) {
                                         $this->install_summary .= "<p class=\"error\">Error removing existing $el_category_singular $name</p>";
                                         return false;
@@ -718,7 +719,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                                         if (isset($internals['templates']) && sizeof($templates = preg_split('/\s*,\s*/', $internals['templates'], -1, PREG_SPLIT_NO_EMPTY))) {
                                             foreach($templates as $template) {
                                                 if ($template_id = $this->core->db->getValue('SELECT id FROM '.$this->core->getFullTableName('site_templates').' WHERE templatename = \''.$this->core->db->escape($template).'\'')) {
-                                                    $this->core->db->insert(array('tmplvarid'=>$new_id, 'templateid'=>$template_id), $this->core->getFullTableName('site_tmplvar_templates'));
+                                                    $this->core->db->insert_ignore(array('tmplvarid'=>$new_id, 'templateid'=>$template_id), $this->core->getFullTableName('site_tmplvar_templates'));
                                                 }
                                             }
                                         }
