@@ -466,7 +466,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
             }
             
             foreach($this->new_files as $file) {
-                if (file_put_contents($this->core->config['base_path'].$file, $this->package->read_file('files/'.$file)) == -1) {
+                if (file_put_contents($this->core->config['base_path'].$file, $this->package->read_file('files/'.$file)) === false) {
                     $this->install_summary .= "<p class=\"error\">Error writing new file $file</p>";
                     return false;
                 }
@@ -474,7 +474,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
             }
 
             foreach($this->modified_files as $file) {
-                if (file_put_contents($this->core->config['base_path'].$file, $this->package->read_file('files/'.$file)) == -1) {
+                if (file_put_contents($this->core->config['base_path'].$file, $this->package->read_file('files/'.$file)) === false) {
                     $this->install_summary .= "<p class=\"error\">Error updating existing file $file</p>";
                     return false;
                 }
