@@ -17,7 +17,9 @@ $repos = array(array(
 
 if (isset($_POST['verbose']) && $_POST['verbose'] == '1') {
     $_SESSION['PM_settings']['verbose'] = 1;
-} else {
+} elseif (isset($_POST['verbose']) && $_POST['verbose'] == '0') {
+    $_SESSION['PM_settings']['verbose'] = 0;
+} elseif (!isset($_SESSION['PM_settings']['verbose'])) {
     $_SESSION['PM_settings']['verbose'] = 0;
 }
 
