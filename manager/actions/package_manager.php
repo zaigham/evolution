@@ -214,6 +214,9 @@ switch ($mode) {
         if ($errmsg) {
             $output .= '<p class="error">'.$PM->name.': '.$errmsg.'</p>';
             if ($PM->haspackage && $PM->perms_error()) {
+                if (!$_SESSION['PM_settings']['verbose']) {
+                    $output .= '<p>'.$_lang['package_manager_check_perms'].': '.implode(',', $PM->not_writables()).'</p>';
+                }
                 $output .= $pkg_manager_html['retry_file_form'];
             }
             $modx->logEvent(29,3,'Package Manager: '.$errmsg);
@@ -251,10 +254,12 @@ switch ($mode) {
                         $errs = true;
                     }
                 } else {
+                    $output .= '<p class="error">'.$link.': '.implode(', ', $PM->errors()).'</p>';
                     if ($_SESSION['PM_settings']['verbose']) {
                         $output .= $PM->install_summary;
+                    } elseif ($PM->perms_error()) {
+                        $output .= '<p>'.$_lang['package_manager_check_perms'].': '.implode(',', $PM->not_writables()).'</p>';
                     }
-                    $output .= '<p class="error">'.$link.': '.implode(', ', $PM->errors()).'</p>';
                     $errs = true;
                 }
             }

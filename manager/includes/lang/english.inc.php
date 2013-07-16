@@ -257,6 +257,7 @@ $_lang['package_manager_autoinstall_html0'] = '<div><p><strong>Use the following
 $_lang['package_manager_autoinstall_html1'] = '</pre></div>';
 $_lang['package_manager_error_internal'] = 'Internal error uploading. Please try again.';
 $_lang['package_manager_error_filesize'] = 'Your server is not configured to accept files of this size. Contact your server administrator and ask for the maximum post and upload file sizes to be increased.';
+$_lang['package_manager_check_perms'] = 'Check permissions on';
 $_lang["editedon"] = 'Edit date';
 $_lang["editing_file"] = 'Editing file: ';
 $_lang["editor_css_path_message"] = 'Enter the path to your CSS file that you wish to use within the editor. The best way to enter the path is to enter the path from the root of your server, for example: /assets/site/style.css. If you do not wish to load a style sheet into the editor, leave this field blank.';

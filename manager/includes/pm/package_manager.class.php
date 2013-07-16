@@ -294,6 +294,13 @@ class PackageManager {
     }
     
     /**
+     * Get not-writable files/folders
+     */
+    function not_writables() {
+        return array_unique($this->not_writable);
+    }
+    
+    /**
      * Is this a file we will install as is, either by creating a new file or overwriting an old one?
      *
      * Ignores files ending in ~, .bak, and .save.
