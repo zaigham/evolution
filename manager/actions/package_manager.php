@@ -203,7 +203,7 @@ switch ($mode) {
                 $output .= $pkg_manager_html['confirm_form'];
             } else {
                 if ($_SESSION['PM_settings']['verbose']) {
-                    $output .= $PM->install_summary;
+                    $output .= $PM->summary;
                 }
                 $errmsg = $PM->is_error() ? implode(', ', $PM->errors()) : 'Error during fetch process';
             }
@@ -256,7 +256,7 @@ switch ($mode) {
                 } else {
                     $output .= '<p class="error">'.$link.': '.implode(', ', $PM->errors()).'</p>';
                     if ($_SESSION['PM_settings']['verbose']) {
-                        $output .= $PM->install_summary;
+                        $output .= $PM->summary;
                     } elseif ($PM->perms_error()) {
                         $output .= '<p>'.$_lang['package_manager_check_perms'].': '.implode(',', $PM->not_writables()).'</p>';
                     }
