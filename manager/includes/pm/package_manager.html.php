@@ -92,6 +92,12 @@ $pkg_manager_html['all_packages_form'] =
     <fieldset>
         <ul id="repo-full-list">[+lis+]</ul>
     </fieldset>
+    <fieldset>
+        <div>
+            <label><input type="radio" name="verbose" value="0"'.(!$_SESSION['PM_settings']['verbose'] ? ' checked="checked"' : '').'>Quiet</label>
+            <label><input type="radio" name="verbose" value="1"'.($_SESSION['PM_settings']['verbose'] ?' checked="checked"' : '').'>Verbose</label>
+        </div>
+    </fieldset>
     <fieldset class="submit">
         <input type="hidden" name="repo" value="[+repo+]" />
         <input type="submit" name="go" value="'.$_lang['package_manager_install'].'" />
