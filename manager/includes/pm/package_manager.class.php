@@ -380,7 +380,7 @@ class PackageManager {
                     // Folder
                     if (!is_dir($fullpath)) {
                         $this->new_folders[] = $filename;
-                        $dir = preg_replace('~/[^/]+/$~', '/', $filename);
+                        $dir = preg_replace('~[^/]+/$~', '', $filename);
                         if (is_dir($this->core->config['base_path'].$dir) && !is_writable($this->core->config['base_path'].$dir)) {
                             $this->not_writable[] = $dir;
                         }
@@ -391,10 +391,10 @@ class PackageManager {
                         $this->new_files[] = $filename;
                         if (!strpos($filename, '/')) {
                             if (!is_writable(substr($this->core->config['base_path'], 0, -1))) {
-                                $this->not_writable[] = 'The site root directory '.$this->core->config['base_path'];
+                                $this->not_writable[] = '/';
                             }
                         } else {
-                            $dir = preg_replace('~/[^/]+$~', '', $filename);
+                            $dir = preg_replace('~[^/]+$~', '', $filename);
                             if (is_dir($this->core->config['base_path'].$dir) && !is_writable($this->core->config['base_path'].$dir)) {
                                 $this->not_writable[] = $dir;
                             }
@@ -427,7 +427,7 @@ class PackageManager {
         }
 
         if (sizeof($this->not_writable)) {
-            $this->summary .= '<h3 class="error">These files/folders are not writable! Check permissions on:</h3>'.implode('<br />', $this->not_writable);
+            $this->summary .= '<h3 class="error">These files/folders are not writable! Check permissions on:</h3>'.implode('<br />', $this->not_writables());
             $this->error_msgs[] = 'Some files or folders are not writable.';
         }
 
