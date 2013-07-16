@@ -361,6 +361,8 @@ class PackageManager {
      */
     function summarise() {
     
+        $this->summary = '<h2>'.$this->name.'</h2>';
+    
         if ($this->package->file_exists('install.php') !== false) {
             $this->summary .= '<h3>Install script</h3><p class="warning">This package contains an install script that will be run when all files and elements have been installed.</p>';
         }
@@ -458,7 +460,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
      */
     function install() {
     
-        $this->install_summary = '';
+        $this->install_summary = '<h2>'.$this->name.'</h2>';
     
         $this->package = $this->mode ? new ReadFolder($this->file) : new ReadZip($this->file);
 
