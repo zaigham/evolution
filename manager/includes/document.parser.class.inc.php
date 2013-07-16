@@ -893,13 +893,9 @@ class DocumentParser extends Core {
             $key= substr($key, 0, 1) == '#' ? substr($key, 1) : $key; // remove # for QuickEdit format
 
             // Detect output modifiers
-            if (strpos($key, ';') != false) {
-                $modifiers = explode(';', $key);
-                $key = $modifiers[0];
-            } else {
-                $modifiers = null;
-            }
-
+            // Put result into $key and $modifiers
+            extract($this->getModifiers($key));
+            
             if (($sep_pos = strpos($key, '@')) !== false) {
                 // Handle [*<fieldname/TVname>@<docid>*]
                 // Identify the docid first.
@@ -959,7 +955,7 @@ class DocumentParser extends Core {
 
             // Process output modifiers
             if (is_array($modifiers)) {
-                foreach(array_slice($modifiers, 1) as $modifier) {
+                foreach($modifiers as $modifier) {
                     $value = $this->modifyOutput($value, $modifier);
                 }
             }
@@ -969,6 +965,23 @@ class DocumentParser extends Core {
         $template= str_replace($matches[0], $replace, $template);
 
         return $template;
+    }
+
+   /**
+    * Get output modifiers
+    *
+    * @param string $key placeholder name plus modifiers separated by ';'
+    * @return array Associative array of two elements - 'key' is the key without any modifiers, 'modifiers' is an array of modifiers.
+    */
+   function getModifiers($key) {
+        if (strpos($key, ';') != false) {
+            $modifiers = explode(';', $key);
+            $key = $modifiers[0];
+            $modifiers = array_slice($modifiers, 1);
+        } else {
+            $modifiers = null;
+        }
+        return array('key'=>$key, 'modifiers'=>$modifiers);
     }
 
    /** 
@@ -1086,8 +1099,19 @@ class DocumentParser extends Core {
             for ($i= 0; $i < $cnt; $i++) {
                 $v= '';
                 $key= $matches[1][$i];
+
+                // Detect output modifiers
+                // Put result into $key and $modifiers
+                extract($this->getModifiers($key));
+            
                 if (is_array($this->placeholders) && array_key_exists($key, $this->placeholders))
                     $v= $this->placeholders[$key];
+                    // Process output modifiers
+                    if (is_array($modifiers)) {
+                        foreach($modifiers as $modifier) {
+                            $v = $this->modifyOutput($v, $modifier);
+                        }
+                    }
                 if ($v === '')
                     unset ($matches[0][$i]); // here we'll leave empty placeholders for last.
                 else
