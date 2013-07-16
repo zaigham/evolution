@@ -254,10 +254,11 @@ switch ($mode) {
                         $errs = true;
                     }
                 } else {
-                    $output .= '<p class="error">'.$link.': '.implode(', ', $PM->errors()).'</p>';
                     if ($_SESSION['PM_settings']['verbose']) {
                         $output .= $PM->summary;
-                    } elseif ($PM->perms_error()) {
+                    }
+                    $output .= '<p class="error">'.$link.': '.implode(', ', $PM->errors()).'</p>';
+                    if (!$_SESSION['PM_settings']['verbose'] && $PM->perms_error()) {
                         $output .= '<p>'.$_lang['package_manager_check_perms'].': '.implode(',', $PM->not_writables()).'</p>';
                     }
                     $errs = true;
