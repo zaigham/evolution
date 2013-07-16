@@ -88,7 +88,6 @@ if ((@$_GET['repo'] || $_GET['repo'] === '0') && ctype_digit($_GET['repo']) && $
 }
 
 if (@$errmsg) {
-    $output .= $errmsg;
     $mode = 'error';
 }
 
@@ -134,15 +133,18 @@ switch ($mode) {
         $output .= '<p><a href="'.$self_href.'">'.$_lang['package_manager_restart'].'</a></p>';
         
         $output .= '</div>';
-        $output .= '<div id="tabUpload">';
         $output .= $pkg_manager_html['form'];
-        $output .= '</div>';
         
         break;
 
     case 'start':
+    case 'error':
     
         $output .= $pkg_manager_html['tabs_search_upload'].'<div id="tabSearch">';
+        
+        if ($mode == 'error') {
+            $output .= $errmsg;
+        }
         
         foreach($repos as $idx => $repo) {
         
@@ -180,17 +182,11 @@ switch ($mode) {
         }
         
         $output .= '</div>';
-        
-        // fall through to...
-        
-    case 'error':
-        $output .= '<div id="tabUpload">';
         $output .= $pkg_manager_html['form'];
-        $output .= '</div>';
         break;
 
     case 'summarise':
-        $output .= $pkg_manager_html['tabs_install'];
+        $output .= $pkg_manager_html['tabs_install'].'<div id="tabInstall">';
         
         if (isset($PM) && $PM->haspackage && !$PM->is_error()) {
             $PM->summarise();
@@ -223,11 +219,13 @@ switch ($mode) {
             $modx->logEvent(29,3,'Package Manager: '.$errmsg);
         }
         
+        $output .= '</div>';
+        
         $_SESSION['PM'] = serialize($PM);
         break;
 
     case 'install':
-        $output .= $pkg_manager_html['tabs_install'];
+        $output .= $pkg_manager_html['tabs_install'].'<div id="tabInstall">';
 
         require_once($modx->config['base_path'].'manager/includes/log.class.inc.php');
         $lh = new logHandler();
@@ -286,7 +284,11 @@ switch ($mode) {
                 $output .= '<p class="error">'.implode(', ', $PM->errors()).'</p>';
             }
         }
+        
+        $output .= '</div>';
+
         break;
+
 }
 
 $output .= $pkg_manager_html['footer'];
