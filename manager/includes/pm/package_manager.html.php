@@ -22,34 +22,34 @@ $pkg_manager_html['form'] =
     <form action="'.$self_href.'" method="post" style="margin: 20px 0" enctype="multipart/form-data">
             <table width="100%" border="0" >
                 <tr>
-                    <th width="200"><label for="pkg_url">Upload from URL</label></th>
+                    <th style="width: 200px"><label for="pkg_url">Upload from URL</label></th>
                     <td align="left">
                         <input type="text" name="pkg_url" id="pkg_url" value="" />
                     </td>
                 </tr>
-                <tr><td width="200"></td><td class="comment">'.$_lang['package_manager_upload_byurl_label'].'</td></tr>
+                <tr><td style="width: 200px"></td><td class="comment">'.$_lang['package_manager_upload_byurl_label'].'</td></tr>
                 <tr><td colspan="2"><div class="split"></div></td></tr>
                 
                 <tr>
-                    <th width="200"><label for="pkg_file">Upload from localhost</label></th>
+                    <th style="width: 200px"><label for="pkg_file">Upload from localhost</label></th>
                     <td align="left">
                         <input type="file" name="pkg_file" id="pkg_file">
                     </td>
                 </tr>
-                <tr><td width="200"></td><td class="comment">'.$_lang['package_manager_upload_byfile_label'].'</td></tr>
+                <tr><td style="width: 200px"></td><td class="comment">'.$_lang['package_manager_upload_byfile_label'].'</td></tr>
                 <tr><td colspan="2"><div class="split"></div></td></tr>
 
                 <tr>
-                    <th width="200"><label for="pkg_folder">Upload from server</label></th>
+                    <th style="width: 200px"><label for="pkg_folder">Upload from server</label></th>
                     <td align="left">
                         <input type="text" name="pkg_folder" id="pkg_folder">
                     </td>
                 </tr>
-                <tr><td width="200"></td><td class="comment">'.$_lang['package_manager_upload_byfolder_label'].'</td></tr>
+                <tr><td style="width: 200px"></td><td class="comment">'.$_lang['package_manager_upload_byfolder_label'].'</td></tr>
                 <tr><td colspan="2"><div class="split"></div></td></tr>
 
                 <tr>
-                    <th width="200"><label>Upload mode</label></th>
+                    <th style="width: 200px"><label>Upload mode</label></th>
                     <td>
                         <fieldset class="settings">
                             <div>
@@ -62,7 +62,7 @@ $pkg_manager_html['form'] =
                 <tr><td colspan="2"><div class="split"></div></td></tr>
                 
                 <tr>
-                    <td width="200"></td>
+                    <td style="width: 200px"></td>
                     <td>
                         <fieldset class="submit">
                             <input type="submit" name="go" value="'.$_lang['package_manager_upload'].'" />
@@ -132,5 +132,5 @@ $pkg_manager_html['confirm_form'] =
 
 
 $pkg_manager_html['footer'] =
-'</div><!-- close upload tab --></div> <!-- close tabs --></div><!-- tab-pane --></div>';
+'</div><!-- #package-tabs--> </div><!-- .tab-pane --> </div><!-- .section-body -->';
 
