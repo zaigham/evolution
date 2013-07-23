@@ -3336,6 +3336,7 @@ class DocumentParser extends Core {
      *  - jquery-ui-custom-clippermanager The custom jquery-ui file for the Clipper manager
      *  - jquery-ui-timepicker
      *  - jquery-datatables
+     *  - jquery-validate (http://jqueryvalidation.org/)
      *
      * @param string $plugin_name Plugin name, use the name most likely to be used by other scripts (case insensitive)
      * @param string $plugin_file Plugin URL. Relative to plugin directory if $use_plugin_dir is true
