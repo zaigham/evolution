@@ -510,14 +510,10 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                         extract($this->get_name_and_desc($full));
                         
                         // Get version number                                                // <<<< Not functionally used - only for description
-                        preg_match('/@version\s+((clipper-)?[0-9.]+)/', $full, $matches);   // <<<< alpha, beta, rc not yet implemented
-                        $full_version = $version = $matches[1];
-                        if (substr($version, 0, 8) == 'clipper-') {
-                            $clipper_version = true;
-                            $version = substr($version, 8);
-                        } else {
-                            $clipper_version = false;
-                        }
+                        preg_match('/@version\s+(clipper-)?([0-9.]+)\s*([a-z]*)?/i', $full, $matches);
+                        $clipper_version = $matches[1] ? true : false;
+                        $version = $matches[2];
+                        $version_suffix = $matches[3];
 
                         if (isset($name) && $version) {
                         
@@ -698,7 +694,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                             
                             // Name and description fields   
                             $flds[$name_field] = $this->core->db->escape($name);
-                            $flds['description'] = $this->core->db->escape(($include_version_in_descrioption ? '<strong>'.$full_version.'</strong> ' : '').$desc);
+                            $flds['description'] = $this->core->db->escape(($include_version_in_descrioption ? '<strong>'.$version.($version_suffix ? ' '.$version_suffix : '').'</strong> ' : '').$desc);
 
                             // Put into db
                             $rs = $this->core->db->select('id', $tbl, "$name_field LIKE '$name'");
