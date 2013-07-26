@@ -562,6 +562,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                                     $name_field = 'name';
                                     $is_php = false;
                                     $disable_old = false;
+                                    $include_version_in_descrioption = true;
 
                                     break;
                                 
@@ -575,6 +576,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                                     $name_field = 'name';
                                     $is_php = true;
                                     $disable_old = false; // <<<< If snippet map API implemented allow @internal @legacy_names for snippets
+                                    $include_version_in_descrioption = true;
 
                                     break;
                                     
@@ -591,6 +593,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                                     $name_field = 'name';
                                     $is_php = true;
                                     $disable_old = true;
+                                    $include_version_in_descrioption = true;
                                     
                                     // Delete old events
                                     $rs_plugins = $this->core->db->select('id', $tbl, "name='$name'");
@@ -622,6 +625,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                                     $name_field = 'name';
                                     $is_php = true;
                                     $disable_old = true;
+                                    $include_version_in_descrioption = true;
                                     
                                     break;
                                
@@ -647,6 +651,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                                     $name_field = 'templatename';
                                     $is_php = false;
                                     $disable_old = false;
+                                    $include_version_in_descrioption = false;
                                     break;
                                
                                case 'tvs':
@@ -676,6 +681,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                                     $name_field = 'name';
                                     $is_php = false;
                                     $disable_old = false;
+                                    $include_version_in_descrioption = false;
                                     
                                     break;
                             }
@@ -692,7 +698,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                             
                             // Name and description fields   
                             $flds[$name_field] = $this->core->db->escape($name);
-                            $flds['description'] = $this->core->db->escape('<strong>'.$full_version.'</strong> '.$desc);
+                            $flds['description'] = $this->core->db->escape(($include_version_in_descrioption ? '<strong>'.$full_version.'</strong> ' : '').$desc);
 
                             // Put into db
                             $rs = $this->core->db->select('id', $tbl, "$name_field LIKE '$name'");
