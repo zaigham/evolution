@@ -498,14 +498,18 @@ class Qm {
                             <script type="text/javascript" src="assets/js/jquery.colorbox-min.js"></script>
                             <script type="text/javascript">var $j = jQuery.noConflict();</script>'."\n";
                             // It must come first to avoid messing with other jquery objects
-                            $head_end = strpos($output, '</head>');
-                            $first_script = strpos($output, '<script');
+                            $head_start = strpos($output, '<head');
+                            $head_end = strpos($output, '</head>', $head_start);
+                            $first_script = strpos($output, '<script', $head_start);
+                            preg_match('/\<\!--\[if[^\]]+\]\>/', $output, $cc_matches, PREG_OFFSET_CAPTURE, $head_start);
+                            $first_conditional_comment = sizeof($cc_matches) ? $cc_matches[0][1] : false;
                             if ($head_end !== false) {
                                 if ($first_script !== false && $first_script < $head_end) {
-                                    $output = substr($output, 0, $first_script).$head_jq.substr($output, $first_script);
+                                    $qm_script_pos = ($first_conditional_comment !== false && $first_script > $first_conditional_comment) ? $first_conditional_comment : $first_script;
                                 } else {
-                                    $output = substr($output, 0, $head_end).$head_jq.substr($output, $head_end);
+                                    $qm_script_pos = $head_end;
                                 }
+                                $output = substr($output, 0, $qm_script_pos).$head_jq.substr($output, $qm_script_pos);
                             }
                         }
 
