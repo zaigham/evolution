@@ -320,7 +320,8 @@ class PackageManager {
      */
     private function get_name_and_desc($body) {
         // Name and description
-        preg_match_all('/[\n\r]\s*\*\s*([a-z][^\n\r]+)/i', $body, $matches);
+        $slash_h = version_compare(PHP_VERSION, '5.2.4') >= 0 ? '\h' : '[\x09\x20\xa0\x1680\x180e\x2000\x2001\x2002\x2003\x2004\x2005\x2006\x2007\x2008\x2009\x200A\x202f\x205f\x3000]';
+        preg_match_all("/^{$slash_h}*\*{$slash_h}+(.+)$/m", $body, $matches);
         if (isset($matches[1][0])) {
             $name = $matches[1][0];
             if (isset($matches[1][1])) {
@@ -558,7 +559,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                                     $name_field = 'name';
                                     $is_php = false;
                                     $disable_old = false;
-                                    $include_version_in_descrioption = true;
+                                    $include_version_in_description = true;
 
                                     break;
                                 
@@ -572,7 +573,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                                     $name_field = 'name';
                                     $is_php = true;
                                     $disable_old = false; // <<<< If snippet map API implemented allow @internal @legacy_names for snippets
-                                    $include_version_in_descrioption = true;
+                                    $include_version_in_description = true;
 
                                     break;
                                     
@@ -589,7 +590,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                                     $name_field = 'name';
                                     $is_php = true;
                                     $disable_old = true;
-                                    $include_version_in_descrioption = true;
+                                    $include_version_in_description = true;
                                     
                                     // Delete old events
                                     $rs_plugins = $this->core->db->select('id', $tbl, "name='$name'");
@@ -621,7 +622,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                                     $name_field = 'name';
                                     $is_php = true;
                                     $disable_old = true;
-                                    $include_version_in_descrioption = true;
+                                    $include_version_in_description = true;
                                     
                                     break;
                                
@@ -647,7 +648,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                                     $name_field = 'templatename';
                                     $is_php = false;
                                     $disable_old = false;
-                                    $include_version_in_descrioption = false;
+                                    $include_version_in_description = false;
                                     break;
                                
                                case 'tvs':
@@ -677,7 +678,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                                     $name_field = 'name';
                                     $is_php = false;
                                     $disable_old = false;
-                                    $include_version_in_descrioption = false;
+                                    $include_version_in_description = false;
                                     
                                     break;
                             }
@@ -694,7 +695,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                             
                             // Name and description fields   
                             $flds[$name_field] = $this->core->db->escape($name);
-                            $flds['description'] = $this->core->db->escape(($include_version_in_descrioption ? '<strong>'.$version.($version_suffix ? ' '.$version_suffix : '').'</strong> ' : '').$desc);
+                            $flds['description'] = $this->core->db->escape(($include_version_in_description ? '<strong>'.$version.($version_suffix ? ' '.$version_suffix : '').'</strong> ' : '').$desc);
 
                             // Put into db
                             $rs = $this->core->db->select('id', $tbl, "$name_field LIKE '$name'");
