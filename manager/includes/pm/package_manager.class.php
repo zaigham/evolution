@@ -328,6 +328,7 @@ class PackageManager {
                 $desc = $matches[1][1];
             }
         }
+        if ($desc[0] == '@') $desc = '';
         return array('name'=>$name, 'desc'=>$desc);
     }
 
