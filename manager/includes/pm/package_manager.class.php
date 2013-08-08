@@ -459,8 +459,10 @@ if (\$PM->haspackage && !\$PM->is_error()) {
     
     /** 
      * Install
+     *
+     * @param bool $overwrite_allways If set to true any @internal @overwrite setting will be ignored. Intended for development.
      */
-    function install() {
+    function install($overwrite_allways = false) {
     
         $this->install_summary = '<h2>'.$this->name.'</h2>';
     
@@ -528,8 +530,8 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                                 $internals[$match[1]] = $match[2];
                             }
 
-                            // @internal @overwrite true/false - defaults to true
-                            $overwrite = !isset($internals['overwrite']) || $internals['overwrite'] != 'false';
+                            // @internal @overwrite true/false - defaults to true if not set in element file
+                            $overwrite = $overwrite_allways ? true : (!isset($internals['overwrite']) || strtolower($internals['overwrite']) != 'false');
                             
                             // Content, removing phpdoc block
                             $content = preg_replace('~/\*.*?\*/~s', '', $full, 1);
