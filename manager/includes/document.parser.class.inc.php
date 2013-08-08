@@ -823,7 +823,7 @@ class DocumentParser extends Core {
             }
     
             if ($this->eval_type) {
-                $this->messageQuitFromElement("{$this->eval_type} {$this->eval_name}", 'Fatal '.($error['type'] == 'E_USER_ERROR' ? '(user) ' : '')."error: {$error['message']}", '', true, $error['type'], $file, '', $error['message'], $error['line']);
+                $this->messageQuitFromElement(ucfirst($this->eval_type)." {$this->eval_name}", 'Fatal '.($error['type'] == 'E_USER_ERROR' ? '(user) ' : '')."error: {$error['message']}", '', true, $error['type'], $file, '', $error['message'], $error['line']);
             } else {
                 $this->messageQuit('Fatal '.($error['type'] == 'E_USER_ERROR' ? '(user) ' : '')."error: {$error['message']}", '', true, $error['type'], $file, '', $error['message'], $error['line']);
             }
@@ -1140,10 +1140,10 @@ class DocumentParser extends Core {
             $___plug = eval ($___plugin_code);
             $___msg = ob_get_contents();
             ob_end_clean();
-            $this->unregisterEvalInfo();
             if ($___plug === false) {
                 $this->messageQuitFromElement("Plugin {$this->event->activePlugin}", "PHP Parse error in plugin {$this->event->activePlugin}");
             }
+            $this->unregisterEvalInfo();
             echo $___msg;
             unset ($this->event->params);
         } else {
@@ -1171,10 +1171,10 @@ class DocumentParser extends Core {
             $___snip = eval ($___snippet_code);
             $___msg = ob_get_contents();
             ob_end_clean();
-            $this->unregisterEvalInfo();
             if ($___snip === false) {
                 $this->messageQuitFromElement("Snippet {$___name}", "PHP Parse error in snippet {$___name}");
             }
+            $this->unregisterEvalInfo();
             unset ($this->event->params);
             return $___msg . $___snip;
         } else {
