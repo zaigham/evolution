@@ -2664,6 +2664,22 @@ class DocumentParser extends Core {
     }
 
     /**
+     * Get the TVs that belong to a template
+     *
+     * @param int $template
+     * @return array
+     */
+    function getTemplateTVs($template)
+        {
+        $rs = $this->db->query('SELECT tv.*
+                                    FROM '.$this->getFullTableName('site_tmplvars').' tv 
+                                    INNER JOIN '.$this->getFullTableName('site_tmplvar_templates').' tvtpl ON tvtpl.tmplvarid = tv.id 
+                                    WHERE tvtpl.templateid = '.$template);
+        return $this->db->makeArray($rs);
+        }
+
+
+    /**
      * Modified by Raymond for TV - Orig Modified by Apodigm - DocVars
      * Returns a single site_content field or TV record from the db.
      *
