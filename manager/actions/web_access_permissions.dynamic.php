@@ -57,8 +57,9 @@ if ($modx->db->getRecordCount($rs) < 1) {
 					'users.id AS user_id, '.
 					'users.username user_name '.
 					'FROM '.$modx->getFullTableName('webgroup_names').' AS groupnames '.
-					'LEFT JOIN '.$modx->getFullTableName('web_groups').' AS groups ON groups.webgroup = groupnames.id '.
-					'LEFT JOIN '.$modx->getFullTableName('web_users').' AS users ON users.id = groups.webuser '.
+					'LEFT JOIN
+						('.$modx->getFullTableName('web_groups').' AS groups INNER JOIN '.$modx->getFullTableName('web_users').' AS users ON users.id = groups.webuser)'.
+						' ON groups.webgroup = groupnames.id  '.
 					'ORDER BY groupnames.name';
 			?>
 				<table width="300" border="0" cellspacing="1" cellpadding="3" bgcolor="#ccc">
