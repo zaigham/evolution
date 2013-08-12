@@ -277,7 +277,7 @@ function movedocument() {
 			
 			<?php
 			$buffer = "";
-			$filename = $modx->config['base_path']."assets/cache/docid_".$id.".pageCache.php";
+			$filename = $modx->pageCacheFile($id);
 			$handle = @fopen($filename, "r");
 			if(!$handle) {
 				$buffer = $_lang['page_data_notcached'];

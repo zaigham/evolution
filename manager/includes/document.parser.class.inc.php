@@ -563,7 +563,7 @@ class DocumentParser extends Core {
      * @return string
      */
     function checkCache($id) {
-        $cacheFile= "assets/cache/docid_" . $id . ".pageCache.php";
+        $cacheFile = $this->pageCacheFile($id);
         if (file_exists($cacheFile)) {
             $this->documentGenerated= 0;
             $flContent = file_get_contents($cacheFile, false);
@@ -842,10 +842,9 @@ class DocumentParser extends Core {
     function postProcess() {
         // if the current document was generated, cache it!
         if ($this->documentGenerated == 1 && $this->documentObject['cacheable'] == 1 && $this->documentObject['type'] == 'document' && $this->documentObject['published'] == 1) {
-            $basepath= $this->config["base_path"] . "assets/cache";
             // invoke OnBeforeSaveWebPageCache event
             $this->invokeEvent("OnBeforeSaveWebPageCache");
-            if ($fp= @ fopen($basepath . "/docid_" . $this->documentIdentifier . ".pageCache.php", "w")) {
+            if ($fp = @ fopen($this->pageCacheFile($this->documentIdentifier), 'w')) {
                 // get and store document groups inside document object. Document groups will be used to check security on cache pages
                 $sql= "SELECT document_group FROM " . $this->getFullTableName("document_groups") . " WHERE document='" . $this->documentIdentifier . "'";
                 $docGroups= $this->db->getColumn("document_group", $sql);
@@ -2196,6 +2195,17 @@ class DocumentParser extends Core {
         } else {
             return false;
         }
+    }
+    
+    /**
+     * Get the path of a page cache file
+     *
+     * @param int $docid
+     * @param bool $fullpath If false give the path relative to the site root, if true give the fullpath. Default true.
+     * @return string
+     */
+    function pageCacheFile($docid, $fullpath = true) {
+        return ($fullpath ? $this->config['base_path'] : '')."assets/cache/docid_{$docid}.pageCache.php";
     }
 
     /**
