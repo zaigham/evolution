@@ -1729,6 +1729,16 @@ class DocumentParser extends Core {
         }
         return $parents;
     }
+    
+    /**
+     * Get the parent docid of a document
+     * 
+     * @param int docid
+     * @return int
+     */
+    function getParentId($id) {
+        return $this->aliasListing[$id]['parent'];
+    }
 
     /**
      * Returns the ultimate parent of a document
