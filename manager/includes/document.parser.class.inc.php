@@ -763,7 +763,7 @@ class DocumentParser extends Core {
                 while (false !== ($file= readdir($handle))) {
                     if ($file != "." && $file != "..") {
                         $filesincache += 1;
-                        if (preg_match("/\.pageCache/", $file)) {
+                        if ($this->isPageCacheFile($file)) {
                             $deletedfilesincache += 1;
                             while (!unlink($basepath . "/" . $file));
                         }
@@ -2184,7 +2184,7 @@ class DocumentParser extends Core {
             while (false !== ($file= readdir($handle))) {
                 if ($file != "." && $file != "..") {
                     $filesincache += 1;
-                    if (preg_match("/\.pageCache/", $file)) {
+                    if ($this->isPageCacheFile($file)) {
                         $deletedfilesincache += 1;
                         unlink($basepath . "/" . $file);
                     }
@@ -2206,6 +2206,16 @@ class DocumentParser extends Core {
      */
     function pageCacheFile($docid, $fullpath = true) {
         return ($fullpath ? $this->config['base_path'] : '')."assets/cache/docid_{$docid}.pageCache.php";
+    }
+    
+    /**
+     * Is a file a page cache file?
+     *
+     * @param string $filename
+     * @return bool
+     */
+    function isPageCacheFile($filename) {
+        return (bool)preg_match('/^docid_\d+\.pageCache\.php$/', $filename);
     }
 
     /**
