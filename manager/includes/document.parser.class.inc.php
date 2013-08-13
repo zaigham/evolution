@@ -1124,6 +1124,17 @@ class DocumentParser extends Core {
         }
         return $content;
     }
+    
+    /**
+     * Prepare text output for HTML
+     *
+     * @param string $str
+     * @param bool $all_entities If false, just run htmlspecialchars(). If true run htmlentities() (which converts all characters with entities). Default false.
+     * @return string
+     */
+    function html($str, $all_entities = false) {
+        return $all_entities ? htmlentities($str, ENT_QUOTES, $this->config['modx_charset']) : htmlspecialchars($str, ENT_QUOTES, $this->config['modx_charset']);
+    }
 
     /**
      * Set eval type and name
