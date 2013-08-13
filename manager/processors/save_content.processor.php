@@ -286,6 +286,8 @@ switch ($actionToTake) {
 		$modx->invokeEvent("OnBeforeDocFormSave", array (
 			'mode' => 'new',
 			'id' => $id,
+			'parent' => $parent,
+			'template' => $template,
 			'to_publish' => $published
 		));
 
@@ -472,6 +474,8 @@ switch ($actionToTake) {
 		$modx->invokeEvent("OnBeforeDocFormSave", array (
 			'mode' => 'upd',
 			'id' => $id,
+			'parent' => $parent,
+			'template' => $template,
 			'to_publish' => $published
 		));
 
