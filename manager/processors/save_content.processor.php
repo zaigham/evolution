@@ -275,18 +275,19 @@ if ($use_udperms == 1) {
 switch ($actionToTake) {
 	case 'new' :
 
-		// invoke OnBeforeDocFormSave event
-		$modx->invokeEvent("OnBeforeDocFormSave", array (
-			"mode" => "new",
-			"id" => $id
-		));
-
 		// deny publishing if not permitted
 		if (!$modx->hasPermission('publish_document')) {
 			$pub_date = 0;
 			$unpub_date = 0;
 			$published = 0;
 		}
+
+		// invoke OnBeforeDocFormSave event
+		$modx->invokeEvent("OnBeforeDocFormSave", array (
+			'mode' => 'new',
+			'id' => $id,
+			'to_publish' => $published
+		));
 
 		$publishedon = ($published ? time() : 0);
 		$publishedby = ($published ? $modx->getLoginUserID() : 0);
@@ -367,7 +368,8 @@ switch ($actionToTake) {
 			'mode' => 'new',
 			'id' => $key,
 			'parent' => $parent,
-			'template' => $template
+			'template' => $template,
+			'published' => $published
 		));
 
 		// secure web documents - flag as private
@@ -468,8 +470,9 @@ switch ($actionToTake) {
 
 		// invoke OnBeforeDocFormSave event
 		$modx->invokeEvent("OnBeforeDocFormSave", array (
-			"mode" => "upd",
-			"id" => $id
+			'mode' => 'upd',
+			'id' => $id,
+			'to_publish' => $published
 		));
 
 		// update the document
@@ -603,7 +606,8 @@ switch ($actionToTake) {
 			'mode' => 'upd',
 			'id' => $id,
 			'parent' => $parent,
-			'template' => $template
+			'template' => $template,
+			'published' => $published
 		));
 
 		// secure web documents - flag as private
