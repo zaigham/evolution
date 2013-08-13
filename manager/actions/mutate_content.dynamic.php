@@ -135,7 +135,7 @@ if (!empty ($docid)) {
 // Get parent docid if not specified explicitly in request
 if (is_null($pid)) {
     if (isset($content['parent'])) {
-        $pid = $content['parent'];
+        $pid = intval($content['parent']);
     } else {
         $pid = 0;
     }
@@ -189,6 +189,65 @@ if ($modx->config['template_rules_tv']) {
         $template_rules = TemplateRules::getTvValueAndLevel($pid, reset($modx->db->getRow($rs_tr)));
     }
 }
+
+// Get allowed templates
+if ($template_rules) {
+    $allowed_templates_list = TemplateRules::getTemplateList($template_rules);
+    if (!$allowed_templates_list) {
+        $allowed_templates_list = true; // All templates allowed
+    }
+} elseif ($pid) {
+    $template_id = $modx->db->getValue($modx->db->select('template', $tbl_site_content, "id = $pid"));
+    $rs_template = $modx->db->select('default_child_template, restrict_children, allowed_child_templates', $tbl_site_templates, "id=$template_id");
+    if ($rs_template && ($row_template = $modx->db->getRow($rs_template)) && $row_template['restrict_children']) {
+        $allowed_templates_list = str_replace(' ', '', $row_template['allowed_child_templates']);
+        if (!preg_match('/^\d+(,\d+)*$/', $allowed_templates_list)) {
+        	$allowed_templates_list = '0';
+        }
+    } else {
+        $allowed_templates_list = true; // All templates allowed
+    }
+} else {
+    $allowed_templates_list = true; // All templates allowed
+}
+
+// Get default template
+if ($template_rules && !is_null($template_rules_default = TemplateRules::getDefaultTemplate($template_rules))) {
+    $default_template = $template_rules_default;
+} elseif ($pid && isset($row_template) && $row_template['default_child_template']) { // No need to differentiate between blank template being specified and no value - behaviour is the same
+    $default_template = $row_template['default_child_template'];
+} else switch($modx->config['auto_template_logic']) {
+    case 'sibling':
+
+        if ($sibl = $modx->getDocumentChildren($pid, 1, 0, 'template', '', 'menuindex', 'ASC', 1)) {
+            $default_template = $sibl[0]['template'];
+            break;
+        } else if ($sibl = $modx->getDocumentChildren($pid, 0, 0, 'template', '', 'menuindex', 'ASC', 1)) {
+            $default_template = $sibl[0]['template'];
+            break;
+        }
+
+    case 'parent':
+
+        if ($pid && $parent = $modx->getPageInfo($pid, 0, 'template')) {
+            $default_template = $parent['template'];
+            break;
+        }
+
+    case 'system':
+    default:
+        // default_template is already set
+}
+
+// Get selected template, ensuring it is an integer in the allowed template list
+if (isset($_REQUEST['newtemplate'])) {
+    $selected_template = (int)$_REQUEST['newtemplate'];
+} elseif (isset ($content['template'])) {
+    $selected_template = (int)$content['template'];
+} else {
+    $selected_template = (int)$default_template;
+}
+if (!preg_match('/\b'.$selected_template.'\b/', $allowed_templates_list)) $selected_template = (int)substr($allowed_templates_list, 0, strpos($allowed_templates_list, ','));
 ?>
 
 <script>
@@ -597,7 +656,9 @@ if ($use_udperms == 1) {
 	<?php
 	// invoke OnDocFormPrerender event
 	$evtOut = $modx->invokeEvent('OnDocFormPrerender', array(
-	    'id' => $docid
+	    'id' => $docid,
+	    'parent' => $pid,
+	    'template' => $selected_template
 	));
 	if (is_array($evtOut))
 	    echo implode('', $evtOut);
@@ -686,53 +747,6 @@ if ($use_udperms == 1) {
                 <td>
                    <select id="template" name="template" class="inputBox" onchange="templateWarning();" style="width:308px">
                     <?php
-                    if ($template_rules) {
-                        $allowed_templates_list = TemplateRules::getTemplateList($template_rules);
-                        if (!$allowed_templates_list) {
-                            $allowed_templates_list = true; // All templates allowed
-                        }
-                    } elseif ($pid) {
-                        $template_id = $modx->db->getValue($modx->db->select('template', $tbl_site_content, "id = $pid"));
-                        $rs_template = $modx->db->select('default_child_template, restrict_children, allowed_child_templates', $tbl_site_templates, "id=$template_id");
-                        if ($rs_template && ($row_template = $modx->db->getRow($rs_template)) && $row_template['restrict_children']) {
-                            $allowed_templates_list = str_replace(' ', '', $row_template['allowed_child_templates']);
-                            if (!preg_match('/^\d+(,\d+)*$/', $allowed_templates_list)) {
-                            	$allowed_templates_list = '0';
-                            }
-                        } else {
-                            $allowed_templates_list = true; // All templates allowed
-                        }
-                    } else {
-                        $allowed_templates_list = true; // All templates allowed
-                    }
-                    
-                    if ($template_rules && !is_null($template_rules_default = TemplateRules::getDefaultTemplate($template_rules))) {
-                        $default_template = $template_rules_default;
-                    } elseif ($pid && isset($row_template) && $row_template['default_child_template']) { // No need to differentiate between blank template being specified and no value - behaviour is the same
-                        $default_template = $row_template['default_child_template'];
-                    } else switch($modx->config['auto_template_logic']) {
-                        case 'sibling':
-
-                            if ($sibl = $modx->getDocumentChildren($pid, 1, 0, 'template', '', 'menuindex', 'ASC', 1)) {
-                                $default_template = $sibl[0]['template'];
-                                break;
-                            } else if ($sibl = $modx->getDocumentChildren($pid, 0, 0, 'template', '', 'menuindex', 'ASC', 1)) {
-                                $default_template = $sibl[0]['template'];
-                                break;
-                            }
-
-                        case 'parent':
-
-                            if ($pid && $parent = $modx->getPageInfo($pid, 0, 'template')) {
-                                $default_template = $parent['template'];
-                                break;
-                            }
-
-                        case 'system':
-                        default:
-                            // default_template is already set
-                    }
-
                     if ($allowed_templates_list === true || preg_match('/\b0\b/', $allowed_templates_list)) {
                         echo '<option value="0">(blank)</option>';
                     }
@@ -759,16 +773,8 @@ if ($use_udperms == 1) {
                     } else {
                         $closeOptGroup = false;
                     }
-                    if (isset($_REQUEST['newtemplate'])) {
-                        $selectedtext = $row['id'] == $_REQUEST['newtemplate'] ? ' selected="selected"' : '';
-                    } else {
-                        if (isset ($content['template'])) {
-                            $selectedtext = $row['id'] == $content['template'] ? ' selected="selected"' : '';
-                        } else {
-                            $selectedtext = $row['id'] == $default_template ? ' selected="selected"' : '';
-                        }
-                    }
-                    echo "\t\t\t\t\t".'<option value="'.$row['id'].'"'.$selectedtext.'>'.$row['templatename']."</option>\n";
+
+                    echo "\t\t\t\t\t".'<option value="'.$row['id'].'"'.($selected_template == $row['id'] ? ' selected="selected"' : '').'>'.$row['templatename']."</option>\n";
                     $currentCategory = $thisCategory;
                 }
                 if($thisCategory != '') {
@@ -845,20 +851,12 @@ if ($use_udperms == 1) {
             <div class="sectionHeader" id="tv_header"><?php echo $_lang['settings_templvars']?></div>
             <div class="sectionBody tmplvars" id="tv_body">
 <?php
-                $template = $default_template;
-                if (isset ($_REQUEST['newtemplate'])) {
-                    $template = $_REQUEST['newtemplate'];
-                } else {
-                    if (isset ($content['template']))
-                        $template = $content['template'];
-                }
-
                 $sql = 'SELECT DISTINCT tv.*, IF(tvc.value!=\'\',tvc.value,tv.default_text) as value '.
                        'FROM '.$tbl_site_tmplvars.' AS tv '.
                        'INNER JOIN '.$tbl_site_tmplvar_templates.' AS tvtpl ON tvtpl.tmplvarid = tv.id '.
                        'LEFT JOIN '.$tbl_site_tmplvar_contentvalues.' AS tvc ON tvc.tmplvarid=tv.id AND tvc.contentid=\''.$docid.'\' '.
                        'LEFT JOIN '.$tbl_site_tmplvar_access.' AS tva ON tva.tmplvarid=tv.id '.
-                       'WHERE tvtpl.templateid=\''.$template.'\' AND (1=\''.$_SESSION['mgrRole'].'\' OR ISNULL(tva.documentgroup)'.
+                       'WHERE tvtpl.templateid=\''.$selected_template.'\' AND (1=\''.$_SESSION['mgrRole'].'\' OR ISNULL(tva.documentgroup)'.
                        (!$docgrp ? '' : ' OR tva.documentgroup IN ('.$docgrp.')').
                        ') ORDER BY tvtpl.rank,tv.rank, tv.id';
                 $rs = $modx->db->query($sql);
@@ -1104,6 +1102,8 @@ if ($_SESSION['mgrRole'] == 1 || !$existing || $_SESSION['mgrInternalKey'] == $c
 				// invoke OnDocFormRender event
 				$evtOut = $modx->invokeEvent('OnDocFormRender', array(
 				    'id' => $docid,
+				    'parent' => $pid,
+				    'template' => $selected_template
 				));
 				if (is_array($evtOut)) echo implode('', $evtOut);
 				?>

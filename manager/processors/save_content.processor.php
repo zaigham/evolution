@@ -364,8 +364,10 @@ switch ($actionToTake) {
 
 		// invoke OnDocFormSave event
 		$modx->invokeEvent("OnDocFormSave", array (
-			"mode" => "new",
-			"id" => $key
+			'mode' => 'new',
+			'id' => $key,
+			'parent' => $parent,
+			'template' => $template
 		));
 
 		// secure web documents - flag as private
@@ -598,8 +600,10 @@ switch ($actionToTake) {
 
 		// invoke OnDocFormSave event
 		$modx->invokeEvent("OnDocFormSave", array (
-			"mode" => "upd",
-			"id" => $id
+			'mode' => 'upd',
+			'id' => $id,
+			'parent' => $parent,
+			'template' => $template
 		));
 
 		// secure web documents - flag as private
