@@ -22,30 +22,30 @@ $pkg_manager_html['form'] =
     <form action="'.$self_href.'" method="post" style="margin: 20px 0" enctype="multipart/form-data">
             <table width="100%" border="0" >
                 <tr>
-                    <th style="width: 200px"><label for="pkg_url">Upload from URL</label></th>
+                    <th style="width: 200px"><label for="pkg_url">'.$_lang['package_manager_upload_byurl_label'].'</label></th>
                     <td align="left">
                         <input type="text" name="pkg_url" id="pkg_url" value="" />
                     </td>
                 </tr>
-                <tr><td style="width: 200px"></td><td class="comment">'.$_lang['package_manager_upload_byurl_label'].'</td></tr>
+                <tr><td style="width: 200px"></td><td class="comment">'.$_lang['package_manager_upload_byurl_text'].'</td></tr>
                 <tr><td colspan="2"><div class="split"></div></td></tr>
                 
                 <tr>
-                    <th style="width: 200px"><label for="pkg_file">Upload from localhost</label></th>
+                    <th style="width: 200px"><label for="pkg_file">'.$_lang['package_manager_upload_byfile_label'].'</label></th>
                     <td align="left">
                         <input type="file" name="pkg_file" id="pkg_file">
                     </td>
                 </tr>
-                <tr><td style="width: 200px"></td><td class="comment">'.$_lang['package_manager_upload_byfile_label'].'</td></tr>
+                <tr><td style="width: 200px"></td><td class="comment">'.$_lang['package_manager_upload_byfile_text'].'</td></tr>
                 <tr><td colspan="2"><div class="split"></div></td></tr>
 
                 <tr>
-                    <th style="width: 200px"><label for="pkg_folder">Upload from server</label></th>
+                    <th style="width: 200px"><label for="pkg_folder">'.$_lang['package_manager_upload_byfolder_label'].'</label></th>
                     <td align="left">
                         <input type="text" name="pkg_folder" id="pkg_folder">
                     </td>
                 </tr>
-                <tr><td style="width: 200px"></td><td class="comment">'.$_lang['package_manager_upload_byfolder_label'].'</td></tr>
+                <tr><td style="width: 200px"></td><td class="comment">'.$_lang['package_manager_upload_byfolder_text'].'</td></tr>
                 <tr><td colspan="2"><div class="split"></div></td></tr>
 
                 <tr>
