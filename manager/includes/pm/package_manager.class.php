@@ -701,7 +701,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                             $flds['description'] = $this->core->db->escape(($include_version_in_description ? '<strong>'.$version.($version_suffix ? ' '.$version_suffix : '').'</strong> ' : '').$desc);
 
                             // Put into db
-                            $rs = $this->core->db->select('id', $tbl, "$name_field LIKE '$name'");
+                            $rs = $this->core->db->select('id', $tbl, "$name_field LIKE '".$this->core->db->escape($name)."'");
                             if (!$this->core->db->getRecordCount($rs) || $overwrite) {
                                 if ($this->core->db->getRecordCount($rs)) {
                                     $flds['id'] = $this->core->db->getValue($rs); // Preserve id so references are not broken
