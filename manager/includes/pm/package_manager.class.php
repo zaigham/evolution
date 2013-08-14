@@ -562,7 +562,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                                     $name_field = 'name';
                                     $is_php = false;
                                     $disable_old = false;
-                                    $include_version_in_description = true;
+                                    $include_version_in_description = $overwrite;
 
                                     break;
                                 
