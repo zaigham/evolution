@@ -2220,6 +2220,34 @@ class DocumentParser extends Core {
     }
     
     /**
+     * Refresh the entire cache of MODX including cache files and script caches that are properties of $this
+     *
+     * @return bool
+     */
+    function refreshCache() {
+        require_once(MODX_BASE_PATH.'/manager/processors/cache_sync.class.processor.php');
+        $sync = new synccache();
+        $sync->setCachepath(MODX_BASE_PATH.'/assets/cache/');
+        $sync->setReport(false);
+        $sync->emptyCache();
+        if (file_exists(MODX_BASE_PATH.'assets/cache/siteCache.idx.php')) {
+            $this->config = null;
+            $this->aliasListing = null;
+            $this->documentListing = null;
+            $this->documentMap = null;
+            $this->contentTypes = null;
+            $this->chunkCache = null;
+            $this->snippetCache = null;
+            $this->pluginCache = null;
+            $this->pluginEvent = null;
+            require(MODX_BASE_PATH.'assets/cache/siteCache.idx.php');
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
      * Get the path of a page cache file
      *
      * @param int $docid
