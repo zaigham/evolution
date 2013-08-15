@@ -2194,9 +2194,9 @@ class DocumentParser extends Core {
     }
 
     /**
-     * Clear the cache of MODX.
+     * Clear the cache of MODX. Only clears page cache files; does not affect the main site cache file.
      *
-     * @return boolean 
+     * @return bool
      */
     function clearCache() {
         $basepath= $this->config["base_path"] . "assets/cache";
