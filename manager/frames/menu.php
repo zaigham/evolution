@@ -86,7 +86,7 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 				// preview
 				$sitemenu[] = '<li><a onclick="this.blur();" href="../" target="_blank">'.$_lang['preview'].'</a></li>';
 				// clear-cache
-				$sitemenu[] = '<li><a onclick="this.blur();" href="index.php?a=26" target="main">'.$_lang['refresh_site'].'</a></li>';
+				$sitemenu[] = '<li><a class="make-pop" onclick="this.blur();" href="index.php?a=26" target="main">'.$_lang['refresh_site'].'</a></li>';
 				// search
 				$sitemenu[] = '<li><a onclick="this.blur();" href="index.php?a=71" target="main">'.$_lang['search'].'</a></li>';
 				if ($modx->hasPermission('new_document')) {

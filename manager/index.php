@@ -476,7 +476,7 @@ switch ($action) {
         // get the cache emptying processor
         require_once('header.inc.php');
         include_once "actions/refresh_site.dynamic.php";
-        include_once "footer.inc.php";
+        require_once('footer.inc.php');
     break;
 /********************************************************************/
 /* Module management                                                */

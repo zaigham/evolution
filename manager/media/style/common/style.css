@@ -251,3 +251,15 @@ h2.editor-heading {
 	font-weight: bold;
 	}
 
+.manager-pop {
+    position: absolute;
+    top: 20%;
+    left: 15%;
+    width: 48%;
+    border: solid 1px black;
+    border-radius: 4px;
+    padding: 1%;
+    background: white;
+    box-shadow: -10px 10px 10px #555;
+    }
+

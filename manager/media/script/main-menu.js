@@ -1,4 +1,17 @@
 $(document).ready(function($) {
+
+    $('.make-pop').click(function() {
+        $.ajax({
+            url: this.href+'&ma=1',
+            complete: function (r) {
+                var b = $(parent.main.document.body);
+                b.find('.manager-pop').remove();
+                b.append('<div class="manager-pop">');
+                $(b).find('.manager-pop').append(r.responseText).append('<div class="manager-pop-close"><a href="#" onclick="$(\'.manager-pop\').remove()">Close</a></div>');
+            }
+        });
+        return false;
+    });
 	
 });
 
