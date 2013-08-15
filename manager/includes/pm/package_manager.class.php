@@ -557,6 +557,9 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                             switch ($el_category) {
 
                                 case 'chunks':
+                                    if (isset($internals['locked'])) {
+                                        $flds['locked'] = ($internals['locked'] && strtolower($internals['locked']) != 'false') ? 1 : 0;
+                                    }
                                     $tbl = $this->core->getFullTableName('site_htmlsnippets');
                                     $content_field = 'snippet';
                                     $name_field = 'name';
