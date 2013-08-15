@@ -1132,8 +1132,9 @@ class DocumentParser extends Core {
      * @param bool $all_entities If false, just run htmlspecialchars(). If true run htmlentities() (which converts all characters with entities). Default false.
      * @return string
      */
-    function html($str, $all_entities = false) {
-        return $all_entities ? htmlentities($str, ENT_QUOTES, $this->config['modx_charset']) : htmlspecialchars($str, ENT_QUOTES, $this->config['modx_charset']);
+    function html($str, $all_entities = false, $charset = null) {
+        if (is_null($charset)) $charset = $this->config['modx_charset'];
+        return $all_entities ? htmlentities($str, ENT_QUOTES, $charset) : htmlspecialchars($str, ENT_QUOTES, $charset);
     }
 
     /**
