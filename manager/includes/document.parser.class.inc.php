@@ -1026,6 +1026,22 @@ class DocumentParser extends Core {
                     $string = substr($string, 0, $arg).'&hellip;';
                 }
                 break;
+            
+            case 'date':
+                // Check for timestamp, MySQL style datetime or legacy style date
+                if (is_numeric($string)) {
+                    $timestamp = (int)$string;
+                } elseif(preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})\ ([0-9]{2}):([0-9]{2}):([0-9]{2})$/', $string, $matches)) {
+                    $timestamp = mktime($matches[4], $matches[5], $matches[6], $matches[2], $matches[3], $matches[1]);
+                } elseif(preg_match('/^([0-9]{2})-([0-9]{2})-([0-9]{4})\ ([0-9]{2}):([0-9]{2}):([0-9]{2})$/', $string, $matches)) {
+                    $timestamp = mktime($matches[4], $matches[5], $matches[6], $matches[2], $matches[1], $matches[3]);
+                } else {
+                    // Fallback - attempt to use strtotime(). This may work with dates that have had the date formatter widget applied.
+                    $timestamp = strtotime(str_replace(',', ' ', $string));
+                }
+                $string = $timestamp ? date($arg ? $arg : 'r', $timestamp) : '';
+                break;
+
         }
 
     return $string;
