@@ -355,7 +355,7 @@ abstract class DBAPI_abstract {
             else {
                 $keys = array_keys($fields);
                 $values = array_values($fields);
-                $flds = '('.implode(',', $keys).') '.(!$fromtable && $values ? 'VALUES(\''.implode('\',\'', $values).'\')' : '');
+                $flds = '('.implode(',', $keys).') '.(!$fromtable ? ($values ? 'VALUES(\''.implode('\',\'', $values).'\')' : 'VALUES()') : '');
             }
             
             if ($fromtable) {
