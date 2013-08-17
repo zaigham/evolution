@@ -1039,7 +1039,17 @@ class DocumentParser extends Core {
                     // Fallback - attempt to use strtotime(). This may work with dates that have had the date formatter widget applied.
                     $timestamp = strtotime(str_replace(',', ' ', $string));
                 }
-                $string = $timestamp ? date($arg ? $arg : 'r', $timestamp) : '';
+                if ($timestamp) {
+                    if (!$arg) {
+                        $arg = 'r';
+                        $datefn = 'date';
+                    } else {
+                        $datefn = (strpos($arg, '%') === false) ? 'date' : 'strftime';
+                    }
+                    $string = $datefn($arg, $timestamp);
+                } else {
+                    return '';
+                }
                 break;
 
         }
