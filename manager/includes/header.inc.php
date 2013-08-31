@@ -29,6 +29,26 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 	echo $modx->getJqueryPluginTag('jquery-ui-custom-clippermanager', 'jquery-ui-custom-clippermanager.min.js');
 	echo $modx->getJqueryPluginTag('jquery-ui-timepicker', 'jquery-ui-timepicker-addon.js');
 	echo $modx->getJqueryPluginTag('jquery-datatables', 'jquery.dataTables.min.js');
+	
+	//get appropiate language file for datepicker and timepicker
+	if($mxla != 'en'){
+
+		//look for appropiate datepicker language file
+		$aDatepickerLang = glob('../assets/js/i18n/jquery.ui.datepicker-'.$mxla.'*');
+		if(!empty($aDatepickerLang)){
+			$path = explode('assets/js/', end($aDatepickerLang));
+			echo $modx->getJqueryPluginTag('jquery.ui.datepicker.lang', $path[1]);
+		}
+
+		//look for appropiate timepicker language file
+		$aTimepickerLang = glob('../assets/js/i18n/jquery-ui-timepicker-'.$mxla.'*');
+		if(!empty($aTimepickerLang)){
+			$path = explode('assets/js/', end($aTimepickerLang));
+			echo $modx->getJqueryPluginTag('jquery-ui-timepicker.lang', $path[1]);
+		}
+
+    }
+
 	?>
 	<script src="media/script/manager.js"></script>
 
@@ -41,6 +61,7 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 		var config = {
 			cms_name: '<?php echo CMS_NAME; ?>',
 			cms_version: '<?php echo CMS_RELEASE_VERSION; ?>',
+			lang_attribute: '<?php echo $mxla; ?>',
 			date_format: '<?php echo $modx->config['date_format']; ?>',
 			time_format: '<?php echo $modx->config['time_format']; ?>',
 			datepicker_year_range: '<?php echo $modx->config['datepicker_year_range']; ?>',
