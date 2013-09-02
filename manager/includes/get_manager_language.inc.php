@@ -61,6 +61,10 @@ function convert_language_array(&$cla_conversion_lang, $fallback, $fallback_var)
 		        	$errors = true;
 		       	}
 		        $cla_conversion_lang[$__k] = iconv('UTF-8', $modx->config['modx_charset'].'//TRANSLIT', $$fallback_var[$__k]);
+		        // If the conversion from English is also not possible (maybe the target charset is unsupported in libiconv) do no conversion.
+		        if (!$cla_conversion_lang[$__k]) {
+		            $cla_conversion_lang[$__k] = ${$fallback_var}[$__k];
+		        }
 		    }
 		}
 	}
