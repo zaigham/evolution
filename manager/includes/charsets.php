@@ -18,15 +18,15 @@
     <option value="iso-8859-16" <?php echo $modx_charset=="iso-8859-16" ? "selected='selected'" : "" ; ?> >ISO 8859-16 Latin-10 SE European</option>
 </optgroup>
 <optgroup label="Windows code pages">
-    <option value="windows-1250" <?php echo $modx_charset=="windows-1250" ? "selected='selected'" : "" ; ?> >Central European (Windows) - windows-1250</option>
-    <option value="windows-1251" <?php echo $modx_charset=="windows-1251" ? "selected='selected'" : "" ; ?> >Cyrillic (Windows) - windows-1251</option>
-    <option value="Windows-1252" <?php echo $modx_charset=="Windows-1252" ? "selected='selected'" : "" ; ?> >Western European (Windows) - Windows-1252</option>
-    <option value="windows-1253" <?php echo $modx_charset=="windows-1253" ? "selected='selected'" : "" ; ?> >Greek (Windows) - windows-1253</option>
-    <option value="windows-1254" <?php echo $modx_charset=="windows-1254" ? "selected='selected'" : "" ; ?> >Turkish (Windows) - windows-1254</option>
-    <option value="windows-1255" <?php echo $modx_charset=="windows-1255" ? "selected='selected'" : "" ; ?> >Hebrew (Windows) - windows-1255</option>
-    <option value="windows-1256" <?php echo $modx_charset=="windows-1256" ? "selected='selected'" : "" ; ?> >Arabic (Windows) - windows-1256</option>
-    <option value="windows-1257" <?php echo $modx_charset=="windows-1257" ? "selected='selected'" : "" ; ?> >Baltic (Windows) - windows-1257</option>
-    <option value="windows-1258" <?php echo $modx_charset=="windows-1258" ? "selected='selected'" : "" ; ?> >Vietnamese (Windows) - windows-1258</option>
+    <option value="windows-1250" <?php echo $modx_charset=="windows-1250" ? "selected='selected'" : "" ; ?> >Central European cp-1250</option>
+    <option value="windows-1251" <?php echo $modx_charset=="windows-1251" ? "selected='selected'" : "" ; ?> >Cyrillic cp-1251</option>
+    <option value="Windows-1252" <?php echo $modx_charset=="Windows-1252" ? "selected='selected'" : "" ; ?> >Western European cp-1252</option>
+    <option value="windows-1253" <?php echo $modx_charset=="windows-1253" ? "selected='selected'" : "" ; ?> >Greek cp-1253</option>
+    <option value="windows-1254" <?php echo $modx_charset=="windows-1254" ? "selected='selected'" : "" ; ?> >Turkish cp-1254</option>
+    <option value="windows-1255" <?php echo $modx_charset=="windows-1255" ? "selected='selected'" : "" ; ?> >Hebrew cp-1255</option>
+    <option value="windows-1256" <?php echo $modx_charset=="windows-1256" ? "selected='selected'" : "" ; ?> >Arabic cp-1256</option>
+    <option value="windows-1257" <?php echo $modx_charset=="windows-1257" ? "selected='selected'" : "" ; ?> >Baltic cp-1257</option>
+    <option value="windows-1258" <?php echo $modx_charset=="windows-1258" ? "selected='selected'" : "" ; ?> >Vietnamese cp-1258</option>
 </optgroup>
 <optgroup label="Others">
     <option value="ASMO-708" <?php echo $modx_charset=="ASMO-708" ? "selected='selected'" : "" ; ?> >Arabic (ASMO 708) - ASMO-708</option>
