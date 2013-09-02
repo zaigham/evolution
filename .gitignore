@@ -28,6 +28,9 @@ assets/snippets
 assets/plugins
 assets/modules
 
+#ignore manager help templates installed as extras
+manager/help/templates
+
 # and the config file
 manager/includes/config.inc.php
 
