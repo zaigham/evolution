@@ -440,6 +440,24 @@ class DocumentParser extends Core {
     }
 
     /**
+     * Merge a language array into the global $_lang
+     *
+     * @param string $filename
+     * @param string $new_lang_array Name of array to merge
+     * @param string $fallback filename of fallback file
+     * @param string $fallback_var name of array in fallback file
+     * @return bool Success/Fail
+     */
+    function mergeLanguageArray($filename, $new_lang_array, $fallback, $fallback_var) {
+        if (include($filename)) {
+            $errors = $this->convertLanguageArray($$new_lang_array, $fallback, $fallback_var);
+            $GLOBALS['_lang'] = array_merge($GLOBALS['_lang'], $$new_lang_array);
+        }
+    
+    return $errors;
+    }
+
+    /**
      * Get the method by which the current document/resource was requested
      *
      * @return string 'alias' (friendly url alias), 'rss' (friendly url alias with rss/ at the start of $_REQUEST['q']) or 'id' (may or may not be an RSS request).
