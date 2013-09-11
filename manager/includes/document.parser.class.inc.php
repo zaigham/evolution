@@ -400,6 +400,41 @@ class DocumentParser extends Core {
     }
 
     /**
+     * Convert a language array to the required character set
+     */
+    function convert_language_array(&$cla_conversion_lang, $fallback, $fallback_var) {
+
+	    global $modx_manager_charset;
+	    
+	    $charset = ($this->isFrontend() || !@$modx_manager_charset) ? $this->config['modx_charset'] : $modx_manager_charset;
+	    
+	    $errors = false;
+	    
+	    if ($charset && $charset != 'UTF-8') {
+		    foreach($cla_conversion_lang as $__k => $__v) {
+		        $tmp = iconv('UTF-8', $charset.'//TRANSLIT', $cla_conversion_lang[$__k]);
+		        if ($cla_conversion_lang[$__k] == iconv($charset, 'UTF-8//TRANSLIT', $tmp)) {
+		            // No errors - conversion possible from UTF-8 to selected encoding
+		            $cla_conversion_lang[$__k] = $tmp;
+		        } else {
+		            // Errors - language file cannot be converted to selected encoding.
+		            // Fallback to English as it can be shown in most character encodings, and thus minimises the risk of an unusable manager.
+		            if (!$errors) {
+		            	require($fallback);
+		            	$errors = true;
+		           	}
+		            $cla_conversion_lang[$__k] = iconv('UTF-8', $charset.'//TRANSLIT', $$fallback_var[$__k]);
+		            // If the conversion from English is also not possible (maybe the target charset is unsupported in libiconv) do no conversion.
+		            if (!$cla_conversion_lang[$__k]) {
+		                $cla_conversion_lang[$__k] = ${$fallback_var}[$__k];
+		            }
+		        }
+		    }
+	    }
+	    return $errors;
+    }
+
+    /**
      * Get the method by which the current document/resource was requested
      *
      * @return string 'alias' (friendly url alias), 'rss' (friendly url alias with rss/ at the start of $_REQUEST['q']) or 'id' (may or may not be an RSS request).

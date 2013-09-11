@@ -20,7 +20,7 @@ if ($manager_language != 'english') {
 }
 
 // Convert $_lang to modx_charset
-convert_language_array($_lang, 'lang/english.inc.php', '_lang');
+$modx->convert_language_array($_lang, 'lang/english.inc.php', '_lang');
 
 // Make manager charset match site charset to avoid editing issues
 $modx_manager_charset = $modx->config['modx_charset'];
@@ -38,36 +38,8 @@ function get_manager_countries($manager_language) {
 		require('lang/country/'.$manager_language.'_country.inc.php');
 	}
 	
-	convert_language_array($_country_lang, 'lang/country/english_country.inc.php', '_country_lang');
+	$modx->convert_language_array($_country_lang, 'lang/country/english_country.inc.php', '_country_lang');
 	
 	return $_country_lang;
-}
-
-// Convert encoding of language array
-function convert_language_array(&$cla_conversion_lang, $fallback, $fallback_var) {
-	global $modx;
-	$errors = false;
-	if (isset($modx->config['modx_charset']) &&  $modx->config['modx_charset'] != 'UTF-8') {
-		foreach($cla_conversion_lang as $__k => $__v) {
-		    $tmp = iconv('UTF-8', $modx->config['modx_charset'].'//TRANSLIT', $cla_conversion_lang[$__k]);
-		    if ($cla_conversion_lang[$__k] == iconv($modx->config['modx_charset'], 'UTF-8//TRANSLIT', $tmp)) {
-		        // No errors - conversion possible from UTF-8 to selected encoding
-		        $cla_conversion_lang[$__k] = $tmp;
-		    } else {
-		        // Errors - language file cannot be converted to selected encoding.
-		        // Fallback to English as it can be shown in most character encodings, and thus minimises the risk of an unusable manager.
-		        if (!$errors) {
-		        	require($fallback);
-		        	$errors = true;
-		       	}
-		        $cla_conversion_lang[$__k] = iconv('UTF-8', $modx->config['modx_charset'].'//TRANSLIT', $$fallback_var[$__k]);
-		        // If the conversion from English is also not possible (maybe the target charset is unsupported in libiconv) do no conversion.
-		        if (!$cla_conversion_lang[$__k]) {
-		            $cla_conversion_lang[$__k] = ${$fallback_var}[$__k];
-		        }
-		    }
-		}
-	}
-	return $errors;
 }
 
