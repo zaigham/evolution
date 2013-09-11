@@ -401,8 +401,13 @@ class DocumentParser extends Core {
 
     /**
      * Convert a language array to the required character set
+     *
+     * @param array &$cla_conversion_lang Array to convert
+     * @param string $fallback filename of fallback file
+     * @param string $fallback_var name of array in fallback file
+     * @return bool Success/Fail
      */
-    function convert_language_array(&$cla_conversion_lang, $fallback, $fallback_var) {
+    function convertLanguageArray(&$cla_conversion_lang, $fallback, $fallback_var) {
 
 	    global $modx_manager_charset;
 	    

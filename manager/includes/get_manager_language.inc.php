@@ -20,7 +20,7 @@ if ($manager_language != 'english') {
 }
 
 // Convert $_lang to modx_charset
-$modx->convert_language_array($_lang, 'lang/english.inc.php', '_lang');
+$modx->convertLanguageArray($_lang, 'lang/english.inc.php', '_lang');
 
 // Make manager charset match site charset to avoid editing issues
 $modx_manager_charset = $modx->config['modx_charset'];
@@ -38,7 +38,7 @@ function get_manager_countries($manager_language) {
 		require('lang/country/'.$manager_language.'_country.inc.php');
 	}
 	
-	$modx->convert_language_array($_country_lang, 'lang/country/english_country.inc.php', '_country_lang');
+	$modx->convertLanguageArray($_country_lang, 'lang/country/english_country.inc.php', '_country_lang');
 	
 	return $_country_lang;
 }
