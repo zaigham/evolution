@@ -179,9 +179,22 @@ $orderBy = array('parsed'=>array(),'custom'=>array(),'unparsed'=>$orderBy);
         
 //---Includes-------------------------------------------------------- //
 
+$language_files = array(
+    'base_language' => $ditto_base.'lang/english.inc.php',
+    'language' => $ditto_base."lang/$language.inc.php"
+);
+foreach ($language_files as $filevalue) {
+    if (file_exists(($filevalue)) {
+        require($filevalue);
+        if (!$modx->convertLanguageArray('_lang', $language_files['base_language'], '_lang')) {
+            $modx->logEvent(1, 3, "Language file cannot be completely converted to {$modx->config['modx_charset']}. Please check: $filevalue");
+        }
+    } else {
+        $modx->logEvent(1, 3, "Language file does not exist Please check: $filevalue");
+    }
+}
+
 $files = array (
-    "base_language" => $ditto_base."lang/english.inc.php",
-    "language" => $ditto_base."lang/$language.inc.php",
     "main_class" => $ditto_base."classes/ditto.class.inc.php",
     "template_class" => $ditto_base."classes/template.class.inc.php",
     "filter_class" => $ditto_base."classes/filter.class.inc.php",
@@ -208,9 +221,6 @@ foreach ($files as $filename => $filevalue) {
         include_once($filevalue);
     } else if (file_exists($filevalue)) {
         include($filevalue);
-    } else if ($filename == "language") {
-        $modx->logEvent(1, 3, "Language file does not exist Please check: " . $filevalue, "Ditto " . $ditto_version);
-        return "Language file does not exist Please check: " . $filevalue;
     } else {
         $modx->logEvent(1, 3, $filevalue . " " . $_lang['file_does_not_exist'], "Ditto " . $ditto_version);
         return $filevalue . " " . $_lang['file_does_not_exist'];
