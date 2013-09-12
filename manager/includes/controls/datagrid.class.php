@@ -166,8 +166,14 @@ class DataGrid {
 		if(!$this->_itemStyle && !$this->_itemClass) $this->_itemStyle = "style='color:black;'";
 		if(!$this->_altItemStyle && !$this->_altItemClass) $this->_altItemStyle = "style='color:black;background-color:#eeeeee'";
 
-		if($this->_isDataset && !$this->columns) {
-			$this->columns = implode(',', $modx->db->getColumnNames($this->ds));
+		if ($this->_isDataset && (!$this->columns || !$this->fields)) {
+		    $col_names = implode(',', $modx->db->getColumnNames($this->ds));
+		    if (!$this->columns) {
+    			$this->columns = $col_names;
+	    	}
+		    if (!$this->fields) {
+			    $this->fields = $col_names;
+		    }
 		}
 		
 		// start grid
