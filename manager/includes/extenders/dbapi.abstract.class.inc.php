@@ -464,7 +464,7 @@ abstract class DBAPI_abstract {
             $rsq = $this->query($rsq);
         }
 
-        $this->_getColumnNames($rsq);
+        return $this->_getColumnNames($rsq);
     }
 
     /**
