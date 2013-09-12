@@ -595,7 +595,7 @@ abstract class DBAPI_abstract {
         }
         
         if ($rsq) {
-            require_once(dirname(__FILE__).'../includes/controls/datagrid.class.php');
+            require_once(dirname(__FILE__).'/../controls/datagrid.class.php');
             
             $grd = new DataGrid('', $rsq);
 
