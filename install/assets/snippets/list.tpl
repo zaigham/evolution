@@ -6,7 +6,7 @@
  * Derived from Ditto 2.1.0
  *
  * @category 	snippet
- * @version 	2.1.2
+ * @version 	2.1.3
  * @license 	http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  * @internal	@properties 
  * @internal	@modx_category Content
