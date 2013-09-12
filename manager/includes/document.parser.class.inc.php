@@ -400,7 +400,7 @@ class DocumentParser extends Core {
     }
 
     /**
-     * Convert a language array to the required character set
+     * Convert a UTF-8 language array to the required character set
      *
      * @param array &$cla_conversion_lang Array to convert
      * @param string $fallback filename of fallback file
@@ -440,7 +440,7 @@ class DocumentParser extends Core {
     }
 
     /**
-     * Merge a language array into the global $_lang
+     * Merge a UTF-8 language array into the global $_lang
      *
      * @param string $filename
      * @param string $new_lang_array Name of array to merge
