@@ -507,14 +507,14 @@ if (\$PM->haspackage && !\$PM->is_error()) {
                     $full = str_replace("\r", "\n", $full);
 
                     // Get @category - check with $el_category
-                    preg_match('/@category\s+([a-z]+)/', $full, $matches);
+                    preg_match('/@category[\t ]+([a-z]+)/', $full, $matches);
                     $el_category_singular = $matches[1];
                     if ($el_category_singular.'s' == $el_category) {
 
                         extract($this->get_name_and_desc($full));
                         
                         // Get version number                                                // <<<< Not functionally used - only for description
-                        preg_match('/@version\s+(clipper-)?([0-9.]+)\s*([a-z]*)?/i', $full, $matches);
+                        preg_match('/@version[\t ]+(clipper-)?([0-9.]+)[\t ]*([a-z0-9 ]*)?/i', $full, $matches);
                         $clipper_version = $matches[1] ? true : false;
                         $version = $matches[2];
                         $version_suffix = $matches[3];
@@ -525,7 +525,7 @@ if (\$PM->haspackage && !\$PM->is_error()) {
 
                             // Get @internals
                             $internals = array();
-                            preg_match_all('/@internal\s+@([^\s]+) +(.+)/m', $full, $matches, PREG_SET_ORDER); // <<<< preg modifiers
+                            preg_match_all('/@internal[\t ]+@([^\s]+)[\t ]+(.+)/', $full, $matches, PREG_SET_ORDER);
                             foreach($matches as $match) {
                                 $internals[$match[1]] = $match[2];
                             }
