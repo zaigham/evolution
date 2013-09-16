@@ -1081,7 +1081,7 @@ class DocumentParser extends Core {
 
             case 'ellipsis':
                 if (ctype_digit($arg) && strlen($string) > $arg) {
-                    $string = substr($string, 0, $arg).'&hellip;';
+                    $string = rtrim(substr(ltrim($string), 0, $arg)).'&hellip;';
                 }
                 break;
             
