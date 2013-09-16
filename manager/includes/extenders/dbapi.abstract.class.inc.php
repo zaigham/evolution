@@ -235,17 +235,15 @@ abstract class DBAPI_abstract {
      * DELETE
      *
      * @param string $from
-     * @param string $where
-     * @param string|array $fields
+     * @param string $where Starting with v1.3 this parameter must be supplied.
      * @return resource
      */
-    final public function delete($from, $where = '', $fields = '') {
+    final public function delete($from, $where) {
         if (!$from) {
             return false;
         } else {
-            if (is_array($fields)) $fields = implode(',', $fields);
-            $where = ($where != '') ? "WHERE $where" : '';
-            return $this->query("DELETE $fields FROM $from $where");
+            $where = $where ? "WHERE $where" : '';
+            return $this->query("DELETE FROM $from $where");
         }
     }
 
