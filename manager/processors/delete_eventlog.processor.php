@@ -9,11 +9,9 @@ if(!$modx->hasPermission('delete_eventlog')) {
 <?php
 
 $id=intval($_GET['id']);
-$clearlog = ($_GET['cls']==1 ? true:false);
 
 // delete event log
-$sql = "DELETE FROM ".$modx->getFullTableName("event_log").(!$clearlog ? " WHERE id=".$id.";":"");
-$rs = $modx->db->query($sql);
+$rs = $modx->db->delete($modx->getFullTableName('event_log'), ($_GET['cls'] == 1) ? '' : "id={$id}");
 if(!$rs) {
 	echo "Something went wrong while trying to delete the event log...";
 	exit;
