@@ -48,9 +48,16 @@ class template{
 		}
 		$fieldList = array();
 		foreach ($templates as $tplName=>$tpl) {
-			$check = $this->findTemplateVars($tpl);
-			if (is_array($check)) {
-				$fieldList = array_merge($check, $fieldList);
+	        preg_match_all('~\[\+(.*?)\+\]~', $tpl, $matches);
+	        $vars = array();
+	        foreach($matches[1] as $placeholder) {
+	            $pos = strpos($placeholder, ':');
+	            if ($pos === false) $pos = strpos($placeholder, ';');
+	            $name = ($pos !== false) ? substr($placeholder, 0, $pos) : $placeholder;
+		        $vars[strtolower($name)] = $name;
+	        }
+			if (sizeof($vars)) {
+				$fieldList = array_merge($vars, $fieldList);
 			} else {
 				switch ($tplName) {
 					case "base":
@@ -77,24 +84,6 @@ class template{
 		}
 		$this->fields = $fields;
 		return $templates;
-	}
-
-	// ---------------------------------------------------
-	// Function: findTemplateVars
-	// Find al the template variables in the template
-	// ---------------------------------------------------
-	function findTemplateVars($tpl) {
-		preg_match_all('~\[\+(.*?)\+\]~', $tpl, $matches);
-		$TVs = array();
-		foreach($matches[1] as $tv) {
-			$match = explode(":", $tv);
-			$TVs[strtolower($match[0])] = $match[0];
-		}
-		if (count($TVs) >= 1) {
-			return array_values($TVs);
-		} else {
-			return false;
-		}
 	}
 
 	// ---------------------------------------------------
@@ -151,16 +140,26 @@ class template{
 
 	// ---------------------------------------------------
 	// Function: replace
-	// Replcae placeholders with their values
+	// Replace placeholders with their values
 	// ---------------------------------------------------
     static function replace( $placeholders, $tpl ) {
+        global $modx;
+
 		$keys = array();
 		$values = array();
 		foreach ($placeholders as $key=>$value) {
 			$keys[] = '[+'.$key.'+]';
 			$values[] = $value;
 		}
-		return str_replace($keys,$values,$tpl);
+		$tpl = str_replace($keys,$values,$tpl);
+		
+		// Output modifiers
+		while (strpos($tpl, '[+') !== false && preg_match('/\[\+(.+?;.+?)(\+\])/', $tpl, $matches, PREG_OFFSET_CAPTURE)) {
+		    $a = explode(';', substr($tpl, $matches[1][1], $matches[2][1] - $matches[1][1]));
+		    $tpl = substr($tpl, 0, $matches[0][1]).$modx->modifyOutput($placeholders[$a[0]], $a[1]).substr($tpl, $matches[2][1] + 2);
+        }
+        
+        return $tpl;
 	}
 
 	// ---------------------------------------------------
