@@ -481,6 +481,7 @@ function saveUserSettings($id) {
 	// array of post values to ignore in this function
 	$ignore = array(
 		'id',
+        'internalKey',
 		'oldusername',
 		'oldemail',
 		'newusername',
