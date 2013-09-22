@@ -124,7 +124,7 @@ switch(true){
         $jsAlert = "You are not allowed to login from this location.";
         break;
     }
-    case (!empty($userSettings['allowed_days']) && (strpos($userSettings['allowed_days'],"$day")===false)):{ // allowed days
+    case (!empty($userSettings['allowed_days']) && !in_array($day, explode(",", $userSettings['allowed_days']))):{ // allowed days
         $jsAlert = "You are not allowed to login at this time. Please try again later.";
         break;
     }
