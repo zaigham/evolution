@@ -28,6 +28,8 @@ $modx_manager_charset = $modx->config['modx_charset'];
 
 // include the country list language file
 function get_manager_countries($manager_language) {
+    global $modx;
+
 	// Check that $manager_language is valid (should be superfluous)
 	if (empty($manager_language) || !is_string($manager_language) || !ctype_alnum(str_replace('_', '', str_replace('-', '', $manager_language))) || !file_exists(MODX_MANAGER_PATH.'includes/lang/country/'.$manager_language.'_country.inc.php')) {
 		$manager_language = 'english';
