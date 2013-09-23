@@ -14,6 +14,8 @@ assets/media/*
 assets/export/*
 assets/flash/*
 assets/thumbs/*
+assets/libs/*
+assets/templates/*
 
 # and this one (MaxiGallery)
 assets/galleries/
