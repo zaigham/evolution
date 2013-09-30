@@ -144,14 +144,14 @@
 									var c = document.mutate[lastFileCtrl];
 									if(c && c.value != url) {
 									    c.value = url;
-									    c.onchange();
+									    $(c).change();
 									}
 									lastFileCtrl = '';
 								} else if(lastImageCtrl) {
 									var c = document.mutate[lastImageCtrl];
 									if(c && c.value != url) {
 									    c.value = url;
-									    c.onchange();
+									    $(c).change();
 									    if (url) {
 									        pimg = $('#'+c.id+'-preview img');
 									        if (!pimg.length) {
@@ -222,14 +222,14 @@
 									var c = document.mutate[lastFileCtrl];
 									if(c && c.value != url) {
 									    c.value = url;
-									    c.onchange();
+									    $(c).change();
 									}
 									lastFileCtrl = '';
 								} else if(lastImageCtrl) {
 									var c = document.mutate[lastImageCtrl];
 									if(c && c.value != url) {
 									    c.value = url;
-									    c.onchange();
+									    $(c).change();
 									    if (url) {
 									        pimg = $('#'+c.id+'-preview img');
 									        if (!pimg.length) {
