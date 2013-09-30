@@ -138,7 +138,7 @@
 							}
 							
 							function SetUrl(url, width, height, alt){
-							    ".($modx->config['file_browser'] == 'kcfinder' ? "url = url.replace(/^".preg_quote($modx->config['base_url'], '/')."/, '')" : '')."
+							    url = url.replace(/^".preg_quote($modx->config['base_url'], '/')."/, '')
 								if(lastFileCtrl) {
 									var c = document.mutate[lastFileCtrl];
 									if(c) c.value = url;
@@ -198,7 +198,7 @@
 							}
 							
 							function SetUrl(url, width, height, alt){
-							    ".($modx->config['file_browser'] == 'kcfinder' ? "url = url.replace(/^".preg_quote($modx->config['base_url'], '/')."/, '')" : '')."
+							    url = url.replace(/^".preg_quote($modx->config['base_url'], '/')."/, '')
 								if(lastFileCtrl) {
 									var c = document.mutate[lastFileCtrl];
 									if(c) c.value = url;
