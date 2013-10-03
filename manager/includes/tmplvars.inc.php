@@ -141,14 +141,14 @@
 							    var pimg;
 							    url = url.replace(/^".preg_quote($modx->config['base_url'], '/')."/, '')
 								if(lastFileCtrl) {
-									var c = document.mutate[lastFileCtrl];
+									var c = document.getElementById(lastFileCtrl);
 									if(c && c.value != url) {
 									    c.value = url;
 									    $(c).change();
 									}
 									lastFileCtrl = '';
 								} else if(lastImageCtrl) {
-									var c = document.mutate[lastImageCtrl];
+									var c = document.getElementById(lastImageCtrl);
 									if(c && c.value != url) {
 									    c.value = url;
 									    $(c).change();
@@ -219,14 +219,14 @@
 							    var pimg;
 							    url = url.replace(/^".preg_quote($modx->config['base_url'], '/')."/, '')
 								if(lastFileCtrl) {
-									var c = document.mutate[lastFileCtrl];
+									var c = document.getElementById(lastFileCtrl);
 									if(c && c.value != url) {
 									    c.value = url;
 									    $(c).change();
 									}
 									lastFileCtrl = '';
 								} else if(lastImageCtrl) {
-									var c = document.mutate[lastImageCtrl];
+									var c = document.getElementById(lastImageCtrl);
 									if(c && c.value != url) {
 									    c.value = url;
 									    $(c).change();
