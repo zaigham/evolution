@@ -463,6 +463,8 @@ if (\$PM->haspackage && !\$PM->is_error()) {
      * @param bool $overwrite_always If set to true any @internal @overwrite setting will be ignored. Intended for development.
      */
     function install($overwrite_always = false) {
+
+        $this->core->db->connect();
     
         $this->install_summary = '<h2>'.$this->name.'</h2>';
     
