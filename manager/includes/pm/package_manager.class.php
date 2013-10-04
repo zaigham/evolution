@@ -269,6 +269,18 @@ class PackageManager {
     }
     
     /**
+     * Reconnect to db after serialisation
+     *
+     * Note that using $this->core over multiple requests could, and likely will, result in multiple
+     * DocumentParser objects. Inefficient, though may be neater for coding; there are no globals here.
+     *
+     * @return void
+     */
+    function __wakeup() {
+        $this->core->db->connect();
+    }
+    
+    /**
      * Is there an error so far?
      *
      * @return bool
