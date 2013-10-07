@@ -31,17 +31,17 @@ $onManagerMainFrameHeaderHTMLBlock = is_array($evtOut) ? '<div id="onManagerMain
 	echo $modx->getJqueryPluginTag('jquery-datatables', 'jquery.dataTables.min.js');
 	
 	//get appropiate language file for datepicker and timepicker
-	if($mxla != 'en'){
+	if ($mxla != 'en' && $modx_manager_charset == 'UTF-8') {
 
 		//look for appropiate datepicker language file
-		$aDatepickerLang = glob('../assets/js/i18n/jquery.ui.datepicker-'.$mxla.'*');
+		$aDatepickerLang = glob('../assets/js/i18n/jquery.ui.datepicker-'.$mxla.'*.js');
 		if(!empty($aDatepickerLang)){
 			$path = explode('assets/js/', end($aDatepickerLang));
 			echo $modx->getJqueryPluginTag('jquery.ui.datepicker.lang', $path[1]);
 		}
 
 		//look for appropiate timepicker language file
-		$aTimepickerLang = glob('../assets/js/i18n/jquery-ui-timepicker-'.$mxla.'*');
+		$aTimepickerLang = glob('../assets/js/i18n/jquery-ui-timepicker-'.$mxla.'*.js');
 		if(!empty($aTimepickerLang)){
 			$path = explode('assets/js/', end($aTimepickerLang));
 			echo $modx->getJqueryPluginTag('jquery-ui-timepicker.lang', $path[1]);
