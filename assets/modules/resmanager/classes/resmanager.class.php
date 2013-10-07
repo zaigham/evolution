@@ -39,6 +39,9 @@ class ResManager {
      			include MODX_BASE_PATH.'assets/modules/resmanager/lang/'.$managerLanguage.'.inc.php';
 			}
 		}
+		
+		$this->modx->convertLanguageArray($_lang, MODX_BASE_PATH.'assets/modules/resmanager/lang/english.inc.php', '_lang'); 
+		
 		$this->lang = $_lang;
 		foreach ($_lang as $key => $value) {
 			$ph['lang.'.$key] = $value;
