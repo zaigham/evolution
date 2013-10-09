@@ -41,10 +41,20 @@ class Core {
      * Returns the full table name based on db settings
      *
      * @param string $tbl Table name
-     * @return string Table name with prefix
+     * @return string Table name with prefix and including db name
      */
     function getFullTableName($tbl) {
         return $this->db->config['dbase'] . ".`" . $this->db->config['table_prefix'] . $tbl . "`";
+    }
+
+    /**
+     * Returns the table name based on db settings
+     *
+     * @param string $tbl Table name
+     * @return string Table name with prefix
+     */
+    function getTableName($tbl) {
+        return $this->db->config['table_prefix'].$tbl;
     }
 
     /**
