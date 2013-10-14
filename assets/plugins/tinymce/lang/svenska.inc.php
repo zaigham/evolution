@@ -1,19 +1,4 @@
 <?php
-/*
- * Filename:       assets/plugins/tinymce/lang/svenska-utf8.inc.php
- * Function:       Swedish language file for TinyMCE
- * Encoding:       UTF-8
- * Author:         Jeff Whitfield
- * Date:           2007/01/06
- * Version:        2.1.0
- * MODx version:   0.9.6
- *
- * Translation:    Pontus Ågren (Pont)
- * Date:           2007-03-13
- */
-
-include_once(dirname(__FILE__).'/english.inc.php'); // fallback for missing defaults or new additions
-
 $_lang['tinymce_editor_theme_title'] = "Tema";
 $_lang['tinymce_editor_theme_message'] = "Här kan du välja vilket tema eller skal som editorn ska använda.";
 $_lang['tinymce_editor_custom_plugins_title'] = "Anpassade plugins";

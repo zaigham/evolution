@@ -1,14 +1,4 @@
 <?php
-/*
- * Filename:       assets/plugins/tinymce/lang/polish.inc.php
- * Function:       Polish language file for TinyMCE
- * Encoding:       ISO-Latin-1
- * Author:         Jeff Whitfield
- * Date:           2007/01/06
- * Version:        2.0.9
- * MODx version:   0.9.5
-*/
-
 $_lang['tinymce_editor_theme_title'] = "Theme:";
 $_lang['tinymce_editor_theme_message'] = "Here you can select which theme or skin to use with the editor.";
 $_lang['tinymce_editor_custom_plugins_title'] = "Custom Plugins:";

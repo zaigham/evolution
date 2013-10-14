@@ -1,16 +1,4 @@
 <?php
-
-/*
-* Filename:     assets/plugins/tinymce/lang/english.inc.php
-* Function:     Dutch language file for TinyMCE
-* Encoding:     utf-8
-* Author:       Jeff Whitfield
-*               Stefan van Zanden (18-07-2009 Small changes to conform language used in the manager)
-* Date:         2009/07/18
-* Version:      2.1.0
-* MODx version: Evolution 1.0
-*/
-
 $_lang['tinymce_editor_theme_title'] = "Thema:";
 $_lang['tinymce_editor_theme_message'] = "Selecteer hier welk thema of skin u wilt gebruiken met de editor.";
 $_lang['tinymce_editor_custom_plugins_title'] = "Aangepaste plugins:";

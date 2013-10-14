@@ -1,16 +1,4 @@
 <?php
-/*
- * Filename:       assets/plugins/tinymce/lang/german.inc.php
- * Function:       German language file for TinyMCE
- * Encoding:       UTF-8
- * Author:         Jeff Whitfield / translated by Marc Hinse
- * Date:           2007/04/17
- * Version:        2.0.9
- * MODx version:   0.9.6
-*/
-
-include_once(dirname(__FILE__).'/english.inc.php'); // fallback for missing defaults or new additions
-
 $_lang['tinymce_editor_theme_title'] = "Template:";
 $_lang['tinymce_editor_theme_message'] = "Hier können Sie ein Template aussuchen, das im TinyMCE verwendet werden soll. Es handelt sich nicht um das Aussehen, sondern um die Anzahl an Plugins/Funktionen (wie Bilder hochladen, Links einfügen etc.), die für den Nutzer verfügbar sein sollen.";
 $_lang['tinymce_editor_custom_plugins_title'] = "Individuelle Plugins:";

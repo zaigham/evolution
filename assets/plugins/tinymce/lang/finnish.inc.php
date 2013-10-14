@@ -1,14 +1,4 @@
 <?php
-/*
- * Filename:       assets/plugins/tinymce/lang/finnish.inc.php
- * Function:       Finnish language file for TinyMCE.  Needs to be translated!
- * Encoding:       ISO-Latin-1
- * Author:         Jeff Whitfield
- * Date:           2010/03/10
- * Version:        3.3
- * MODx version:   0.9.5-1.0.2
-*/
-
 $_lang['tinymce_editor_theme_title'] = "Teema:";
 $_lang['tinymce_editor_theme_message'] = "Valitse editorille haluamasi teema/ulkoasu.";
 $_lang['tinymce_editor_custom_plugins_title'] = "Valinnaiset pluginit:";

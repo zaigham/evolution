@@ -1,14 +1,4 @@
 <?php
-/*
- * Filename:       assets/plugins/tinymce/lang/portuguese.inc.php
- * Function:       Portuguese language file for TinyMCE
- * Encoding:       UTF-8
- * Author:         Jeff Whitfield - translation João Peixoto (joeindio@gmail.com)
- * Date:           2007/04/09
- * Version:        2.0.9
- * MODx version:   0.9.5
-*/
-
 $_lang['tinymce_editor_theme_title'] = "Tema:";
 $_lang['tinymce_editor_theme_message'] = "Aqui pode seleccionar que tema ou capa deseja utilizar com o editor.";
 $_lang['tinymce_editor_custom_plugins_title'] = "Plugins personalizados:";

@@ -1,14 +1,4 @@
 <?php
-/*
- * Filename:       assets/plugins/tinymce/lang/japanese-utf8.inc.php
- * Function:       Japanese language file for TinyMCE.
- * Encoding:       UTF-8
- * Author:         yama
- * Date:           2010/07/29
- * Version:        2.1.1
- * MODx version:   0.9.5-1.0.5
-*/
-
 $_lang['tinymce_editor_theme_title'] = 'テーマ:';
 $_lang['tinymce_editor_theme_message'] = 'テーマを選択し、ツールバーアイコンのセットおよびエディタのデザインを変更できます。';
 $_lang['tinymce_editor_custom_plugins_title'] = 'カスタムテーマのプラグイン設定:';

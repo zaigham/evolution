@@ -11,11 +11,9 @@ class TinyMCE
 	{
 		global $modx, $_lang;
 		// language settings
-		if (! @include_once($params['mce_path'] .'lang/'.$modx->config['manager_language'].'.inc.php'))
-		{
-			include_once($params['mce_path'] .'lang/english.inc.php');
-		}
-	
+    	include_once($params['mce_path'] .'lang/english.inc.php');
+		@include_once($params['mce_path'] .'lang/'.$modx->config['manager_language'].'.inc.php');
+
 		if($modx->manager->action == 11 || $modx->manager->action == 12)
 		{
 			$theme_options .= '<option value="">' . $_lang['tinymce_theme_global_settings'] . '</option>' . PHP_EOL;

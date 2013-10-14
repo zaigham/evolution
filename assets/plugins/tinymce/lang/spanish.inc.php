@@ -1,14 +1,4 @@
 <?php
-/*
- * Filename:       assets/plugins/tinymce/lang/english.inc.php
- * Function:       English language file for TinyMCE
- * Encoding:       utf8
- * Author:         Jeff Whitfield, translated to spanish by Luciano A. Ferrer
- * Date:           2007/01/06
- * Version:        2.0.9
- * MODx version:   0.9.6RC2
-*/
-
 $_lang['tinymce_editor_theme_title'] = "Tema:";
 $_lang['tinymce_editor_theme_message'] = "Aquí puede seleccionar el tema o piel a usar con el editor.";
 $_lang['tinymce_editor_custom_plugins_title'] = "Plugins personalizados:";

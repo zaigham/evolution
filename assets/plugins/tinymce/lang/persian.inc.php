@@ -1,14 +1,4 @@
 <?php
-/*
- * Filename:       assets/plugins/tinymce/lang/persian.inc.php
- * Function:       Persian language file for TinyMCE By: Mohsen (MotSmart ~ www.modxcms.ir)
- * Encoding:       UTF-8
- * Author:         Jeff Whitfield
- * Date:           2007/04/09
- * Version:        2.1.0
- * MODx version:   0.9.6
-*/
-
 $_lang['tinymce_editor_theme_title'] = "پوسته:";
 $_lang['tinymce_editor_theme_message'] = "در اینجا میتوانید پوسته ی مورد نظر را برای ویرایشگر انتخاب کنید.";
 $_lang['tinymce_editor_custom_plugins_title'] = "پلاگینهای مخصوص:";

@@ -1,13 +1,4 @@
 <?php
-/*
- * Filename:       assets/plugins/tinymce/lang/russian-UTF8.inc.php
- * Function:       Russian language file for TinyMCE
- * Encoding:       UTF-8
- * Author:         Jeff Whitfield / translated by Victor Safronovich
- * Date:           13.01.2010
- * MODx version:   1.0.5
- */
-
 $_lang['tinymce_editor_theme_title'] = "Тема WYSIWYG-редактора:";
 $_lang['tinymce_editor_theme_message'] = "Выберите какую тему или шаблон вы будете использовать для WYSIWYG-редактора.";
 $_lang['tinymce_editor_custom_plugins_title'] = "Индивидуальные плагины:";

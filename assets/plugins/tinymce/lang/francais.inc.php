@@ -1,16 +1,4 @@
 <?php
-/**
- * Filename:       assets/plugins/tinymce/lang/francais-utf8.inc.php
- * Function:       French language file for TinyMCE
- * Encoding:       UTF-8
- * Author:         French community
- * Date:           2007/04/13, corrected on 28/07/09
- * Version:        2.1.0
- * MODx version:   Evolution 1.0
-*/
-
-include_once(dirname(__FILE__).'/english.inc.php'); // fallback for missing defaults or new additions
-
 $_lang['tinymce_editor_theme_title'] = "Thème:";
 $_lang['tinymce_editor_theme_message'] = "Vous pouvez sélectionner quel thème ou template utiliser avec la barre d'outils TinyMCE.";
 $_lang['tinymce_editor_custom_plugins_title'] = "Plugins:";

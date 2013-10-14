@@ -1,14 +1,4 @@
 <?php
-/*
- * Filename:       assets/plugins/tinymce/lang/czech.inc.php
- * Function:       Czech language file for TinyMCE
- * Encoding:       UTF-8
- * Author:         Hansek, COEX (hansek@coex.cz)
- * Date:           2010/03/10
- * Version:        3.3
- * MODx version:   0.9.5-1.0.2
-*/
-
 $_lang['tinymce_editor_theme_title'] = "Téma:";
 $_lang['tinymce_editor_theme_message'] = "Zde si můžete vybrat téma nebo skin, který se použije v editoru.";
 $_lang['tinymce_editor_custom_plugins_title'] = "Uživatelské Pluginy:";
