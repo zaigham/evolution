@@ -279,13 +279,19 @@
 		{
 
 			case 'login' :
-				$wlpe->Login($type, $liHomeId);
+				if ($_SERVER['REQUEST_METHOD'] == 'POST')
+				{
+					$wlpe->Login($type, $liHomeId);
+				}
 
 				if ($modx->getLoginUserID())
 				{
 					return $displaySuccessTpl;
 				}
-				return $displayLoginFormTpl;
+				else
+				{
+					return $displayLoginFormTpl;
+				}
 				break;
 
 			case 'logout' :
@@ -418,7 +424,10 @@
 		{
 
 			case 'login' :
-				$wlpe->Login($type, $liHomeId);
+				if ($_SERVER['REQUEST_METHOD'] == 'POST')
+				{
+					$wlpe->Login($type, $liHomeId);
+				}
 
 				if (isset($wlpe->Report)) 
 				{
