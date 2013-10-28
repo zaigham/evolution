@@ -1915,19 +1915,30 @@ class DocumentParser extends Core {
         } else {
             $source = substr($source, 0, 50);
         }
+		
         $LoginUserID = $this->getLoginUserID();
         if ($LoginUserID == '') $LoginUserID = 0;
+		
+		$usertype = $this->isFrontend() ? 1 : 0;
+		
         $evtid= intval($evtid);
         $type = intval($type);
         if ($type < 1) {
             $type= 1;
-        }
-        elseif ($type > 3) {
+        } elseif ($type > 3) {
             $type= 3; // Types: 1 = information, 2 = warning, 3 = error
         }
-        $sql= "INSERT INTO " . $this->getFullTableName("event_log") . " (eventid,type,createdon,source,description,user) " .
-                "VALUES($evtid,$type," . time() . ",'$source','$msg','" . $LoginUserID . "')";
-        $ds= @$this->db->query($sql);
+		
+		$ds = $this->db->insert(array(
+			'eventid' => $evtid,
+			'type' =>$type,
+			'createdon' => time(),
+			'source' => $source,
+			'description' => $msg, 
+			'user' => $LoginUserID,
+			'usertype' => $usertype
+		), $this->getFullTableName("event_log"));
+		
         if (!$ds) {
             echo "Error while inserting event log into database.";
             exit();
