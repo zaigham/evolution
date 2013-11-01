@@ -251,3 +251,7 @@ h2.editor-heading {
 	font-weight: bold;
 	}
 
+pre {
+    white-space: pre-wrap;
+    }
+
