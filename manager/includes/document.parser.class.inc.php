@@ -1,6 +1,10 @@
 <?php
 require_once('core.class.inc.php');
 
+define('DP_PUB_UNPUBLISHED', 0);
+define('DP_PUB_PUBLISHED', 1);
+define('DP_PUB_ALL', 0xFFFF);
+
 /**
  * ClipperCMS Document Parser
  *
@@ -617,7 +621,7 @@ class DocumentParser extends Core {
      * @return string
      */
     function checkCache($id) {
-        $cacheFile= "assets/cache/docid_" . $id . ".pageCache.php";
+        $cacheFile = $this->pageCacheFile($id);
         if (file_exists($cacheFile)) {
             $this->documentGenerated= 0;
             $flContent = file_get_contents($cacheFile, false);
@@ -817,7 +821,7 @@ class DocumentParser extends Core {
                 while (false !== ($file= readdir($handle))) {
                     if ($file != "." && $file != "..") {
                         $filesincache += 1;
-                        if (preg_match("/\.pageCache/", $file)) {
+                        if ($this->isPageCacheFile($file)) {
                             $deletedfilesincache += 1;
                             while (!unlink($basepath . "/" . $file));
                         }
@@ -896,10 +900,9 @@ class DocumentParser extends Core {
     function postProcess() {
         // if the current document was generated, cache it!
         if ($this->documentGenerated == 1 && $this->documentObject['cacheable'] == 1 && $this->documentObject['type'] == 'document' && $this->documentObject['published'] == 1) {
-            $basepath= $this->config["base_path"] . "assets/cache";
             // invoke OnBeforeSaveWebPageCache event
             $this->invokeEvent("OnBeforeSaveWebPageCache");
-            if ($fp= @ fopen($basepath . "/docid_" . $this->documentIdentifier . ".pageCache.php", "w")) {
+            if ($fp = @ fopen($this->pageCacheFile($this->documentIdentifier), 'w')) {
                 // get and store document groups inside document object. Document groups will be used to check security on cache pages
                 $sql= "SELECT document_group FROM " . $this->getFullTableName("document_groups") . " WHERE document='" . $this->documentIdentifier . "'";
                 $docGroups= $this->db->getColumn("document_group", $sql);
@@ -1204,6 +1207,18 @@ class DocumentParser extends Core {
             $content= str_replace($matches[0], $replace, $content);
         }
         return $content;
+    }
+    
+    /**
+     * Prepare text output for HTML
+     *
+     * @param string $str
+     * @param bool $all_entities If false, just run htmlspecialchars(). If true run htmlentities() (which converts all characters with entities). Default false.
+     * @return string
+     */
+    function html($str, $all_entities = false, $charset = null) {
+        if (is_null($charset)) $charset = $this->config['modx_charset'];
+        return $all_entities ? htmlentities($str, ENT_QUOTES, $charset) : htmlspecialchars($str, ENT_QUOTES, $charset);
     }
 
     /**
@@ -1810,6 +1825,16 @@ class DocumentParser extends Core {
         }
         return $parents;
     }
+    
+    /**
+     * Get the parent docid of a document
+     * 
+     * @param int docid
+     * @return int
+     */
+    function getParentId($id) {
+        return $this->aliasListing[$id]['parent'];
+    }
 
     /**
      * Returns the ultimate parent of a document
@@ -2043,7 +2068,7 @@ class DocumentParser extends Core {
      *
      * @param int $parentid The parent document identifier
      *                      Default: 0 (site root)
-     * @param int $published Whether published or unpublished documents are in the result
+     * @param int $published Whether published or unpublished documents are in the result. 0 or DP_PUB_UNPUBLISHED, 1 or DP_PUB_PUBLISHED or DP_PUB_ALL.
      *                      Default: 1
      * @param int $deleted Whether deleted or undeleted documents are in the result
      *                      Default: 0 (undeleted)
@@ -2077,7 +2102,7 @@ class DocumentParser extends Core {
         $sql= "SELECT DISTINCT $fields
               FROM $tblsc sc
               LEFT JOIN $tbldg dg on dg.document = sc.id
-              WHERE sc.parent = '$parentid' AND sc.published=$published AND sc.deleted=$deleted $where
+              WHERE sc.parent = '$parentid' ".($published == DP_PUB_ALL ? '' : "AND sc.published=$published ")."AND sc.deleted=$deleted $where
               AND ($access)
               GROUP BY sc.id " .
          ($sort ? " ORDER BY $sort $dir " : "") . " $limit ";
@@ -2095,7 +2120,7 @@ class DocumentParser extends Core {
      * @category API-Function
      * @param array $ids Documents to fetch by docid
      *                   Default: Empty array
-     * @param int $published Whether published or unpublished documents are in the result
+     * @param int $published Whether published or unpublished documents are in the result. 0 or DP_PUB_UNPUBLISHED, 1 or DP_PUB_PUBLISHED or DP_PUB_ALL.
      *                      Default: 1
      * @param int $deleted Whether deleted or undeleted documents are in the result
      *                      Default: 0 (undeleted)
@@ -2130,7 +2155,7 @@ class DocumentParser extends Core {
              (!$docgrp ? "" : " OR dg.document_group IN ($docgrp)");
             $sql= "SELECT DISTINCT $fields FROM $tblsc sc
                     LEFT JOIN $tbldg dg on dg.document = sc.id
-                    WHERE (sc.id IN (" . implode(",",$ids) . ") AND sc.published=$published AND sc.deleted=$deleted $where)
+                    WHERE (sc.id IN (" . implode(",",$ids) . ") ".($published == DP_PUB_ALL ? '' : "AND sc.published=$published ")."AND sc.deleted=$deleted $where)
                     AND ($access)
                     GROUP BY sc.id " .
              ($sort ? " ORDER BY $sort $dir" : "") . " $limit ";
@@ -2151,7 +2176,7 @@ class DocumentParser extends Core {
      *                Default: 0 (no documents)
      * @param string $fields List of fields
      *                       Default: * (all fields)
-     * @param int $published Whether published or unpublished documents are in the result
+     * @param int $published Whether published or unpublished documents are in the result. 0 or DP_PUB_UNPUBLISHED, 1 or DP_PUB_PUBLISHED or DP_PUB_ALL.
      *                      Default: 1
      * @param int $deleted Whether deleted or undeleted documents are in the result
      *                      Default: 0 (undeleted)
@@ -2264,9 +2289,9 @@ class DocumentParser extends Core {
     }
 
     /**
-     * Clear the cache of MODX.
+     * Clear the cache of MODX. Only clears page cache files; does not affect the main site cache file.
      *
-     * @return boolean 
+     * @return bool
      */
     function clearCache() {
         $basepath= $this->config["base_path"] . "assets/cache";
@@ -2276,7 +2301,7 @@ class DocumentParser extends Core {
             while (false !== ($file= readdir($handle))) {
                 if ($file != "." && $file != "..") {
                     $filesincache += 1;
-                    if (preg_match("/\.pageCache/", $file)) {
+                    if ($this->isPageCacheFile($file)) {
                         $deletedfilesincache += 1;
                         unlink($basepath . "/" . $file);
                     }
@@ -2287,6 +2312,55 @@ class DocumentParser extends Core {
         } else {
             return false;
         }
+    }
+    
+    /**
+     * Refresh the entire cache of MODX including cache files and script caches that are properties of $this
+     *
+     * @return bool
+     */
+    function refreshCache() {
+        require_once(MODX_BASE_PATH.'/manager/processors/cache_sync.class.processor.php');
+        $sync = new synccache();
+        $sync->setCachepath(MODX_BASE_PATH.'/assets/cache/');
+        $sync->setReport(false);
+        $sync->emptyCache();
+        if (file_exists(MODX_BASE_PATH.'assets/cache/siteCache.idx.php')) {
+            $this->config = null;
+            $this->aliasListing = null;
+            $this->documentListing = null;
+            $this->documentMap = null;
+            $this->contentTypes = null;
+            $this->chunkCache = null;
+            $this->snippetCache = null;
+            $this->pluginCache = null;
+            $this->pluginEvent = null;
+            require(MODX_BASE_PATH.'assets/cache/siteCache.idx.php');
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Get the path of a page cache file
+     *
+     * @param int $docid
+     * @param bool $fullpath If false give the path relative to the site root, if true give the fullpath. Default true.
+     * @return string
+     */
+    function pageCacheFile($docid, $fullpath = true) {
+        return ($fullpath ? $this->config['base_path'] : '')."assets/cache/docid_{$docid}.pageCache.php";
+    }
+    
+    /**
+     * Is a file a page cache file?
+     *
+     * @param string $filename
+     * @return bool
+     */
+    function isPageCacheFile($filename) {
+        return (bool)preg_match('/^docid_\d+\.pageCache\.php$/', $filename);
     }
 
     /**
@@ -2657,7 +2731,7 @@ class DocumentParser extends Core {
      * @param array $tvidnames. Which TVs to fetch - Can relate to the TV ids in the db (array elements should be numeric only)
      *                                               or the TV names (array elements should be names only)
      *                      Default: Empty array
-     * @param int $published Whether published or unpublished documents are in the result
+     * @param int $published Whether published or unpublished documents are in the result. 0 or DP_PUB_UNPUBLISHED, 1 or DP_PUB_PUBLISHED or DP_PUB_ALL.
      *                      Default: 1
      * @param string $docsort How to sort the result array (field)
      *                      Default: menuindex
@@ -2735,7 +2809,7 @@ class DocumentParser extends Core {
      *                        Default: 0 (site root)
      * @param array $tvidnames. Which TVs to fetch. In the form expected by getTemplateVarOutput().
      *                        Default: Empty array
-     * @param int $published Whether published or unpublished documents are in the result
+     * @param int $published Whether published or unpublished documents are in the result. 0 or DP_PUB_UNPUBLISHED, 1 or DP_PUB_PUBLISHED or DP_PUB_ALL.
      *                        Default: 1
      * @param string $docsort How to sort the result array (field)
      *                        Default: menuindex
@@ -2759,6 +2833,22 @@ class DocumentParser extends Core {
     }
 
     /**
+     * Get the TVs that belong to a template
+     *
+     * @param int $template
+     * @return array
+     */
+    function getTemplateTVs($template)
+        {
+        $rs = $this->db->query('SELECT tv.*
+                                    FROM '.$this->getFullTableName('site_tmplvars').' tv 
+                                    INNER JOIN '.$this->getFullTableName('site_tmplvar_templates').' tvtpl ON tvtpl.tmplvarid = tv.id 
+                                    WHERE tvtpl.templateid = '.$template);
+        return $this->db->makeArray($rs);
+        }
+
+
+    /**
      * Modified by Raymond for TV - Orig Modified by Apodigm - DocVars
      * Returns a single site_content field or TV record from the db.
      *
@@ -2769,7 +2859,7 @@ class DocumentParser extends Core {
      * @param string $idname Can be a TV id or name
      * @param string $fields Fields to fetch from site_tmplvars. Default: *
      * @param type $docid Docid. Defaults to empty string which indicates the current document.
-     * @param int $published Whether published or unpublished documents are in the result
+     * @param int $published Whether published or unpublished documents are in the result. 0 or DP_PUB_UNPUBLISHED, 1 or DP_PUB_PUBLISHED or DP_PUB_ALL.
      *                        Default: 1
      * @return boolean
      */
@@ -2795,7 +2885,7 @@ class DocumentParser extends Core {
      * @param string $fields Fields to fetch from site_tmplvars.
      *                        Default: *
      * @param string $docid Docid. Defaults to empty string which indicates the current document.
-     * @param int $published Whether published or unpublished documents are in the result
+     * @param int $published Whether published or unpublished documents are in the result. 0 or DP_PUB_UNPUBLISHED, 1 or DP_PUB_PUBLISHED or DP_PUB_ALL.
      *                        Default: 1
      * @param string $sort How to sort the result array (field)
      *                        Default: rank
@@ -2860,7 +2950,7 @@ class DocumentParser extends Core {
      *                                               or the TV names (array elements should be names only)
      *                        Default: Empty array
      * @param string $docid Docid. Defaults to empty string which indicates the current document.
-     * @param int $published Whether published or unpublished documents are in the result
+     * @param int $published Whether published or unpublished documents are in the result. 0 or DP_PUB_UNPUBLISHED, 1 or DP_PUB_PUBLISHED or DP_PUB_ALL.
      *                        Default: 1
      * @param string $sep
      * @return boolean|array
