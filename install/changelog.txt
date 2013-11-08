@@ -1,5 +1,11 @@
 Note that the #numbers under the Clipper entries related to issue numbers as at https://github.com/ClipperCMS/ClipperCMS/issues
 
+ClipperCMS 1.2.5 (Aug 2013)
+===========================
+
+- Package Manager install functionality
+- Bugfixes as as detailed on github.
+
 ClipperCMS 1.2.1 (Aug 2013)
 ===========================
 
