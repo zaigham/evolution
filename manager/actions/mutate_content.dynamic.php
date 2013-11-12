@@ -141,6 +141,12 @@ if (is_null($pid)) {
     }
 }
 
+// Can anyone create a document here?
+if (!sizeof($modx->getDocumentAllowedChildTemplates($pid))) {
+    $e->setError(3);
+    $e->dumpError();
+}    
+
 // restore saved form
 $formRestored = false;
 if ($modx->manager->hasFormValues()) {

@@ -258,11 +258,10 @@ function movedocument() {
 		<!-- View Children -->
 		<div id="tabChildren">
 			
-			<?php if ($modx->hasPermission('new_document')) { ?>
-	
+			<?php if ($modx->hasPermission('new_document') && sizeof($modx->getDocumentAllowedChildTemplates($content['id']))) { ?>
 				<ul class="actionButtons">
-					<li><a href="index.php?a=4&amp;pid=<?php echo $content['id']?>"><img src="<?php echo $_style["icons_new_document"]; ?>" align="absmiddle" /> <?php echo $_lang['create_resource_here']?></a></li>
-					<li><a href="index.php?a=72&amp;pid=<?php echo $content['id']?>"><img src="<?php echo $_style["icons_new_weblink"]; ?>" align="absmiddle" /> <?php echo $_lang['create_weblink_here']?></a></li>
+					<li><a href="index.php?a=4&amp;pid=<?php echo $content['id']?>"><img src="<?php echo $_style["icons_new_document"]; ?>" align="absmiddle" /> <?php echo '#'.$_lang['create_resource_here']?></a></li>
+					<li><a href="index.php?a=72&amp;pid=<?php echo $content['id']?>"><img src="<?php echo $_style["icons_new_weblink"]; ?>" align="absmiddle" /> <?php echo '#'.$_lang['create_weblink_here']?></a></li>
 				</ul>
 			<?php }
 			if ($numRecords > 0)
