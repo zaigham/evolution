@@ -5,9 +5,9 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 
     function constructLink($action, $img, $text, $allowed) {
         if($allowed==1) { ?>
-            <div class="menuLink" onclick="menuHandler(<?php echo $action ; ?>); hideMenu();">
+            <div class="menuLink menuaction<?php echo $action; ?>" onclick="if (!this.className.match(/Disabled\b/)) { menuHandler(<?php echo $action ; ?>); hideMenu(); }">
         <?php } else { ?>
-            <div class="menuLinkDisabled">
+            <div class="menuLinkDisabled menuaction<?php echo $action; ?>">
         <?php } ?>
                 <img src="<?php echo $img; ?>" /><?php echo $text; ?>
             </div>
@@ -21,6 +21,7 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
 <head>
 	<meta charset="<?php echo $modx_manager_charset; ?>">
 	<title>Document Tree</title>
+    <link rel="stylesheet" href="media/style/common/style.css" />
     <link rel="stylesheet" href="media/style/<?php echo $manager_theme ? "$manager_theme/":""; ?>style.css" />
     <?php 
     	echo $modx->getJqueryTag();
@@ -137,10 +138,14 @@ if(!defined('IN_MANAGER_MODE') || IN_MANAGER_MODE != 'true') exit();
       return scrOfY;
     }
 
-    function showPopup(id,title,e){
+    function showPopup(id,title,e,disable){
         var x,y
         var mnu = jQuery('#mx_contextmenu');
         var bodyHeight = parseInt(jQuery('body').height());
+
+        mnu.find('div').removeClass('menuLinkTempDisabled');
+        mnu.find('div.menuaction'+disable).addClass('menuLinkTempDisabled');
+
         x = e.clientX>0 ? e.clientX:e.pageX;
         y = e.clientY>0 ? e.clientY:e.pageY;
         y = getScrollY()+(y/2);
