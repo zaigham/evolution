@@ -2197,6 +2197,28 @@ class DocumentParser extends Core {
     }
 
     /**
+     * Returns allowed child templates for a document
+     *
+     * @param $docid
+     * @return array
+     */
+    function getDocumentAllowedChildTemplates($docid) {
+        $rs = $this->db->query('SELECT te.restrict_children, te.allowed_child_templates
+                                    FROM '.$this->getFullTableName('site_content').' sc, '.$this->getFullTableName('site_templates').' te
+                                    WHERE sc.template = te.id
+                                    AND sc.id = '.$docid);
+        $row = $this->db->getRow($rs);
+
+        if ($row['restrict_children']) {
+            $allowed_child_templates = trim($row['allowed_child_templates']);
+            return $allowed_child_templates ? explode(',', $allowed_child_templates) : array();
+        } else {
+            $rs2 = $this->db->select('id', $this->getFullTableName('site_templates'));
+            return $this->db->getColumn('id', $rs2);
+        }
+    }
+
+    /**
      * Returns the page information as database row, the type of result is
      * defined with the parameter $rowMode
      *
