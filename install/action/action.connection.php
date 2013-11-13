@@ -111,6 +111,12 @@ if ($upgradeable && (!isset ($database_connection_charset) || empty($database_co
     	</select>
 	</div>
   </p>
+  <p class="labelHolder"><label for="phpdbapi">PHP Database API:</label>
+  	<select id="phpdbapi" name="phpdbapi">
+  		<option value="mysql">MySQL (backwards compatible)</option>
+  		<option value="mysqli" selected="selected">MySQLi (recommended)</option>
+  	</select>
+  </p>
 
   <div class="clickHere">
 	&rarr; <a id="databasetest" href="#"><?php echo $_lang['connection_screen_database_test_connection']?></a>

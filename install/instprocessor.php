@@ -283,7 +283,7 @@ $configString = '<?php
 '.$locale_string.'
 '.$tz_string.'
 '.(($locale_string || $tz_string) ? "}\n" : '').'
-$database_type = \'mysql\';
+$database_type = \''.$_POST['phpdbapi'].'\';
 $database_server = \'' . $database_server . '\';
 $database_user = \'' . $install->db->escape($database_user) . '\';
 $database_password = \'' . $install->db->escape($database_password) . '\';

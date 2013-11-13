@@ -44,6 +44,7 @@ elseif ($installMode == 1) {
 
     $_POST['database_name'] = $dbase;
     $_POST['tableprefix'] = $table_prefix;
+    $_POST['phpdbapi'] = $database_type;
     $_POST['database_connection_charset'] = $database_connection_charset;
     $_POST['databasehost'] = $database_server;
     $_SESSION['databaseloginname'] = $database_user;
@@ -59,6 +60,7 @@ elseif ($installMode == 1) {
     <input type="hidden" value="<?php echo trim($_POST['database_name'], '`'); ?>" name="database_name" />
     <input type="hidden" value="<?php echo $_POST['tableprefix']; ?>" name="tableprefix" />
     <input type="hidden" value="<?php echo @$_POST['tableengine']; ?>" name="tableengine" />
+    <input type="hidden" value="<?php echo @$_POST['phpdbapi']; ?>" name="phpdbapi" />
     <input type="hidden" value="<?php echo $_POST['database_collation']; ?>" name="database_collation" />
     <input type="hidden" value="<?php echo $_POST['database_connection_charset']; ?>" name="database_connection_charset" />
     <input type="hidden" value="<?php echo $_POST['databasehost']; ?>" name="databasehost" />
