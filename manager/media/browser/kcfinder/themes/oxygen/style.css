@@ -276,6 +276,10 @@ tr.selected:hover > td {
     background-image: url(img/icons/about.png);
 }
 
+#toolbar a[href="kcact:help"] {
+    background-image: url(img/icons/help.png);
+}
+
 #toolbar a[href="kcact:maximize"] {
     background-image: url(img/icons/maximize.png);
 }

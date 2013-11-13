@@ -107,6 +107,26 @@ browser.initToolbar = function() {
         return false;
     });
 
+    $('#toolbar a[href="kcact:help"]').click(function() {
+        var html = '<div class="box about">\
+            <p>Right click on folders in the left pane for a context menu allowing manipulation and creation of folders.<br />\
+            <p>Right click on files in the right pane for a context menu allowing viewing, downloading and selection of files.<br />\
+            <p>Left double click on a file to select it.</p>\
+            <button>' + browser.label("OK") + '</button>\
+        </div>';
+        $('#dialog').html(html);
+        $('#dialog').data('title', browser.label("Help"));
+        browser.showDialog();
+        var close = function() {
+            browser.hideDialog();
+            browser.unshadow();
+        }
+        $('#dialog button').click(close);
+        $('#dialog').unbind();
+
+        return false;
+    });
+
     this.initUploadButton();
 };
 

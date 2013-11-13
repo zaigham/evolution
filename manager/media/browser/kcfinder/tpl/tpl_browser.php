@@ -26,6 +26,7 @@ $('body').noContext();
         <a href="kcact:settings"><?php echo $this->label("Settings") ?></a>
         <a href="kcact:maximize"><?php echo $this->label("Maximize") ?></a>
         <a href="kcact:about"><?php echo $this->label("About") ?></a>
+        <a href="kcact:help"><?php echo $this->label("Help") ?></a>
         <div id="loading"></div>
         </div>
     </div>
