@@ -9,6 +9,12 @@ if(!$modx->hasPermission('settings')) {
 // Self-reference this module
 $self_href = $_SERVER['PHP_SELF']."?a={$_REQUEST['a']}";
 
+// Check cURL is enabled
+if (!in_array('curl', get_loaded_extensions())) {
+    $e->setError(120, 'PHP cURL extension is required to use the Package manager');
+    $e->dumpError();
+}
+
 // Repos - hardcoded for now. Third party repos to be supported later.
 $repos = array(array(
                 'name'=>'ClipperCMS Extras Repo',
@@ -37,7 +43,7 @@ if ((@$_GET['repo'] || $_GET['repo'] === '0') && ctype_digit($_GET['repo']) && $
     $mode = 'repo-list';
     $repo_tag = (isset($_GET['tag']) && ctype_alpha($_GET['tag'])) ? $_GET['tag'] : null;
     $PM_cache_idx = $repo_tag ? $repo_tag : 0;
-    
+
 } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (@$_POST['pkg_url']) {
@@ -46,12 +52,12 @@ if ((@$_GET['repo'] || $_GET['repo'] === '0') && ctype_digit($_GET['repo']) && $
         $mode = 'summarise';
 
     } elseif (@$_POST['pkg_folder']) {
-    
+
         $PM = new PackageManager($modx, $_POST['pkg_folder']);
         $mode = 'summarise';
-    
+
     } elseif (isset($_FILES['pkg_file']) && $_FILES['pkg_file']['error'] != UPLOAD_ERR_NO_FILE) {
-    
+
         switch($_FILES['pkg_file']['error']) {
             case UPLOAD_ERR_OK:
             
