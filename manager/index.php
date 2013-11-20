@@ -624,6 +624,15 @@ switch ($action) {
         include_once "processors/save_settings.processor.php";
     break;
 /********************************************************************/
+/* Package Manager                                                  */
+/********************************************************************/
+    case 120:
+        // Package Manager
+        require_once('header.inc.php');
+        require_once('actions/package_manager.php');
+        require_once('footer.inc.php');
+        break;
+/********************************************************************/
 /* system information                                               */
 /********************************************************************/
     case 53:

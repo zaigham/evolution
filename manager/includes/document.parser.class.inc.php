@@ -885,7 +885,7 @@ class DocumentParser extends Core {
             }
     
             if ($this->eval_type) {
-                $this->messageQuitFromElement("{$this->eval_type} {$this->eval_name}", 'Fatal '.($error['type'] == 'E_USER_ERROR' ? '(user) ' : '')."error: {$error['message']}", '', true, $error['type'], $file, '', $error['message'], $error['line']);
+                $this->messageQuitFromElement(ucfirst($this->eval_type)." {$this->eval_name}", 'Fatal '.($error['type'] == 'E_USER_ERROR' ? '(user) ' : '')."error: {$error['message']}", '', true, $error['type'], $file, '', $error['message'], $error['line']);
             } else {
                 $this->messageQuit('Fatal '.($error['type'] == 'E_USER_ERROR' ? '(user) ' : '')."error: {$error['message']}", '', true, $error['type'], $file, '', $error['message'], $error['line']);
             }
@@ -1263,10 +1263,10 @@ class DocumentParser extends Core {
             $___plug = eval ($___plugin_code);
             $___msg = ob_get_contents();
             ob_end_clean();
-            $this->unregisterEvalInfo();
             if ($___plug === false) {
                 $this->messageQuitFromElement("Plugin {$this->event->activePlugin}", "PHP Parse error in plugin {$this->event->activePlugin}");
             }
+            $this->unregisterEvalInfo();
             echo $___msg;
             unset ($this->event->params);
         } else {
@@ -1294,10 +1294,10 @@ class DocumentParser extends Core {
             $___snip = eval ($___snippet_code);
             $___msg = ob_get_contents();
             ob_end_clean();
-            $this->unregisterEvalInfo();
             if ($___snip === false) {
                 $this->messageQuitFromElement("Snippet {$___name}", "PHP Parse error in snippet {$___name}");
             }
+            $this->unregisterEvalInfo();
             unset ($this->event->params);
             return $___msg . $___snip;
         } else {
@@ -1425,31 +1425,13 @@ class DocumentParser extends Core {
     /** 
      * Convert URL tags [~...~] to URLs
      *
+     * Simplified code compared to previous version. Uses makeURL(). Can cope with extraneous spaces.
+     *
      * @param string $documentSource
      * @return string
      */
     function rewriteUrls($documentSource) {
-        // rewrite the urls
-        if ($this->config['friendly_urls'] == 1) {
-            $aliases= array ();
-            foreach ($this->aliasListing as $item) {
-                $aliases[$item['id']]= (strlen($item['path']) > 0 ? $item['path'] . '/' : '') . $item['alias'];
-            }
-            $in= '!\[\~([0-9]+)\~\]!ise'; // Use preg_replace with /e to make it evaluate PHP
-            $isfriendly= ($this->config['friendly_alias_urls'] == 1 ? 1 : 0);
-            $pref= $this->config['friendly_url_prefix'];
-            $suff= $this->config['friendly_url_suffix'];
-            $thealias= '$aliases[\\1]';
-            $found_friendlyurl= "\$this->makeFriendlyURL('$pref','$suff',$thealias)";
-            $not_found_friendlyurl= "\$this->makeFriendlyURL('$pref','$suff','" . '\\1' . "')";
-            $out= "({$isfriendly} && isset({$thealias}) ? {$found_friendlyurl} : {$not_found_friendlyurl})";
-            $documentSource= preg_replace($in, $out, $documentSource);
-        } else {
-            $in= '!\[\~([0-9]+)\~\]!is';
-            $out= "index.php?id=" . '\1';
-            $documentSource= preg_replace($in, $out, $documentSource);
-        }
-        return $documentSource;
+  	    return preg_replace('!\[\~\s*([0-9]+)\s*\~\]!ise', "substr(\$this->makeURL('\\1'), strlen(\$this->config['base_url']))", $documentSource);
     }
 
     /**

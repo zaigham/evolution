@@ -1,5 +1,31 @@
 Note that the #numbers under the Clipper entries related to issue numbers as at https://github.com/ClipperCMS/ClipperCMS/issues
 
+ClipperCMS 1.2.6 (Nov 2013)
+===========================
+
+- Bugfixes to installer and parser as detailed on github.
+
+ClipperCMS 1.2.5 (Nov 2013)
+===========================
+
+- Package Manager install functionality
+- Bugfixes as as detailed on github.
+
+ClipperCMS 1.2.1 (Aug 2013)
+===========================
+
+- TinyMCE plugin updated to cater for more media types
+- .gitignore to ignore non-core extras
+- Bugfix to mutate_templates.dynamic.php so that templates can have no allowed children
+- Bugfix to snippet/plugin names in the fatal error handler
+- Bugfix for #339 to QM+ to ensure it's script tags are not inserted within an IE conditional comment
+- Bugfix to javascript for purging deleted documents
+- Update tag syntax help template #344
+- Update PHPMailer
+- Fix duplicating files after drag-n-drop upload in kcfinder
+- Fix #351 to ensure 'none' isn't displayed for incompletely deleted webusers in the web permissions web user lists
+- Fix #343 by removing pagination from ResManager
+
 ClipperCMS 1.2.0 (July 2013)
 ===========================
 

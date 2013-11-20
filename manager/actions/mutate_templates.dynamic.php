@@ -69,7 +69,7 @@ $content = array_merge($content, $_POST);
 
 // Template lists
 $allowed_child_templates = explode(',', $content['allowed_child_templates']);
-$output_act = '<label><input type="checkbox" value="0" name="allowed_child_templates[]" '.(in_array(0, $allowed_child_templates) ? ' checked="checked"' : '').'/>(blank)</label>';
+$output_act = '<label><input type="checkbox" value="0" name="allowed_child_templates[]" '.(in_array('0', $allowed_child_templates) ? ' checked="checked"' : '').'/>(blank)</label>';
 $output_dct = '<option value="0">'.$_lang['default_child_template_use_system_setting'].' ('.$modx->db->getValue('SELECT templatename FROM '.$modx->getFullTableName('site_templates').' WHERE id = '.$modx->config['default_template']).')</option>';
 $rs_templates = $modx->db->select('id,templatename', $modx->getFullTablename('site_templates'), null, 'templatename ASC');
 while ($row_templates = $modx->db->getRow($rs_templates)) {

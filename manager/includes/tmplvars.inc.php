@@ -138,14 +138,31 @@
 							}
 							
 							function SetUrl(url, width, height, alt){
-							    ".($modx->config['file_browser'] == 'kcfinder' ? "url = url.replace(/^".preg_quote($modx->config['base_url'], '/')."/, '')" : '')."
+							    var pimg;
+							    url = url.replace(/^".preg_quote($modx->config['base_url'], '/')."/, '')
 								if(lastFileCtrl) {
-									var c = document.mutate[lastFileCtrl];
-									if(c) c.value = url;
+									var c = document.getElementById(lastFileCtrl);
+									if(c && c.value != url) {
+									    c.value = url;
+									    $(c).change();
+									}
 									lastFileCtrl = '';
 								} else if(lastImageCtrl) {
-									var c = document.mutate[lastImageCtrl];
-									if(c) { c.value = url; $('#'+c.id+'-preview img').attr('src', 'media/image/resize.php?src='+url+'&w=300&h=100'); }
+									var c = document.getElementById(lastImageCtrl);
+									if(c && c.value != url) {
+									    c.value = url;
+									    $(c).change();
+									    if (url) {
+									        pimg = $('#'+c.id+'-preview img');
+									        if (!pimg.length) {
+									            $('#'+c.id+'-preview').html('<img alt=\"\" />');
+									            pimg = $('#'+c.id+'-preview img');
+									        }
+									        pimg.attr('src', 'media/image/resize.php?src='+url+'&w=300&h=100');
+									    } else {
+									        $('#'+c.id+'-preview').html('');
+									    }
+									}
 									lastImageCtrl = '';
 								} else {
 									return;
@@ -155,8 +172,10 @@
 					$ResourceManagerLoaded  = true;					
 				} 
 				$field_html .=
-				'<input type="text" id="tv'.$field_id.'" name="tv'.$field_id.'"  value="'.$field_value .'" '.$field_style.' onchange="documentDirty=true;" />&nbsp;<input type="button" value="'.$_lang['insert'].'" onclick="BrowseServer(\'tv'.$field_id.'\')" />'.
-				($row['value'] && file_exists($modx->config['base_path'].$row['value']) ? '<div id="tv'.$field_id.'-preview" class="image-preview"><img src="media/image/resize.php?src='.$row['value'].'&amp;w=300&amp;h=100" alt="" /></div>' : '');
+				'<input type="text" id="tv'.$field_id.'" name="tv'.$field_id.'"  value="'.$field_value .'" '.$field_style.' onchange="documentDirty=true; if (!this.value) $(\'#tv'.$field_id.'-preview img\').fadeOut(500).slideUp({duration: 500, queue: false, complete: function () { $(\'#tv'.$field_id.'-preview\').html(\'\'); }});" />&nbsp;<input type="button" value="'.$_lang['insert'].'" onclick="BrowseServer(\'tv'.$field_id.'\')" />
+				<div id="tv'.$field_id.'-preview" class="image-preview">'.
+				    ($row['value'] && file_exists($modx->config['base_path'].$row['value']) ? '<img src="media/image/resize.php?src='.$row['value'].'&amp;w=300&amp;h=100" alt="" />' : '').
+				'</div>';
 
 				break;
 			case "file": // handles the input of file uploads
@@ -181,15 +200,14 @@
 								sOptions += ',top=' + iTop ;
 
 								var oWindow = window.open( url, 'FCKBrowseWindow', sOptions ) ;
-							}
-							
-								function BrowseServer(ctrl) {
+							}			
+							function BrowseServer(ctrl) {
 								lastImageCtrl = ctrl;
 								var w = screen.width * 0.7;
 								var h = screen.height * 0.7;
 								OpenServerBrowser('{$base_url}manager/media/browser/{$modx->config['file_browser']}/browser.html?Type=images&Connector={$base_url}manager/media/browser/{$modx->config['file_browser']}/connectors/php/connector.php&ServerPath={$base_url}', w, h);
 							}
-										
+							
 							function BrowseFileServer(ctrl) {
 								lastFileCtrl = ctrl;
 								var w = screen.width * 0.7;
@@ -198,14 +216,31 @@
 							}
 							
 							function SetUrl(url, width, height, alt){
-							    ".($modx->config['file_browser'] == 'kcfinder' ? "url = url.replace(/^".preg_quote($modx->config['base_url'], '/')."/, '')" : '')."
+							    var pimg;
+							    url = url.replace(/^".preg_quote($modx->config['base_url'], '/')."/, '')
 								if(lastFileCtrl) {
-									var c = document.mutate[lastFileCtrl];
-									if(c) c.value = url;
+									var c = document.getElementById(lastFileCtrl);
+									if(c && c.value != url) {
+									    c.value = url;
+									    $(c).change();
+									}
 									lastFileCtrl = '';
 								} else if(lastImageCtrl) {
-									var c = document.mutate[lastImageCtrl];
-									if(c) { c.value = url; $('#'+c.id+'-preview img').attr('src', 'media/image/resize.php?src='+url+'&w=300&h=100'); }
+									var c = document.getElementById(lastImageCtrl);
+									if(c && c.value != url) {
+									    c.value = url;
+									    $(c).change();
+									    if (url) {
+									        pimg = $('#'+c.id+'-preview img');
+									        if (!pimg.length) {
+									            $('#'+c.id+'-preview').html('<img alt=\"\" />');
+									            pimg = $('#'+c.id+'-preview img');
+									        }
+									        pimg.attr('src', 'media/image/resize.php?src='+url+'&w=300&h=100');
+									    } else {
+									        $('#'+c.id+'-preview').html('');
+									    }
+									}
 									lastImageCtrl = '';
 								} else {
 									return;

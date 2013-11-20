@@ -263,6 +263,10 @@ h2.editor-heading {
     box-shadow: -10px 10px 10px #555;
     }
 
+pre {
+    white-space: pre-wrap;
+    }
+
 /*
  * Tree context menu
  * -----------------
@@ -369,5 +373,4 @@ h2.editor-heading {
 
 .rtl #mx_contextmenu .seperator {
     margin: 3px 28px 3px 1px;
-    }
 

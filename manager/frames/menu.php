@@ -170,6 +170,7 @@ $mxla = $modx_lang_attribute ? $modx_lang_attribute : 'en';
 				}
 				if($modx->hasPermission('settings')) {
 					// configuration
+					$toolsmenu[] = '<li><a onclick="this.blur();" href="index.php?a=120" target="main">'.$_lang['package_manager'].'</a></li>'; // <<<< Temporarily combined with settings permissions
 					$toolsmenu[] = '<li><a onclick="this.blur();" href="index.php?a=17" target="main">'.$_lang['edit_settings'].'</a></li>';
 				}
 				

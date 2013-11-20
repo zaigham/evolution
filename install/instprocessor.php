@@ -608,7 +608,7 @@ if (isset ($_POST['module']) || $installData) {
 
                 if ($install->db->getRecordCount($rs) > 0) {
                     $row = $install->db->getRow($rs);
-                    $props = propUpdate($properties,$row['properties']);
+                    $props = $install->db->escape(propUpdate($properties,$row['properties']));
 
                     $install->db->update("modulecode='$module', description='$desc', properties='$props', enable_sharedparams='$shared'", "`{$table_prefix}site_modules`", "'$name'");
                     echo "<p>&nbsp;&nbsp;$name: <span class=\"ok\">" . $_lang['upgraded'] . "</span></p>";
@@ -665,7 +665,7 @@ if (isset ($_POST['plugin']) || $installData) {
                 if ($install->db->getRecordCount($rs) > 0) {
                     $insert = true;
                     while($row = $install->db->getRow($rs)) {
-                        $props = propUpdate($properties,$row['properties']);
+                        $props = $install->db->escape(propUpdate($properties,$row['properties']));
                         if($row['description'] == $desc){
 	                         $install->db->update("plugincode='$plugin', description='$desc', properties='$props'", 
 							"`{$table_prefix}site_plugins`", "id={$row['id']};");	
@@ -734,7 +734,7 @@ if (isset ($_POST['snippet']) || $installData) {
                 $rs = $install->db->select("*", "`{$table_prefix}site_snippets`",  "name='$name'");
                 if ($install->db->getRecordCount($rs) > 0) {
                     $row = $install->db->getRow($rs);
-                    $props = propUpdate($properties,$row['properties']);
+                    $props = $install->db->escape(propUpdate($properties,$row['properties']));
                     $install->db->update("snippet='$snippet', description='$desc', properties='$props'", 
                     "`{$table_prefix}site_snippets`", "name='$name'");
                     echo "<p>&nbsp;&nbsp;$name: <span class=\"ok\">" . $_lang['upgraded'] . "</span></p>";

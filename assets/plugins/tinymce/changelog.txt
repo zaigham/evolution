@@ -1,3 +1,7 @@
+Version clipper-3.5.2 (2013-11-07)
+    Avoid errors if extraneous newlines appear in the buttons config entries.
+Version clipper-3.5.1 (2013-07-13)
+    Bugfix for media plugin connection with file browser to allow video, audio, quicktime, windowsmedia and realmedia media types to use file browser.
 Version clipper-3.5 (2013-04-12)
 	Force inline popups via tinymce.functions.php
 	Option to use any file browser as per the new Clipper config option (initially for kcfinder)

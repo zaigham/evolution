@@ -33,6 +33,19 @@ assets/modules
 #ignore manager help templates installed as extras
 manager/help/templates
 
+# and this one (MaxiGallery)
+assets/galleries/
+# and this one (MultiTV)
+assets/tvs/
+
+#ignore package development directories
+assets/packages/
+
+#ignore third party Extras (Add new core/bundled Extras with git add -f <files>)
+assets/snippets
+assets/plugins
+assets/modules
+
 # and the config file
 manager/includes/config.inc.php
 

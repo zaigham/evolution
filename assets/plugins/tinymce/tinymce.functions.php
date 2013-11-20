@@ -112,10 +112,10 @@ class TinyMCE
 			$buttons4 = 'insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak,restoredraft';
 		    break;
 		case 'custom':
-			$plugins  = $params['custom_plugins'];
-			$buttons1 = $params['custom_buttons1'];
-			$buttons2 = $params['custom_buttons2'];
-			$buttons3 = $params['custom_buttons3'];
+			$plugins  = trim($params['custom_plugins']);
+			$buttons1 = trim($params['custom_buttons1']);
+			$buttons2 = trim($params['custom_buttons2']);
+			$buttons3 = trim($params['custom_buttons3']);
 		    break;
 		}
 		

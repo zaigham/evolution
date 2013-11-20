@@ -757,15 +757,31 @@ if ($use_udperms == 1) {
                         echo '<option value="0">(blank)</option>';
                     }
 
+                // Get requested/existing/default template.
+                // Note that this may not be an 'allowed' template.
+                if (isset($_REQUEST['newtemplate'])) {
+                    $selected_template_if_allowed = $_REQUEST['newtemplate'];
+                } elseif (isset($content['template'])) {
+                    $selected_template_if_allowed = $content['template'];
+                } else {
+                   $selected_template_if_allowed = $default_template;
+                }
+
                 $sql = 'SELECT t.templatename, t.id, c.category
                             FROM '.$tbl_site_templates.' t
                             LEFT JOIN '.$tbl_categories.' c ON t.category = c.id
                             '.($allowed_templates_list !== true ? 'WHERE t.id IN ('.$allowed_templates_list.')' : '').'
                             ORDER BY c.category, t.templatename ASC';
                 $rs = $modx->db->query($sql);
-
+                
+                $selected_template = null;
                 $currentCategory = '';
                 while ($row = $modx->db->getRow($rs)) {
+
+                    if (!$selected_template) {
+                        $selected_template = $row['id']; // The first template in the dropdown is the selected one if the requested/existing/default template is not allowed.
+                    }
+
                     $thisCategory = $row['category'];
                     if($thisCategory == null) {
                         $thisCategory = $_lang["no_category"];
@@ -780,7 +796,16 @@ if ($use_udperms == 1) {
                         $closeOptGroup = false;
                     }
 
-                    echo "\t\t\t\t\t".'<option value="'.$row['id'].'"'.($selected_template == $row['id'] ? ' selected="selected"' : '').'>'.$row['templatename']."</option>\n";
+                    if ($row['id'] == $selected_template_if_allowed) {
+                        // Requested/existing/default template is allowed
+                        $selectedtext = ' selected="selected"';
+                        $selected_template = $row['id'];
+                    } else {
+                        $selectedtext = '';
+                    }
+
+                    echo "\t\t\t\t\t".'<option value="'.$row['id'].'"'.$selectedtext.'>'.$row['templatename']."</option>\n";
+
                     $currentCategory = $thisCategory;
                 }
                 if($thisCategory != '') {
