@@ -14,13 +14,16 @@ $BINDINGS = array (
     'DIRECTORY'
 );
 
-function ProcessTVCommand($value, $name = '', $docid = '') {
+function ProcessTVCommand($value, $name = '', $docid = '', $src='docform') {
     global $modx;
     $etomite = & $modx;
     $docid = intval($docid) ? intval($docid) : $modx->documentIdentifier;
     $nvalue = trim($value);
     if (substr($nvalue, 0, 1) != '@')
         return $value;
+    elseif(isset($modx->config['enable_bindings']) && $modx->config['enable_bindings']!=1 && $src==='docform') {
+        return '@Bindings is disabled.';
+    }
     else {
         list ($cmd, $param) = ParseCommand($nvalue);
         $cmd = trim($cmd);
@@ -31,7 +34,7 @@ function ProcessTVCommand($value, $name = '', $docid = '') {
                 break;
 
             case "CHUNK" : // retrieve a chunk and process it's content
-                $chunk = $modx->getChunk($param);
+                $chunk = $modx->getChunk(trim($param));
                 $output = $chunk;
                 break;
 
@@ -75,11 +78,11 @@ function ProcessTVCommand($value, $name = '', $docid = '') {
 
                     $tv = $modx->getTemplateVar($name, '*', $doc['id'], $doc['published']);
 
-                    // Modified @INHERIT binding to allow for @FILE bindings (and others) to be inherited,
-                    // as well as allowing content after the @INHERITed values
+                    // if an inherited value is found and if there is content following the @INHERIT binding
+                    // remove @INHERIT and output that following content. This content could contain other 
+                    // @ bindings, that are processed in the next step                    
                     if ((string) $tv['value'] !== '' && !preg_match('%^@INHERIT[\s\n\r]*$%im', $tv['value'])) {
-                        $output = (string) $tv['value'];
-                        $output = str_replace('@INHERIT', $output, $nvalue);
+                        $output = trim(str_replace('@INHERIT', '', (string) $tv['value']));
                         break 2;
                     }
                 }
@@ -111,36 +114,30 @@ function ProcessTVCommand($value, $name = '', $docid = '') {
 
         }
         // support for nested bindings
-        return is_string($output) && ($output != $value) ? ProcessTVCommand($output, $name, $docid) : $output;
+        return is_string($output) && ($output != $value) ? ProcessTVCommand($output, $name, $docid, $src) : $output;
     }
 }
 
 function ProcessFile($file) {
     // get the file
-    if (file_exists($file) && @ $handle = fopen($file, "r")) {
-        $buffer = "";
-        while (!feof($handle)) {
-            $buffer .= fgets($handle, 4096);
-        }
-        fclose($handle);
-    } else {
-        $buffer = " Could not retrieve document '$file'.";
-    }
+	$buffer = @file_get_contents($file);
+	if ($buffer===false) $buffer = " Could not retrieve document '$file'.";
     return $buffer;
 }
 
 // ParseCommand - separate @ cmd from params
-function ParseCommand($binding_string) {
+function ParseCommand($binding_string)
+{
     global $BINDINGS;
-    $match = array ();
-    $regexp = '/@(' . implode('|', $BINDINGS) . ')\s*(.*)/im'; // Split binding on whitespace
-    if (preg_match($regexp, $binding_string, $match)) {
-        // We can't return the match array directly because the first element is the whole string
-        $binding_array = array (
-            strtoupper($match[1]),
-            $match[2]
-        ); // Make command uppercase
-        return $binding_array;
+    $binding_array = array();
+    foreach($BINDINGS as $cmd)
+    {
+        if(strpos($binding_string,'@'.$cmd)===0)
+        {
+            $code = substr($binding_string,strlen($cmd)+1);
+            $binding_array = array($cmd,trim($code));
+            break;
+        }
     }
+    return $binding_array;
 }
-?>

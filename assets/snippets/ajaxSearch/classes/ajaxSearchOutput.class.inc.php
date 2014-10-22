@@ -4,9 +4,9 @@
 * -----------------------------------------------------------------------------
 * @package  AjaxSearchOutput
 *
-* @author       Coroico - www.modx.wangba.fr
-* @version      1.9.2
-* @date         05/12/2010
+* @author       Coroico - www.evo.wangba.fr
+* @version      1.10.1
+* @date         05/06/2014
 *
 * Purpose:
 *    The AjaxSearchOutput class contains all functions and data used to display output
@@ -378,7 +378,7 @@ class AjaxSearchOutput {
                 unset($varPaging);
                 $chkPaging->CleanVars();
             }
-            else if (($pagingType == 1) && (($nbrs >= $nbMax) || showPagingAlways)) {
+            else if (($pagingType == 1) && (($nbrs >= $nbMax) || $showPagingAlways)) {
 
                 $tplPaging = $this->asCfg->cfg['tplPaging1'];
                 if ($tplPaging == '') $tplPaging = "@FILE:" . AS_SPATH . 'templates/paging1.tpl.html';
@@ -416,7 +416,6 @@ class AjaxSearchOutput {
                     $varPaging1['next_grpResultId'] = $prefix . 'next_' . $this->_getCleanCssId($this->asResults->groupResults[$ig]['subsite']);
                     if ($this->asCfg->isAjax) $varPaging1['pagingNext'] = 'javascript:void(0);';
                     else {
-                        $nrp = $nrp + 1;
                         $ofst = (string)$ig . ',' . (string)$nextOffset;
                         $asOffset = ($otherOffset) ? $otherOffset . ',' . $ofst : $ofst;
                         $asOffset = '&aso=' . $asOffset;
@@ -501,14 +500,25 @@ class AjaxSearchOutput {
             else $url = $firstarg . 'search=' . urlencode($this->asCtrl->searchString) . '&amp;advsearch=' . urlencode($this->asCtrl->advSearch);
         }
         if ($this->asCtrl->subSearch) {
-            if ($url) $url .=  '&amp;subsearch=' . urlencode($this->asCtrl->subSearch);
-            else $url = $firstarg . 'subsearch=' . urlencode($this->asCtrl->subSearch);
+            if (is_array($this->asCtrl->subSearch)) {
+                foreach($this->asCtrl->subSearch as $k => $v) {
+                    if ($url) $url .=  '&amp;subsearch=' . urlencode($v);
+                    else $url = $firstarg . 'subsearch=' . urlencode($v);
+                }
+            }
+            else {
+                if ($url) $url .=  '&amp;subsearch=' . urlencode($this->asCtrl->subSearch);
+                else $url = $firstarg . 'subsearch=' . urlencode($this->asCtrl->subSearch);
+            }
         }
         if ($this->asCtrl->asf) {
             if ($url) $url .=  '&amp;asf=' . urlencode($this->asCtrl->asf);
             else $url = $firstarg . 'asf=' . urlencode($this->asCtrl->asf);
             foreach($this->asCtrl->fParams as $key =>$value) {
-                $url .= '&amp;' . $key . '=' . urlencode($value);
+                if (is_array($value)) {
+                    foreach($value as $k => $v) $url .= '&amp;' . $key . '[]=' . urlencode($v);
+                }
+                else $url .= '&amp;' . $key . '=' . urlencode($value);
             }
         }
         return $url;
@@ -613,6 +623,7 @@ class AjaxSearchOutput {
     * Set log infos into DB for failed searches
     */
     function _setFailedSearches($asCall = '', $select = '') {
+        global $modx;
         $logid = '';
         if ($this->log >= 1 ) {
             $logInfo = array();
@@ -620,7 +631,7 @@ class AjaxSearchOutput {
             $logInfo['nbResults'] = 0;
             $logInfo['results'] = '';
             $logInfo['asCall'] = $asCall;
-            $logInfo['asSelect'] = mysql_real_escape_string($select);
+            $logInfo['asSelect'] = $modx->db->escape($select);
             $logid = $this->asLog->setLogRecord($logInfo);
         }
         return $logid;
@@ -629,6 +640,7 @@ class AjaxSearchOutput {
     * Set log infos into DB for successfull searches
     */
     function _setSuccessfullSearches($ig) {
+        global $modx;
         $logid = '';
         if ($this->log == 2) {
             $logInfo = array();
@@ -636,7 +648,7 @@ class AjaxSearchOutput {
             $logInfo['nbResults'] = $this->asResults->groupResults[$ig]['length'];
             $logInfo['results'] = $this->asResults->groupResults[$ig]['found'];
             $logInfo['asCall'] = $this->_getAsCall($this->asResults->groupResults[$ig]['ucfg']);
-            $logInfo['asSelect'] = mysql_real_escape_string($this->asResults->groupResults[$ig]['select']);
+            $logInfo['asSelect'] = $modx->db->escape($this->asResults->groupResults[$ig]['select']);
             $logid = $this->asLog->setLogRecord($logInfo);
         }
         return $logid;
@@ -826,9 +838,8 @@ class AjaxSearchOutput {
     function _snippet_exists($snippetName) {
         global $modx;
         $tbl = $modx->getFullTableName('site_snippets');
-        $select = "SELECT * FROM " . $tbl . " WHERE " . $tbl . ".name='" . $modx->db->escape($snippetName) . "';";
-        $rs = $modx->db->query($select);
-        return $modx->recordCount($rs);
+        $rs = $modx->db->select('count(*)', $tbl, "name='" . $modx->db->escape($snippetName) . "'");
+        return ($modx->db->getValue($rs)>0);
     }
     /*
     * Get offset of other groups
@@ -894,7 +905,7 @@ class AjaxSearchOutput {
                 $jsInclude = AS_SPATH . AJAXSEARCH_JSDIR . $typeAs . '/ajaxSearch-mootools2.js';
             } else {
                 if ($this->asCfg->cfg['addJscript']) $modx->regClientStartupScript($this->asCfg->cfg['jsMooTools']);
-                $jsInclude = AS_SPATH . AJAXSEARCH_JSDIR . $typeAs . '/ajaxSearch.js';
+                $jsInclude = MODX_BASE_URL . AS_SPATH . AJAXSEARCH_JSDIR . $typeAs . '/ajaxSearch.js';
             }
             $modx->regClientStartupScript($jsInclude);
 
@@ -1076,4 +1087,3 @@ EOD;
         return $json;
     }
 }
-?>

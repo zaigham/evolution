@@ -1,21 +1,21 @@
 <?php
+
+if (file_exists(dirname(__FILE__)."/../assets/cache/siteManager.php")) {
+    include_once(dirname(__FILE__)."/../assets/cache/siteManager.php");
+}else{
+    define('MGR_DIR', 'manager');
+}
+
 $installMode = intval($_POST['installmode']);
 echo "<h2>" . $_lang['preinstall_validation'] . "</h2>";
 echo "<h3>" . $_lang['summary_setup_check'] . "</h3>";
 $errors = 0;
 // check PHP version
 echo "<p>" . $_lang['checking_php_version'];
-$php_ver_comp = version_compare(phpversion(), "4.2.0");
-$php_ver_comp2 = version_compare(phpversion(), "4.3.8");
 // -1 if left is less, 0 if equal, +1 if left is higher
-if ($php_ver_comp < 0) {
-    echo "<span class=\"notok\">" . $_lang['failed'] . "</span>".$_lang['you_running_php'] . phpversion() . $_lang["modx_requires_php"]."</p>";
+if (version_compare(phpversion(), "5.0.0") < 0) {
+    echo "<span class=\"notok\">" . $_lang['failed'] . "</span>" . $_lang['you_running_php'] . phpversion() . str_replace('[+min_version+]', '5.0.0', $_lang["modx_requires_php"]) . "</p>";
     $errors += 1;
-} else {
-    echo "<span class=\"ok\">" . $_lang['ok'] . "</span></p>";
-    if ($php_ver_comp2 < 0) {
-        echo "<fieldset>" . $_lang['php_security_notice'] . "</fieldset>";
-    }
 }
 // check php register globals off
 echo "<p>" . $_lang['checking_registerglobals'];
@@ -53,6 +53,12 @@ if (!is_writable("../assets/cache") || !file_exists("../assets/media")) {
 }
 // cache files writable?
 echo "<p>" . $_lang['checking_if_cache_file_writable'];
+if (!file_exists("../assets/cache/siteCache.idx.php")) {
+    // make an attempt to create the file
+    @ $hnd = fopen("../assets/cache/siteCache.idx.php", 'w');
+    @ fwrite($hnd, "<?php //MODX site cache file ?>");
+    @ fclose($hnd);
+}
 if (!is_writable("../assets/cache/siteCache.idx.php")) {
     echo "<span class=\"notok\">" . $_lang['failed'] . "</span></p>";
     $errors += 1;
@@ -68,7 +74,7 @@ if (!is_writable("../assets/cache/sitePublishing.idx.php")) {
 }
 // File Browser directories exists?
 echo "<p>".$_lang['checking_if_images_exist'];
-if (!file_exists("../assets/images") || !file_exists("../assets/files") || !file_exists("../assets/flash") || !file_exists("../assets/media")) {
+if (!file_exists("../assets/images") || !file_exists("../assets/files") || !file_exists("../assets/flash") || !file_exists("../assets/media") || !file_exists("../assets/backup") || !file_exists("../assets/.thumbs")) {
     echo "<span class=\"notok\">".$_lang['failed']."</span></p>";
     $errors += 1;
 } else {
@@ -76,7 +82,7 @@ if (!file_exists("../assets/images") || !file_exists("../assets/files") || !file
 }
 // File Browser directories writable?
 echo "<p>".$_lang['checking_if_images_writable'];
-if (!is_writable("../assets/images") || !is_writable("../assets/files") || !is_writable("../assets/flash") || !is_writable("../assets/media")) {
+if (!is_writable("../assets/images") || !is_writable("../assets/files") || !is_writable("../assets/flash") || !is_writable("../assets/media") || !is_writable("../assets/backup") || !is_writable("../assets/.thumbs")) {
     echo "<span class=\"notok\">".$_lang['failed']."</span></p>";
     $errors += 1;
 } else {
@@ -100,13 +106,14 @@ if (!is_writable("../assets/export")) {
 }
 // config.inc.php writable?
 echo "<p>".$_lang['checking_if_config_exist_and_writable'];
-if (!file_exists("../manager/includes/config.inc.php")) {
+if (!is_file("../".MGR_DIR."/includes/config.inc.php")) {
     // make an attempt to create the file
-    @ $hnd = fopen("../manager/includes/config.inc.php", 'w');
-    @ fwrite($hnd, "<?php //MODx configuration file ?>");
+    @ $hnd = fopen("../".MGR_DIR."/includes/config.inc.php", 'w');
+    @ fwrite($hnd, "<?php //MODX configuration file ?>");
     @ fclose($hnd);
 }
-$isWriteable = is_writable("../manager/includes/config.inc.php");
+else @chmod("../".MGR_DIR."/includes/config.inc.php", 0666);
+$isWriteable = is_writable("../".MGR_DIR."/includes/config.inc.php");
 if (!$isWriteable) {
     echo "<span class=\"notok\">".$_lang['failed']."</span></p><p><strong>".$_lang['config_permissions_note']."</strong></p>";
     $errors += 1;
@@ -115,7 +122,7 @@ if (!$isWriteable) {
 }
 // connect to the database
 if ($installMode == 1) {
-    include "../manager/includes/config.inc.php";
+    include "../".MGR_DIR."/includes/config.inc.php";
 } else {
     // get db info from post
     $database_server = $_POST['databasehost'];
@@ -125,7 +132,7 @@ if ($installMode == 1) {
     $database_charset = substr($database_collation, 0, strpos($database_collation, '_') - 1);
     $database_connection_charset = $_POST['database_connection_charset'];
     $database_connection_method = $_POST['database_connection_method'];
-    $dbase = $_POST['database_name'];
+    $dbase = '`' . $_POST['database_name'] . '`';
     $table_prefix = $_POST['tableprefix'];
 }
 echo "<p>".$_lang['creating_database_connection'];
@@ -237,7 +244,7 @@ if ($errors > 0) {
 ?>
       <p>
       <?php
-      echo $_lang['setup_cannot_continue'];
+      echo $_lang['setup_cannot_continue'] . ' ';
       echo $errors > 1 ? $errors." " : "";
       if ($errors > 1) echo $_lang['errors'];
       else echo $_lang['error'];
@@ -261,7 +268,7 @@ $agreeToggle= $errors > 0 ? '' : ' onclick="if(document.getElementById(\'chkagre
 <form name="install" id="install_form" action="index.php?action=<?php echo $nextAction ?>" method="post">
   <div>
     <input type="hidden" value="<?php echo $install_language?>" name="language" />
-	<input type="hidden" value="<?php echo $manager_language?>" name="managerlanguage" />
+    <input type="hidden" value="<?php echo $manager_language?>" name="managerlanguage" />
     <input type="hidden" value="<?php echo $installMode ?>" name="installmode" />
     <input type="hidden" value="<?php echo trim($_POST['database_name'], '`'); ?>" name="database_name" />
     <input type="hidden" value="<?php echo $_POST['tableprefix'] ?>" name="tableprefix" />

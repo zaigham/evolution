@@ -122,7 +122,7 @@ var DatePicker = new Class({
         var date = new Date();
         
         /* create the date object */
-        if (dp.month && dp.year) {
+        if ((dp.month >=0) && dp.year) {
             date.setFullYear(dp.year, dp.month, 1);
         } else {
             dp.month = date.getMonth();
@@ -321,8 +321,7 @@ var DatePicker = new Class({
     /* Remove the calendar from the page */
     remove: function(dp){
         dp.active = false;
-        if (window.opera) dp.container.empty();
-        else if (dp.container) dp.container.remove();
+        if (dp.container) dp.container.remove();
         dp.calendar = false;
         dp.container = false;
         $$('select.dp_hide').removeClass('dp_hide');

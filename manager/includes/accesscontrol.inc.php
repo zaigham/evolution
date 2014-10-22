@@ -1,5 +1,5 @@
 <?php
-if(IN_MANAGER_MODE!="true") die("<b>INCLUDE_ORDERING_ERROR</b><br /><br />Please use the MODx Content Manager instead of accessing this file directly.");
+if(IN_MANAGER_MODE!="true") die("<b>INCLUDE_ORDERING_ERROR</b><br /><br />Please use the MODX Content Manager instead of accessing this file directly.");
 
 if (isset($_SESSION['mgrValidated']) && $_SESSION['usertype']!='manager'){
 //		if (isset($_COOKIE[session_name()])) {
@@ -11,14 +11,13 @@ if (isset($_SESSION['mgrValidated']) && $_SESSION['usertype']!='manager'){
 }
 
 // andrazk 20070416 - if installer is running, destroy active sessions
-$pth = dirname(__FILE__);
-if (file_exists($pth.'/../../assets/cache/installProc.inc.php')) {
-	include_once($pth.'/../../assets/cache/installProc.inc.php');
+if (file_exists(MODX_BASE_PATH . 'assets/cache/installProc.inc.php')) {
+	include_once(MODX_BASE_PATH . 'assets/cache/installProc.inc.php');
 	if (isset($installStartTime)) {
 		if ((time() - $installStartTime) > 5 * 60) { // if install flag older than 5 minutes, discard
 			unset($installStartTime);
-			@ chmod($pth.'/../../assets/cache/installProc.inc.php', 0755);
-			unlink($pth.'/../../assets/cache/installProc.inc.php');
+			@ chmod(MODX_BASE_PATH . 'assets/cache/installProc.inc.php', 0755);
+			unlink(MODX_BASE_PATH . 'assets/cache/installProc.inc.php');
 		} 
 		else {
 			if ($_SERVER['REQUEST_METHOD'] != 'POST') {
@@ -53,8 +52,6 @@ if (isset($lastInstallTime)) {
 }
 
 if(!isset($_SESSION['mgrValidated'])){
-	include_once("browsercheck.inc.php");
-
 	if(isset($manager_language)) {
 		// establish fallback to English default
 		include_once "lang/english.inc.php";
@@ -74,8 +71,11 @@ if(!isset($_SESSION['mgrValidated'])){
 	$modx->setPlaceholder('OnManagerLoginFormPrerender',$html);
 
 	$modx->setPlaceholder('site_name',$site_name);
+	$modx->setPlaceholder('manager_path',MGR_DIR);
 	$modx->setPlaceholder('logo_slogan',$_lang["logo_slogan"]);
 	$modx->setPlaceholder('login_message',$_lang["login_message"]);
+	$modx->setPlaceholder('manager_theme_url',MODX_MANAGER_URL . 'media/style/' . $modx->config['manager_theme'] . '/');
+	$modx->setPlaceholder('year',date('Y'));
 
 	// andrazk 20070416 - notify user of install/update
 	if (isset($_GET['installGoingOn'])) {
@@ -90,7 +90,7 @@ if(!isset($_SESSION['mgrValidated'])){
 
 	if($use_captcha==1)  {
 		$modx->setPlaceholder('login_captcha_message',$_lang["login_captcha_message"]);
-		$modx->setPlaceholder('captcha_image','<a href="'.MODX_MANAGER_URL.'" class="loginCaptcha"><img id="captcha_image" src="'.$modx->getManagerPath().'includes/veriword.php?rand='.rand().'" alt="'.$_lang["login_captcha_message"].'" /></a>');
+		$modx->setPlaceholder('captcha_image','<a href="'.MODX_MANAGER_URL.'" class="loginCaptcha"><img id="captcha_image" src="'.MODX_MANAGER_URL.'includes/veriword.php?rand='.rand().'" alt="'.$_lang["login_captcha_message"].'" /></a>');
 		$modx->setPlaceholder('captcha_input','<label>'.$_lang["captcha_code"].'</label> <input type="text" name="captcha_code" tabindex="3" value="" />');
 	}
 
@@ -111,18 +111,53 @@ if(!isset($_SESSION['mgrValidated'])){
 	$html = is_array($evtOut) ? '<div id="onManagerLoginFormRender">'.implode('',$evtOut).'</div>' : '';
 	$modx->setPlaceholder('OnManagerLoginFormRender',$html);
 
-	// load template file
-    $tplFile = $base_path.'assets/templates/manager/login.html';
-    $handle = fopen($tplFile, "r");
-	$tpl = fread($handle, filesize($tplFile));
-	fclose($handle);
+	// load template
+    if(!isset($modx->config['manager_login_tpl']) || empty($modx->config['manager_login_tpl'])) {
+    	$modx->config['manager_login_tpl'] = MODX_MANAGER_PATH . 'media/style/common/login.tpl'; 
+    }
+    
+    $target = $modx->config['manager_login_tpl'];
+    $target = str_replace('[+base_path+]', MODX_BASE_PATH, $target);
+    $target = $modx->mergeSettingsContent($target);
+    
+    if(substr($target,0,1)==='@') {
+    	if(substr($target,0,6)==='@CHUNK') {
+    		$target = trim(substr($target,7));
+    		$login_tpl = $modx->getChunk($target);
+    	}
+    	elseif(substr($target,0,5)==='@FILE') {
+    		$target = trim(substr($target,6));
+    		$login_tpl = file_get_contents($target);
+    	}
+	} else {
+    	$chunk = $modx->getChunk($target);
+    	if($chunk!==false && !empty($chunk)) {
+    		$login_tpl = $chunk;
+	}
+    	elseif(is_file(MODX_BASE_PATH . $target)) {
+    		$target = MODX_BASE_PATH . $target;
+    		$login_tpl = file_get_contents($target);
+    	}
+    	elseif(is_file(MODX_MANAGER_PATH . 'media/style/' . $modx->config['manager_theme'] . '/login.tpl')) {
+    		$target = MODX_MANAGER_PATH . 'media/style/' . $modx->config['manager_theme'] . '/login.tpl';
+    		$login_tpl = file_get_contents($target);
+    	}
+    	elseif(is_file(MODX_MANAGER_PATH . 'media/style/' . $modx->config['manager_theme'] . '/html/login.html')) { // ClipperCMS compatible
+    		$target = MODX_MANAGER_PATH . 'media/style/' . $modx->config['manager_theme'] . '/html/login.html';
+    		$login_tpl = file_get_contents($target);
+	}
+	else {
+    		$target = MODX_MANAGER_PATH . 'media/style/common/login.tpl';
+    		$login_tpl = file_get_contents($target);
+    	}
+	}
 
     // merge placeholders
-    $tpl = $modx->mergePlaceholderContent($tpl);
-    $regx = strpos($tpl,'[[+')!==false ? '~\[\[\+(.*?)\]\]~' : '~\[\+(.*?)\+\]~'; // little tweak for newer parsers
-    $tpl = preg_replace($regx, '', $tpl); //cleanup
+    $login_tpl = $modx->mergePlaceholderContent($login_tpl);
+    $regx = strpos($login_tpl,'[[+')!==false ? '~\[\[\+(.*?)\]\]~' : '~\[\+(.*?)\+\]~'; // little tweak for newer parsers
+    $login_tpl = preg_replace($regx, '', $login_tpl); //cleanup
 
-    echo $tpl;
+    echo $login_tpl;
 
     exit;
 
@@ -154,10 +189,7 @@ if(!isset($_SESSION['mgrValidated'])){
 			$itemid == null ? var_export(null, true) : $itemid,
 			$ip
 		);
-		if(!$rs = mysql_query($sql)) {
-			echo "error replacing into active users! SQL: ".$sql."\n".mysql_error();
-			exit;
-		}
+		$modx->db->query($sql);
 	}
 }
 ?>

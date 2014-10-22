@@ -127,11 +127,11 @@ class template{
 				$fields['xml'][] = substr($field,4);
 			}else if (substr($field, 0, 5) == "json_") {
 				$fields['json'][] = substr($field,5);
-			}else if (substr($field, 0, 4) == "item") {
+			}else if (substr($field, 0, 5) == "item[") {
 				$fields['item'][] = substr($field, 4);
 			}else if (substr($field, 0, 1) == "#") {
 				$fields['qe'][] = substr($field,1);
-			}else if (substr($field, 0, 3) == "phx") {
+			}else if (substr($field, 0, 4) == "phx:") {
 				$fields['phx'][] = $field;
 			}else if (in_array($field, $dbFields)) {
 				$fields['db'][] = $field;
@@ -153,7 +153,7 @@ class template{
 	// Function: replace
 	// Replcae placeholders with their values
 	// ---------------------------------------------------
-    function replace( $placeholders, $tpl ) {
+    public static function replace( $placeholders, $tpl ) {
 		$keys = array();
 		$values = array();
 		foreach ($placeholders as $key=>$value) {
@@ -192,7 +192,7 @@ class template{
 	// Function: fetch
 	// Get a template, based on version by Doze
 	// 
-	// http://modxcms.com/forums/index.php/topic,5344.msg41096.html#msg41096
+	// http://forums.modx.com/thread/41066/support-comments-for-ditto?page=2#dis-post-237942
 	// ---------------------------------------------------
 	function fetch($tpl){
 		global $modx;
@@ -200,7 +200,7 @@ class template{
 		if ($modx->getChunk($tpl) != "") {
 			$template = $modx->getChunk($tpl);
 		} else if(substr($tpl, 0, 6) == "@FILE:") {
-			$template = $this->get_file_contents(substr($tpl, 6));
+			$template = $this->get_file_contents(MODX_BASE_PATH.substr($tpl, 6));
 		} else if(substr($tpl, 0, 6) == "@CODE:") {
 			$template = substr($tpl, 6);
 		} else if(substr($tpl, 0, 5) == "@FILE") {

@@ -1,39 +1,39 @@
 <?php
 /*
 *************************************************************************
-	MODx Content Management System and PHP Application Framework 
+	MODX Content Management System and PHP Application Framework 
 	Managed and maintained by Raymond Irving, Ryan Thrash and the
-	MODx community
+	MODX community
 *************************************************************************
-	MODx is an opensource PHP/MySQL content management system and content
+	MODX is an opensource PHP/MySQL content management system and content
 	management framework that is flexible, adaptable, supports XHTML/CSS
 	layouts, and works with most web browsers, including Safari.
 
-	MODx is distributed under the GNU General Public License	
+	MODX is distributed under the GNU General Public License	
 *************************************************************************
 
-	MODx CMS and Application Framework ("MODx")
+	MODX CMS and Application Framework ("MODX")
 	Copyright 2005 and forever thereafter by Raymond Irving & Ryan Thrash.
 	All rights reserved.
 
 	This file and all related or dependant files distributed with this filie
-	are considered as a whole to make up MODx.
+	are considered as a whole to make up MODX.
 
-	MODx is free software; you can redistribute it and/or modify
+	MODX is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation; either version 2 of the License, or
 	(at your option) any later version.
 
-	MODx is distributed in the hope that it will be useful,
+	MODX is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with MODx (located in "/assets/docs/"); if not, write to the Free Software
+	along with MODX (located in "/assets/docs/"); if not, write to the Free Software
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
 
-	For more information on MODx please visit http://modxcms.com/
+	For more information on MODX please visit http://modx.com/
 	
 **************************************************************************
     Originally based on Etomite by Alex Butter
@@ -44,12 +44,22 @@
  * Initialize Document Parsing
  * -----------------------------
  */
+$base_path = str_replace('\\','/',dirname(__FILE__)) . '/';
+if(is_file($base_path . 'assets/cache/siteManager.php'))
+    include_once($base_path . 'assets/cache/siteManager.php');
+if(!defined('MGR_DIR') && is_dir("{$base_path}manager"))
+	define('MGR_DIR','manager');
+if(is_file($base_path . 'assets/cache/siteHostnames.php'))
+    include_once($base_path . 'assets/cache/siteHostnames.php');
+if(!defined('MODX_SITE_HOSTNAMES'))
+	define('MODX_SITE_HOSTNAMES','');
 
 // get start time
 $mtime = microtime(); $mtime = explode(" ",$mtime); $mtime = $mtime[1] + $mtime[0]; $tstart = $mtime;
+$mstart = memory_get_usage();
 
 // harden it
-require_once(dirname(__FILE__).'/manager/includes/protect.inc.php');
+require_once(dirname(__FILE__).'/'.MGR_DIR.'/includes/protect.inc.php');
 
 // set some settings, and address some IE issues
 @ini_set('url_rewriter.tags', '');
@@ -59,7 +69,6 @@ session_cache_limiter('');
 header('P3P: CP="NOI NID ADMa OUR IND UNI COM NAV"'); // header for weird cookie stuff. Blame IE.
 header('Cache-Control: private, must-revalidate');
 ob_start();
-error_reporting(E_ALL & ~E_NOTICE);
 
 /**
  *	Filename: index.php
@@ -86,7 +95,7 @@ $base_path = '';
 
 // get the required includes
 if($database_user=="") {
-	$rt = @include_once(dirname(__FILE__).'/manager/includes/config.inc.php');
+	$rt = @include_once(dirname(__FILE__).'/'.MGR_DIR.'/includes/config.inc.php');
 	// Be sure config.inc.php is there and that it contains some important values
 	if(!$rt || !$database_type || !$database_server || !$database_user || !$dbase) {
 	echo "
@@ -98,7 +107,7 @@ p{ margin:20px 0; }
 a{font-size:200%;color:#f22;text-decoration:underline;margin-top: 30px;padding: 5px;}
 </style>
 <div class=\"install\">
-<p>MODx is not currently installed or the configuration file cannot be found.</p>
+<p>MODX is not currently installed or the configuration file cannot be found.</p>
 <p>Do you want to <a href=\"install/index.php\">install now</a>?</p>
 </div>";
 		exit;
@@ -109,7 +118,7 @@ a{font-size:200%;color:#f22;text-decoration:underline;margin-top: 30px;padding: 
 startCMSSession();
 
 // initiate a new document parser
-include_once(MODX_MANAGER_PATH.'/includes/document.parser.class.inc.php');
+include_once(MODX_MANAGER_PATH.'includes/document.parser.class.inc.php');
 $modx = new DocumentParser;
 $etomite = &$modx; // for backward compatibility
 
@@ -118,7 +127,9 @@ $modx->minParserPasses = 1; // min number of parser recursive loops or passes
 $modx->maxParserPasses = 10; // max number of parser recursive loops or passes
 $modx->dumpSQL = false;
 $modx->dumpSnippets = false; // feed the parser the execution start time
+$modx->dumpPlugins = false;
 $modx->tstart = $tstart;
+$modx->mstart = $mstart;
 
 // Debugging mode:
 $modx->stopOnNotice = false;

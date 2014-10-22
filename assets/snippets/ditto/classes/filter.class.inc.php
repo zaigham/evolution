@@ -67,16 +67,16 @@ class filter {
 					break;
 				case "<=" :
 				case 5 :
-					if (!($value[$this->array_key] < $this->filterValue))
+					if (!($value[$this->array_key] <= $this->filterValue))
 						$unset = 0;
 					break;
 				case ">=" :
 				case 6 :
-					if (!($value[$this->array_key] > $this->filterValue))
+					if (!($value[$this->array_key] >= $this->filterValue))
 						$unset = 0;
 					break;
 					
-				// Cases 7 & 8 created by MODx Testing Team Member ZAP
+				// Cases 7 & 8 created by MODX Testing Team Member ZAP
 				case 7 :
 					if (strpos($value[$this->array_key], $this->filterValue)===FALSE)
 						$unset = 0;
@@ -99,6 +99,40 @@ class filter {
 					$firstChr = strtoupper(substr($value[$this->array_key], 0, 1));
 					if ($firstChr!=$this->filterValue)
 						$unset = 0;
+					break;	
+					//Added by Andchir (http://modx-shopkeeper.ru/)
+				case 12 :
+					$inputArr = explode('~',$value[$this->array_key]);
+			          $check = 0;
+			          foreach($inputArr as $val){
+			            if(empty($this->filterValue) || empty($val))
+			              return;
+			            if (strpos($this->filterValue, $val)!==false)
+			              $check++;
+			          }
+					$unset = $check>0 ? 1 : 0;
+					unset($val,$check);
+				break;	
+					//Added by Dmi3yy
+				case 13 :
+					$inputArr = explode('~',$value[$this->array_key]);
+					$check = 0;
+					foreach($inputArr as $val){
+						if(empty($this->filterValue) || empty($val))
+							return;
+						
+						$iA = explode('~',$this->filterValue);
+						foreach($iA as $ii){
+							$iB = explode(',',$val);
+							foreach($iB as $iii){
+								if (trim($ii) == trim($iii))
+								$check++;
+							}
+
+						}	
+					}
+					$unset = $check>0 ? 1 : 0;
+					unset($val,$check);
 					break;				
 		}
 			return $unset;
